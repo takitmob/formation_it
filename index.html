@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manuel de Formation — Transformation Numérique 2026-2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link active" href="index.html">Table des matières</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Modules</div>
+    <a class="side-link" href="module-01-reseaux.html" data-mod-ids="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24">01 · Réseaux<span class="badge"></span></a>
+    <a class="side-link" style="opacity:.5;pointer-events:none;">02 · Windows Server</a>
+    <a class="side-link" style="opacity:.5;pointer-events:none;">03 · Linux</a>
+    <a class="side-link" style="opacity:.5;pointer-events:none;">… (à venir)</a>
+  </div>
+  <div class="side-foot">
+    <a class="tool-btn" href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Manuel de Formation</div><div class="topbar-sub">Table des matières</div></div>
+  </div>
+  <div class="content" style="max-width:820px;">
+
+    <div class="hub-hero">
+      <h1>Manuel de Formation<br>Transformation Numérique 2026–2027</h1>
+      <p>Support de référence complet — infrastructure, cloud, automatisation &amp; IA. Calqué sur ton Planner professionnel : chaque chapitre correspond exactement à une semaine de ton parcours de 12 mois.</p>
+      <div class="hub-progress">
+        <div class="pbar-lg"><i style="width:2%"></i></div>
+        <span class="pct">1 / 13 modules disponibles</span>
+      </div>
+    </div>
+
+    <div class="sync-banner" id="syncBanner" style="background:#fff;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="importSyncBtn">Importer ma progression</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <h2 class="sec" style="border-top:none;margin-top:8px;">Comment utiliser ce manuel</h2>
+    <p>Chaque module suit la même structure : objectifs de compétences, notions clés avec définitions, schémas d'architecture, une étude de cas réelle, des laboratoires guidés pas-à-pas, des liens vers des ressources gratuites, un quiz de validation et une grille d'évaluation — exactement les mêmes critères que ta feuille <strong>Évaluation</strong> dans le Planner.</p>
+    <p>Le manuel peut afficher ton statut de progression réel (badges ✅) s'il est hébergé au même endroit que la web app, ou via l'import manuel de ta sauvegarde JSON exportée depuis l'app.</p>
+
+    <h2 class="sec">Table des matières générale</h2>
+    <div class="mod-list">
+      <a class="mod-item" href="module-01-reseaux.html">
+        <div class="mod-num">01</div>
+        <div class="mod-info"><h3>Réseaux</h3><p>Semaines 1–4 · OSI/TCP-IP, adressage, équipements, protocoles</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <div class="mod-item locked"><div class="mod-num">02</div><div class="mod-info"><h3>Windows Server</h3><p>Semaines 5–8 · Active Directory, GPO, services de fichiers</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">03</div><div class="mod-info"><h3>Linux</h3><p>Semaines 9–12 · CLI, permissions, administration, Bash</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">04</div><div class="mod-info"><h3>Virtualisation</h3><p>Semaines 13–16 · Hyperviseurs, Hyper-V, Docker, Kubernetes</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">05</div><div class="mod-info"><h3>Microsoft 365</h3><p>Semaines 17–20 · Entra ID, Exchange, SharePoint, Teams</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">06</div><div class="mod-info"><h3>Azure</h3><p>Semaines 21–24 · RBAC, réseaux, VM, gouvernance (AZ-104)</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">07</div><div class="mod-info"><h3>PowerShell</h3><p>Semaines 25–28 · Cmdlets, scripts, remoting, automatisation</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">08</div><div class="mod-info"><h3>Python</h3><p>Semaines 29–32 · Syntaxe, API REST, pandas, automatisation IT</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">09</div><div class="mod-info"><h3>Power Automate</h3><p>Semaines 33–36 · Flux, connecteurs, Power Apps</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">10</div><div class="mod-info"><h3>Cybersécurité</h3><p>Semaines 37–40 · Zero Trust, IDS/IPS, réponse aux incidents (SC-900)</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">11</div><div class="mod-info"><h3>IA &amp; Copilot</h3><p>Semaines 41–44 · IA générative, Copilot Studio, gouvernance</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">12</div><div class="mod-info"><h3>Projet Final</h3><p>Semaines 45–50 · Infrastructure intégrée de bout en bout</p></div><span class="mod-status soon">À venir</span></div>
+      <div class="mod-item locked"><div class="mod-num">13</div><div class="mod-info"><h3>Certifications</h3><p>Semaines 51–52 · Révision et passage SC-900 / AZ-104 / MS-102</p></div><span class="mod-status soon">À venir</span></div>
+    </div>
+
+  </div>
+</div>
+<script src="assets/manual.js"></script>
+</body>
+</html>
