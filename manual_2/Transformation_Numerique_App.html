@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transformation Numérique — Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --surface-alt:#F9FAFC;
+  --border:#E4E7ED; --border-soft:#EEF0F4;
+  --ink:#1B2130; --ink-soft:#667085; --ink-faint:#98A2B3;
+  --accent:#3D5A80; --accent-ink:#2C4362; --accent-soft:#E9EFF5; --accent-soft2:#DCE6F0;
+  --done:#3F8F5F; --done-bg:#E7F3EC;
+  --progress:#B07C00; --progress-bg:#FBF1DA;
+  --todo:#B4504B; --todo-bg:#F8EAE9;
+  --purple:#7C6A9C; --purple-bg:#EFEBF5;
+  --radius-lg:18px; --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(20,25,40,.05), 0 10px 28px -16px rgba(20,25,40,.16);
+  --font-display:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased; font-size:15px; line-height:1.45;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+h1,h2,h3,.disp{font-family:var(--font-display); letter-spacing:-0.01em;}
+button{font-family:inherit; cursor:pointer;}
+input,select,textarea{font-family:inherit; font-size:14px;}
+a{color:var(--accent-ink);}
+.mono{font-family:var(--font-mono);}
+::selection{background:var(--accent-soft2);}
+
+/* ---------- Shell / layout ---------- */
+.app-shell{display:flex; min-height:100vh;}
+.sidebar{
+  display:none; flex-direction:column; width:230px; flex-shrink:0;
+  padding:22px 14px; border-right:1px solid var(--border); background:var(--surface);
+  position:fixed; top:0; left:0; bottom:0; overflow-y:auto;
+}
+.sidebar .brand{display:flex; align-items:center; gap:10px; padding:6px 10px 22px;}
+.sidebar .brand .dot{width:10px;height:10px;border-radius:3px;background:var(--accent);}
+.sidebar .brand span{font-family:var(--font-display); font-weight:700; font-size:15px;}
+.nav-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+.nav-item{
+  display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:var(--radius-sm);
+  color:var(--ink-soft); border:none; background:none; width:100%; text-align:left; font-size:13.5px; font-weight:500;
+}
+.nav-item svg{width:18px;height:18px; flex-shrink:0;}
+.nav-item.active{background:var(--accent-soft); color:var(--accent-ink); font-weight:600;}
+.sidebar-foot{margin-top:auto; padding:10px; display:flex; flex-direction:column; gap:8px;}
+
+.bottom-nav{
+  position:fixed; left:0; right:0; bottom:0; z-index:40; background:rgba(255,255,255,.92);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--border); display:flex; padding:6px 2px calc(6px + env(safe-area-inset-bottom));
+}
+.bottom-nav .nav-item{flex-direction:column; gap:3px; font-size:10.5px; padding:6px 2px; border-radius:10px; flex:1;}
+.bottom-nav .nav-item svg{width:20px;height:20px;}
+.bottom-nav .nav-item.active{background:none; color:var(--accent-ink);}
+
+.main{flex:1; min-width:0; padding:16px 16px 100px;}
+.main-inner{max-width:980px; margin:0 auto;}
+
+@media (min-width:900px){
+  .sidebar{display:flex;}
+  .bottom-nav{display:none;}
+  .main{margin-left:230px; padding:32px 40px 60px;}
+}
+
+/* ---------- Top header ---------- */
+.page-head{margin-bottom:18px;}
+.page-eyebrow{font-size:11.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-faint); font-weight:600; margin:0 0 4px;}
+.page-title{font-size:23px; font-weight:700; margin:0; color:var(--ink);}
+.page-sub{color:var(--ink-soft); font-size:13.5px; margin:4px 0 0;}
+
+/* ---------- Cards ---------- */
+.card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow);}
+.card-pad{padding:16px;}
+.section-title{font-size:14.5px; font-weight:700; margin:0 0 10px; display:flex; align-items:center; gap:8px; color:var(--ink);}
+.section-title .cnt{font-family:var(--font-mono); font-weight:500; color:var(--ink-faint); font-size:12px;}
+
+/* ---------- KPI row ---------- */
+.kpi-row{display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px; scroll-snap-type:x proximity;}
+.kpi-row::-webkit-scrollbar{display:none;}
+.kpi{
+  flex:0 0 132px; scroll-snap-align:start; background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:12px 13px; box-shadow:var(--shadow);
+}
+.kpi .kpi-label{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:600;}
+.kpi .kpi-val{font-family:var(--font-display); font-size:22px; font-weight:700; margin-top:6px; color:var(--ink);}
+.kpi .kpi-val.accent{color:var(--accent-ink);}
+.kpi .kpi-val.warn{color:var(--todo);}
+@media (min-width:900px){
+  .kpi-row{display:grid; grid-template-columns:repeat(5,1fr); overflow:visible;}
+  .kpi{flex:auto;}
+}
+
+/* ---------- Ring + strip signature ---------- */
+.hero-card{display:flex; flex-wrap:wrap; gap:22px; align-items:center; padding:18px 18px 16px;}
+.ring-wrap{position:relative; width:104px; height:104px; flex-shrink:0;}
+.ring-wrap svg{transform:rotate(-90deg);}
+.ring-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.ring-label .pct{font-family:var(--font-display); font-size:22px; font-weight:700;}
+.ring-label .wk{font-size:10px; color:var(--ink-faint); font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+.hero-info{flex:1; min-width:180px;}
+.hero-info h2{font-size:17px; margin:0 0 4px;}
+.hero-info p{margin:0; color:var(--ink-soft); font-size:13px;}
+
+.strip{display:flex; flex-wrap:nowrap; gap:9px; overflow-x:auto; padding:14px 18px 16px;}
+.strip::-webkit-scrollbar{display:none;}
+.strip-mod{display:flex; flex-direction:column; gap:4px; flex:0 0 auto;}
+.strip-mod .lbl{font-size:9px; color:var(--ink-faint); font-weight:600; white-space:nowrap; max-width:64px; overflow:hidden; text-overflow:ellipsis;}
+.strip-ticks{display:flex; gap:2px;}
+.tick{width:7px; height:16px; border-radius:2px; background:var(--border-soft); border:1px solid var(--border);}
+.tick.done{background:var(--accent); border-color:var(--accent);}
+.tick.now{background:var(--progress); border-color:var(--progress); animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+
+/* ---------- Status pill ---------- */
+.pill{
+  display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:100px; font-size:11.5px;
+  font-weight:600; border:1px solid transparent; white-space:nowrap; line-height:1;
+}
+.pill .dot{width:6px;height:6px;border-radius:50%;}
+.pill.st-todo{background:var(--todo-bg); color:var(--todo);}
+.pill.st-todo .dot{background:var(--todo);}
+.pill.st-progress{background:var(--progress-bg); color:var(--progress);}
+.pill.st-progress .dot{background:var(--progress);}
+.pill.st-done{background:var(--done-bg); color:var(--done);}
+.pill.st-done .dot{background:var(--done);}
+button.pill{appearance:none;}
+
+/* ---------- Progress bar ---------- */
+.pbar{height:6px; border-radius:4px; background:var(--border-soft); overflow:hidden;}
+.pbar > i{display:block; height:100%; background:var(--accent); border-radius:4px;}
+
+/* ---------- Module row (Planning) ---------- */
+.mod-card{padding:14px 16px; margin-bottom:10px;}
+.mod-card .mod-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;}
+.mod-card h3{font-size:14.5px; margin:0;}
+.mod-card .mod-dates{font-size:11px; color:var(--ink-faint); font-family:var(--font-mono); margin-top:2px;}
+.mod-weeks{display:flex; gap:4px; margin-top:10px;}
+.mod-weeks .wk-seg{flex:1; height:20px; border-radius:5px; background:var(--border-soft); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--ink-faint); font-family:var(--font-mono);}
+.mod-weeks .wk-seg.done{background:var(--accent); border-color:var(--accent); color:#fff;}
+.mod-weeks .wk-seg.now{background:var(--progress-bg); border-color:var(--progress); color:var(--progress);}
+
+/* ---------- Filter bar ---------- */
+.filter-bar{display:flex; gap:8px; overflow-x:auto; margin-bottom:14px; padding-bottom:2px;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.chip{
+  flex:0 0 auto; padding:7px 13px; border-radius:100px; border:1px solid var(--border); background:var(--surface);
+  font-size:12.5px; font-weight:600; color:var(--ink-soft);
+}
+.chip.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+.search-row{display:flex; gap:8px; margin-bottom:12px;}
+.search-row input[type=text]{
+  flex:1; padding:9px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface);
+  font-size:13.5px; color:var(--ink);
+}
+.toggle-btn{padding:9px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); font-size:12px; color:var(--ink-soft); font-weight:600;}
+.toggle-btn.active{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft2);}
+
+/* ---------- Week group ---------- */
+.week-group{margin-bottom:16px;}
+.week-head{display:flex; align-items:baseline; gap:8px; padding:0 2px 8px; }
+.week-head .wtag{font-family:var(--font-mono); font-weight:700; font-size:12.5px; color:var(--accent-ink); background:var(--accent-soft); padding:2px 8px; border-radius:6px;}
+.week-head .wmod{font-size:12px; color:var(--ink-faint); font-weight:600;}
+.act-row{
+  display:flex; align-items:center; gap:10px; padding:11px 13px; border-bottom:1px solid var(--border-soft);
+}
+.act-row:last-child{border-bottom:none;}
+.act-row .act-main{flex:1; min-width:0;}
+.act-row .act-title{font-size:13.5px; font-weight:500; color:var(--ink); margin:0 0 3px;}
+.act-row .act-meta{font-size:11px; color:var(--ink-faint); display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+.type-tag{font-size:10px; font-weight:700; padding:1px 6px; border-radius:5px; background:var(--surface-alt); border:1px solid var(--border);}
+.act-row .act-actions{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+.hrs-input{width:40px; padding:5px 4px; text-align:center; border:1px solid var(--border); border-radius:7px; font-family:var(--font-mono); font-size:12px;}
+.link-btn{width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); flex-shrink:0;}
+.link-btn svg{width:14px;height:14px;}
+
+/* ---------- Cert / Portfolio cards ---------- */
+.grid-2{display:grid; grid-template-columns:1fr; gap:12px;}
+@media (min-width:700px){.grid-2{grid-template-columns:1fr 1fr;}}
+.cert-card{padding:16px;}
+.cert-top{display:flex; gap:14px; align-items:center;}
+.cert-code{font-family:var(--font-display); font-weight:700; font-size:16px;}
+.cert-name{font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+.field-row{display:flex; flex-direction:column; gap:4px; margin-top:10px;}
+.field-row label{font-size:10.5px; font-weight:600; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
+.field-row input[type=date],.field-row input[type=number],.field-row select,.field-row textarea,.field-row input[type=text]{
+  padding:8px 10px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--surface-alt); font-size:13px; color:var(--ink); width:100%;
+}
+.field-row textarea{resize:vertical; min-height:52px;}
+
+/* ---------- Journal accordion ---------- */
+.jrow{border-bottom:1px solid var(--border-soft);}
+.jrow:last-child{border-bottom:none;}
+.jrow-head{display:flex; align-items:center; gap:10px; padding:12px 4px; width:100%; background:none; border:none; text-align:left;}
+.jrow-head .wnum{font-family:var(--font-mono); font-weight:700; font-size:12.5px; background:var(--accent-soft); color:var(--accent-ink); padding:3px 8px; border-radius:6px; flex-shrink:0;}
+.jrow-head .jinfo{flex:1; min-width:0;}
+.jrow-head .jdates{font-size:12.5px; font-weight:600;}
+.jrow-head .jmod{font-size:11px; color:var(--ink-faint);}
+.jrow-head .jhrs{font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); flex-shrink:0;}
+.chev{width:16px;height:16px; color:var(--ink-faint); transition:transform .15s ease; flex-shrink:0;}
+.jrow.open .chev{transform:rotate(90deg);}
+.jrow-body{display:none; padding:4px 4px 16px;}
+.jrow.open .jrow-body{display:block;}
+.stars{display:flex; gap:4px;}
+.star{width:22px;height:22px; cursor:pointer; color:var(--border);}
+.star.on{color:var(--progress);}
+
+/* ---------- Eval ---------- */
+.eval-card{padding:15px;}
+.eval-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.eval-total{font-family:var(--font-display); font-weight:700; font-size:19px;}
+.eval-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+.eval-field label{font-size:10px; color:var(--ink-faint); font-weight:600;}
+.eval-field input{width:100%; padding:6px 8px; border:1px solid var(--border); border-radius:7px; font-family:var(--font-mono); text-align:center;}
+.mention{font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px;}
+
+/* ---------- Empty state ---------- */
+.empty{text-align:center; padding:40px 20px; color:var(--ink-faint);}
+.empty svg{width:34px;height:34px; margin-bottom:10px; opacity:.5;}
+.empty p{font-size:13px; margin:0;}
+
+/* ---------- Toolbar buttons (export/import) ---------- */
+.tool-btn{display:flex; align-items:center; gap:8px; padding:9px 11px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); font-size:12.5px; font-weight:600; color:var(--ink-soft); width:100%;}
+.tool-btn svg{width:15px;height:15px;}
+.toast{
+  position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; padding:10px 18px;
+  border-radius:100px; font-size:12.5px; font-weight:600; z-index:100; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+@media (min-width:900px){.toast{bottom:24px;}}
+
+.charts-row{display:grid; grid-template-columns:1fr; gap:12px; margin-top:14px;}
+@media (min-width:700px){.charts-row{grid-template-columns:1.3fr 1fr;}}
+.bar-chart{display:flex; flex-direction:column; gap:8px;}
+.bar-chart .brow{display:flex; align-items:center; gap:8px;}
+.bar-chart .blbl{width:88px; font-size:11px; color:var(--ink-soft); flex-shrink:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.bar-chart .btrack{flex:1; height:10px; border-radius:5px; background:var(--border-soft); overflow:hidden; position:relative;}
+.bar-chart .bfill{height:100%; background:var(--accent); border-radius:5px;}
+.bar-chart .bval{width:34px; text-align:right; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); flex-shrink:0;}
+.donut-wrap{display:flex; align-items:center; gap:16px; justify-content:center;}
+.legend-list{display:flex; flex-direction:column; gap:6px;}
+.legend-item{display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--ink-soft);}
+.legend-item .sw{width:9px;height:9px;border-radius:3px;}
+
+@media (prefers-reduced-motion: reduce){
+  .tick.now{animation:none;}
+  .chev{transition:none;}
+}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="brand"><span class="dot"></span><span>Transformation<br>Numérique</span></div>
+    <ul class="nav-list" id="navList"></ul>
+    <div class="sidebar-foot">
+      <button class="tool-btn" id="exportBtn"></button>
+      <button class="tool-btn" id="importBtn"></button>
+    </div>
+  </nav>
+  <main class="main"><div class="main-inner" id="main"></div></main>
+  <nav class="bottom-nav" id="bottomNav"></nav>
+</div>
+<input type="file" id="importFile" accept="application/json" style="display:none;">
+<div class="toast" id="toast"></div>
+<script id="app-data" type="application/json">{"projectStart": "2026-07-27", "totalWeeks": 52, "activities": [{"id": 1, "week": 1, "d0": "2026-07-27", "d1": "2026-08-02", "module": "Réseaux", "type": "Cours", "title": "Fondamentaux réseau (modèle OSI et TCP/IP)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 3}, {"id": 2, "week": 1, "d0": "2026-07-27", "d1": "2026-08-02", "module": "Réseaux", "type": "TP", "title": "Câblage et topologie réseau (Packet Tracer)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 4}, {"id": 3, "week": 1, "d0": "2026-07-27", "d1": "2026-08-02", "module": "Réseaux", "type": "Labo", "title": "Configuration d'un switch Cisco (VLAN)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 4, "week": 1, "d0": "2026-07-27", "d1": "2026-08-02", "module": "Réseaux", "type": "Labo", "title": "Configuration d'un routeur Cisco (routage statique)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 5, "week": 1, "d0": "2026-07-27", "d1": "2026-08-02", "module": "Réseaux", "type": "Labo", "title": "Subnetting IPv4 avancé", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 6, "week": 2, "d0": "2026-08-03", "d1": "2026-08-09", "module": "Réseaux", "type": "Cours", "title": "Adressage IP et sous-réseaux (IPv4/IPv6)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 3}, {"id": 7, "week": 2, "d0": "2026-08-03", "d1": "2026-08-09", "module": "Réseaux", "type": "TP", "title": "Calcul et découpage de sous-réseaux", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 4}, {"id": 8, "week": 2, "d0": "2026-08-03", "d1": "2026-08-09", "module": "Réseaux", "type": "Labo", "title": "Configuration IPv6 de base", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 9, "week": 2, "d0": "2026-08-03", "d1": "2026-08-09", "module": "Réseaux", "type": "Labo", "title": "Mise en place d'un serveur DHCP", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 10, "week": 2, "d0": "2026-08-03", "d1": "2026-08-09", "module": "Réseaux", "type": "Labo", "title": "Mise en place d'un serveur DNS", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 11, "week": 3, "d0": "2026-08-10", "d1": "2026-08-16", "module": "Réseaux", "type": "Cours", "title": "Équipements réseau (switch, routeur, pare-feu)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 3}, {"id": 12, "week": 3, "d0": "2026-08-10", "d1": "2026-08-16", "module": "Réseaux", "type": "TP", "title": "Configuration VLAN et routage inter-VLAN", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 4}, {"id": 13, "week": 3, "d0": "2026-08-10", "d1": "2026-08-16", "module": "Réseaux", "type": "Labo", "title": "Analyse de trames avec Wireshark", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 14, "week": 3, "d0": "2026-08-10", "d1": "2026-08-16", "module": "Réseaux", "type": "Labo", "title": "Configuration d'un pare-feu (ACL)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 15, "week": 3, "d0": "2026-08-10", "d1": "2026-08-16", "module": "Réseaux", "type": "Labo", "title": "Simulation topologie d'entreprise (Packet Tracer)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 16, "week": 4, "d0": "2026-08-17", "d1": "2026-08-23", "module": "Réseaux", "type": "Cours", "title": "Protocoles réseau (DNS, DHCP, HTTP/HTTPS, VPN)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 3}, {"id": 17, "week": 4, "d0": "2026-08-17", "d1": "2026-08-23", "module": "Réseaux", "type": "TP", "title": "Configuration DHCP/DNS et test de connectivité", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals", "hoursPlanned": 4}, {"id": 18, "week": 4, "d0": "2026-08-17", "d1": "2026-08-23", "module": "Réseaux", "type": "Labo", "title": "Diagnostic de pannes réseau (ping, traceroute)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 19, "week": 4, "d0": "2026-08-17", "d1": "2026-08-23", "module": "Réseaux", "type": "Labo", "title": "Configuration VPN site-à-site", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 20, "week": 4, "d0": "2026-08-17", "d1": "2026-08-23", "module": "Réseaux", "type": "Labo", "title": "Sécurisation d'un réseau Wi-Fi (WPA3)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 21, "week": 5, "d0": "2026-08-24", "d1": "2026-08-30", "module": "Windows Server", "type": "Cours", "title": "Installation et rôles Windows Server", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 3}, {"id": 22, "week": 5, "d0": "2026-08-24", "d1": "2026-08-30", "module": "Windows Server", "type": "TP", "title": "Installation Windows Server (Core vs Desktop Experience)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 4}, {"id": 23, "week": 5, "d0": "2026-08-24", "d1": "2026-08-30", "module": "Windows Server", "type": "Labo", "title": "Installation Windows Server 2022", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 24, "week": 5, "d0": "2026-08-24", "d1": "2026-08-30", "module": "Windows Server", "type": "Labo", "title": "Promotion d'un contrôleur de domaine", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 25, "week": 5, "d0": "2026-08-24", "d1": "2026-08-30", "module": "Windows Server", "type": "Labo", "title": "Création d'unités d'organisation (OU) et utilisateurs", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 26, "week": 6, "d0": "2026-08-31", "d1": "2026-09-06", "module": "Windows Server", "type": "Cours", "title": "Active Directory Domain Services", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 3}, {"id": 27, "week": 6, "d0": "2026-08-31", "d1": "2026-09-06", "module": "Windows Server", "type": "TP", "title": "Création d'une forêt / domaine AD", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 4}, {"id": 28, "week": 6, "d0": "2026-08-31", "d1": "2026-09-06", "module": "Windows Server", "type": "Labo", "title": "Gestion des groupes et délégation", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 29, "week": 6, "d0": "2026-08-31", "d1": "2026-09-06", "module": "Windows Server", "type": "Labo", "title": "Configuration de GPO (restrictions logicielles)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 30, "week": 6, "d0": "2026-08-31", "d1": "2026-09-06", "module": "Windows Server", "type": "Labo", "title": "Configuration DNS intégré à AD", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 31, "week": 7, "d0": "2026-09-07", "d1": "2026-09-13", "module": "Windows Server", "type": "Cours", "title": "Stratégies de groupe (GPO) et sécurité", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 3}, {"id": 32, "week": 7, "d0": "2026-09-07", "d1": "2026-09-13", "module": "Windows Server", "type": "TP", "title": "Configuration de GPO de sécurité", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 4}, {"id": 33, "week": 7, "d0": "2026-09-07", "d1": "2026-09-13", "module": "Windows Server", "type": "Labo", "title": "Configuration DHCP en haute disponibilité", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 34, "week": 7, "d0": "2026-09-07", "d1": "2026-09-13", "module": "Windows Server", "type": "Labo", "title": "Mise en place du service de fichiers (DFS)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 35, "week": 7, "d0": "2026-09-07", "d1": "2026-09-13", "module": "Windows Server", "type": "Labo", "title": "Sauvegarde et restauration Windows Server Backup", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 36, "week": 8, "d0": "2026-09-14", "d1": "2026-09-20", "module": "Windows Server", "type": "Cours", "title": "Services de fichiers, impression et stockage", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 3}, {"id": 37, "week": 8, "d0": "2026-09-14", "d1": "2026-09-20", "module": "Windows Server", "type": "TP", "title": "Configuration DFS et quotas de stockage", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 4}, {"id": 38, "week": 8, "d0": "2026-09-14", "d1": "2026-09-20", "module": "Windows Server", "type": "Labo", "title": "Configuration RDS (Bureau à distance)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 39, "week": 8, "d0": "2026-09-14", "d1": "2026-09-20", "module": "Windows Server", "type": "Labo", "title": "Durcissement sécurité (Security Baseline)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 40, "week": 8, "d0": "2026-09-14", "d1": "2026-09-20", "module": "Windows Server", "type": "Labo", "title": "Surveillance (Observateur d'événements / Perfmon)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server", "hoursPlanned": 2}, {"id": 41, "week": 9, "d0": "2026-09-21", "d1": "2026-09-27", "module": "Linux", "type": "Cours", "title": "Fondamentaux Linux (CLI, systèmes de fichiers)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 3}, {"id": 42, "week": 9, "d0": "2026-09-21", "d1": "2026-09-27", "module": "Linux", "type": "TP", "title": "Navigation et manipulation de fichiers (CLI)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 4}, {"id": 43, "week": 9, "d0": "2026-09-21", "d1": "2026-09-27", "module": "Linux", "type": "Labo", "title": "Installation d'une distribution Linux (Ubuntu Server)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 44, "week": 9, "d0": "2026-09-21", "d1": "2026-09-27", "module": "Linux", "type": "Labo", "title": "Gestion des paquets (APT / YUM)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 45, "week": 9, "d0": "2026-09-21", "d1": "2026-09-27", "module": "Linux", "type": "Labo", "title": "Configuration réseau sous Linux (netplan/nmcli)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 46, "week": 10, "d0": "2026-09-28", "d1": "2026-10-04", "module": "Linux", "type": "Cours", "title": "Utilisateurs, permissions et processus", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 3}, {"id": 47, "week": 10, "d0": "2026-09-28", "d1": "2026-10-04", "module": "Linux", "type": "TP", "title": "Gestion des permissions et propriétaires", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 4}, {"id": 48, "week": 10, "d0": "2026-09-28", "d1": "2026-10-04", "module": "Linux", "type": "Labo", "title": "Gestion des utilisateurs et groupes", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 49, "week": 10, "d0": "2026-09-28", "d1": "2026-10-04", "module": "Linux", "type": "Labo", "title": "Permissions avancées (ACL, sudo)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 50, "week": 10, "d0": "2026-09-28", "d1": "2026-10-04", "module": "Linux", "type": "Labo", "title": "Automatisation de tâches avec Cron", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 51, "week": 11, "d0": "2026-10-05", "d1": "2026-10-11", "module": "Linux", "type": "Cours", "title": "Administration système (services, systemd, logs)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 3}, {"id": 52, "week": 11, "d0": "2026-10-05", "d1": "2026-10-11", "module": "Linux", "type": "TP", "title": "Gestion de services avec systemctl", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 4}, {"id": 53, "week": 11, "d0": "2026-10-05", "d1": "2026-10-11", "module": "Linux", "type": "Labo", "title": "Configuration d'un serveur SSH sécurisé", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 54, "week": 11, "d0": "2026-10-05", "d1": "2026-10-11", "module": "Linux", "type": "Labo", "title": "Montage de systèmes de fichiers et LVM", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 55, "week": 11, "d0": "2026-10-05", "d1": "2026-10-11", "module": "Linux", "type": "Labo", "title": "Mise en place d'un serveur web Apache/Nginx", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 56, "week": 12, "d0": "2026-10-12", "d1": "2026-10-18", "module": "Linux", "type": "Cours", "title": "Scripting Bash et automatisation", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 3}, {"id": 57, "week": 12, "d0": "2026-10-12", "d1": "2026-10-18", "module": "Linux", "type": "TP", "title": "Écriture de scripts Bash", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=linux", "hoursPlanned": 4}, {"id": 58, "week": 12, "d0": "2026-10-12", "d1": "2026-10-18", "module": "Linux", "type": "Labo", "title": "Analyse de logs système (journalctl)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 59, "week": 12, "d0": "2026-10-12", "d1": "2026-10-18", "module": "Linux", "type": "Labo", "title": "Script Bash de sauvegarde automatisée", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 60, "week": 12, "d0": "2026-10-12", "d1": "2026-10-18", "module": "Linux", "type": "Labo", "title": "Durcissement sécurité Linux (SELinux/AppArmor)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 61, "week": 13, "d0": "2026-10-19", "d1": "2026-10-25", "module": "Virtualisation", "type": "Cours", "title": "Concepts de virtualisation (hyperviseurs type 1/2)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 3}, {"id": 62, "week": 13, "d0": "2026-10-19", "d1": "2026-10-25", "module": "Virtualisation", "type": "TP", "title": "Installation d'un hyperviseur (Hyper-V/VirtualBox)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 4}, {"id": 63, "week": 13, "d0": "2026-10-19", "d1": "2026-10-25", "module": "Virtualisation", "type": "Labo", "title": "Installation Hyper-V sur Windows Server", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 64, "week": 13, "d0": "2026-10-19", "d1": "2026-10-25", "module": "Virtualisation", "type": "Labo", "title": "Création d'un switch virtuel", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 65, "week": 13, "d0": "2026-10-19", "d1": "2026-10-25", "module": "Virtualisation", "type": "Labo", "title": "Migration de VM (Live Migration)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 66, "week": 14, "d0": "2026-10-26", "d1": "2026-11-01", "module": "Virtualisation", "type": "Cours", "title": "Hyper-V - Installation et configuration", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 3}, {"id": 67, "week": 14, "d0": "2026-10-26", "d1": "2026-11-01", "module": "Virtualisation", "type": "TP", "title": "Création et gestion de machines virtuelles", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 4}, {"id": 68, "week": 14, "d0": "2026-10-26", "d1": "2026-11-01", "module": "Virtualisation", "type": "Labo", "title": "Gestion de snapshots / points de contrôle", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 69, "week": 14, "d0": "2026-10-26", "d1": "2026-11-01", "module": "Virtualisation", "type": "Labo", "title": "Installation VMware Workstation/ESXi", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 70, "week": 14, "d0": "2026-10-26", "d1": "2026-11-01", "module": "Virtualisation", "type": "Labo", "title": "Installation Proxmox VE", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 71, "week": 15, "d0": "2026-11-02", "d1": "2026-11-08", "module": "Virtualisation", "type": "Cours", "title": "VMware / Proxmox - Alternatives et comparaison", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 3}, {"id": 72, "week": 15, "d0": "2026-11-02", "d1": "2026-11-08", "module": "Virtualisation", "type": "TP", "title": "Réseaux virtuels et snapshots", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 4}, {"id": 73, "week": 15, "d0": "2026-11-02", "d1": "2026-11-08", "module": "Virtualisation", "type": "Labo", "title": "Configuration haute disponibilité VM", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 74, "week": 15, "d0": "2026-11-02", "d1": "2026-11-08", "module": "Virtualisation", "type": "Labo", "title": "Installation Docker Engine", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 75, "week": 15, "d0": "2026-11-02", "d1": "2026-11-08", "module": "Virtualisation", "type": "Labo", "title": "Création d'images Docker personnalisées", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 76, "week": 16, "d0": "2026-11-09", "d1": "2026-11-15", "module": "Virtualisation", "type": "Cours", "title": "Conteneurisation (Docker) et intro Kubernetes", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 3}, {"id": 77, "week": 16, "d0": "2026-11-09", "d1": "2026-11-15", "module": "Virtualisation", "type": "TP", "title": "Déploiement de conteneurs Docker", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 4}, {"id": 78, "week": 16, "d0": "2026-11-09", "d1": "2026-11-15", "module": "Virtualisation", "type": "Labo", "title": "Orchestration simple avec Docker Compose", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 79, "week": 16, "d0": "2026-11-09", "d1": "2026-11-15", "module": "Virtualisation", "type": "Labo", "title": "Introduction à Kubernetes (Minikube)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 80, "week": 16, "d0": "2026-11-09", "d1": "2026-11-15", "module": "Virtualisation", "type": "Labo", "title": "Sauvegarde et réplication de VM", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=virtualization", "hoursPlanned": 2}, {"id": 81, "week": 17, "d0": "2026-11-16", "d1": "2026-11-22", "module": "Microsoft 365", "type": "Cours", "title": "Écosystème M365 (Exchange, SharePoint, Teams)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 3}, {"id": 82, "week": 17, "d0": "2026-11-16", "d1": "2026-11-22", "module": "Microsoft 365", "type": "TP", "title": "Configuration d'un tenant M365", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 4}, {"id": 83, "week": 17, "d0": "2026-11-16", "d1": "2026-11-22", "module": "Microsoft 365", "type": "Labo", "title": "Création et configuration d'un tenant M365", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 84, "week": 17, "d0": "2026-11-16", "d1": "2026-11-22", "module": "Microsoft 365", "type": "Labo", "title": "Gestion des utilisateurs et groupes Entra ID", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 85, "week": 17, "d0": "2026-11-16", "d1": "2026-11-22", "module": "Microsoft 365", "type": "Labo", "title": "Configuration de l'authentification multifacteur", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 86, "week": 18, "d0": "2026-11-23", "d1": "2026-11-29", "module": "Microsoft 365", "type": "Cours", "title": "Gestion des identités (Entra ID)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 3}, {"id": 87, "week": 18, "d0": "2026-11-23", "d1": "2026-11-29", "module": "Microsoft 365", "type": "TP", "title": "Gestion des utilisateurs et licences", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 4}, {"id": 88, "week": 18, "d0": "2026-11-23", "d1": "2026-11-29", "module": "Microsoft 365", "type": "Labo", "title": "Mise en place de l'accès conditionnel", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 89, "week": 18, "d0": "2026-11-23", "d1": "2026-11-29", "module": "Microsoft 365", "type": "Labo", "title": "Configuration Exchange Online (boîtes, règles)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 90, "week": 18, "d0": "2026-11-23", "d1": "2026-11-29", "module": "Microsoft 365", "type": "Labo", "title": "Création d'un site SharePoint d'équipe", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 91, "week": 19, "d0": "2026-11-30", "d1": "2026-12-06", "module": "Microsoft 365", "type": "Cours", "title": "Sécurité et conformité M365", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 3}, {"id": 92, "week": 19, "d0": "2026-11-30", "d1": "2026-12-06", "module": "Microsoft 365", "type": "TP", "title": "Stratégies de sécurité (MFA, Accès conditionnel)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 4}, {"id": 93, "week": 19, "d0": "2026-11-30", "d1": "2026-12-06", "module": "Microsoft 365", "type": "Labo", "title": "Configuration Teams (canaux, permissions)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 94, "week": 19, "d0": "2026-11-30", "d1": "2026-12-06", "module": "Microsoft 365", "type": "Labo", "title": "Protection contre la perte de données (DLP)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 95, "week": 19, "d0": "2026-11-30", "d1": "2026-12-06", "module": "Microsoft 365", "type": "Labo", "title": "Gestion des appareils avec Intune (MDM)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 96, "week": 20, "d0": "2026-12-07", "d1": "2026-12-13", "module": "Microsoft 365", "type": "Cours", "title": "Administration et licences M365", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 3}, {"id": 97, "week": 20, "d0": "2026-12-07", "d1": "2026-12-13", "module": "Microsoft 365", "type": "TP", "title": "Configuration SharePoint et Teams", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 4}, {"id": 98, "week": 20, "d0": "2026-12-07", "d1": "2026-12-13", "module": "Microsoft 365", "type": "Labo", "title": "Configuration de la gouvernance et rétention", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 99, "week": 20, "d0": "2026-12-07", "d1": "2026-12-13", "module": "Microsoft 365", "type": "Labo", "title": "Rapports et tableaux de bord d'utilisation M365", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 100, "week": 20, "d0": "2026-12-07", "d1": "2026-12-13", "module": "Microsoft 365", "type": "Labo", "title": "Migration de boîtes aux lettres vers Exchange Online", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator", "hoursPlanned": 2}, {"id": 101, "week": 21, "d0": "2026-12-14", "d1": "2026-12-20", "module": "Azure", "type": "Cours", "title": "Fondamentaux Azure (régions, abonnements, RBAC)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 3}, {"id": 102, "week": 21, "d0": "2026-12-14", "d1": "2026-12-20", "module": "Azure", "type": "TP", "title": "Création d'un abonnement et groupe de ressources", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 4}, {"id": 103, "week": 21, "d0": "2026-12-14", "d1": "2026-12-20", "module": "Azure", "type": "Labo", "title": "Création d'un groupe de ressources", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 104, "week": 21, "d0": "2026-12-14", "d1": "2026-12-20", "module": "Azure", "type": "Labo", "title": "Configuration RBAC (contrôle d'accès)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 105, "week": 21, "d0": "2026-12-14", "d1": "2026-12-20", "module": "Azure", "type": "Labo", "title": "Création d'un réseau virtuel et sous-réseaux", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 106, "week": 22, "d0": "2026-12-21", "d1": "2026-12-27", "module": "Azure", "type": "Cours", "title": "Réseaux et stockage Azure", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 3}, {"id": 107, "week": 22, "d0": "2026-12-21", "d1": "2026-12-27", "module": "Azure", "type": "TP", "title": "Configuration d'un réseau virtuel Azure (VNet)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 4}, {"id": 108, "week": 22, "d0": "2026-12-21", "d1": "2026-12-27", "module": "Azure", "type": "Labo", "title": "Configuration d'un NSG (Network Security Group)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 109, "week": 22, "d0": "2026-12-21", "d1": "2026-12-27", "module": "Azure", "type": "Labo", "title": "Déploiement d'une VM Windows/Linux Azure", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 110, "week": 22, "d0": "2026-12-21", "d1": "2026-12-27", "module": "Azure", "type": "Labo", "title": "Configuration du stockage Azure (Blob, Files)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 111, "week": 23, "d0": "2026-12-28", "d1": "2027-01-03", "module": "Azure", "type": "Cours", "title": "Machines virtuelles et services de calcul", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 3}, {"id": 112, "week": 23, "d0": "2026-12-28", "d1": "2027-01-03", "module": "Azure", "type": "TP", "title": "Déploiement d'une VM Azure", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 4}, {"id": 113, "week": 23, "d0": "2026-12-28", "d1": "2027-01-03", "module": "Azure", "type": "Labo", "title": "Configuration d'Azure Load Balancer", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 114, "week": 23, "d0": "2026-12-28", "d1": "2027-01-03", "module": "Azure", "type": "Labo", "title": "Mise en place d'Azure Backup", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 115, "week": 23, "d0": "2026-12-28", "d1": "2027-01-03", "module": "Azure", "type": "Labo", "title": "Configuration d'Azure Monitor et alertes", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 116, "week": 24, "d0": "2027-01-04", "d1": "2027-01-10", "module": "Azure", "type": "Cours", "title": "Gouvernance, coûts et sécurité (prépa AZ-104)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 3}, {"id": 117, "week": 24, "d0": "2027-01-04", "d1": "2027-01-10", "module": "Azure", "type": "TP", "title": "Gouvernance (Policy, Cost Management)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 4}, {"id": 118, "week": 24, "d0": "2027-01-04", "d1": "2027-01-10", "module": "Azure", "type": "Labo", "title": "Déploiement avec templates ARM/Bicep", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 119, "week": 24, "d0": "2027-01-04", "d1": "2027-01-10", "module": "Azure", "type": "Labo", "title": "Configuration d'Azure AD Connect (hybride)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 120, "week": 24, "d0": "2027-01-04", "d1": "2027-01-10", "module": "Azure", "type": "Labo", "title": "Gestion des coûts (Azure Cost Management)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator", "hoursPlanned": 2}, {"id": 121, "week": 25, "d0": "2027-01-11", "d1": "2027-01-17", "module": "PowerShell", "type": "Cours", "title": "Fondamentaux PowerShell (cmdlets, pipeline)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 3}, {"id": 122, "week": 25, "d0": "2027-01-11", "d1": "2027-01-17", "module": "PowerShell", "type": "TP", "title": "Exploration du pipeline PowerShell", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 4}, {"id": 123, "week": 25, "d0": "2027-01-11", "d1": "2027-01-17", "module": "PowerShell", "type": "Labo", "title": "Cmdlets de base (Get, Set, New, Remove)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 124, "week": 25, "d0": "2027-01-11", "d1": "2027-01-17", "module": "PowerShell", "type": "Labo", "title": "Filtrage et tri d'objets (Where-Object)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 125, "week": 25, "d0": "2027-01-11", "d1": "2027-01-17", "module": "PowerShell", "type": "Labo", "title": "Gestion des utilisateurs AD via PowerShell", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 126, "week": 26, "d0": "2027-01-18", "d1": "2027-01-24", "module": "PowerShell", "type": "Cours", "title": "Variables, boucles et fonctions", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 3}, {"id": 127, "week": 26, "d0": "2027-01-18", "d1": "2027-01-24", "module": "PowerShell", "type": "TP", "title": "Création de scripts (variables et boucles)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 4}, {"id": 128, "week": 26, "d0": "2027-01-18", "d1": "2027-01-24", "module": "PowerShell", "type": "Labo", "title": "Création de fonctions réutilisables", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 129, "week": 26, "d0": "2027-01-18", "d1": "2027-01-24", "module": "PowerShell", "type": "Labo", "title": "Gestion des erreurs (Try/Catch)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 130, "week": 26, "d0": "2027-01-18", "d1": "2027-01-24", "module": "PowerShell", "type": "Labo", "title": "PowerShell Remoting (Invoke-Command)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 131, "week": 27, "d0": "2027-01-25", "d1": "2027-01-31", "module": "PowerShell", "type": "Cours", "title": "Gestion à distance (WinRM) et modules", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 3}, {"id": 132, "week": 27, "d0": "2027-01-25", "d1": "2027-01-31", "module": "PowerShell", "type": "TP", "title": "Gestion à distance de serveurs", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 4}, {"id": 133, "week": 27, "d0": "2027-01-25", "d1": "2027-01-31", "module": "PowerShell", "type": "Labo", "title": "Automatisation de rapports (export CSV/HTML)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 134, "week": 27, "d0": "2027-01-25", "d1": "2027-01-31", "module": "PowerShell", "type": "Labo", "title": "Gestion des services Windows via script", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 135, "week": 27, "d0": "2027-01-25", "d1": "2027-01-31", "module": "PowerShell", "type": "Labo", "title": "Interaction avec l'API Microsoft Graph", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 136, "week": 28, "d0": "2027-02-01", "d1": "2027-02-07", "module": "PowerShell", "type": "Cours", "title": "Automatisation avancée (scripts, VS Code)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 3}, {"id": 137, "week": 28, "d0": "2027-02-01", "d1": "2027-02-07", "module": "PowerShell", "type": "TP", "title": "Script d'automatisation complet", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 4}, {"id": 138, "week": 28, "d0": "2027-02-01", "d1": "2027-02-07", "module": "PowerShell", "type": "Labo", "title": "Création d'un module PowerShell personnalisé", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 139, "week": 28, "d0": "2027-02-01", "d1": "2027-02-07", "module": "PowerShell", "type": "Labo", "title": "Script de provisionnement automatisé de VM", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 140, "week": 28, "d0": "2027-02-01", "d1": "2027-02-07", "module": "PowerShell", "type": "Labo", "title": "Planification de tâches (Task Scheduler)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell", "hoursPlanned": 2}, {"id": 141, "week": 29, "d0": "2027-02-08", "d1": "2027-02-14", "module": "Python", "type": "Cours", "title": "Fondamentaux Python (syntaxe, types, structures)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 3}, {"id": 142, "week": 29, "d0": "2027-02-08", "d1": "2027-02-14", "module": "Python", "type": "TP", "title": "Premiers scripts Python", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 4}, {"id": 143, "week": 29, "d0": "2027-02-08", "d1": "2027-02-14", "module": "Python", "type": "Labo", "title": "Variables, boucles et conditions", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 144, "week": 29, "d0": "2027-02-08", "d1": "2027-02-14", "module": "Python", "type": "Labo", "title": "Manipulation de listes et dictionnaires", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 145, "week": 29, "d0": "2027-02-08", "d1": "2027-02-14", "module": "Python", "type": "Labo", "title": "Lecture/écriture de fichiers CSV", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 146, "week": 30, "d0": "2027-02-15", "d1": "2027-02-21", "module": "Python", "type": "Cours", "title": "Fonctions, modules et gestion de fichiers", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 3}, {"id": 147, "week": 30, "d0": "2027-02-15", "d1": "2027-02-21", "module": "Python", "type": "TP", "title": "Manipulation de fichiers et structures de données", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 4}, {"id": 148, "week": 30, "d0": "2027-02-15", "d1": "2027-02-21", "module": "Python", "type": "Labo", "title": "Création de fonctions et modules", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 149, "week": 30, "d0": "2027-02-15", "d1": "2027-02-21", "module": "Python", "type": "Labo", "title": "Gestion des exceptions", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 150, "week": 30, "d0": "2027-02-15", "d1": "2027-02-21", "module": "Python", "type": "Labo", "title": "Requêtes API REST (module requests)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 151, "week": 31, "d0": "2027-02-22", "d1": "2027-02-28", "module": "Python", "type": "Cours", "title": "Python pour l'automatisation IT (API, requests)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 3}, {"id": 152, "week": 31, "d0": "2027-02-22", "d1": "2027-02-28", "module": "Python", "type": "TP", "title": "Appel d'API REST avec Python", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 4}, {"id": 153, "week": 31, "d0": "2027-02-22", "d1": "2027-02-28", "module": "Python", "type": "Labo", "title": "Automatisation système (os/subprocess)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 154, "week": 31, "d0": "2027-02-22", "d1": "2027-02-28", "module": "Python", "type": "Labo", "title": "Script de scraping web basique", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 155, "week": 31, "d0": "2027-02-22", "d1": "2027-02-28", "module": "Python", "type": "Labo", "title": "Manipulation de données avec pandas", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 156, "week": 32, "d0": "2027-03-01", "d1": "2027-03-07", "module": "Python", "type": "Cours", "title": "Python pour la data (pandas, visualisation)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 3}, {"id": 157, "week": 32, "d0": "2027-03-01", "d1": "2027-03-07", "module": "Python", "type": "TP", "title": "Analyse de données avec pandas", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=python", "hoursPlanned": 4}, {"id": 158, "week": 32, "d0": "2027-03-01", "d1": "2027-03-07", "module": "Python", "type": "Labo", "title": "Visualisation de données (matplotlib)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 159, "week": 32, "d0": "2027-03-01", "d1": "2027-03-07", "module": "Python", "type": "Labo", "title": "Connexion à une base de données SQLite", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 160, "week": 32, "d0": "2027-03-01", "d1": "2027-03-07", "module": "Python", "type": "Labo", "title": "Mini-projet : script d'automatisation IT", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 161, "week": 33, "d0": "2027-03-08", "d1": "2027-03-14", "module": "Power Automate", "type": "Cours", "title": "Introduction au low-code et Power Platform", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 3}, {"id": 162, "week": 33, "d0": "2027-03-08", "d1": "2027-03-14", "module": "Power Automate", "type": "TP", "title": "Création d'un premier flux automatisé", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 4}, {"id": 163, "week": 33, "d0": "2027-03-08", "d1": "2027-03-14", "module": "Power Automate", "type": "Labo", "title": "Flux déclenché par email (Outlook)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 164, "week": 33, "d0": "2027-03-08", "d1": "2027-03-14", "module": "Power Automate", "type": "Labo", "title": "Flux d'approbation de documents", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 165, "week": 33, "d0": "2027-03-08", "d1": "2027-03-14", "module": "Power Automate", "type": "Labo", "title": "Automatisation SharePoint (notifications)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 166, "week": 34, "d0": "2027-03-15", "d1": "2027-03-21", "module": "Power Automate", "type": "Cours", "title": "Création de flux automatisés", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 3}, {"id": 167, "week": 34, "d0": "2027-03-15", "d1": "2027-03-21", "module": "Power Automate", "type": "TP", "title": "Flux d'approbation automatisé", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 4}, {"id": 168, "week": 34, "d0": "2027-03-15", "d1": "2027-03-21", "module": "Power Automate", "type": "Labo", "title": "Intégration Teams (notifications automatiques)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 169, "week": 34, "d0": "2027-03-15", "d1": "2027-03-21", "module": "Power Automate", "type": "Labo", "title": "Flux planifié (tâches récurrentes)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 170, "week": 34, "d0": "2027-03-15", "d1": "2027-03-21", "module": "Power Automate", "type": "Labo", "title": "Variables et conditions dans un flux", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 171, "week": 35, "d0": "2027-03-22", "d1": "2027-03-28", "module": "Power Automate", "type": "Cours", "title": "Connecteurs et intégrations (SharePoint, Teams)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 3}, {"id": 172, "week": 35, "d0": "2027-03-22", "d1": "2027-03-28", "module": "Power Automate", "type": "TP", "title": "Intégration multi-connecteurs", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 4}, {"id": 173, "week": 35, "d0": "2027-03-22", "d1": "2027-03-28", "module": "Power Automate", "type": "Labo", "title": "Connecteur personnalisé (API externe)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 174, "week": 35, "d0": "2027-03-22", "d1": "2027-03-28", "module": "Power Automate", "type": "Labo", "title": "Automatisation de collecte de données (formulaires)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 175, "week": 35, "d0": "2027-03-22", "d1": "2027-03-28", "module": "Power Automate", "type": "Labo", "title": "Création d'une application Power Apps basique", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 176, "week": 36, "d0": "2027-03-29", "d1": "2027-04-04", "module": "Power Automate", "type": "Cours", "title": "Power Apps - Introduction", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 3}, {"id": 177, "week": 36, "d0": "2027-03-29", "d1": "2027-04-04", "module": "Power Automate", "type": "TP", "title": "Application Power Apps simple", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 4}, {"id": 178, "week": 36, "d0": "2027-03-29", "d1": "2027-04-04", "module": "Power Automate", "type": "Labo", "title": "Intégration Power Apps + Power Automate", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 179, "week": 36, "d0": "2027-03-29", "d1": "2027-04-04", "module": "Power Automate", "type": "Labo", "title": "Gestion des erreurs dans un flux", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 180, "week": 36, "d0": "2027-03-29", "d1": "2027-04-04", "module": "Power Automate", "type": "Labo", "title": "Mini-projet : automatisation d'un processus métier", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate", "hoursPlanned": 2}, {"id": 181, "week": 37, "d0": "2027-04-05", "d1": "2027-04-11", "module": "Cybersécurité", "type": "Cours", "title": "Fondamentaux cybersécurité (CIA, menaces)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 3}, {"id": 182, "week": 37, "d0": "2027-04-05", "d1": "2027-04-11", "module": "Cybersécurité", "type": "TP", "title": "Analyse de vulnérabilités de base", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 4}, {"id": 183, "week": 37, "d0": "2027-04-05", "d1": "2027-04-11", "module": "Cybersécurité", "type": "Labo", "title": "Analyse de vulnérabilités avec un scanner", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 184, "week": 37, "d0": "2027-04-05", "d1": "2027-04-11", "module": "Cybersécurité", "type": "Labo", "title": "Configuration d'un pare-feu Windows avancé", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 185, "week": 37, "d0": "2027-04-05", "d1": "2027-04-11", "module": "Cybersécurité", "type": "Labo", "title": "Mise en place d'un IDS/IPS (Snort/Suricata)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 186, "week": 38, "d0": "2027-04-12", "d1": "2027-04-18", "module": "Cybersécurité", "type": "Cours", "title": "Sécurité réseau et périmétrique (IDS/IPS)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 3}, {"id": 187, "week": 38, "d0": "2027-04-12", "d1": "2027-04-18", "module": "Cybersécurité", "type": "TP", "title": "Configuration d'un pare-feu et règles de sécurité", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 4}, {"id": 188, "week": 38, "d0": "2027-04-12", "d1": "2027-04-18", "module": "Cybersécurité", "type": "Labo", "title": "Durcissement d'un système (CIS Benchmarks)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 189, "week": 38, "d0": "2027-04-12", "d1": "2027-04-18", "module": "Cybersécurité", "type": "Labo", "title": "Simulation de phishing et sensibilisation", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 190, "week": 38, "d0": "2027-04-12", "d1": "2027-04-18", "module": "Cybersécurité", "type": "Labo", "title": "Configuration de l'authentification multifacteur", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 191, "week": 39, "d0": "2027-04-19", "d1": "2027-04-25", "module": "Cybersécurité", "type": "Cours", "title": "Gestion des identités et des accès (Zero Trust)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 3}, {"id": 192, "week": 39, "d0": "2027-04-19", "d1": "2027-04-25", "module": "Cybersécurité", "type": "TP", "title": "Mise en place de politiques Zero Trust", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 4}, {"id": 193, "week": 39, "d0": "2027-04-19", "d1": "2027-04-25", "module": "Cybersécurité", "type": "Labo", "title": "Analyse de logs de sécurité (SIEM basique)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 194, "week": 39, "d0": "2027-04-19", "d1": "2027-04-25", "module": "Cybersécurité", "type": "Labo", "title": "Gestion des accès privilégiés (PIM/PAM)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 195, "week": 39, "d0": "2027-04-19", "d1": "2027-04-25", "module": "Cybersécurité", "type": "Labo", "title": "Chiffrement de données (BitLocker/VPN)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 196, "week": 40, "d0": "2027-04-26", "d1": "2027-05-02", "module": "Cybersécurité", "type": "Cours", "title": "Réponse aux incidents (prépa SC-900)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 3}, {"id": 197, "week": 40, "d0": "2027-04-26", "d1": "2027-05-02", "module": "Cybersécurité", "type": "TP", "title": "Simulation de réponse à un incident", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals", "hoursPlanned": 4}, {"id": 198, "week": 40, "d0": "2027-04-26", "d1": "2027-05-02", "module": "Cybersécurité", "type": "Labo", "title": "Analyse de malware en environnement isolé", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 199, "week": 40, "d0": "2027-04-26", "d1": "2027-05-02", "module": "Cybersécurité", "type": "Labo", "title": "Plan de réponse à un incident de sécurité", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 200, "week": 40, "d0": "2027-04-26", "d1": "2027-05-02", "module": "Cybersécurité", "type": "Labo", "title": "Audit de conformité (ISO 27001/NIST)", "link": "https://skillsforall.com/catalog", "hoursPlanned": 2}, {"id": 201, "week": 41, "d0": "2027-05-03", "d1": "2027-05-09", "module": "IA & Copilot", "type": "Cours", "title": "Fondamentaux de l'IA et du Machine Learning", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 3}, {"id": 202, "week": 41, "d0": "2027-05-03", "d1": "2027-05-09", "module": "IA & Copilot", "type": "TP", "title": "Découverte des outils IA (Copilot, Claude)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 4}, {"id": 203, "week": 41, "d0": "2027-05-03", "d1": "2027-05-09", "module": "IA & Copilot", "type": "Labo", "title": "Prise en main de Microsoft Copilot (M365)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 204, "week": 41, "d0": "2027-05-03", "d1": "2027-05-09", "module": "IA & Copilot", "type": "Labo", "title": "Création d'un agent conversationnel (Copilot Studio)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 205, "week": 41, "d0": "2027-05-03", "d1": "2027-05-09", "module": "IA & Copilot", "type": "Labo", "title": "Automatisation de rapports avec l'IA générative", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 206, "week": 42, "d0": "2027-05-10", "d1": "2027-05-16", "module": "IA & Copilot", "type": "Cours", "title": "Microsoft Copilot (M365 Copilot, Copilot Studio)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 3}, {"id": 207, "week": 42, "d0": "2027-05-10", "d1": "2027-05-16", "module": "IA & Copilot", "type": "TP", "title": "Création d'un agent Copilot Studio", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 4}, {"id": 208, "week": 42, "d0": "2027-05-10", "d1": "2027-05-16", "module": "IA & Copilot", "type": "Labo", "title": "Utilisation de l'IA pour la génération de scripts", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 209, "week": 42, "d0": "2027-05-10", "d1": "2027-05-16", "module": "IA & Copilot", "type": "Labo", "title": "Analyse de données assistée par IA", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 210, "week": 42, "d0": "2027-05-10", "d1": "2027-05-16", "module": "IA & Copilot", "type": "Labo", "title": "Intégration Copilot + Power Automate", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 211, "week": 43, "d0": "2027-05-17", "d1": "2027-05-23", "module": "IA & Copilot", "type": "Cours", "title": "IA générative appliquée à l'IT", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 3}, {"id": 212, "week": 43, "d0": "2027-05-17", "d1": "2027-05-23", "module": "IA & Copilot", "type": "TP", "title": "Automatisation de tâches IT avec l'IA", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 4}, {"id": 213, "week": 43, "d0": "2027-05-17", "d1": "2027-05-23", "module": "IA & Copilot", "type": "Labo", "title": "Prompt engineering pour cas d'usage IT", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 214, "week": 43, "d0": "2027-05-17", "d1": "2027-05-23", "module": "IA & Copilot", "type": "Labo", "title": "Détection d'anomalies avec l'IA (concepts)", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 215, "week": 43, "d0": "2027-05-17", "d1": "2027-05-23", "module": "IA & Copilot", "type": "Labo", "title": "Chatbot de support IT basique", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 216, "week": 44, "d0": "2027-05-24", "d1": "2027-05-30", "module": "IA & Copilot", "type": "Cours", "title": "Éthique, gouvernance et sécurité de l'IA", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 3}, {"id": 217, "week": 44, "d0": "2027-05-24", "d1": "2027-05-30", "module": "IA & Copilot", "type": "TP", "title": "Étude de cas : gouvernance IA en entreprise", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 4}, {"id": 218, "week": 44, "d0": "2027-05-24", "d1": "2027-05-30", "module": "IA & Copilot", "type": "Labo", "title": "Évaluation des risques liés à l'IA générative", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 219, "week": 44, "d0": "2027-05-24", "d1": "2027-05-30", "module": "IA & Copilot", "type": "Labo", "title": "Étude de cas : gouvernance des données et IA", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 220, "week": 44, "d0": "2027-05-24", "d1": "2027-05-30", "module": "IA & Copilot", "type": "Labo", "title": "Mini-projet : assistant IA pour tâches admin.", "link": "https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot", "hoursPlanned": 2}, {"id": 221, "week": 45, "d0": "2027-05-31", "d1": "2027-06-06", "module": "Projet Final", "type": "Jalon", "title": "Cadrage du projet final (cahier des charges)", "link": "", "hoursPlanned": 15}, {"id": 222, "week": 46, "d0": "2027-06-07", "d1": "2027-06-13", "module": "Projet Final", "type": "Jalon", "title": "Conception de l'architecture (réseau, cloud, sécurité)", "link": "", "hoursPlanned": 15}, {"id": 223, "week": 47, "d0": "2027-06-14", "d1": "2027-06-20", "module": "Projet Final", "type": "Jalon", "title": "Implémentation - Infrastructure de base", "link": "", "hoursPlanned": 15}, {"id": 224, "week": 48, "d0": "2027-06-21", "d1": "2027-06-27", "module": "Projet Final", "type": "Jalon", "title": "Implémentation - Automatisation et intégration IA", "link": "", "hoursPlanned": 15}, {"id": 225, "week": 49, "d0": "2027-06-28", "d1": "2027-07-04", "module": "Projet Final", "type": "Jalon", "title": "Tests, sécurisation et documentation", "link": "", "hoursPlanned": 15}, {"id": 226, "week": 50, "d0": "2027-07-05", "d1": "2027-07-11", "module": "Projet Final", "type": "Jalon", "title": "Présentation finale et démonstration", "link": "", "hoursPlanned": 15}, {"id": 227, "week": 51, "d0": "2027-07-12", "d1": "2027-07-18", "module": "Certifications", "type": "Certification", "title": "Révision intensive SC-900 / AZ-104 / MS-102 + examens blancs", "link": "", "hoursPlanned": 20}, {"id": 228, "week": 52, "d0": "2027-07-19", "d1": "2027-07-25", "module": "Certifications", "type": "Certification", "title": "Passage des examens de certification et bilan annuel", "link": "", "hoursPlanned": 20}], "modules": [{"name": "Réseaux", "startWeek": 1, "endWeek": 4, "start": "2026-07-27", "end": "2026-08-23", "color": "#5B7FA6"}, {"name": "Windows Server", "startWeek": 5, "endWeek": 8, "start": "2026-08-24", "end": "2026-09-20", "color": "#5B7FA6"}, {"name": "Linux", "startWeek": 9, "endWeek": 12, "start": "2026-09-21", "end": "2026-10-18", "color": "#5B7FA6"}, {"name": "Virtualisation", "startWeek": 13, "endWeek": 16, "start": "2026-10-19", "end": "2026-11-15", "color": "#5B7FA6"}, {"name": "Microsoft 365", "startWeek": 17, "endWeek": 20, "start": "2026-11-16", "end": "2026-12-13", "color": "#5B7FA6"}, {"name": "Azure", "startWeek": 21, "endWeek": 24, "start": "2026-12-14", "end": "2027-01-10", "color": "#5B7FA6"}, {"name": "PowerShell", "startWeek": 25, "endWeek": 28, "start": "2027-01-11", "end": "2027-02-07", "color": "#5B7FA6"}, {"name": "Python", "startWeek": 29, "endWeek": 32, "start": "2027-02-08", "end": "2027-03-07", "color": "#5B7FA6"}, {"name": "Power Automate", "startWeek": 33, "endWeek": 36, "start": "2027-03-08", "end": "2027-04-04", "color": "#5B7FA6"}, {"name": "Cybersécurité", "startWeek": 37, "endWeek": 40, "start": "2027-04-05", "end": "2027-05-02", "color": "#5B7FA6"}, {"name": "IA & Copilot", "startWeek": 41, "endWeek": 44, "start": "2027-05-03", "end": "2027-05-30", "color": "#5B7FA6"}, {"name": "Projet Final", "startWeek": 45, "endWeek": 50, "start": "2027-05-31", "end": "2027-07-11", "color": "#8A6A9A"}, {"name": "Certifications", "startWeek": 51, "endWeek": 52, "start": "2027-07-12", "end": "2027-07-25", "color": "#B98900"}], "certifications": [{"code": "SC-900", "name": "Microsoft Security, Compliance, and Identity Fundamentals", "module": "Cybersécurité", "targetDate": "2027-07-20", "link": "https://learn.microsoft.com/fr-fr/credentials/certifications/security-compliance-and-identity-fundamentals/"}, {"code": "AZ-104", "name": "Microsoft Azure Administrator", "module": "Azure", "targetDate": "2027-07-22", "link": "https://learn.microsoft.com/fr-fr/credentials/certifications/azure-administrator/"}, {"code": "MS-102", "name": "Microsoft 365 Administrator", "module": "Microsoft 365", "targetDate": "2027-07-24", "link": "https://learn.microsoft.com/fr-fr/credentials/certifications/m365-administrator-associate/"}], "portfolioSuggestions": {"Réseaux": "Maquette réseau d'entreprise (VLAN + routage + Wi-Fi sécurisé)", "Windows Server": "Infrastructure AD complète (domaine + GPO + DFS)", "Linux": "Serveur web Linux sécurisé et automatisé (Bash + cron)", "Virtualisation": "Cluster de virtualisation avec conteneurs Docker", "Microsoft 365": "Déploiement complet d'un tenant M365 pour PME", "Azure": "Architecture cloud Azure (VNet + VM + gouvernance)", "PowerShell": "Suite de scripts d'automatisation IT", "Python": "Outil Python d'automatisation et de reporting IT", "Power Automate": "Automatisation d'un processus métier de bout en bout", "Cybersécurité": "Plan de sécurisation et de réponse aux incidents", "IA & Copilot": "Assistant IA pour tâches administratives", "Projet Final": "Projet intégrateur — infrastructure IT complète Takit"}}</script>
+<script>
+/* ===================== DATA ===================== */
+var DATA = JSON.parse(document.getElementById('app-data').textContent);
+var STORAGE_KEY = 'tnp_state_v1';
+
+/* ===================== ICONS ===================== */
+var ICONS = {
+  dashboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
+  planning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><line x1="3" y1="9.5" x2="21" y2="9.5"/><line x1="8" y1="2.5" x2="8" y2="6.5"/><line x1="16" y1="2.5" x2="16" y2="6.5"/><line x1="7" y1="13.5" x2="11" y2="13.5"/><line x1="7" y1="17" x2="15" y2="17"/></svg>',
+  activities: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>',
+  certifications: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg>',
+  journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h11a1.5 1.5 0 011.5 1.5v15L15 18l-3.5 2-3.5-2-3.5 2V5A1.5 1.5 0 016 3.5z"/><line x1="8" y1="8" x2="15" y2="8"/><line x1="8" y1="11.5" x2="15" y2="11.5"/></svg>',
+  evaluation: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="21" x2="5" y2="10.5"/><line x1="12" y1="21" x2="12" y2="5"/><line x1="19" y1="21" x2="19" y2="14"/><line x1="3" y1="21" x2="21" y2="21"/></svg>',
+  portfolio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M8 7.5V6a2 2 0 012-2h4a2 2 0 012 2v1.5"/><line x1="3" y1="12.5" x2="21" y2="12.5"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg>',
+  chev: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>',
+  star: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5.9 21.1l1.4-6.8L2.2 9.6l6.9-.8z"/></svg>',
+  download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg>',
+  upload: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V7"/><polyline points="7 12 12 7 17 12"/><line x1="4" y1="4" x2="20" y2="4"/></svg>',
+  empty: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7.5"/><line x1="16.5" y1="16.5" x2="21.5" y2="21.5"/></svg>'
+};
+
+var TABS = [
+  {id:'dashboard', label:'Bord', full:'Tableau de bord', icon:'dashboard'},
+  {id:'planning', label:'Plan', full:'Planning', icon:'planning'},
+  {id:'activities', label:'Activités', full:'Activités', icon:'activities'},
+  {id:'certifications', label:'Certifs', full:'Certifications', icon:'certifications'},
+  {id:'journal', label:'Journal', full:'Journal de bord', icon:'journal'},
+  {id:'evaluation', label:'Notes', full:'Évaluation', icon:'evaluation'},
+  {id:'portfolio', label:'Vitrine', full:'Portfolio', icon:'portfolio'}
+];
+
+var STATUS_ORDER = ['À faire', 'En cours', 'Terminé'];
+var STATUS_CLASS = {'À faire':'st-todo', 'En cours':'st-progress', 'Terminé':'st-done'};
+var TYPE_LABEL = {'Cours':'Cours','TP':'TP','Labo':'Labo','Jalon':'Jalon','Certification':'Certif'};
+
+/* ===================== STATE ===================== */
+function defaultState(){
+  return { activities:{}, journal:{}, evaluation:{}, portfolio:{}, certifications:{} };
+}
+var state = loadState();
+function loadState(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    var parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed);
+  }catch(e){ return defaultState(); }
+}
+var saveTimer = null;
+function saveState(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+  }, 120);
+}
+function actState(id){
+  if(!state.activities[id]) state.activities[id] = {status:'À faire', hoursActual:0};
+  return state.activities[id];
+}
+function journalState(week){
+  if(!state.journal[week]) state.journal[week] = {faits:'',difficultes:'',objectifs:'',motivation:0,notion1:'',notion2:'',notion3:'',question:''};
+  return state.journal[week];
+}
+function evalState(mod){
+  if(!state.evaluation[mod]) state.evaluation[mod] = {theorie:0,pratique:0,projet:0,examen:0,comment:''};
+  return state.evaluation[mod];
+}
+function portfolioState(mod){
+  if(!state.portfolio[mod]) state.portfolio[mod] = {desc:'',tech:'',link:'',date:'',status:'Idée'};
+  return state.portfolio[mod];
+}
+function certState(code){
+  if(!state.certifications[code]) state.certifications[code] = {status:'Non commencé', score:0, targetDate:null, notes:''};
+  return state.certifications[code];
+}
+
+/* ===================== HELPERS ===================== */
+function fmtDate(iso){
+  var d = new Date(iso+'T00:00:00');
+  return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit'});
+}
+function fmtDateFull(iso){
+  var d = new Date(iso+'T00:00:00');
+  return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});
+}
+function todayISO(){
+  var d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function currentWeekNumber(){
+  var start = new Date(DATA.projectStart+'T00:00:00');
+  var now = new Date();
+  var diff = Math.floor((now - start) / (1000*60*60*24*7)) + 1;
+  if(diff < 1) return 1;
+  if(diff > DATA.totalWeeks) return DATA.totalWeeks;
+  return diff;
+}
+function escapeHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function nextStatus(s){
+  var i = STATUS_ORDER.indexOf(s);
+  return STATUS_ORDER[(i+1) % STATUS_ORDER.length];
+}
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+/* ===================== STATS ===================== */
+function activityById(id){ return DATA.activities.find(function(a){return a.id===id;}); }
+function activitiesForModule(mod){ return DATA.activities.filter(function(a){return a.module===mod;}); }
+
+function computeModuleStats(mod){
+  var acts = activitiesForModule(mod);
+  var total = acts.length, done = 0, hoursPlanned = 0, hoursActual = 0;
+  acts.forEach(function(a){
+    var s = actState(a.id);
+    hoursPlanned += a.hoursPlanned;
+    hoursActual += Number(s.hoursActual)||0;
+    if(s.status === 'Terminé') done++;
+  });
+  return {total:total, done:done, pct: total? done/total : 0, hoursPlanned:hoursPlanned, hoursActual:hoursActual};
+}
+function computeGlobalStats(){
+  var total = DATA.activities.length, done = 0, inProgress = 0, hoursPlanned=0, hoursActual=0, late=0;
+  var today = todayISO();
+  DATA.activities.forEach(function(a){
+    var s = actState(a.id);
+    hoursPlanned += a.hoursPlanned;
+    hoursActual += Number(s.hoursActual)||0;
+    if(s.status==='Terminé') done++;
+    else if(s.status==='En cours') inProgress++;
+    if(s.status!=='Terminé' && a.d1 < today) late++;
+  });
+  var modulesDone = DATA.modules.filter(function(m){ return computeModuleStats(m.name).pct===1; }).length;
+  return {total:total, done:done, inProgress:inProgress, todo: total-done-inProgress,
+    pct: total? done/total : 0, hoursPlanned:hoursPlanned, hoursActual:hoursActual,
+    late:late, modulesDone:modulesDone, modulesTotal:DATA.modules.length};
+}
+function moduleStatusLabel(mod){
+  var st = computeModuleStats(mod.name);
+  var today = todayISO();
+  if(st.pct===1) return {label:'Terminé', cls:'st-done'};
+  if(today < mod.start) return {label:'À venir', cls:'st-todo'};
+  if(today > mod.end && st.pct<1) return {label:'En retard', cls:'st-todo'};
+  return {label:'En cours', cls:'st-progress'};
+}
+
+/* ===================== NAV / ROUTER ===================== */
+var currentTab = 'dashboard';
+function navIconSvg(name){ return ICONS[name] || ''; }
+
+function renderNav(){
+  var navList = document.getElementById('navList');
+  var bottomNav = document.getElementById('bottomNav');
+  navList.innerHTML = TABS.map(function(t){
+    return '<li><button class="nav-item'+(t.id===currentTab?' active':'')+'" data-tab="'+t.id+'">'+navIconSvg(t.icon)+'<span>'+t.full+'</span></button></li>';
+  }).join('');
+  bottomNav.innerHTML = TABS.map(function(t){
+    return '<button class="nav-item'+(t.id===currentTab?' active':'')+'" data-tab="'+t.id+'">'+navIconSvg(t.icon)+'<span>'+t.label+'</span></button>';
+  }).join('');
+}
+
+function switchTab(tab){
+  currentTab = tab;
+  location.hash = tab;
+  renderNav();
+  window.scrollTo(0,0);
+  render();
+}
+
+function render(){
+  var main = document.getElementById('main');
+  if(currentTab==='dashboard') main.innerHTML = renderDashboard();
+  else if(currentTab==='planning') main.innerHTML = renderPlanning();
+  else if(currentTab==='activities') main.innerHTML = renderActivities();
+  else if(currentTab==='certifications') main.innerHTML = renderCertifications();
+  else if(currentTab==='journal') main.innerHTML = renderJournal();
+  else if(currentTab==='evaluation') main.innerHTML = renderEvaluation();
+  else if(currentTab==='portfolio') main.innerHTML = renderPortfolio();
+  attachTabHandlers();
+}
+
+/* ===================== DASHBOARD ===================== */
+function renderDashboard(){
+  var g = computeGlobalStats();
+  var wk = currentWeekNumber();
+  var circ = 2*Math.PI*44;
+  var offset = circ * (1-g.pct);
+
+  var ringSvg = '<svg width="104" height="104" viewBox="0 0 104 104">'+
+    '<circle cx="52" cy="52" r="44" fill="none" stroke="var(--border-soft)" stroke-width="10"/>'+
+    '<circle cx="52" cy="52" r="44" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" '+
+    'stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'"/></svg>';
+
+  var strip = DATA.modules.map(function(m){
+    var ticks='';
+    for(var w=m.startWeek; w<=m.endWeek; w++){
+      var cls = w < wk ? 'done' : (w===wk ? 'now' : '');
+      ticks += '<div class="tick '+cls+'"></div>';
+    }
+    return '<div class="strip-mod"><div class="lbl">'+escapeHtml(m.name)+'</div><div class="strip-ticks">'+ticks+'</div></div>';
+  }).join('');
+
+  var kpis = [
+    {label:'Avancement', val: Math.round(g.pct*100)+'%', cls:'accent'},
+    {label:'Heures étudiées', val: g.hoursActual+' h', cls:''},
+    {label:'Heures prévues', val: g.hoursPlanned+' h', cls:''},
+    {label:'Modules finis', val: g.modulesDone+' / '+g.modulesTotal, cls:''},
+    {label:'En retard', val: g.late, cls: g.late>0?'warn':''}
+  ];
+  var kpiHtml = kpis.map(function(k){
+    return '<div class="kpi"><div class="kpi-label">'+k.label+'</div><div class="kpi-val '+k.cls+'">'+k.val+'</div></div>';
+  }).join('');
+
+  var modRows = DATA.modules.map(function(m){
+    var st = computeModuleStats(m.name);
+    var lab = moduleStatusLabel(m);
+    return '<div class="act-row">'+
+      '<div class="act-main">'+
+        '<p class="act-title">'+escapeHtml(m.name)+'</p>'+
+        '<div class="pbar" style="margin-top:5px;"><i style="width:'+Math.round(st.pct*100)+'%"></i></div>'+
+      '</div>'+
+      '<div class="act-actions">'+
+        '<span class="mono" style="font-size:11px;color:var(--ink-faint);">'+Math.round(st.pct*100)+'%</span>'+
+        '<span class="pill '+lab.cls+'"><span class="dot"></span>'+lab.label+'</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  var maxHours = Math.max.apply(null, DATA.modules.map(function(m){return computeModuleStats(m.name).hoursPlanned;}).concat([1]));
+  var barChart = DATA.modules.map(function(m){
+    var st = computeModuleStats(m.name);
+    var pctPlanned = Math.round(st.hoursPlanned/maxHours*100);
+    return '<div class="brow"><div class="blbl">'+escapeHtml(m.name)+'</div>'+
+      '<div class="btrack"><div class="bfill" style="width:'+pctPlanned+'%"></div></div>'+
+      '<div class="bval">'+st.hoursActual+'/'+st.hoursPlanned+'</div></div>';
+  }).join('');
+
+  var donutSeg = donutSvg(g.done, g.inProgress, g.todo);
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">Semaine '+wk+' · '+fmtDateFull(todayISO())+'</p>'+
+    '<h1 class="page-title">Tableau de bord</h1>'+
+    '<p class="page-sub">Infrastructure, cloud, automatisation &amp; IA — parcours 12 mois</p>'+
+  '</div>'+
+  '<div class="kpi-row">'+kpiHtml+'</div>'+
+  '<div class="card hero-card" style="margin-bottom:16px;">'+
+    '<div class="ring-wrap">'+ringSvg+'<div class="ring-label"><div class="pct">'+Math.round(g.pct*100)+'%</div><div class="wk">complété</div></div></div>'+
+    '<div class="hero-info"><h2>Année de transformation</h2><p>'+g.done+' activités terminées sur '+g.total+' · '+fmtDateFull(DATA.projectStart)+' → 25/07/2027</p></div>'+
+  '</div>'+
+  '<div class="card" style="margin-bottom:16px;"><div class="strip">'+strip+'</div></div>'+
+  '<div class="card card-pad" style="margin-bottom:16px;">'+
+    '<h3 class="section-title">État des modules</h3>'+modRows+
+  '</div>'+
+  '<div class="charts-row">'+
+    '<div class="card card-pad"><h3 class="section-title">Heures par module</h3><div class="bar-chart">'+barChart+'</div></div>'+
+    '<div class="card card-pad"><h3 class="section-title">Répartition des activités</h3>'+
+      '<div class="donut-wrap">'+donutSeg+
+      '<div class="legend-list">'+
+        '<div class="legend-item"><span class="sw" style="background:var(--done)"></span>Terminé ('+g.done+')</div>'+
+        '<div class="legend-item"><span class="sw" style="background:var(--progress)"></span>En cours ('+g.inProgress+')</div>'+
+        '<div class="legend-item"><span class="sw" style="background:var(--border)"></span>À faire ('+g.todo+')</div>'+
+      '</div></div>'+
+    '</div>'+
+  '</div>';
+}
+
+function donutSvg(done, inProgress, todo){
+  var total = done+inProgress+todo || 1;
+  var r = 40, circ = 2*Math.PI*r;
+  var dDone = circ*done/total, dProg = circ*inProgress/total, dTodo = circ*todo/total;
+  var offDone = 0, offProg = -dDone, offTodo = -(dDone+dProg);
+  return '<svg width="100" height="100" viewBox="0 0 100 100">'+
+    '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--border-soft)" stroke-width="14"/>'+
+    '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--border)" stroke-width="14" stroke-dasharray="'+dTodo+' '+circ+'" stroke-dashoffset="'+offTodo+'" transform="rotate(-90 50 50)"/>'+
+    '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--progress)" stroke-width="14" stroke-dasharray="'+dProg+' '+circ+'" stroke-dashoffset="'+offProg+'" transform="rotate(-90 50 50)"/>'+
+    '<circle cx="50" cy="50" r="'+r+'" fill="none" stroke="var(--done)" stroke-width="14" stroke-dasharray="'+dDone+' '+circ+'" stroke-dashoffset="'+offDone+'" transform="rotate(-90 50 50)"/>'+
+  '</svg>';
+}
+
+/* ===================== PLANNING ===================== */
+function renderPlanning(){
+  var wk = currentWeekNumber();
+  var overview = DATA.modules.map(function(m){
+    var ticks='';
+    for(var w=m.startWeek; w<=m.endWeek; w++){
+      var cls = w < wk ? 'done' : (w===wk ? 'now' : '');
+      ticks += '<div class="tick '+cls+'" title="Semaine '+w+'"></div>';
+    }
+    return '<div class="strip-mod"><div class="lbl">'+escapeHtml(m.name)+'</div><div class="strip-ticks">'+ticks+'</div></div>';
+  }).join('');
+
+  var modCards = DATA.modules.map(function(m){
+    var st = computeModuleStats(m.name);
+    var lab = moduleStatusLabel(m);
+    var segs = '';
+    for(var w=m.startWeek; w<=m.endWeek; w++){
+      var cls = w < wk ? 'done' : (w===wk ? 'now' : '');
+      segs += '<div class="wk-seg '+cls+'">S'+w+'</div>';
+    }
+    return '<div class="card mod-card">'+
+      '<div class="mod-top">'+
+        '<div><h3>'+escapeHtml(m.name)+'</h3><div class="mod-dates">'+fmtDate(m.start)+' → '+fmtDate(m.end)+' · S'+m.startWeek+'–S'+m.endWeek+'</div></div>'+
+        '<span class="pill '+lab.cls+'"><span class="dot"></span>'+lab.label+'</span>'+
+      '</div>'+
+      '<div class="pbar"><i style="width:'+Math.round(st.pct*100)+'%"></i></div>'+
+      '<div class="mod-weeks">'+segs+'</div>'+
+      '<div style="margin-top:8px;font-size:11.5px;color:var(--ink-faint);" class="mono">'+st.done+'/'+st.total+' activités · '+st.hoursActual+'/'+st.hoursPlanned+' h</div>'+
+    '</div>';
+  }).join('');
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">Vue d\'ensemble</p>'+
+    '<h1 class="page-title">Planning — 52 semaines</h1>'+
+    '<p class="page-sub">27 juillet 2026 → 25 juillet 2027</p>'+
+  '</div>'+
+  '<div class="card" style="margin-bottom:18px;"><div class="strip">'+overview+'</div></div>'+
+  modCards;
+}
+
+/* ===================== ACTIVITIES ===================== */
+var actFilter = {type:'Tous', module:'Tous', q:'', hideDone:false};
+
+function renderActivities(){
+  var types = ['Tous','Cours','TP','Labo','Jalon','Certification'];
+  var modules = ['Tous'].concat(DATA.modules.map(function(m){return m.name;}));
+
+  var list = DATA.activities.filter(function(a){
+    if(actFilter.type!=='Tous' && a.type!==actFilter.type) return false;
+    if(actFilter.module!=='Tous' && a.module!==actFilter.module) return false;
+    if(actFilter.q && a.title.toLowerCase().indexOf(actFilter.q.toLowerCase())===-1) return false;
+    if(actFilter.hideDone && actState(a.id).status==='Terminé') return false;
+    return true;
+  });
+
+  var byWeek = {};
+  list.forEach(function(a){
+    if(!byWeek[a.week]) byWeek[a.week]=[];
+    byWeek[a.week].push(a);
+  });
+  var weeks = Object.keys(byWeek).map(Number).sort(function(a,b){return a-b;});
+
+  var groupsHtml = weeks.map(function(w){
+    var items = byWeek[w];
+    var modName = items[0].module;
+    var rows = items.map(function(a){
+      var s = actState(a.id);
+      var cls = STATUS_CLASS[s.status];
+      var linkBtn = a.link ? '<a class="link-btn" href="'+a.link+'" target="_blank" rel="noopener">'+ICONS.link+'</a>' : '';
+      return '<div class="act-row" data-actrow="'+a.id+'">'+
+        '<div class="act-main">'+
+          '<p class="act-title">'+escapeHtml(a.title)+'</p>'+
+          '<div class="act-meta"><span class="type-tag">'+TYPE_LABEL[a.type]+'</span><span>'+fmtDate(a.d0)+'–'+fmtDate(a.d1)+'</span></div>'+
+        '</div>'+
+        '<div class="act-actions">'+
+          '<input type="number" min="0" step="0.5" class="hrs-input" data-hours="'+a.id+'" value="'+(s.hoursActual||0)+'" title="Heures réelles">'+
+          linkBtn+
+          '<button class="pill '+cls+'" data-status="'+a.id+'"><span class="dot"></span>'+s.status+'</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+    return '<div class="week-group"><div class="week-head"><span class="wtag">S'+w+'</span><span class="wmod">'+escapeHtml(modName)+'</span></div><div class="card">'+rows+'</div></div>';
+  }).join('');
+
+  if(!weeks.length){
+    groupsHtml = '<div class="empty">'+ICONS.empty+'<p>Aucune activité ne correspond à ces filtres.</p></div>';
+  }
+
+  var typeChips = types.map(function(t){
+    return '<button class="chip'+(actFilter.type===t?' active':'')+'" data-filtertype="'+t+'">'+(t==='Tous'?'Tous types':TYPE_LABEL[t]||t)+'</button>';
+  }).join('');
+
+  var modOptions = modules.map(function(m){
+    return '<option value="'+escapeHtml(m)+'"'+(actFilter.module===m?' selected':'')+'>'+escapeHtml(m)+'</option>';
+  }).join('');
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">'+list.length+' activité'+(list.length>1?'s':'')+'</p>'+
+    '<h1 class="page-title">Activités</h1>'+
+    '<p class="page-sub">Cours, TP, laboratoires, jalons &amp; certifications — touche le statut pour le faire avancer.</p>'+
+  '</div>'+
+  '<div class="filter-bar">'+typeChips+'</div>'+
+  '<div class="search-row">'+
+    '<input type="text" id="actSearch" placeholder="Rechercher un titre..." value="'+escapeHtml(actFilter.q)+'">'+
+    '<select id="actModule" style="border-radius:var(--radius-sm);border:1px solid var(--border);padding:0 10px;font-size:12.5px;color:var(--ink-soft);background:var(--surface);">'+modOptions+'</select>'+
+    '<button class="toggle-btn'+(actFilter.hideDone?' active':'')+'" id="hideDoneBtn">Masquer terminé</button>'+
+  '</div>'+
+  groupsHtml;
+}
+
+/* ===================== CERTIFICATIONS ===================== */
+function renderCertifications(){
+  var cards = DATA.certifications.map(function(c){
+    var st = computeModuleStats(c.module);
+    var cs = certState(c.code);
+    var r=34, circ=2*Math.PI*r, off = circ*(1-st.pct);
+    var ring = '<svg width="76" height="76" viewBox="0 0 76 76">'+
+      '<circle cx="38" cy="38" r="'+r+'" fill="none" stroke="var(--border-soft)" stroke-width="8"/>'+
+      '<circle cx="38" cy="38" r="'+r+'" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+off+'" transform="rotate(-90 38 38)"/></svg>';
+    var statusOptions = ["Non commencé","En cours","Prêt pour l'examen","Certifié ✅"].map(function(o){
+      return '<option'+(cs.status===o?' selected':'')+'>'+o+'</option>';
+    }).join('');
+    return '<div class="card cert-card">'+
+      '<div class="cert-top">'+
+        '<div style="position:relative;width:76px;height:76px;flex-shrink:0;">'+ring+
+          '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;font-size:14px;">'+Math.round(st.pct*100)+'%</div></div>'+
+        '<div><div class="cert-code">'+c.code+'</div><div class="cert-name">'+escapeHtml(c.name)+'</div>'+
+          '<div style="font-size:11px;color:var(--ink-faint);margin-top:3px;">Module : '+escapeHtml(c.module)+'</div></div>'+
+      '</div>'+
+      '<div class="field-row"><label>Statut de préparation</label><select data-certfield="status" data-cert="'+c.code+'">'+statusOptions+'</select></div>'+
+      '<div class="field-row"><label>Date cible de l\'examen</label><input type="date" data-certfield="targetDate" data-cert="'+c.code+'" value="'+(cs.targetDate||c.targetDate)+'"></div>'+
+      '<div class="field-row"><label>Score examen blanc (%)</label><input type="number" min="0" max="100" data-certfield="score" data-cert="'+c.code+'" value="'+(cs.score||0)+'"></div>'+
+      '<div class="field-row"><label>Notes</label><textarea data-certfield="notes" data-cert="'+c.code+'" placeholder="Ressources, points à revoir...">'+escapeHtml(cs.notes)+'</textarea></div>'+
+      '<a href="'+c.link+'" target="_blank" rel="noopener" class="tool-btn" style="margin-top:10px;justify-content:center;">'+ICONS.link+' Fiche officielle Microsoft</a>'+
+    '</div>';
+  }).join('');
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">Objectif juillet 2027</p>'+
+    '<h1 class="page-title">Certifications</h1>'+
+    '<p class="page-sub">SC-900 · AZ-104 · MS-102</p>'+
+  '</div>'+
+  '<div class="grid-2">'+cards+'</div>';
+}
+
+/* ===================== JOURNAL ===================== */
+function renderJournal(){
+  var wk = currentWeekNumber();
+  var rows = [];
+  for(var w=1; w<=DATA.totalWeeks; w++){
+    var acts = DATA.activities.filter(function(a){return a.week===w;});
+    var mod = acts.length ? acts[0].module : '';
+    var hoursPlanned = acts.reduce(function(s,a){return s+a.hoursPlanned;},0);
+    var hoursActual = acts.reduce(function(s,a){return s+(Number(actState(a.id).hoursActual)||0);},0);
+    var j = journalState(w);
+    var d0 = acts.length? acts[0].d0 : null;
+    var d1 = acts.length? acts[0].d1 : null;
+    var isOpen = (w===wk);
+    var stars = '';
+    for(var i=1;i<=5;i++){
+      stars += '<span class="star'+(j.motivation>=i?' on':'')+'" data-star="'+i+'" data-starweek="'+w+'">'+ICONS.star+'</span>';
+    }
+    rows.push('<div class="jrow'+(isOpen?' open':'')+'" data-jrow="'+w+'">'+
+      '<button class="jrow-head" data-jtoggle="'+w+'">'+
+        '<span class="wnum">S'+w+'</span>'+
+        '<div class="jinfo"><div class="jdates">'+(d0?fmtDate(d0)+' – '+fmtDate(d1):'')+'</div><div class="jmod">'+escapeHtml(mod)+'</div></div>'+
+        '<span class="jhrs mono">'+hoursActual+'/'+hoursPlanned+' h</span>'+
+        '<span class="chev">'+ICONS.chev+'</span>'+
+      '</button>'+
+      '<div class="jrow-body">'+
+        '<div class="field-row"><label>Motivation de la semaine</label><div class="stars">'+stars+'</div></div>'+
+        '<div class="field-row"><label>Faits marquants</label><textarea data-jfield="faits" data-jweek="'+w+'">'+escapeHtml(j.faits)+'</textarea></div>'+
+        '<div class="field-row"><label>Difficultés rencontrées</label><textarea data-jfield="difficultes" data-jweek="'+w+'">'+escapeHtml(j.difficultes)+'</textarea></div>'+
+        '<div class="field-row"><label>Objectifs semaine suivante</label><textarea data-jfield="objectifs" data-jweek="'+w+'">'+escapeHtml(j.objectifs)+'</textarea></div>'+
+        '<div class="field-row"><label>Notion clé n°1</label><input type="text" data-jfield="notion1" data-jweek="'+w+'" value="'+escapeHtml(j.notion1)+'"></div>'+
+        '<div class="field-row"><label>Notion clé n°2</label><input type="text" data-jfield="notion2" data-jweek="'+w+'" value="'+escapeHtml(j.notion2)+'"></div>'+
+        '<div class="field-row"><label>Notion clé n°3</label><input type="text" data-jfield="notion3" data-jweek="'+w+'" value="'+escapeHtml(j.notion3)+'"></div>'+
+        '<div class="field-row"><label>Question de révision</label><input type="text" data-jfield="question" data-jweek="'+w+'" value="'+escapeHtml(j.question)+'"></div>'+
+      '</div>'+
+    '</div>');
+  }
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">52 semaines</p>'+
+    '<h1 class="page-title">Journal de bord</h1>'+
+    '<p class="page-sub">Une entrée par semaine — 5 minutes suffisent pour garder un suivi fiable.</p>'+
+  '</div>'+
+  '<div class="card card-pad">'+rows.join('')+'</div>';
+}
+
+/* ===================== ÉVALUATION ===================== */
+function renderEvaluation(){
+  var cards = DATA.modules.map(function(m){
+    var e = evalState(m.name);
+    var total = (Number(e.theorie)||0)+(Number(e.pratique)||0)+(Number(e.projet)||0)+(Number(e.examen)||0);
+    var mention, mCls;
+    if(total>=90){mention='Excellent 🌟'; mCls='st-done';}
+    else if(total>=75){mention='Très bien 👍'; mCls='st-done';}
+    else if(total>=60){mention='Satisfaisant'; mCls='st-progress';}
+    else {mention='À consolider'; mCls='st-todo';}
+    function field(key,label){
+      return '<div class="eval-field"><label>'+label+'</label><input type="number" min="0" max="25" data-evalfield="'+key+'" data-evalmod="'+escapeHtml(m.name)+'" value="'+(e[key]||0)+'"></div>';
+    }
+    return '<div class="card eval-card">'+
+      '<div class="eval-top"><h3 style="font-size:14px;margin:0;">'+escapeHtml(m.name)+'</h3>'+
+        '<div style="text-align:right;"><div class="eval-total">'+total+'<span style="font-size:12px;color:var(--ink-faint);">/100</span></div>'+
+        '<span class="pill '+mCls+'" style="margin-top:4px;">'+mention+'</span></div></div>'+
+      '<div class="eval-grid">'+
+        field('theorie','Théorie /25')+field('pratique','Pratique /25')+field('projet','Projet /25')+field('examen','Examen /25')+
+      '</div>'+
+      '<div class="field-row" style="margin-top:10px;"><label>Commentaire</label><textarea data-evalfield="comment" data-evalmod="'+escapeHtml(m.name)+'">'+escapeHtml(e.comment)+'</textarea></div>'+
+    '</div>';
+  }).join('');
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">Auto-évaluation</p>'+
+    '<h1 class="page-title">Évaluation</h1>'+
+    '<p class="page-sub">Note ta progression sur 100 à la fin de chaque module.</p>'+
+  '</div>'+
+  '<div class="grid-2">'+cards+'</div>';
+}
+
+/* ===================== PORTFOLIO ===================== */
+function renderPortfolio(){
+  var modules = DATA.modules.filter(function(m){return m.name!=='Certifications';});
+  var cards = modules.map(function(m){
+    var p = portfolioState(m.name);
+    var suggestion = DATA.portfolioSuggestions[m.name] || '';
+    var statusOptions = ['Idée','En cours','Terminé','Publié'].map(function(o){
+      return '<option'+(p.status===o?' selected':'')+'>'+o+'</option>';
+    }).join('');
+    return '<div class="card card-pad">'+
+      '<h3 style="font-size:14px;margin:0 0 3px;">'+escapeHtml(m.name)+'</h3>'+
+      '<p style="font-size:12px;color:var(--ink-faint);margin:0 0 10px;">'+escapeHtml(suggestion)+'</p>'+
+      '<div class="field-row"><label>Nom du projet</label><input type="text" data-pfield="desc" data-pmod="'+escapeHtml(m.name)+'" value="'+escapeHtml(p.desc)+'" placeholder="'+escapeHtml(suggestion)+'"></div>'+
+      '<div class="field-row"><label>Technologies</label><input type="text" data-pfield="tech" data-pmod="'+escapeHtml(m.name)+'" value="'+escapeHtml(p.tech)+'"></div>'+
+      '<div class="field-row"><label>Lien (GitHub / démo)</label><input type="text" data-pfield="link" data-pmod="'+escapeHtml(m.name)+'" value="'+escapeHtml(p.link)+'"></div>'+
+      '<div class="field-row"><label>Statut</label><select data-pfield="status" data-pmod="'+escapeHtml(m.name)+'">'+statusOptions+'</select></div>'+
+    '</div>';
+  }).join('');
+
+  return ''+
+  '<div class="page-head">'+
+    '<p class="page-eyebrow">Vitrine professionnelle</p>'+
+    '<h1 class="page-title">Portfolio</h1>'+
+    '<p class="page-sub">Un projet concret par module à présenter à clients ou employeurs.</p>'+
+  '</div>'+
+  '<div class="grid-2">'+cards+'</div>';
+}
+
+/* ===================== EVENT HANDLERS ===================== */
+function attachTabHandlers(){
+  var main = document.getElementById('main');
+
+  // Status pill cycling (Activities tab)
+  main.querySelectorAll('[data-status]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = Number(btn.getAttribute('data-status'));
+      var s = actState(id);
+      s.status = nextStatus(s.status);
+      if(s.status==='Terminé') s.completedDate = todayISO();
+      saveState();
+      btn.className = 'pill '+STATUS_CLASS[s.status];
+      btn.innerHTML = '<span class="dot"></span>'+s.status;
+    });
+  });
+
+  // Hours actual input (Activities tab)
+  main.querySelectorAll('[data-hours]').forEach(function(inp){
+    inp.addEventListener('change', function(){
+      var id = Number(inp.getAttribute('data-hours'));
+      var s = actState(id);
+      s.hoursActual = Number(inp.value)||0;
+      saveState();
+    });
+  });
+
+  // Filters (Activities tab)
+  main.querySelectorAll('[data-filtertype]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      actFilter.type = btn.getAttribute('data-filtertype');
+      render();
+    });
+  });
+  var searchInp = document.getElementById('actSearch');
+  if(searchInp){
+    searchInp.addEventListener('input', function(){
+      actFilter.q = searchInp.value;
+      clearTimeout(window._searchTimer);
+      window._searchTimer = setTimeout(render, 200);
+    });
+  }
+  var modSel = document.getElementById('actModule');
+  if(modSel){
+    modSel.addEventListener('change', function(){
+      actFilter.module = modSel.value;
+      render();
+    });
+  }
+  var hideDoneBtn = document.getElementById('hideDoneBtn');
+  if(hideDoneBtn){
+    hideDoneBtn.addEventListener('click', function(){
+      actFilter.hideDone = !actFilter.hideDone;
+      render();
+    });
+  }
+
+  // Certifications
+  main.querySelectorAll('[data-certfield]').forEach(function(el){
+    var ev = (el.tagName==='SELECT') ? 'change' : (el.type==='date'||el.type==='number' ? 'change' : 'input');
+    el.addEventListener(ev, function(){
+      var code = el.getAttribute('data-cert');
+      var field = el.getAttribute('data-certfield');
+      var cs = certState(code);
+      cs[field] = el.value;
+      saveState();
+    });
+  });
+
+  // Journal accordion toggle
+  main.querySelectorAll('[data-jtoggle]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = btn.closest('.jrow');
+      row.classList.toggle('open');
+    });
+  });
+  // Journal stars
+  main.querySelectorAll('[data-star]').forEach(function(star){
+    star.addEventListener('click', function(){
+      var w = star.getAttribute('data-starweek');
+      var val = Number(star.getAttribute('data-star'));
+      var j = journalState(w);
+      j.motivation = (j.motivation===val) ? 0 : val;
+      saveState();
+      var row = star.closest('.jrow-body');
+      row.querySelectorAll('[data-star]').forEach(function(s2){
+        s2.classList.toggle('on', Number(s2.getAttribute('data-star')) <= j.motivation);
+      });
+    });
+  });
+  // Journal text fields
+  main.querySelectorAll('[data-jfield]').forEach(function(el){
+    el.addEventListener('input', function(){
+      var w = el.getAttribute('data-jweek');
+      var field = el.getAttribute('data-jfield');
+      journalState(w)[field] = el.value;
+      saveState();
+    });
+  });
+
+  // Evaluation fields
+  main.querySelectorAll('[data-evalfield]').forEach(function(el){
+    var ev = el.tagName==='TEXTAREA' ? 'input' : 'change';
+    el.addEventListener(ev, function(){
+      var mod = el.getAttribute('data-evalmod');
+      var field = el.getAttribute('data-evalfield');
+      var e = evalState(mod);
+      e[field] = el.tagName==='TEXTAREA' ? el.value : (Number(el.value)||0);
+      saveState();
+      if(el.tagName!=='TEXTAREA') render();
+    });
+  });
+
+  // Portfolio fields
+  main.querySelectorAll('[data-pfield]').forEach(function(el){
+    var ev = el.tagName==='SELECT' ? 'change' : 'input';
+    el.addEventListener(ev, function(){
+      var mod = el.getAttribute('data-pmod');
+      var field = el.getAttribute('data-pfield');
+      portfolioState(mod)[field] = el.value;
+      saveState();
+    });
+  });
+}
+
+/* ===================== EXPORT / IMPORT ===================== */
+function exportData(){
+  var blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  var d = todayISO();
+  a.href = url;
+  a.download = 'transformation-numerique-progression-'+d+'.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Progression exportée');
+}
+function importData(file){
+  var reader = new FileReader();
+  reader.onload = function(){
+    try{
+      var parsed = JSON.parse(reader.result);
+      state = Object.assign(defaultState(), parsed);
+      saveState();
+      render();
+      showToast('Progression importée');
+    }catch(e){
+      showToast('Fichier invalide');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ===================== INIT ===================== */
+function init(){
+  document.getElementById('exportBtn').innerHTML = ICONS.download+' Exporter la progression';
+  document.getElementById('importBtn').innerHTML = ICONS.upload+' Importer une sauvegarde';
+  document.getElementById('exportBtn').addEventListener('click', exportData);
+  document.getElementById('importBtn').addEventListener('click', function(){
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change', function(e){
+    if(e.target.files[0]) importData(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  document.addEventListener('click', function(e){
+    var navBtn = e.target.closest('[data-tab]');
+    if(navBtn) switchTab(navBtn.getAttribute('data-tab'));
+  });
+
+  var hash = location.hash.replace('#','');
+  if(TABS.some(function(t){return t.id===hash;})) currentTab = hash;
+  renderNav();
+  render();
+}
+init();
+
+</script>
+</body>
+</html>

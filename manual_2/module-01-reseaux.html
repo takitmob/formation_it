@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 1 · Réseaux — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 1 — Réseaux</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s1" data-week-ids="1,2,3,4,5">Semaine 1 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s2" data-week-ids="6,7,8,9,10">Semaine 2 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s3" data-week-ids="11,12,13,14,15">Semaine 3 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s4" data-week-ids="16,17,18,19,20">Semaine 4 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 1 · Réseaux</div><div class="topbar-sub">Semaines 1–4</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 1 / 13</p>
+    <h1 class="week-title">Réseaux</h1>
+    <p class="week-dates">27 juillet 2026 → 23 août 2026 · Semaines 1–4 · 52 h prévues</p>
+
+    <p class="lead">Ce module pose les fondations de toute infrastructure IT : comment les machines communiquent, comment on découpe et adresse un réseau, quels équipements le composent, et quels protocoles le font fonctionner au quotidien. Tout ce que tu verras dans Windows Server, Azure ou la cybersécurité repose sur ces notions.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Expliquer et appliquer les modèles OSI et TCP/IP pour diagnostiquer un problème réseau</li>
+        <li>Calculer un plan d'adressage IPv4 (sous-réseaux, CIDR) et comprendre la structure IPv6</li>
+        <li>Configurer un switch et un routeur Cisco (VLAN, routage statique, inter-VLAN)</li>
+        <li>Déployer et dépanner les services DHCP et DNS</li>
+        <li>Mettre en place un pare-feu, un VPN site-à-site et sécuriser un réseau Wi-Fi</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Aucun prérequis technique. Tu auras besoin de <strong>Cisco Packet Tracer</strong> (gratuit via Cisco Skills for All) pour toutes les simulations, et idéalement d'un accès à une VM Windows ou Linux pour les services DHCP/DNS. Compte 13 heures par semaine en moyenne (cours + TP + 3 laboratoires).</p>
+
+    <!-- ============================================================ SEMAINE 1 ============================================================ -->
+    <div class="week-block" id="s1">
+      <p class="week-tag">SEMAINE 1 · 27/07 – 02/08/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux réseau — modèle OSI et TCP/IP</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Définir ce qu'est un réseau informatique et son vocabulaire de base</li>
+          <li>Décrire les 7 couches du modèle OSI et leur rôle respectif</li>
+          <li>Décrire les 4 couches du modèle TCP/IP et les relier au modèle OSI</li>
+          <li>Expliquer le principe d'encapsulation des données</li>
+          <li>Reconnaître les principales topologies réseau et leurs usages</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="1,2,3,4,5" data-tracker-week="s1">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="1" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux réseau (modèle OSI et TCP/IP)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="2" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Câblage et topologie réseau (Packet Tracer)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="3" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un switch Cisco (VLAN)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="4" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un routeur Cisco (routage statique)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="5" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Subnetting IPv4 avancé</div></div>
+      </div>
+
+
+      <h2 class="sec">1.1 — Qu'est-ce qu'un réseau informatique ?</h2>
+      <p>Un <strong>réseau informatique</strong> est un ensemble d'équipements (ordinateurs, serveurs, imprimantes, téléphones IP, objets connectés) reliés entre eux pour échanger des données. Cet échange repose toujours sur trois éléments : un <strong>support de transmission</strong> (câble cuivre, fibre optique, ondes radio), des <strong>règles de communication</strong> appelées protocoles, et des <strong>équipements d'interconnexion</strong> (switch, routeur, point d'accès).</p>
+
+      <div class="def">
+        <span class="def-term">Protocole</span>
+        <p>Ensemble de règles normalisées qui définissent comment deux systèmes formatent, transmettent et interprètent des données. Exemple : HTTP définit comment un navigateur demande une page web à un serveur.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Nœud (node)</span>
+        <p>Tout équipement connecté au réseau capable d'émettre, recevoir ou relayer des données (PC, serveur, switch, routeur, imprimante réseau...).</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Paquet / Trame</span>
+        <p>Unité de données transmise sur le réseau. On parle de <em>trame</em> au niveau liaison de données (couche 2) et de <em>paquet</em> au niveau réseau (couche 3) — la distinction devient claire avec le modèle OSI ci-dessous.</p>
+      </div>
+
+      <p>On classe généralement les réseaux par étendue géographique :</p>
+      <ul class="std">
+        <li><strong>PAN</strong> (Personal Area Network) — quelques mètres, ex. Bluetooth entre un téléphone et une montre</li>
+        <li><strong>LAN</strong> (Local Area Network) — un bâtiment ou un site, ex. le réseau d'un bureau</li>
+        <li><strong>MAN</strong> (Metropolitan Area Network) — une ville, ex. réseau reliant plusieurs campus universitaires</li>
+        <li><strong>WAN</strong> (Wide Area Network) — pays ou continent, ex. Internet lui-même, ou le réseau privé d'une multinationale</li>
+      </ul>
+
+    </div>
+    <div class="week-block" style="margin-top:-30px;">
+      <h2 class="sec">1.2 — Le modèle OSI (Open Systems Interconnection)</h2>
+      <p>Le modèle OSI découpe la communication réseau en <strong>7 couches</strong> indépendantes. Chaque couche rend un service précis à la couche du dessus et s'appuie sur la couche du dessous. C'est l'outil de référence pour diagnostiquer un problème réseau : on se demande toujours "à quelle couche ça casse ?".</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .osi-box{fill:#fff;stroke:#3D5A80;stroke-width:1.5;}
+            .osi-txt{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;fill:#2C4362;}
+            .osi-sub{font-family:-apple-system,sans-serif;font-size:10.5px;fill:#667085;}
+            .osi-num{font-family:'JetBrains Mono',monospace;font-size:11px;fill:#98A2B3;}
+          </style>
+          <!-- 7 layers stacked, top = 7 Application, bottom = 1 Physical -->
+          <g>
+            <rect class="osi-box" x="70" y="10" width="500" height="46" rx="8" style="fill:#E9EFF5"/>
+            <text class="osi-num" x="86" y="29">7</text>
+            <text class="osi-txt" x="110" y="30">Application</text>
+            <text class="osi-sub" x="110" y="45">Interface avec l'utilisateur — HTTP, DNS, SMTP, FTP</text>
+
+            <rect class="osi-box" x="70" y="60" width="500" height="46" rx="8" style="fill:#EFEBF5"/>
+            <text class="osi-num" x="86" y="79">6</text>
+            <text class="osi-txt" x="110" y="80">Présentation</text>
+            <text class="osi-sub" x="110" y="95">Formatage, chiffrement, compression — SSL/TLS, JPEG</text>
+
+            <rect class="osi-box" x="70" y="110" width="500" height="46" rx="8" style="fill:#E6F1F2"/>
+            <text class="osi-num" x="86" y="129">5</text>
+            <text class="osi-txt" x="110" y="130">Session</text>
+            <text class="osi-sub" x="110" y="145">Ouverture/maintien de la session de dialogue — NetBIOS, RPC</text>
+
+            <rect class="osi-box" x="70" y="160" width="500" height="46" rx="8" style="fill:#FBF1DA"/>
+            <text class="osi-num" x="86" y="179">4</text>
+            <text class="osi-txt" x="110" y="180">Transport</text>
+            <text class="osi-sub" x="110" y="195">Segments — fiabilité, ports — TCP (fiable) / UDP (rapide)</text>
+
+            <rect class="osi-box" x="70" y="210" width="500" height="46" rx="8" style="fill:#E7F3EC"/>
+            <text class="osi-num" x="86" y="229">3</text>
+            <text class="osi-txt" x="110" y="230">Réseau</text>
+            <text class="osi-sub" x="110" y="245">Paquets — adressage logique et routage — IP, ICMP</text>
+
+            <rect class="osi-box" x="70" y="260" width="500" height="46" rx="8" style="fill:#F8EAE9"/>
+            <text class="osi-num" x="86" y="279">2</text>
+            <text class="osi-txt" x="110" y="280">Liaison de données</text>
+            <text class="osi-sub" x="110" y="295">Trames — adressage physique (MAC) — Ethernet, Wi-Fi, switch</text>
+
+            <rect class="osi-box" x="70" y="310" width="500" height="46" rx="8" style="fill:#F3F5F8"/>
+            <text class="osi-num" x="86" y="329">1</text>
+            <text class="osi-txt" x="110" y="330">Physique</text>
+            <text class="osi-sub" x="110" y="345">Bits — signaux électriques, optiques, radio — câbles, hub</text>
+          </g>
+        </svg>
+        <p class="diagram-caption">Fig. 1.1 — Les 7 couches du modèle OSI, de l'application (7) au support physique (1)</p>
+      </div>
+
+      <p>Moyen mnémotechnique en français pour retenir l'ordre (couche 7 → 1) : <em>« Après Plusieurs Semaines, Tout Réseau Lâche Prise »</em> (Application, Présentation, Session, Transport, Réseau, Liaison, Physique).</p>
+
+      <h3 class="sub">Ce qu'il faut vraiment retenir de chaque couche</h3>
+      <ul class="std">
+        <li><strong>Couche 7 – Application</strong> : c'est là que vivent les logiciels que tu utilises (navigateur, client mail). Protocoles : HTTP/HTTPS, DNS, SMTP, FTP.</li>
+        <li><strong>Couche 4 – Transport</strong> : découpe les données en segments, gère la fiabilité. <strong>TCP</strong> garantit la livraison (accusés de réception) — utilisé pour le web, l'email. <strong>UDP</strong> est plus rapide mais sans garantie — utilisé pour la voix, la vidéo en direct.</li>
+        <li><strong>Couche 3 – Réseau</strong> : c'est la couche de l'adressage IP et du routage. Un routeur travaille à cette couche.</li>
+        <li><strong>Couche 2 – Liaison</strong> : adressage physique par adresse MAC, gérée par les switchs. C'est ici que naissent les VLANs.</li>
+        <li><strong>Couche 1 – Physique</strong> : le signal brut — tension électrique dans un câble cuivre, lumière dans une fibre, onde radio en Wi-Fi.</li>
+      </ul>
+
+      <h2 class="sec">1.3 — Le modèle TCP/IP</h2>
+      <p>Le modèle TCP/IP est le modèle <strong>réellement utilisé sur Internet</strong> — OSI est surtout un outil pédagogique et de diagnostic. TCP/IP regroupe les 7 couches OSI en <strong>4 couches</strong> pratiques.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 620 260" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .cmp-box{stroke-width:1.5;}
+            .cmp-txt{font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:700;}
+            .cmp-lbl{font-family:-apple-system,sans-serif;font-size:11px;fill:#667085;}
+          </style>
+          <text class="cmp-lbl" x="70" y="20" font-weight="700" fill="#2C4362">Modèle OSI (7 couches)</text>
+          <text class="cmp-lbl" x="400" y="20" font-weight="700" fill="#2C4362">Modèle TCP/IP (4 couches)</text>
+
+          <rect class="cmp-box" x="70" y="30" width="180" height="34" rx="6" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="cmp-txt" x="88" y="52" fill="#2C4362">7 · Application</text>
+          <rect class="cmp-box" x="70" y="66" width="180" height="34" rx="6" fill="#EFEBF5" stroke="#7C6A9C"/>
+          <text class="cmp-txt" x="88" y="88" fill="#4A3B60">6 · Présentation</text>
+          <rect class="cmp-box" x="70" y="102" width="180" height="34" rx="6" fill="#E6F1F2" stroke="#3E8188"/>
+          <text class="cmp-txt" x="88" y="124" fill="#264D52">5 · Session</text>
+          <rect class="cmp-box" x="70" y="138" width="180" height="34" rx="6" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="cmp-txt" x="88" y="160" fill="#8B5E00">4 · Transport</text>
+          <rect class="cmp-box" x="70" y="174" width="180" height="34" rx="6" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="cmp-txt" x="88" y="196" fill="#2C6B44">3 · Réseau</text>
+          <rect class="cmp-box" x="70" y="210" width="180" height="34" rx="6" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="cmp-txt" x="88" y="232" fill="#8A3B37">2 · Liaison</text>
+          <rect class="cmp-box" x="70" y="246" width="180" height="0" rx="6"/>
+
+          <!-- brackets -->
+          <path d="M255 30 L270 30 L270 100 L255 100" fill="none" stroke="#98A2B3"/>
+          <path d="M255 138 L270 138 L270 172 L255 172" fill="none" stroke="#98A2B3"/>
+          <path d="M255 174 L270 174 L270 208 L255 208" fill="none" stroke="#98A2B3"/>
+          <path d="M255 210 L270 210 L270 244 L255 244" fill="none" stroke="#98A2B3"/>
+
+          <rect class="cmp-box" x="400" y="30" width="180" height="70" rx="6" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="cmp-txt" x="418" y="70" fill="#2C4362">Application</text>
+          <rect class="cmp-box" x="400" y="138" width="180" height="34" rx="6" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="cmp-txt" x="418" y="160" fill="#8B5E00">Transport</text>
+          <rect class="cmp-box" x="400" y="174" width="180" height="34" rx="6" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="cmp-txt" x="418" y="196" fill="#2C6B44">Internet</text>
+          <rect class="cmp-box" x="400" y="210" width="180" height="34" rx="6" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="cmp-txt" x="418" y="232" fill="#8A3B37">Accès réseau</text>
+        </svg>
+        <p class="diagram-caption">Fig. 1.2 — Correspondance entre les 7 couches OSI et les 4 couches TCP/IP</p>
+      </div>
+
+      <ul class="std">
+        <li><strong>Application</strong> (fusionne Application + Présentation + Session) : HTTP, DNS, SMTP...</li>
+        <li><strong>Transport</strong> : TCP, UDP — identique à OSI</li>
+        <li><strong>Internet</strong> (= Réseau OSI) : IP, ICMP, routage</li>
+        <li><strong>Accès réseau</strong> (fusionne Liaison + Physique) : Ethernet, Wi-Fi</li>
+      </ul>
+
+      <h2 class="sec">1.4 — L'encapsulation des données</h2>
+      <p>Quand tu envoies un email, la donnée traverse les couches de haut en bas, et <strong>chaque couche ajoute son propre en-tête</strong> (un peu comme des enveloppes imbriquées). C'est l'encapsulation. À la réception, le processus s'inverse : chaque couche retire son en-tête (décapsulation).</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.enc-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;} .enc-name{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;fill:#2C4362;}</style>
+          <rect x="20" y="20" width="560" height="34" rx="6" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="enc-lbl" x="270" y="42" fill="#2C4362">DONNÉES</text>
+          <text class="enc-name" x="20" y="14">Application</text>
+
+          <rect x="50" y="64" width="530" height="34" rx="6" fill="#FBF1DA" stroke="#B07C00"/>
+          <rect x="50" y="64" width="55" height="34" rx="6" fill="#B07C00"/>
+          <text class="enc-lbl" x="58" y="86" fill="#fff">TCP</text>
+          <text class="enc-lbl" x="290" y="86" fill="#8B5E00">DONNÉES (Segment)</text>
+          <text class="enc-name" x="50" y="58">Transport</text>
+
+          <rect x="80" y="108" width="500" height="34" rx="6" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <rect x="80" y="108" width="55" height="34" rx="6" fill="#3F8F5F"/>
+          <text class="enc-lbl" x="88" y="130" fill="#fff">IP</text>
+          <text class="enc-lbl" x="300" y="130" fill="#2C6B44">TCP + DONNÉES (Paquet)</text>
+          <text class="enc-name" x="80" y="102">Internet</text>
+
+          <rect x="110" y="152" width="440" height="34" rx="6" fill="#F8EAE9" stroke="#B4504B"/>
+          <rect x="110" y="152" width="55" height="34" rx="6" fill="#B4504B"/>
+          <text class="enc-lbl" x="115" y="174" fill="#fff">MAC</text>
+          <text class="enc-lbl" x="310" y="174" fill="#8A3B37">IP + TCP + DONNÉES (Trame)</text>
+          <rect x="510" y="152" width="40" height="34" rx="6" fill="#B4504B" opacity=".7"/>
+          <text class="enc-lbl" x="518" y="174" fill="#fff" font-size="9">FCS</text>
+          <text class="enc-name" x="110" y="146">Accès réseau</text>
+        </svg>
+        <p class="diagram-caption">Fig. 1.3 — Encapsulation : chaque couche ajoute son en-tête (et parfois une queue, comme le FCS Ethernet)</p>
+      </div>
+
+      <h2 class="sec">1.5 — Topologies et types de réseaux</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+          <style>.topo-lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;fill:#2C4362;} .n{fill:#3D5A80;} .l{stroke:#98A2B3;stroke-width:1.5;}</style>
+          <!-- Star -->
+          <text class="topo-lbl" x="60" y="20">Étoile</text>
+          <circle class="n" cx="140" cy="70" r="8"/>
+          <circle class="n" cx="60" cy="30" r="6"/><line class="l" x1="140" y1="70" x2="60" y2="30"/>
+          <circle class="n" cx="220" cy="30" r="6"/><line class="l" x1="140" y1="70" x2="220" y2="30"/>
+          <circle class="n" cx="60" cy="110" r="6"/><line class="l" x1="140" y1="70" x2="60" y2="110"/>
+          <circle class="n" cx="220" cy="110" r="6"/><line class="l" x1="140" y1="70" x2="220" y2="110"/>
+
+          <!-- Bus -->
+          <text class="topo-lbl" x="360" y="20">Bus</text>
+          <line class="l" x1="330" y1="70" x2="580" y2="70" stroke-width="3"/>
+          <circle class="n" cx="360" cy="70" r="6"/><circle class="n" cx="420" cy="70" r="6"/>
+          <circle class="n" cx="480" cy="70" r="6"/><circle class="n" cx="540" cy="70" r="6"/>
+
+          <!-- Ring -->
+          <text class="topo-lbl" x="60" y="180">Anneau</text>
+          <circle cx="140" cy="230" r="55" fill="none" class="l"/>
+          <circle class="n" cx="140" cy="175" r="6"/><circle class="n" cx="195" cy="230" r="6"/>
+          <circle class="n" cx="140" cy="285" r="6"/><circle class="n" cx="85" cy="230" r="6"/>
+
+          <!-- Mesh -->
+          <text class="topo-lbl" x="360" y="180">Maillé</text>
+          <circle class="n" cx="380" cy="200" r="6"/><circle class="n" cx="460" cy="190" r="6"/>
+          <circle class="n" cx="540" cy="210" r="6"/><circle class="n" cx="400" cy="270" r="6"/>
+          <circle class="n" cx="500" cy="270" r="6"/>
+          <line class="l" x1="380" y1="200" x2="460" y2="190"/><line class="l" x1="460" y1="190" x2="540" y2="210"/>
+          <line class="l" x1="380" y1="200" x2="400" y2="270"/><line class="l" x1="400" y1="270" x2="500" y2="270"/>
+          <line class="l" x1="500" y1="270" x2="540" y2="210"/><line class="l" x1="380" y1="200" x2="500" y2="270"/>
+          <line class="l" x1="460" y1="190" x2="400" y2="270"/><line class="l" x1="460" y1="190" x2="500" y2="270"/>
+        </svg>
+        <p class="diagram-caption">Fig. 1.4 — Les quatre topologies réseau classiques</p>
+      </div>
+      <ul class="std">
+        <li><strong>Étoile</strong> — la plus courante aujourd'hui : tous les postes relient un switch central. Une panne de câble n'affecte qu'un poste ; une panne du switch coupe tout.</li>
+        <li><strong>Bus</strong> — un seul câble partagé (obsolète, coax Ethernet 10BASE2). Une coupure du câble coupe tout le segment.</li>
+        <li><strong>Anneau</strong> — chaque nœud relié à ses deux voisins (Token Ring, certains réseaux fibre en boucle pour la redondance).</li>
+        <li><strong>Maillé</strong> — chaque nœud relié à plusieurs autres. Très résilient (utilisé sur les dorsales Internet et le Wi-Fi mesh), mais coûteux en câblage.</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Cabinet comptable de 12 employés</h4>
+        <p><strong>Contexte :</strong> Un cabinet comptable installé sur un seul étage veut relier 12 postes, une imprimante réseau et un serveur de fichiers local. Budget serré, pas d'équipe IT interne.</p>
+        <p><strong>Choix retenu :</strong> Topologie en <strong>étoile</strong> autour d'un switch 24 ports non managé, avec un routeur/pare-feu fournissant l'accès Internet. Simplicité de dépannage : si un poste tombe en panne réseau, on vérifie juste son câble et son port switch.</p>
+        <p><strong>Pourquoi pas un maillage ?</strong> Le surcoût de câblage et de configuration ne se justifie pas pour 12 postes sur un seul étage — l'étoile offre le meilleur rapport simplicité/coût pour ce contexte.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v5.5L4.5 18a2 2 0 001.8 3h11.4a2 2 0 001.8-3L14 8.5V3"/></svg></div><h4>Laboratoire guidé 1 — Configuration d'un switch Cisco (VLAN)</h4></div>
+        <div class="lab-meta">Outil : Cisco Packet Tracer · Durée estimée : 45 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre Packet Tracer et place un switch Cisco 2960 et 4 PC sur l'espace de travail.</li>
+          <li>Relie chaque PC à un port du switch avec un câble droit (copper straight-through).</li>
+          <li>Clique sur le switch → onglet <em>CLI</em> pour ouvrir la console.</li>
+          <li>Passe en mode privilégié puis configuration : <pre class="cmdblock">Switch&gt; enable
+Switch# configure terminal</pre></li>
+          <li>Crée deux VLANs : <pre class="cmdblock">Switch(config)# vlan 10
+Switch(config-vlan)# name COMPTABILITE
+Switch(config-vlan)# vlan 20
+Switch(config-vlan)# name DIRECTION</pre></li>
+          <li>Assigne les ports 1-2 au VLAN 10 et 3-4 au VLAN 20 : <pre class="cmdblock">Switch(config)# interface range fa0/1-2
+Switch(config-if-range)# switchport mode access
+Switch(config-if-range)# switchport access vlan 10</pre></li>
+          <li>Vérifie la configuration avec <code>show vlan brief</code>.</li>
+          <li>Teste : les PC du VLAN 10 doivent pouvoir se pinguer entre eux, mais pas ceux du VLAN 20 (normal — ils sont isolés tant qu'il n'y a pas de routage inter-VLAN, voir Semaine 3).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h4>Laboratoire guidé 2 — Configuration d'un routeur Cisco (routage statique)</h4></div>
+        <div class="lab-meta">Outil : Cisco Packet Tracer · Durée estimée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Place deux routeurs et un PC de chaque côté (deux réseaux distincts : 192.168.1.0/24 et 192.168.2.0/24).</li>
+          <li>Relie les routeurs entre eux via un lien série ou Gigabit.</li>
+          <li>Configure les interfaces de R1 : <pre class="cmdblock">R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown</pre></li>
+          <li>Fais de même sur R2 pour son propre réseau.</li>
+          <li>Ajoute une route statique sur R1 vers le réseau de R2 : <pre class="cmdblock">R1(config)# ip route 192.168.2.0 255.255.255.0 [IP du lien vers R2]</pre></li>
+          <li>Répète l'opération en sens inverse sur R2.</li>
+          <li>Vérifie avec <code>show ip route</code> puis teste un ping entre les deux PC.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div><h4>Laboratoire guidé 3 — Subnetting IPv4 avancé</h4></div>
+        <div class="lab-meta">Outil : papier/calculatrice ou subnetting calculator · Durée estimée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Prends le réseau <code>192.168.10.0/24</code>. Découpe-le en 4 sous-réseaux de taille égale.</li>
+          <li>Détermine combien de bits emprunter à la partie hôte pour créer 4 sous-réseaux (2² = 4 → 2 bits).</li>
+          <li>Le nouveau masque devient <code>/26</code> (255.255.255.192).</li>
+          <li>Liste les 4 sous-réseaux obtenus : .0/26, .64/26, .128/26, .192/26.</li>
+          <li>Pour chacun, identifie l'adresse réseau, la plage d'hôtes utilisables et l'adresse de broadcast.</li>
+          <li>Vérifie tes calculs avec un subnet calculator en ligne (lien en fin de semaine).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 1</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Networking Fundamentals</div><div class="res-sub">Parcours officiel gratuit, aligné sur les bases OSI/TCP-IP</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — Catalogue</div><div class="res-sub">Cherche "Networking Basics" pour Packet Tracer et labos guidés</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 1</h4><span class="quiz-progress">5 questions</span></div>
+
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. À quelle couche OSI un switch travaille-t-il principalement ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="q1a">Couche 1 — Physique</label>
+            <label class="quiz-opt"><input type="radio" name="q1a">Couche 3 — Réseau</label>
+            <label class="quiz-opt"><input type="radio" name="q1a">Couche 2 — Liaison de données</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le switch lit l'adresse MAC (couche 2) pour décider vers quel port relayer la trame.</div>
+        </div>
+
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Quel protocole de la couche Transport garantit la livraison des données ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="q2a">UDP</label>
+            <label class="quiz-opt"><input type="radio" name="q2a">TCP</label>
+            <label class="quiz-opt"><input type="radio" name="q2a">IP</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">TCP utilise des accusés de réception et retransmet les segments perdus, contrairement à UDP.</div>
+        </div>
+
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Combien de couches compte le modèle TCP/IP ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="q3a">4</label>
+            <label class="quiz-opt"><input type="radio" name="q3a">7</label>
+            <label class="quiz-opt"><input type="radio" name="q3a">5</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Application, Transport, Internet, Accès réseau — contre 7 pour OSI.</div>
+        </div>
+
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Une entreprise sur un seul étage avec 12 postes choisit une topologie...</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="q4a">Maillée</label>
+            <label class="quiz-opt"><input type="radio" name="q4a">En étoile</label>
+            <label class="quiz-opt"><input type="radio" name="q4a">En bus</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'étoile offre le meilleur rapport simplicité/coût pour ce volume de postes (voir étude de cas).</div>
+        </div>
+
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">5. Que devient une "donnée" une fois encapsulée jusqu'à la couche Liaison ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="q5a">Un segment</label>
+            <label class="quiz-opt"><input type="radio" name="q5a">Un paquet</label>
+            <label class="quiz-opt"><input type="radio" name="q5a">Une trame</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Segment (couche 4) → Paquet (couche 3) → Trame (couche 2), voir Fig. 1.3.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 1</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Maîtrise du vocabulaire OSI/TCP-IP, capacité à expliquer l'encapsulation</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s1">0</span>/25<div class="auto-note">calcul auto</div></td><td>VLAN, routage statique et subnetting réalisés sans aide</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Justification argumentée d'un choix de topologie pour un cas donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+      <p style="font-size:12.5px;color:var(--ink-faint);">Reporte ta note totale dans la feuille <strong>Évaluation</strong> du Planner, module "Réseaux".</p>
+    </div>
+
+    <!-- ============================================================ SEMAINE 2 ============================================================ -->
+    <div class="week-block" id="s2">
+      <p class="week-tag">SEMAINE 2 · 03/08 – 09/08/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Adressage IP et sous-réseaux (IPv4/IPv6)</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Décomposer une adresse IPv4 en partie réseau et partie hôte</li>
+          <li>Calculer un plan d'adressage complet avec la notation CIDR</li>
+          <li>Distinguer adresses publiques, privées et le rôle du NAT</li>
+          <li>Lire et écrire une adresse IPv6</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="6,7,8,9,10" data-tracker-week="s2">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="6" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Adressage IP et sous-réseaux (IPv4/IPv6)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="7" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Calcul et découpage de sous-réseaux</div></div><div class="tracker-row"><button class="check-btn" data-toggle="8" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration IPv6 de base</div></div><div class="tracker-row"><button class="check-btn" data-toggle="9" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un serveur DHCP</div></div><div class="tracker-row"><button class="check-btn" data-toggle="10" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un serveur DNS</div></div>
+      </div>
+
+
+      <h2 class="sec">2.1 — Structure d'une adresse IPv4</h2>
+      <p>Une adresse IPv4 est un nombre de <strong>32 bits</strong>, écrit sous forme de 4 blocs de 8 bits (octets) séparés par des points — ex. <code>192.168.1.10</code>. Chaque octet va de 0 à 255. L'adresse se divise toujours en deux parties : la <strong>partie réseau</strong> (identifie le sous-réseau) et la <strong>partie hôte</strong> (identifie la machine à l'intérieur de ce sous-réseau).</p>
+
+      <div class="def">
+        <span class="def-term">Masque de sous-réseau</span>
+        <p>Détermine où s'arrête la partie réseau et où commence la partie hôte. Ex : <code>255.255.255.0</code> signifie que les 24 premiers bits sont réseau, les 8 derniers sont hôte.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Notation CIDR</span>
+        <p>Écriture raccourcie du masque : <code>/24</code> signifie "24 bits de masque", équivalent à 255.255.255.0. <code>192.168.1.0/24</code> se lit donc "réseau 192.168.1.0 avec masque 255.255.255.0".</p>
+      </div>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+          <style>.ip-oct{font-family:'JetBrains Mono',monospace;font-size:13px;} .ip-lbl{font-family:-apple-system,sans-serif;font-size:10.5px;fill:#667085;}</style>
+          <text class="ip-lbl" x="20" y="20">Adresse : 192.168.1.10</text>
+          <rect x="20" y="30" width="130" height="34" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="ip-oct" x="55" y="52" fill="#2C6B44">192</text>
+          <rect x="150" y="30" width="130" height="34" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="ip-oct" x="185" y="52" fill="#2C6B44">168</text>
+          <rect x="280" y="30" width="130" height="34" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="ip-oct" x="320" y="52" fill="#2C6B44">1</text>
+          <rect x="410" y="30" width="130" height="34" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="ip-oct" x="450" y="52" fill="#8A3B37">10</text>
+          <text class="ip-lbl" x="70" y="100" fill="#2C6B44" font-weight="700">◀ Partie RÉSEAU (/24) ▶</text>
+          <text class="ip-lbl" x="440" y="100" fill="#8A3B37" font-weight="700">Hôte</text>
+        </svg>
+        <p class="diagram-caption">Fig. 2.1 — Découpage réseau / hôte pour 192.168.1.10/24</p>
+      </div>
+
+      <h2 class="sec">2.2 — Le calcul de subnetting, méthode pas-à-pas</h2>
+      <p>Voici la méthode que tu réutiliseras à chaque calcul de sous-réseau :</p>
+      <ol class="std">
+        <li><strong>Détermine le besoin</strong> — combien de sous-réseaux ? combien d'hôtes par sous-réseau ?</li>
+        <li><strong>Calcule les bits à emprunter</strong> — pour N sous-réseaux, il faut <code>n</code> bits tels que 2ⁿ ≥ N.</li>
+        <li><strong>Détermine le nouveau masque</strong> — masque d'origine + bits empruntés.</li>
+        <li><strong>Calcule le "saut" (block size)</strong> — 256 − (valeur du dernier octet significatif du masque).</li>
+        <li><strong>Liste les sous-réseaux</strong> en ajoutant le saut à chaque fois.</li>
+      </ol>
+
+      <div class="def">
+        <span class="def-term">Exemple complet</span>
+        <p>Réseau <code>192.168.1.0/24</code>, besoin de 4 sous-réseaux. 2² = 4 → on emprunte 2 bits → nouveau masque <code>/26</code> (255.255.255.192). Saut = 256 − 192 = 64. Sous-réseaux : .0/26, .64/26, .128/26, .192/26 — chacun offre 62 hôtes utilisables (64 − 2 pour réseau et broadcast).</p>
+      </div>
+
+      <h2 class="sec">2.3 — Adresses publiques, privées et NAT</h2>
+      <p>Trois plages d'adresses sont réservées pour un usage <strong>privé</strong> (RFC 1918), non routables sur Internet :</p>
+      <ul class="std">
+        <li><code>10.0.0.0/8</code> — grandes entreprises</li>
+        <li><code>172.16.0.0/12</code> — moyennes structures</li>
+        <li><code>192.168.0.0/16</code> — petits réseaux, domicile</li>
+      </ul>
+      <div class="def">
+        <span class="def-term">NAT (Network Address Translation)</span>
+        <p>Mécanisme qui traduit les adresses privées internes en une adresse publique unique pour sortir sur Internet. C'est ce que fait ta box Internet à la maison : tous tes appareils partagent une seule adresse IP publique.</p>
+      </div>
+
+      <h2 class="sec">2.4 — IPv6 : structure et notation</h2>
+      <p>IPv4 offre environ 4,3 milliards d'adresses — insuffisant pour tous les objets connectés actuels. <strong>IPv6</strong> utilise des adresses de <strong>128 bits</strong>, soit un nombre quasi illimité d'adresses.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 90" xmlns="http://www.w3.org/2000/svg">
+          <text x="20" y="30" font-family="'JetBrains Mono',monospace" font-size="14" fill="#2C4362">2001:0db8:85a3:0000:0000:8a2e:0370:7334</text>
+          <text x="20" y="60" font-family="-apple-system,sans-serif" font-size="11" fill="#667085">8 groupes de 4 chiffres hexadécimaux, séparés par ":" — les zéros consécutifs peuvent être abrégés en "::" (une seule fois par adresse)</text>
+        </svg>
+      </div>
+      <p>Forme abrégée de l'exemple ci-dessus : <code>2001:0db8:85a3::8a2e:0370:7334</code>. Avantages d'IPv6 : espace d'adressage quasi illimité, pas besoin de NAT, configuration automatique (SLAAC), en-tête simplifié pour un routage plus rapide.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Hôtel de 80 chambres avec Wi-Fi invités, personnel et objets connectés</h4>
+        <p><strong>Contexte :</strong> Un hôtel doit isoler trois populations réseau : les clients (Wi-Fi invités), le personnel (réception, réservations) et les objets connectés (serrures électroniques, thermostats, TV connectées).</p>
+        <p><strong>Plan d'adressage retenu :</strong></p>
+        <ul class="std">
+          <li>VLAN 10 — Personnel : <code>10.10.10.0/24</code> (254 hôtes)</li>
+          <li>VLAN 20 — Wi-Fi invités : <code>10.10.20.0/23</code> (510 hôtes, pic de charge élevé)</li>
+          <li>VLAN 30 — IoT (serrures, thermostats) : <code>10.10.30.0/25</code> (126 hôtes, trafic isolé pour la sécurité)</li>
+        </ul>
+        <p><strong>Pourquoi séparer ainsi ?</strong> Un client malveillant sur le Wi-Fi invités ne doit jamais pouvoir atteindre le réseau des serrures électroniques. La segmentation par VLAN + sous-réseaux dédiés est la meilleure pratique de sécurité pour ce secteur.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div><h4>Laboratoire guidé — Configuration IPv6 de base</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer ou VM Linux/Windows · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Sur un routeur, active le routage IPv6 : <pre class="cmdblock">Router(config)# ipv6 unicast-routing</pre></li>
+          <li>Configure l'interface : <pre class="cmdblock">Router(config-if)# ipv6 address 2001:db8:1::1/64</pre></li>
+          <li>Active l'auto-configuration sur le PC client (SLAAC) et vérifie qu'il reçoit une adresse.</li>
+          <li>Vérifie la table de voisinage IPv6 avec <code>show ipv6 neighbors</code>.</li>
+          <li>Teste la connectivité avec <code>ping6</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01"/></svg></div><h4>Laboratoire guidé — Mise en place d'un serveur DHCP</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer (Server) ou Windows Server · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ajoute un serveur, configure-le en IP statique (ex. 192.168.1.1/24).</li>
+          <li>Active le service DHCP, définis la plage <code>192.168.1.100 – 192.168.1.200</code>.</li>
+          <li>Renseigne la passerelle par défaut et le serveur DNS.</li>
+          <li>Configure les PC clients en "DHCP" au lieu d'IP statique.</li>
+          <li>Vérifie que chaque PC reçoit bien une adresse dans la plage définie.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10h6M9 14h4"/></svg></div><h4>Laboratoire guidé — Mise en place d'un serveur DNS</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer (Server) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Sur le serveur, active le service DNS.</li>
+          <li>Crée un enregistrement de type A : <code>intranet.cabinet.local → 192.168.1.1</code>.</li>
+          <li>Configure les PC clients pour utiliser ce serveur DNS.</li>
+          <li>Teste avec <code>nslookup intranet.cabinet.local</code> depuis un PC client.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 2</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — IP addressing &amp; subnetting</div><div class="res-sub">Modules officiels sur l'adressage IPv4/IPv6</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — Subnetting practice</div><div class="res-sub">Exercices interactifs de calcul de sous-réseaux</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 2</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Combien d'hôtes utilisables offre un sous-réseau /26 ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w2q1">64</label>
+            <label class="quiz-opt"><input type="radio" name="w2q1">62</label>
+            <label class="quiz-opt"><input type="radio" name="w2q1">126</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">2⁶ = 64 adresses, moins 2 (réseau + broadcast) = 62 hôtes utilisables.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Laquelle de ces plages n'est PAS une plage privée RFC 1918 ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w2q2">10.0.0.0/8</label>
+            <label class="quiz-opt"><input type="radio" name="w2q2">192.168.0.0/16</label>
+            <label class="quiz-opt"><input type="radio" name="w2q2">8.8.8.0/24</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">8.8.8.0/24 est une plage publique (DNS Google) ; les deux autres sont bien privées.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Une adresse IPv6 fait combien de bits ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w2q3">128 bits</label>
+            <label class="quiz-opt"><input type="radio" name="w2q3">32 bits</label>
+            <label class="quiz-opt"><input type="radio" name="w2q3">64 bits</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">128 bits contre 32 bits pour IPv4 — un espace d'adressage colossal.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de l'hôtel, pourquoi isoler les objets connectés (IoT) dans leur propre VLAN ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w2q4">Pour économiser des adresses IP</label>
+            <label class="quiz-opt"><input type="radio" name="w2q4">Pour empêcher un accès depuis le Wi-Fi invités compromis</label>
+            <label class="quiz-opt"><input type="radio" name="w2q4">Parce que les IoT n'acceptent pas le DHCP</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est une mesure de sécurité : isoler les systèmes critiques (serrures) du trafic invités non maîtrisé.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 2</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Compréhension du CIDR, du NAT, et de la structure IPv6</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s2">0</span>/25<div class="auto-note">calcul auto</div></td><td>Serveur DHCP/DNS fonctionnel, IPv6 configuré</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan d'adressage complet pour un scénario à 3 VLANs</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 3 ============================================================ -->
+    <div class="week-block" id="s3">
+      <p class="week-tag">SEMAINE 3 · 10/08 – 16/08/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Équipements réseau — switch, routeur, pare-feu</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer comment un switch apprend et utilise sa table MAC</li>
+          <li>Expliquer comment un routeur choisit un chemin via sa table de routage</li>
+          <li>Configurer des VLANs avec trunking 802.1Q et le routage inter-VLAN</li>
+          <li>Créer des règles de pare-feu (ACL) de base</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="11,12,13,14,15" data-tracker-week="s3">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="11" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Équipements réseau (switch, routeur, pare-feu)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="12" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration VLAN et routage inter-VLAN</div></div><div class="tracker-row"><button class="check-btn" data-toggle="13" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de trames avec Wireshark</div></div><div class="tracker-row"><button class="check-btn" data-toggle="14" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un pare-feu (ACL)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="15" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Simulation topologie d'entreprise (Packet Tracer)</div></div>
+      </div>
+
+
+      <h2 class="sec">3.1 — Le switch : commutation et table MAC</h2>
+      <p>Un switch apprend automatiquement quelle adresse MAC se trouve derrière chaque port en observant le trafic entrant, puis construit une <strong>table d'adresses MAC (CAM table)</strong>. Quand une trame arrive, il consulte cette table pour l'envoyer directement au bon port — sans inonder tout le réseau, sauf si l'adresse est inconnue (flooding) ou pour un broadcast.</p>
+
+      <div class="def">
+        <span class="def-term">Domaine de collision vs domaine de broadcast</span>
+        <p>Chaque port d'un switch est son propre domaine de collision (contrairement à un ancien hub). En revanche, tous les ports d'un même VLAN partagent le même domaine de broadcast — d'où l'intérêt des VLANs pour limiter la portée des broadcasts.</p>
+      </div>
+
+      <h2 class="sec">3.2 — Le routeur et la table de routage</h2>
+      <p>Un routeur prend une décision pour chaque paquet en consultant sa <strong>table de routage</strong> : il compare l'adresse IP de destination aux réseaux connus et choisit la route la plus spécifique (plus long préfixe correspondant — <em>longest prefix match</em>).</p>
+      <div class="diagram">
+        <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg">
+          <style>.rt-h{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;fill:#2C4362;} .rt-c{font-family:'JetBrains Mono',monospace;font-size:11px;fill:#1B2130;}</style>
+          <rect x="20" y="10" width="560" height="34" fill="#E9EFF5"/>
+          <text class="rt-h" x="30" y="31">Réseau destination</text>
+          <text class="rt-h" x="220" y="31">Masque</text>
+          <text class="rt-h" x="340" y="31">Passerelle</text>
+          <text class="rt-h" x="480" y="31">Interface</text>
+          <line x1="20" y1="44" x2="580" y2="44" stroke="#E4E7ED"/>
+          <text class="rt-c" x="30" y="66">192.168.1.0</text><text class="rt-c" x="220" y="66">/24</text><text class="rt-c" x="340" y="66">Connecté</text><text class="rt-c" x="480" y="66">Gi0/0</text>
+          <line x1="20" y1="76" x2="580" y2="76" stroke="#F3F5F8"/>
+          <text class="rt-c" x="30" y="98">10.0.0.0</text><text class="rt-c" x="220" y="98">/8</text><text class="rt-c" x="340" y="98">203.0.113.1</text><text class="rt-c" x="480" y="98">Gi0/1</text>
+          <line x1="20" y1="108" x2="580" y2="108" stroke="#F3F5F8"/>
+          <text class="rt-c" x="30" y="130">0.0.0.0</text><text class="rt-c" x="220" y="130">/0</text><text class="rt-c" x="340" y="130">203.0.113.254</text><text class="rt-c" x="480" y="130">Gi0/1 (route par défaut)</text>
+        </svg>
+        <p class="diagram-caption">Fig. 3.1 — Exemple simplifié d'une table de routage</p>
+      </div>
+
+      <h2 class="sec">3.3 — VLANs, trunking 802.1Q et routage inter-VLAN</h2>
+      <p>Un <strong>VLAN</strong> (Virtual LAN) segmente logiquement un réseau physique en plusieurs réseaux isolés, sans changer le câblage. Pour faire transiter plusieurs VLANs sur un seul câble entre deux switchs, on utilise un <strong>lien trunk</strong> avec l'encapsulation <strong>802.1Q</strong>, qui ajoute un tag identifiant le VLAN dans chaque trame.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.vt{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .vs{font-family:-apple-system,sans-serif;font-size:10px;fill:#667085;}</style>
+          <rect x="40" y="20" width="120" height="50" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="vt" x="70" y="50" fill="#2C4362">Switch A</text>
+          <rect x="440" y="20" width="120" height="50" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="vt" x="470" y="50" fill="#2C4362">Switch B</text>
+          <line x1="160" y1="45" x2="440" y2="45" stroke="#B07C00" stroke-width="3"/>
+          <text class="vs" x="240" y="35" fill="#B07C00" font-weight="700">Lien TRUNK (802.1Q)</text>
+          <text class="vs" x="230" y="60">VLAN10 + VLAN20 tagués</text>
+
+          <circle cx="60" cy="120" r="7" fill="#3F8F5F"/><text class="vs" x="75" y="124">PC1 — VLAN 10</text>
+          <circle cx="60" cy="150" r="7" fill="#B4504B"/><text class="vs" x="75" y="154">PC2 — VLAN 20</text>
+          <line x1="60" y1="113" x2="90" y2="70" stroke="#98A2B3"/>
+          <line x1="60" y1="143" x2="110" y2="70" stroke="#98A2B3"/>
+
+          <circle cx="540" cy="120" r="7" fill="#3F8F5F"/><text class="vs" x="480" y="124" text-anchor="end">PC3 — VLAN 10</text>
+          <circle cx="540" cy="150" r="7" fill="#B4504B"/><text class="vs" x="480" y="154" text-anchor="end">PC4 — VLAN 20</text>
+          <line x1="540" y1="113" x2="510" y2="70" stroke="#98A2B3"/>
+          <line x1="540" y1="143" x2="490" y2="70" stroke="#98A2B3"/>
+
+          <text class="vs" x="60" y="190" fill="#3F8F5F">● PC1 ↔ PC3 : même VLAN → communication directe</text>
+          <text class="vs" x="60" y="205" fill="#B4504B">● PC2 ↔ PC1 : VLANs différents → nécessite un routeur (inter-VLAN)</text>
+        </svg>
+        <p class="diagram-caption">Fig. 3.2 — Trunk 802.1Q entre deux switchs transportant deux VLANs</p>
+      </div>
+
+      <p>Pour permettre à deux VLANs différents de communiquer, il faut un <strong>routage inter-VLAN</strong> — soit via un routeur avec sous-interfaces (<em>router-on-a-stick</em>), soit via un switch de niveau 3 (multicouche).</p>
+
+      <h2 class="sec">3.4 — Le pare-feu et les listes de contrôle d'accès (ACL)</h2>
+      <div class="def">
+        <span class="def-term">ACL (Access Control List)</span>
+        <p>Liste ordonnée de règles autorisant ou refusant du trafic selon des critères (IP source/destination, port, protocole). Les règles sont évaluées dans l'ordre — la première correspondance s'applique.</p>
+      </div>
+      <p>Exemple de règle : autoriser le trafic HTTPS (port 443) depuis n'importe où vers le serveur web, et refuser tout le reste par défaut (principe du <em>moindre privilège</em>).</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Usine de production avec réseau IT et réseau OT (automates industriels)</h4>
+        <p><strong>Contexte :</strong> Une usine possède un réseau bureautique classique (IT) et un réseau industriel (OT) qui pilote les automates de production. Un incident de sécurité sur l'IT ne doit jamais pouvoir affecter la production.</p>
+        <p><strong>Architecture retenue :</strong> Segmentation stricte par pare-feu entre la zone IT et la zone OT, avec une <strong>zone démilitarisée (DMZ)</strong> intermédiaire pour les rares échanges nécessaires (ex. remontée de données de production vers un ERP). VLANs dédiés pour chaque ligne de production, ACL très restrictives n'autorisant que les flux strictement nécessaires (protocole industriel Modbus/TCP sur ports spécifiques).</p>
+        <p><strong>Principe clé :</strong> en environnement industriel, la disponibilité prime sur tout — une règle ACL mal configurée qui bloque un automate peut arrêter une chaîne de production entière. Chaque changement est testé hors production avant déploiement.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div><h4>Laboratoire guidé — Analyse de trames avec Wireshark</h4></div>
+        <div class="lab-meta">Outil : Wireshark (gratuit) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe Wireshark et lance une capture sur ton interface réseau active.</li>
+          <li>Ouvre un navigateur et visite un site en HTTP (non sécurisé) pour observer le trafic en clair.</li>
+          <li>Filtre les résultats avec <code>http</code> dans la barre de filtre.</li>
+          <li>Identifie dans une trame les en-têtes Ethernet (MAC), IP, et TCP — retrouve visuellement l'encapsulation vue en semaine 1 (Fig. 1.3).</li>
+          <li>Refais le test sur un site HTTPS et filtre avec <code>tls</code> : constate que le contenu est chiffré, illisible.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h4>Laboratoire guidé — Configuration d'un pare-feu (ACL)</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer (routeur Cisco) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une ACL numérotée standard : <pre class="cmdblock">Router(config)# access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config)# access-list 10 deny any</pre></li>
+          <li>Applique-la sur l'interface sortante : <pre class="cmdblock">Router(config-if)# ip access-group 10 out</pre></li>
+          <li>Teste depuis un réseau autorisé, puis depuis un réseau non listé — vérifie le comportement.</li>
+          <li>Vérifie avec <code>show access-lists</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><h4>Laboratoire guidé — Simulation topologie d'entreprise (Packet Tracer)</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer · Durée : 50 min</div>
+        <ol class="lab-steps">
+          <li>Construis une topologie complète : 2 switchs (trunk 802.1Q), 1 routeur (router-on-a-stick), 3 VLANs, 6 PC.</li>
+          <li>Configure les sous-interfaces du routeur pour le routage inter-VLAN.</li>
+          <li>Valide que tous les PC peuvent communiquer entre VLANs, et qu'Internet (simulé) est accessible.</li>
+          <li>Documente ton schéma — c'est la base de ton projet de portfolio "Maquette réseau d'entreprise".</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 3</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Firewalls &amp; network security</div><div class="res-sub">Concepts pare-feu et sécurité réseau de base</div></div>
+        </a>
+        <a class="res-item" href="https://www.wireshark.org/docs/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle Wireshark</div><div class="res-sub">Guide utilisateur gratuit, filtres et analyse de protocoles</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 3</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Que doit faire un switch pour envoyer une trame vers une adresse MAC inconnue ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w3q1">L'envoyer sur tous les ports (flooding)</label>
+            <label class="quiz-opt"><input type="radio" name="w3q1">La rejeter</label>
+            <label class="quiz-opt"><input type="radio" name="w3q1">La transmettre au routeur</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Faute de correspondance dans sa table CAM, le switch inonde tous les ports du VLAN concerné.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Que permet un lien trunk 802.1Q ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w3q2">Doubler la bande passante</label>
+            <label class="quiz-opt"><input type="radio" name="w3q2">Transporter plusieurs VLANs sur un seul lien</label>
+            <label class="quiz-opt"><input type="radio" name="w3q2">Chiffrer le trafic</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le tag 802.1Q identifie le VLAN d'origine de chaque trame sur le lien partagé.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Pour que deux VLANs communiquent entre eux, il faut...</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w3q3">Un câble croisé</label>
+            <label class="quiz-opt"><input type="radio" name="w3q3">Rien, c'est automatique</label>
+            <label class="quiz-opt"><input type="radio" name="w3q3">Un routage inter-VLAN (routeur ou switch L3)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les VLANs sont isolés par nature — seul un équipement de couche 3 peut router entre eux.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">4. Dans l'étude de cas de l'usine, pourquoi la disponibilité prime-t-elle sur la sécurité stricte ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w3q4">Une ACL mal configurée peut arrêter la production</label>
+            <label class="quiz-opt"><input type="radio" name="w3q4">La sécurité n'est pas importante en usine</label>
+            <label class="quiz-opt"><input type="radio" name="w3q4">Les automates n'ont pas d'adresse IP</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">En environnement OT, un blocage réseau imprévu peut stopper une chaîne de production entière — d'où des tests rigoureux avant tout changement.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 3</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Fonctionnement switch/routeur, VLAN, ACL</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s3">0</span>/25<div class="auto-note">calcul auto</div></td><td>Topologie complète fonctionnelle avec routage inter-VLAN</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Schéma documenté de la topologie d'entreprise simulée</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 4 ============================================================ -->
+    <div class="week-block" id="s4">
+      <p class="week-tag">SEMAINE 4 · 17/08 – 23/08/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Protocoles réseau — DNS, DHCP, HTTP/HTTPS, VPN</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer le processus DORA du DHCP</li>
+          <li>Décrire la résolution de nom DNS étape par étape</li>
+          <li>Distinguer HTTP de HTTPS et le rôle de TLS</li>
+          <li>Différencier les types de VPN et leurs cas d'usage</li>
+          <li>Sécuriser un réseau Wi-Fi avec WPA3</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="16,17,18,19,20" data-tracker-week="s4">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="16" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Protocoles réseau (DNS, DHCP, HTTP/HTTPS, VPN)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="17" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration DHCP/DNS et test de connectivité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="18" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Diagnostic de pannes réseau (ping, traceroute)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="19" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration VPN site-à-site</div></div><div class="tracker-row"><button class="check-btn" data-toggle="20" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Sécurisation d'un réseau Wi-Fi (WPA3)</div></div>
+      </div>
+
+
+      <h2 class="sec">4.1 — DHCP et le processus DORA</h2>
+      <p>Le <strong>DHCP</strong> (Dynamic Host Configuration Protocol) attribue automatiquement une adresse IP à un client. L'échange suit 4 étapes, résumées par l'acronyme <strong>DORA</strong> :</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+          <style>.dh{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .dl{font-family:-apple-system,sans-serif;font-size:10.5px;fill:#667085;}</style>
+          <text class="dh" x="60" y="20" fill="#2C4362">Client</text>
+          <text class="dh" x="480" y="20" fill="#2C4362">Serveur DHCP</text>
+          <line x1="90" y1="10" x2="90" y2="180" stroke="#E4E7ED"/>
+          <line x1="510" y1="10" x2="510" y2="180" stroke="#E4E7ED"/>
+
+          <line x1="90" y1="45" x2="510" y2="45" stroke="#B07C00" marker-end="url(#arrow)"/>
+          <text class="dl" x="150" y="38" fill="#B07C00" font-weight="700">1. DISCOVER (broadcast)</text>
+
+          <line x1="510" y1="80" x2="90" y2="80" stroke="#3F8F5F" marker-end="url(#arrow2)"/>
+          <text class="dl" x="150" y="73" fill="#3F8F5F" font-weight="700">2. OFFER (propose une IP)</text>
+
+          <line x1="90" y1="115" x2="510" y2="115" stroke="#B07C00" marker-end="url(#arrow)"/>
+          <text class="dl" x="150" y="108" fill="#B07C00" font-weight="700">3. REQUEST (demande cette IP)</text>
+
+          <line x1="510" y1="150" x2="90" y2="150" stroke="#3F8F5F" marker-end="url(#arrow2)"/>
+          <text class="dl" x="150" y="143" fill="#3F8F5F" font-weight="700">4. ACK (confirme le bail)</text>
+
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#B07C00"/></marker>
+            <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3F8F5F"/></marker>
+          </defs>
+        </svg>
+        <p class="diagram-caption">Fig. 4.1 — Le processus DORA (Discover, Offer, Request, Acknowledge)</p>
+      </div>
+
+      <h2 class="sec">4.2 — La résolution DNS</h2>
+      <p>Le <strong>DNS</strong> (Domain Name System) traduit un nom de domaine (ex. <code>google.com</code>) en adresse IP. C'est un système hiérarchique et distribué à l'échelle mondiale.</p>
+      <ol class="std">
+        <li>Le client interroge son résolveur DNS (souvent celui du FAI ou 8.8.8.8).</li>
+        <li>Si non mis en cache, le résolveur interroge un serveur racine, puis un serveur du TLD (.com), puis le serveur faisant autorité pour le domaine.</li>
+        <li>Le serveur faisant autorité renvoie l'adresse IP correspondante.</li>
+        <li>Le résolveur met en cache la réponse et la transmet au client.</li>
+      </ol>
+      <div class="def">
+        <span class="def-term">Types d'enregistrements DNS courants</span>
+        <p><strong>A</strong> (adresse IPv4), <strong>AAAA</strong> (adresse IPv6), <strong>CNAME</strong> (alias vers un autre nom), <strong>MX</strong> (serveur mail), <strong>TXT</strong> (données arbitraires, souvent pour la vérification de domaine).</p>
+      </div>
+
+      <h2 class="sec">4.3 — HTTP, HTTPS et TLS</h2>
+      <p><strong>HTTP</strong> transmet les données en clair — n'importe qui interceptant le trafic peut les lire (comme observé au labo Wireshark de la semaine 3). <strong>HTTPS</strong> ajoute une couche <strong>TLS</strong> (Transport Layer Security) qui chiffre l'échange et authentifie le serveur via un certificat.</p>
+
+      <h2 class="sec">4.4 — VPN : types et protocoles</h2>
+      <ul class="std">
+        <li><strong>VPN site-à-site</strong> — relie deux réseaux distants de façon permanente (ex. deux agences d'une entreprise), généralement via <strong>IPsec</strong>.</li>
+        <li><strong>VPN d'accès distant (SSL VPN)</strong> — permet à un utilisateur individuel de se connecter au réseau de l'entreprise depuis l'extérieur, souvent via un client logiciel.</li>
+      </ul>
+      <div class="def">
+        <span class="def-term">IPsec</span>
+        <p>Suite de protocoles assurant confidentialité (chiffrement), intégrité et authentification du trafic IP — le standard pour les VPN site-à-site.</p>
+      </div>
+
+      <h2 class="sec">4.5 — Sécuriser un réseau Wi-Fi (WPA3)</h2>
+      <p><strong>WPA3</strong> est le standard de sécurité Wi-Fi actuel, remplaçant WPA2. Il apporte un chiffrement individualisé par session (résistant aux attaques par dictionnaire hors ligne) et une meilleure protection sur les réseaux ouverts.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique</span>
+        <h4>Interconnexion sécurisée entre deux mairies</h4>
+        <p><strong>Contexte :</strong> Deux mairies d'une même intercommunalité doivent partager un accès à un logiciel de gestion de l'état civil hébergé dans le datacenter de la mairie principale, sans exposer ce logiciel sur Internet.</p>
+        <p><strong>Solution retenue :</strong> Un <strong>VPN site-à-site IPsec</strong> entre les deux routeurs/pare-feux, créant un tunnel chiffré permanent. Le trafic entre les deux sites transite comme s'il s'agissait d'un même réseau local, sans jamais être exposé en clair sur Internet.</p>
+        <p><strong>Contrainte réglementaire :</strong> les données d'état civil sont sensibles — le chiffrement de bout en bout du VPN répond aux exigences de protection des données personnelles imposées aux administrations publiques.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Laboratoire guidé — Diagnostic de pannes réseau</h4></div>
+        <div class="lab-meta">Outil : invite de commandes / terminal · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Teste la connectivité de base : <code>ping 8.8.8.8</code> (Internet accessible ?).</li>
+          <li>Teste la résolution DNS : <code>ping google.com</code> — si le ping IP marche mais pas celui-ci, le problème vient du DNS.</li>
+          <li>Trace le chemin emprunté par les paquets : <code>tracert google.com</code> (Windows) ou <code>traceroute</code> (Linux/Mac).</li>
+          <li>Consulte ta propre configuration IP : <code>ipconfig /all</code> (Windows) ou <code>ip a</code> (Linux).</li>
+          <li>Applique la méthode : physique → adressage → DNS → application, en remontant les couches OSI une par une.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h4>Laboratoire guidé — Configuration VPN site-à-site</h4></div>
+        <div class="lab-meta">Outil : Packet Tracer (routeurs) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Configure une politique IKE Phase 1 sur les deux routeurs (clé pré-partagée).</li>
+          <li>Définis une ACL identifiant le trafic intéressant (réseau A vers réseau B).</li>
+          <li>Crée une crypto map référençant la politique et l'ACL, applique-la sur l'interface externe.</li>
+          <li>Vérifie l'établissement du tunnel avec <code>show crypto isakmp sa</code>.</li>
+          <li>Teste un ping entre les deux réseaux internes — le trafic doit transiter par le tunnel chiffré.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13a10 10 0 0114 0M8.5 16.5a5 5 0 017 0M12 20h.01"/></svg></div><h4>Laboratoire guidé — Sécurisation d'un réseau Wi-Fi (WPA3)</h4></div>
+        <div class="lab-meta">Outil : point d'accès Wi-Fi réel ou simulé · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Accède à l'interface d'administration du point d'accès.</li>
+          <li>Sélectionne le mode de sécurité WPA3-Personal (ou WPA2/WPA3-Transition si des appareils anciens sont présents).</li>
+          <li>Définis une phrase de passe robuste (16+ caractères recommandés).</li>
+          <li>Désactive le WPS (Wi-Fi Protected Setup), vecteur d'attaque connu.</li>
+          <li>Crée un réseau invité séparé si le point d'accès le permet, isolé du réseau principal.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 4</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=networking%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — DNS, DHCP &amp; VPN concepts</div><div class="res-sub">Modules officiels sur les protocoles réseau essentiels</div></div>
+        </a>
+        <a class="res-item" href="https://www.wi-fi.org/discover-wi-fi/security" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13a10 10 0 0114 0M8.5 16.5a5 5 0 017 0M12 20h.01"/></svg></div>
+          <div class="res-text"><div class="res-title">Wi-Fi Alliance — Sécurité Wi-Fi (WPA3)</div><div class="res-sub">Documentation officielle du standard WPA3</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 4</h4><span class="quiz-progress">5 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Dans le processus DORA, que signifie le "O" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w4q1">Open</label>
+            <label class="quiz-opt"><input type="radio" name="w4q1">Offer</label>
+            <label class="quiz-opt"><input type="radio" name="w4q1">Order</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Discover → Offer → Request → Acknowledge.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel type d'enregistrement DNS pointe vers le serveur de messagerie d'un domaine ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w4q2">A</label>
+            <label class="quiz-opt"><input type="radio" name="w4q2">CNAME</label>
+            <label class="quiz-opt"><input type="radio" name="w4q2">MX</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">MX (Mail Exchange) indique le ou les serveurs responsables de la réception des emails du domaine.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel protocole assure la confidentialité d'un VPN site-à-site ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w4q3">IPsec</label>
+            <label class="quiz-opt"><input type="radio" name="w4q3">DHCP</label>
+            <label class="quiz-opt"><input type="radio" name="w4q3">DNS</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">IPsec chiffre et authentifie le trafic entre les deux extrémités du tunnel.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Face à "je n'ai pas Internet", quelle est la première commande de diagnostic à lancer ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w4q4">nslookup</label>
+            <label class="quiz-opt"><input type="radio" name="w4q4">ping 8.8.8.8</label>
+            <label class="quiz-opt"><input type="radio" name="w4q4">tracert</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">On vérifie d'abord la connectivité IP brute avant de suspecter le DNS ou la route.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">5. Pourquoi désactiver le WPS sur un point d'accès Wi-Fi ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w4q5">Il ralentit le réseau</label>
+            <label class="quiz-opt"><input type="radio" name="w4q5">Il n'est pas compatible WPA3</label>
+            <label class="quiz-opt"><input type="radio" name="w4q5">C'est un vecteur d'attaque connu (brute-force du PIN)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le PIN WPS à 8 chiffres est vulnérable au brute-force, contournant la robustesse du mot de passe Wi-Fi.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 4</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>DORA, résolution DNS, HTTPS/TLS, types de VPN</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s4">0</span>/25<div class="auto-note">calcul auto</div></td><td>VPN site-à-site fonctionnel, Wi-Fi sécurisé en WPA3</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Méthode de diagnostic appliquée à un scénario de panne</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>En 4 semaines, tu es passé des concepts fondamentaux (OSI, TCP/IP) jusqu'à la sécurisation complète d'une infrastructure réseau (pare-feu, VPN, Wi-Fi). Tu as manipulé les mêmes outils et raisonnements qu'un technicien réseau professionnel.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Maquette réseau d'entreprise complète</em> — reprends et enrichis ta simulation Packet Tracer de la Semaine 3 : ajoute un pare-feu avec ACL, un VPN site-à-site vers un site distant simulé, et sécurise l'accès Wi-Fi. Documente ton schéma d'architecture et le raisonnement derrière chaque choix technique — c'est exactement ce que tu présenterais à un client ou un recruteur.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="index.html"><div class="lbl">Retour</div><div class="ttl">Table des matières</div></a>
+      <a class="next" href="module-02-windows-server.html"><div class="lbl">Prochain module</div><div class="ttl">02 · Windows Server</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Réseaux">[{"id": 1, "type": "Cours", "week": 1, "title": "Fondamentaux réseau (modèle OSI et TCP/IP)"}, {"id": 2, "type": "TP", "week": 1, "title": "Câblage et topologie réseau (Packet Tracer)"}, {"id": 3, "type": "Labo", "week": 1, "title": "Configuration d'un switch Cisco (VLAN)"}, {"id": 4, "type": "Labo", "week": 1, "title": "Configuration d'un routeur Cisco (routage statique)"}, {"id": 5, "type": "Labo", "week": 1, "title": "Subnetting IPv4 avancé"}, {"id": 6, "type": "Cours", "week": 2, "title": "Adressage IP et sous-réseaux (IPv4/IPv6)"}, {"id": 7, "type": "TP", "week": 2, "title": "Calcul et découpage de sous-réseaux"}, {"id": 8, "type": "Labo", "week": 2, "title": "Configuration IPv6 de base"}, {"id": 9, "type": "Labo", "week": 2, "title": "Mise en place d'un serveur DHCP"}, {"id": 10, "type": "Labo", "week": 2, "title": "Mise en place d'un serveur DNS"}, {"id": 11, "type": "Cours", "week": 3, "title": "Équipements réseau (switch, routeur, pare-feu)"}, {"id": 12, "type": "TP", "week": 3, "title": "Configuration VLAN et routage inter-VLAN"}, {"id": 13, "type": "Labo", "week": 3, "title": "Analyse de trames avec Wireshark"}, {"id": 14, "type": "Labo", "week": 3, "title": "Configuration d'un pare-feu (ACL)"}, {"id": 15, "type": "Labo", "week": 3, "title": "Simulation topologie d'entreprise (Packet Tracer)"}, {"id": 16, "type": "Cours", "week": 4, "title": "Protocoles réseau (DNS, DHCP, HTTP/HTTPS, VPN)"}, {"id": 17, "type": "TP", "week": 4, "title": "Configuration DHCP/DNS et test de connectivité"}, {"id": 18, "type": "Labo", "week": 4, "title": "Diagnostic de pannes réseau (ping, traceroute)"}, {"id": 19, "type": "Labo", "week": 4, "title": "Configuration VPN site-à-site"}, {"id": 20, "type": "Labo", "week": 4, "title": "Sécurisation d'un réseau Wi-Fi (WPA3)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 2 · Windows Server — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 2 — Windows Server</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s5" data-week-ids="21,22,23,24,25">Semaine 5 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s6" data-week-ids="26,27,28,29,30">Semaine 6 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s7" data-week-ids="31,32,33,34,35">Semaine 7 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s8" data-week-ids="36,37,38,39,40">Semaine 8 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 2 · Windows Server</div><div class="topbar-sub">Semaines 5–8</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 2 / 13</p>
+    <h1 class="week-title">Windows Server</h1>
+    <p class="week-dates">24 août 2026 → 20 septembre 2026 · Semaines 5–8 · 52 h prévues</p>
+
+    <p class="lead">Après avoir posé les bases réseau, ce module te fait entrer dans l'administration système Windows : installer un serveur, structurer un annuaire d'entreprise avec Active Directory, imposer des règles de sécurité via les GPO, et mettre en place les services de fichiers qu'utilise toute organisation au quotidien.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Installer Windows Server et choisir entre Server Core et Desktop Experience</li>
+        <li>Concevoir et déployer une structure Active Directory (forêt, domaine, OU, comptes)</li>
+        <li>Créer et appliquer des stratégies de groupe (GPO) pour sécuriser un parc de postes</li>
+        <li>Déployer des services de fichiers résilients (DFS), des sauvegardes et un accès bureau à distance</li>
+        <li>Surveiller la santé d'un serveur avec l'Observateur d'événements et le Moniteur de performances</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Module 1 (Réseaux) recommandé, notamment DHCP/DNS. Tu auras besoin d'une VM Windows Server 2022 (évaluation gratuite 180 jours sur le site Microsoft) et idéalement d'une seconde VM cliente Windows pour tester la jonction au domaine.</p>
+
+    <!-- ============================================================ SEMAINE 5 ============================================================ -->
+    <div class="week-block" id="s5">
+      <p class="week-tag">SEMAINE 5 · 24/08 – 30/08/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Installation et rôles Windows Server</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Choisir la bonne édition de Windows Server selon un contexte</li>
+          <li>Différencier Server Core et Desktop Experience et justifier un choix</li>
+          <li>Identifier les rôles et fonctionnalités les plus courants</li>
+          <li>Installer Windows Server et le préparer pour la promotion en contrôleur de domaine</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="21,22,23,24,25" data-tracker-week="s5">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="21" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Installation et rôles Windows Server</div></div><div class="tracker-row"><button class="check-btn" data-toggle="22" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Installation Windows Server (Core vs Desktop Experience)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="23" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation Windows Server 2022</div></div><div class="tracker-row"><button class="check-btn" data-toggle="24" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Promotion d'un contrôleur de domaine</div></div><div class="tracker-row"><button class="check-btn" data-toggle="25" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'unités d'organisation (OU) et utilisateurs</div></div>
+      </div>
+
+
+      <h2 class="sec">5.1 — Éditions et modes d'installation</h2>
+      <p>Windows Server existe en deux éditions principales : <strong>Standard</strong> (jusqu'à 2 machines virtuelles incluses par licence, adaptée aux PME) et <strong>Datacenter</strong> (virtualisation illimitée, adaptée aux grands environnements et à l'hyperconvergence). À l'installation, deux modes sont proposés :</p>
+
+      <div class="def">
+        <span class="def-term">Server Core</span>
+        <p>Installation minimale sans interface graphique, administrée en ligne de commande (PowerShell) ou à distance via Windows Admin Center. Surface d'attaque réduite, moins de correctifs à appliquer, moins de ressources consommées.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Desktop Experience</span>
+        <p>Installation complète avec interface graphique classique. Plus simple pour débuter, mais surface d'attaque plus large et plus de ressources consommées.</p>
+      </div>
+      <p><strong>Bonne pratique professionnelle :</strong> en production, Server Core est recommandé pour les rôles d'infrastructure (contrôleur de domaine, DNS, DHCP). Desktop Experience reste pertinent pour l'apprentissage ou les serveurs nécessitant des logiciels tiers avec interface graphique.</p>
+
+      <h2 class="sec">5.2 — Rôles et fonctionnalités</h2>
+      <p>Un <strong>rôle</strong> définit la fonction principale d'un serveur (ex. contrôleur de domaine, serveur DNS). Une <strong>fonctionnalité</strong> est un composant additionnel qui vient soutenir un rôle ou apporter un outil (ex. .NET Framework, outils d'administration distante).</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.rb{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .rs{font-family:-apple-system,sans-serif;font-size:10px;fill:#667085;}</style>
+          <rect x="20" y="20" width="580" height="40" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="rb" x="35" y="45" fill="#2C4362">Windows Server 2022 — rôles courants</text>
+
+          <rect x="20" y="76" width="135" height="56" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="rb" x="32" y="100" fill="#2C6B44">AD DS</text><text class="rs" x="32" y="116">Annuaire &amp; authentification</text>
+
+          <rect x="165" y="76" width="135" height="56" rx="8" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="rb" x="177" y="100" fill="#8B5E00">DNS</text><text class="rs" x="177" y="116">Résolution de noms</text>
+
+          <rect x="310" y="76" width="135" height="56" rx="8" fill="#E6F1F2" stroke="#3E8188"/>
+          <text class="rb" x="322" y="100" fill="#264D52">DHCP</text><text class="rs" x="322" y="116">Attribution d'IP</text>
+
+          <rect x="455" y="76" width="145" height="56" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/>
+          <text class="rb" x="467" y="100" fill="#4A3B60">File and Storage</text><text class="rs" x="467" y="116">Partages, DFS, quotas</text>
+
+          <rect x="20" y="146" width="135" height="56" rx="8" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="rb" x="32" y="170" fill="#8A3B37">Remote Desktop</text><text class="rs" x="32" y="186">Bureaux à distance</text>
+
+          <rect x="165" y="146" width="135" height="56" rx="8" fill="#F3F5F8" stroke="#98A2B3"/>
+          <text class="rb" x="177" y="170" fill="#4B5566">Web Server (IIS)</text><text class="rs" x="177" y="186">Hébergement web</text>
+
+          <rect x="310" y="146" width="290" height="56" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="rb" x="322" y="170" fill="#2C4362">Windows Admin Center</text><text class="rs" x="322" y="186">Console de gestion moderne, à distance, via navigateur</text>
+        </svg>
+        <p class="diagram-caption">Fig. 5.1 — Rôles Windows Server les plus courants en entreprise</p>
+      </div>
+
+      <h2 class="sec">5.3 — Méthodes d'administration</h2>
+      <ul class="std">
+        <li><strong>Server Manager</strong> — console graphique historique, gestion locale et multi-serveurs</li>
+        <li><strong>PowerShell</strong> — administration en ligne de commande, scriptable et automatisable (approfondi au module 7)</li>
+        <li><strong>Windows Admin Center</strong> — console web moderne installable gratuitement, remplace progressivement les anciens outils MMC, essentielle pour administrer du Server Core à distance</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Cabinet comptable de 12 employés (suite du Module 1)</h4>
+        <p><strong>Contexte :</strong> Le même cabinet comptable veut désormais centraliser l'authentification et le partage de fichiers. Un seul serveur physique, budget limité.</p>
+        <p><strong>Choix retenu :</strong> Windows Server 2022 <strong>Standard</strong> en <strong>Desktop Experience</strong> pour ce premier déploiement (équipe encore en apprentissage, pas d'administrateur système dédié à temps plein). Un seul rôle critique pour commencer : <strong>AD DS</strong> avec DNS intégré.</p>
+        <p><strong>Pourquoi pas Server Core ?</strong> Pour une PME sans équipe IT dédiée, la courbe d'apprentissage de l'administration 100% ligne de commande est un risque opérationnel plus grand que le bénéfice de sécurité — à réévaluer une fois l'équipe montée en compétence.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé 1 — Installation Windows Server 2022</h4></div>
+        <div class="lab-meta">Outil : Hyper-V/VirtualBox + ISO d'évaluation Microsoft · Durée : 50 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge l'ISO d'évaluation Windows Server 2022 (180 jours, gratuit) depuis le Centre d'évaluation Microsoft.</li>
+          <li>Crée une VM avec au moins 2 vCPU, 4 Go de RAM, 60 Go de disque.</li>
+          <li>Démarre l'installation, choisis <strong>Desktop Experience</strong> pour ce premier labo.</li>
+          <li>Définis le mot de passe administrateur local.</li>
+          <li>Une fois démarré, renomme le serveur (ex. <code>SRV-CABINET-01</code>) et configure une IP statique.</li>
+          <li>Active les mises à jour automatiques et lance Windows Update.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h4>Laboratoire guidé 2 — Promotion d'un contrôleur de domaine</h4></div>
+        <div class="lab-meta">Outil : la VM du labo précédent · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Dans Server Manager, ajoute le rôle <strong>Services de domaine Active Directory (AD DS)</strong>.</li>
+          <li>Lance l'assistant de configuration post-déploiement.</li>
+          <li>Choisis "Ajouter une nouvelle forêt" et définis le nom de domaine racine (ex. <code>cabinet.local</code>).</li>
+          <li>Définis le niveau fonctionnel de la forêt et du domaine (Windows Server 2016 minimum recommandé).</li>
+          <li>Laisse DNS s'installer automatiquement (coché par défaut).</li>
+          <li>Termine l'assistant — le serveur redémarre et devient contrôleur de domaine.</li>
+          <li>Vérifie avec <code>Get-ADDomain</code> en PowerShell.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2"/><circle cx="18" cy="8" r="2.5"/></svg></div><h4>Laboratoire guidé 3 — Création d'unités d'organisation (OU) et utilisateurs</h4></div>
+        <div class="lab-meta">Outil : Utilisateurs et ordinateurs Active Directory · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre la console <em>Utilisateurs et ordinateurs Active Directory</em>.</li>
+          <li>Crée trois OU : <code>Direction</code>, <code>Comptabilite</code>, <code>Ordinateurs</code>.</li>
+          <li>Dans l'OU Comptabilité, crée 5 comptes utilisateurs avec convention de nommage <code>prenom.nom</code>.</li>
+          <li>Force le changement de mot de passe à la première connexion pour chaque compte.</li>
+          <li>Refais l'opération en PowerShell pour un utilisateur : <pre class="cmdblock">New-ADUser -Name "Jean Dupont" -SamAccountName "jean.dupont" -Path "OU=Comptabilite,DC=cabinet,DC=local" -Enabled $true -AccountPassword (ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force)</pre></li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 5</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=windows%20server" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Windows Server fundamentals</div><div class="res-sub">Parcours officiel gratuit sur l'installation et les rôles</div></div>
+        </a>
+        <a class="res-item" href="https://www.microsoft.com/evalcenter/evaluate-windows-server-2022" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/></svg></div>
+          <div class="res-text"><div class="res-title">Centre d'évaluation Microsoft</div><div class="res-sub">ISO Windows Server 2022 gratuite (180 jours)</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 5</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quel avantage principal offre Server Core par rapport à Desktop Experience ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w5q1">Plus simple à administrer pour un débutant</label>
+            <label class="quiz-opt"><input type="radio" name="w5q1">Surface d'attaque réduite et moins de ressources consommées</label>
+            <label class="quiz-opt"><input type="radio" name="w5q1">Compatible avec plus de logiciels tiers</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans interface graphique, moins de composants sont installés donc moins de failles potentielles et de correctifs à appliquer.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quel rôle installe-t-on pour transformer un serveur en annuaire d'entreprise ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w5q2">AD DS</label>
+            <label class="quiz-opt"><input type="radio" name="w5q2">DHCP</label>
+            <label class="quiz-opt"><input type="radio" name="w5q2">IIS</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">AD DS (Active Directory Domain Services) est le rôle qui fournit l'annuaire et l'authentification centralisée.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quelle édition Windows Server convient à une virtualisation à grande échelle illimitée ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w5q3">Essentials</label>
+            <label class="quiz-opt"><input type="radio" name="w5q3">Standard</label>
+            <label class="quiz-opt"><input type="radio" name="w5q3">Datacenter</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Datacenter inclut des droits de virtualisation illimités, contre 2 VM pour Standard.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, pourquoi choisir Desktop Experience malgré ses inconvénients ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w5q4">C'est obligatoire pour AD DS</label>
+            <label class="quiz-opt"><input type="radio" name="w5q4">L'équipe n'a pas encore la compétence PowerShell/Core</label>
+            <label class="quiz-opt"><input type="radio" name="w5q4">Server Core ne supporte pas AD DS</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le choix dépend du contexte opérationnel, pas seulement de la technique — ici, la maturité de l'équipe prime.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 5</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Éditions, Core vs Desktop Experience, rôles courants</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s5">0</span>/25<div class="auto-note">calcul auto</div></td><td>Serveur installé, promu en DC, OU/utilisateurs créés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Justification du choix d'édition/mode pour un scénario donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 6 ============================================================ -->
+    <div class="week-block" id="s6">
+      <p class="week-tag">SEMAINE 6 · 31/08 – 06/09/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Active Directory Domain Services</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer la hiérarchie forêt / domaine / unité d'organisation</li>
+          <li>Gérer des groupes et déléguer des permissions administratives</li>
+          <li>Configurer des restrictions logicielles via GPO</li>
+          <li>Comprendre le rôle du DNS intégré à AD</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="26,27,28,29,30" data-tracker-week="s6">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="26" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Active Directory Domain Services</div></div><div class="tracker-row"><button class="check-btn" data-toggle="27" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création d'une forêt / domaine AD</div></div><div class="tracker-row"><button class="check-btn" data-toggle="28" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des groupes et délégation</div></div><div class="tracker-row"><button class="check-btn" data-toggle="29" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration de GPO (restrictions logicielles)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="30" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration DNS intégré à AD</div></div>
+      </div>
+
+
+      <h2 class="sec">6.1 — La hiérarchie Active Directory</h2>
+      <p>Active Directory organise les ressources d'une entreprise selon une hiérarchie à plusieurs niveaux :</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg">
+          <style>.ad-b{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .ad-s{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="220" y="10" width="160" height="42" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="ad-b" x="255" y="36" fill="#2C4362">Forêt</text>
+          <text class="ad-s" x="120" y="70">cabinet.local (racine)</text>
+
+          <line x1="300" y1="52" x2="300" y2="80" stroke="#98A2B3"/>
+          <rect x="220" y="80" width="160" height="42" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/>
+          <text class="ad-b" x="245" y="106" fill="#4A3B60">Domaine</text>
+
+          <line x1="300" y1="122" x2="300" y2="150" stroke="#98A2B3"/>
+          <line x1="150" y1="150" x2="450" y2="150" stroke="#98A2B3"/>
+          <line x1="150" y1="150" x2="150" y2="160" stroke="#98A2B3"/>
+          <line x1="300" y1="150" x2="300" y2="160" stroke="#98A2B3"/>
+          <line x1="450" y1="150" x2="450" y2="160" stroke="#98A2B3"/>
+
+          <rect x="80" y="160" width="140" height="40" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="ad-b" x="95" y="184" fill="#2C6B44">OU Direction</text>
+          <rect x="230" y="160" width="140" height="40" rx="8" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="ad-b" x="245" y="184" fill="#8B5E00">OU Comptabilité</text>
+          <rect x="380" y="160" width="140" height="40" rx="8" fill="#E6F1F2" stroke="#3E8188"/>
+          <text class="ad-b" x="405" y="184" fill="#264D52">OU Ordinateurs</text>
+
+          <text class="ad-s" x="95" y="220">👤 Utilisateurs</text>
+          <text class="ad-s" x="245" y="220">👤 Utilisateurs · 👥 Groupes</text>
+          <text class="ad-s" x="405" y="220">💻 Postes de travail</text>
+        </svg>
+        <p class="diagram-caption">Fig. 6.1 — Hiérarchie Forêt → Domaine → Unités d'organisation → Objets</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">Forêt</span>
+        <p>Conteneur de plus haut niveau, peut contenir plusieurs domaines qui partagent un schéma et un catalogue global communs.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Domaine</span>
+        <p>Limite de sécurité et de réplication — regroupe les objets (utilisateurs, ordinateurs, groupes) qui partagent la même base d'annuaire.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Unité d'organisation (OU)</span>
+        <p>Conteneur logique permettant d'organiser les objets et surtout d'appliquer des GPO et de déléguer l'administration de façon ciblée.</p>
+      </div>
+
+      <h2 class="sec">6.2 — Groupes et délégation</h2>
+      <p>Les groupes AD simplifient la gestion des permissions : on affecte les droits à un groupe plutôt qu'à chaque utilisateur individuellement (principe <strong>AGDLP</strong> — comptes dans des groupes globaux, dans des groupes locaux de domaine, auxquels on donne des Permissions).</p>
+      <ul class="std">
+        <li><strong>Groupes de sécurité</strong> — utilisés pour attribuer des permissions</li>
+        <li><strong>Groupes de distribution</strong> — utilisés uniquement pour la messagerie</li>
+        <li><strong>Étendues</strong> — Domaine local, Global, Universel (portée croissante)</li>
+      </ul>
+      <p>La <strong>délégation de contrôle</strong> permet de confier certaines tâches (ex. réinitialiser les mots de passe) à un utilisateur ou groupe sur une OU précise, sans en faire un administrateur du domaine — un principe clé de sécurité (moindre privilège).</p>
+
+      <h2 class="sec">6.3 — DNS intégré à Active Directory</h2>
+      <p>Lorsque DNS est installé avec AD DS, les zones peuvent être stockées <strong>directement dans l'annuaire</strong> (zones intégrées à AD) plutôt que dans de simples fichiers texte. Avantage majeur : la réplication des enregistrements DNS se fait automatiquement entre tous les contrôleurs de domaine, avec sécurisation possible des mises à jour dynamiques (seuls les ordinateurs authentifiés peuvent mettre à jour leur propre enregistrement).</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Structure Active Directory pour une chaîne de 3 hôtels</h4>
+        <p><strong>Contexte :</strong> Une petite chaîne hôtelière veut un seul annuaire pour ses 3 établissements, avec des équipes IT limitées et une administration déléguée localement à chaque hôtel.</p>
+        <p><strong>Structure retenue :</strong> un domaine unique <code>groupe-hotel.local</code>, avec une OU par établissement (<code>Hotel-Centre</code>, <code>Hotel-Gare</code>, <code>Hotel-Aeroport</code>), chacune contenant ses propres sous-OU Utilisateurs/Ordinateurs/Groupes.</p>
+        <p><strong>Délégation :</strong> le responsable IT de chaque hôtel reçoit une délégation de contrôle limitée à son OU (réinitialisation de mot de passe, gestion des comptes) — sans droits sur les autres établissements ni sur le domaine entier.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20v-1a5 5 0 015-5h2a5 5 0 015 5v1M12 20v-1a5 5 0 015-5h0a5 5 0 015 5v1"/></svg></div><h4>Laboratoire guidé — Gestion des groupes et délégation</h4></div>
+        <div class="lab-meta">Outil : Utilisateurs et ordinateurs AD · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Crée un groupe de sécurité <code>G-Comptabilite-RW</code> (étendue Globale).</li>
+          <li>Ajoute-y les 5 utilisateurs créés au labo précédent.</li>
+          <li>Clic droit sur l'OU Comptabilité → <em>Délégation de contrôle</em>.</li>
+          <li>Délègue la tâche "Réinitialiser les mots de passe utilisateur" à un utilisateur désigné "support local".</li>
+          <li>Vérifie la délégation avec <code>dsacls</code> ou via l'onglet Sécurité avancée de l'OU.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h4>Laboratoire guidé — Configuration de GPO (restrictions logicielles)</h4></div>
+        <div class="lab-meta">Outil : Gestion des stratégies de groupe · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre la console <em>Gestion des stratégies de groupe</em>.</li>
+          <li>Crée une nouvelle GPO liée à l'OU Comptabilité : <code>GPO-Restriction-Logiciels</code>.</li>
+          <li>Dans Configuration Ordinateur → Stratégies → Paramètres Windows → Stratégies de restriction logicielle, crée une règle interdisant l'exécution depuis le dossier Téléchargements.</li>
+          <li>Force la mise à jour sur un poste client : <code>gpupdate /force</code>.</li>
+          <li>Vérifie l'application avec <code>gpresult /r</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10h6M9 14h4"/></svg></div><h4>Laboratoire guidé — Configuration DNS intégré à AD</h4></div>
+        <div class="lab-meta">Outil : Gestionnaire DNS · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre le Gestionnaire DNS sur le contrôleur de domaine.</li>
+          <li>Vérifie que la zone <code>cabinet.local</code> est bien "Intégrée à Active Directory".</li>
+          <li>Active les mises à jour dynamiques sécurisées uniquement.</li>
+          <li>Crée un enregistrement CNAME <code>intranet</code> pointant vers le nom du serveur.</li>
+          <li>Teste la résolution depuis un poste client avec <code>nslookup intranet.cabinet.local</code>.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 6</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=active%20directory" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Active Directory Domain Services</div><div class="res-sub">Parcours officiel gratuit sur AD DS</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 6</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quel conteneur permet d'appliquer des GPO ciblées à un sous-ensemble d'utilisateurs ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w6q1">Le domaine</label>
+            <label class="quiz-opt"><input type="radio" name="w6q1">La forêt</label>
+            <label class="quiz-opt"><input type="radio" name="w6q1">L'unité d'organisation (OU)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les GPO se lient à des OU pour un ciblage précis, contrairement au domaine qui s'applique plus largement.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Quel type de groupe sert uniquement à la messagerie, sans permissions ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w6q2">Groupe de sécurité</label>
+            <label class="quiz-opt"><input type="radio" name="w6q2">Groupe de distribution</label>
+            <label class="quiz-opt"><input type="radio" name="w6q2">Groupe universel</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les groupes de distribution servent aux listes de diffusion email, pas au contrôle d'accès.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel est l'avantage principal du DNS intégré à AD ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w6q3">Réplication automatique entre contrôleurs de domaine</label>
+            <label class="quiz-opt"><input type="radio" name="w6q3">Il est plus rapide qu'un DNS classique</label>
+            <label class="quiz-opt"><input type="radio" name="w6q3">Il ne nécessite pas de configuration</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les zones intégrées à AD se répliquent automatiquement avec l'annuaire, sans transfert de zone manuel.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi une délégation limitée à chaque OU plutôt que des comptes admin domaine ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w6q4">C'est plus rapide à configurer</label>
+            <label class="quiz-opt"><input type="radio" name="w6q4">Principe du moindre privilège : limiter les risques</label>
+            <label class="quiz-opt"><input type="radio" name="w6q4">Les admins domaine ne peuvent gérer qu'un seul hôtel</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un compte compromis avec des droits limités à une seule OU représente un risque bien moindre qu'un compte admin domaine.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 6</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Hiérarchie AD, groupes, DNS intégré</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s6">0</span>/25<div class="auto-note">calcul auto</div></td><td>Groupes, délégation et GPO fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Structure OU proposée pour un scénario multi-sites</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 7 ============================================================ -->
+    <div class="week-block" id="s7">
+      <p class="week-tag">SEMAINE 7 · 07/09 – 13/09/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Stratégies de groupe (GPO) et sécurité</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer l'ordre d'application des GPO (LSDOU)</li>
+          <li>Distinguer les grandes familles de paramètres GPO</li>
+          <li>Configurer un DHCP en haute disponibilité</li>
+          <li>Sauvegarder et restaurer un serveur avec Windows Server Backup</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="31,32,33,34,35" data-tracker-week="s7">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="31" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Stratégies de groupe (GPO) et sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="32" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration de GPO de sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="33" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration DHCP en haute disponibilité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="34" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place du service de fichiers (DFS)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="35" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Sauvegarde et restauration Windows Server Backup</div></div>
+      </div>
+
+
+      <h2 class="sec">7.1 — L'ordre d'application des GPO : LSDOU</h2>
+      <p>Quand un utilisateur ou un ordinateur se connecte, Windows applique les GPO dans un ordre précis, chaque niveau pouvant écraser le précédent :</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg">
+          <style>.lg{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;fill:#2C4362;} .ls{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="10" y="20" width="130" height="44" rx="8" fill="#F3F5F8" stroke="#98A2B3"/><text class="lg" x="45" y="46">Local</text>
+          <text x="145" y="45" font-size="16" fill="#98A2B3">→</text>
+          <rect x="165" y="20" width="130" height="44" rx="8" fill="#E6F1F2" stroke="#3E8188"/><text class="lg" x="185" y="46" fill="#264D52">Site</text>
+          <text x="300" y="45" font-size="16" fill="#98A2B3">→</text>
+          <rect x="320" y="20" width="130" height="44" rx="8" fill="#FBF1DA" stroke="#B07C00"/><text class="lg" x="345" y="46" fill="#8B5E00">Domaine</text>
+          <text x="455" y="45" font-size="16" fill="#98A2B3">→</text>
+          <rect x="475" y="20" width="120" height="44" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/><text class="lg" x="495" y="46" fill="#2C6B44">OU</text>
+          <text class="ls" x="475" y="82">Priorité la plus forte — s'applique en dernier</text>
+        </svg>
+        <p class="diagram-caption">Fig. 7.1 — Ordre LSDOU (Local → Site → Domaine → OU), le dernier niveau gagne en cas de conflit</p>
+      </div>
+
+      <p>Deux paramètres peuvent inverser ce comportement : <strong>Bloquer l'héritage</strong> (sur une OU) empêche les GPO des niveaux supérieurs de s'appliquer, et <strong>Appliqué / Enforced</strong> (sur une GPO) force son application même si l'héritage est bloqué plus bas.</p>
+
+      <h2 class="sec">7.2 — Familles de paramètres GPO</h2>
+      <ul class="std">
+        <li><strong>Paramètres de sécurité</strong> — stratégies de mot de passe, verrouillage de compte, droits utilisateurs, pare-feu Windows</li>
+        <li><strong>Modèles d'administration</strong> — configuration fine des fonctionnalités Windows et des applications Microsoft (Edge, Office)</li>
+        <li><strong>Scripts</strong> — exécution automatique de scripts au démarrage, à l'arrêt, à l'ouverture/fermeture de session</li>
+        <li><strong>Préférences</strong> — mappage de lecteurs réseau, imprimantes, variables d'environnement</li>
+      </ul>
+
+      <div class="def">
+        <span class="def-term">Security Baseline (base de référence de sécurité)</span>
+        <p>Ensemble de GPO préconfigurées par Microsoft représentant les réglages de sécurité recommandés pour un rôle donné. Le <em>Security Compliance Toolkit</em> (gratuit) fournit ces baselines prêtes à importer.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Restriction logicielle sur les postes de supervision de production</h4>
+        <p><strong>Contexte :</strong> Une usine possède des postes Windows dédiés à la supervision d'automates (SCADA). Ces postes ne doivent exécuter que le logiciel de supervision — aucune installation, aucun navigateur, aucune clé USB non autorisée.</p>
+        <p><strong>Solution GPO :</strong> une OU dédiée <code>Postes-Production</code> avec une GPO appliquant : liste blanche AppLocker n'autorisant que l'exécutable de supervision signé, désactivation des ports USB de stockage de masse via stratégie de restriction des périphériques, et GPO marquée <strong>Enforced</strong> pour empêcher tout contournement local.</p>
+        <p><strong>Pourquoi si strict ?</strong> Un poste de supervision compromis peut avoir un impact physique direct sur la production — le principe de sécurité "tout est interdit sauf ce qui est explicitement autorisé" (liste blanche) prime sur la liste noire, plus permissive.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/></svg></div><h4>Laboratoire guidé — Configuration DHCP en haute disponibilité</h4></div>
+        <div class="lab-meta">Outil : Server Manager, 2 VM serveur · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Installe le rôle DHCP sur un second serveur.</li>
+          <li>Sur le premier serveur DHCP, ouvre la console DHCP → clic droit sur l'étendue → <em>Configurer l'basculement</em>.</li>
+          <li>Choisis le mode <strong>Basculement partagé (Load Balance)</strong> ou <strong>Actif-Passif (Hot Standby)</strong> selon le besoin.</li>
+          <li>Définis le pourcentage de répartition de charge (souvent 50/50 pour du load balance).</li>
+          <li>Vérifie sur les deux serveurs que l'étendue est répliquée avec <code>Get-DhcpServerv4FailoverStatistics</code>.</li>
+          <li>Simule l'arrêt du serveur principal et vérifie que le secondaire continue à distribuer des baux.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg></div><h4>Laboratoire guidé — Mise en place du service de fichiers (DFS)</h4></div>
+        <div class="lab-meta">Outil : Server Manager · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe le rôle <em>Services de fichiers et de stockage → Espaces de noms DFS</em>.</li>
+          <li>Crée un nouvel espace de noms <code>\\cabinet.local\Partages</code>.</li>
+          <li>Ajoute un dossier cible pointant vers un partage local (ex. <code>\\SRV01\Compta</code>).</li>
+          <li>Depuis un poste client, accède à <code>\\cabinet.local\Partages\Compta</code> et vérifie l'accès transparent.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg></div><h4>Laboratoire guidé — Sauvegarde et restauration Windows Server Backup</h4></div>
+        <div class="lab-meta">Outil : Windows Server Backup · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Installe la fonctionnalité <em>Windows Server Backup</em>.</li>
+          <li>Lance une sauvegarde ponctuelle du serveur complet vers un disque dédié.</li>
+          <li>Une fois terminée, simule la suppression d'un fichier important dans un partage.</li>
+          <li>Utilise l'assistant de restauration pour récupérer uniquement ce fichier (récupération granulaire).</li>
+          <li>Planifie ensuite une sauvegarde quotidienne automatique.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 7</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=group%20policy" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Group Policy management</div><div class="res-sub">Parcours officiel gratuit sur les GPO</div></div>
+        </a>
+        <a class="res-item" href="https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+          <div class="res-text"><div class="res-title">Security Compliance Toolkit</div><div class="res-sub">Baselines de sécurité officielles Microsoft, gratuites</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 7</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. En cas de conflit, quel niveau GPO l'emporte selon l'ordre LSDOU ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w7q1">Local</label>
+            <label class="quiz-opt"><input type="radio" name="w7q1">Site</label>
+            <label class="quiz-opt"><input type="radio" name="w7q1">OU (le plus proche de l'objet)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le dernier niveau appliqué (l'OU la plus proche) l'emporte, sauf blocage d'héritage ou GPO forcée.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Que fait l'option "Enforced" (Appliqué) sur une GPO ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w7q2">Elle supprime la GPO après application</label>
+            <label class="quiz-opt"><input type="radio" name="w7q2">Elle force son application même si l'héritage est bloqué plus bas</label>
+            <label class="quiz-opt"><input type="radio" name="w7q2">Elle la rend invisible aux utilisateurs</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Enforced outrepasse le blocage d'héritage — utile pour imposer des règles de sécurité incontournables.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Dans un basculement DHCP en Load Balance, que se passe-t-il si un serveur tombe ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w7q3">L'autre serveur continue à distribuer des baux</label>
+            <label class="quiz-opt"><input type="radio" name="w7q3">Plus aucun client ne reçoit d'IP</label>
+            <label class="quiz-opt"><input type="radio" name="w7q3">Il faut redémarrer manuellement le service</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est précisément l'intérêt de la haute disponibilité : continuité de service sans intervention.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi l'usine choisit-elle une liste blanche (AppLocker) plutôt qu'une liste noire pour ses postes de supervision ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w7q4">C'est plus simple à configurer</label>
+            <label class="quiz-opt"><input type="radio" name="w7q4">Elle bloque tout par défaut, sauf ce qui est explicitement autorisé — plus sûr</label>
+            <label class="quiz-opt"><input type="radio" name="w7q4">Les listes noires ne fonctionnent pas sous Windows</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sur un poste critique, on préfère un modèle "tout interdit sauf autorisation explicite" plutôt que l'inverse.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 7</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Ordre LSDOU, familles de paramètres GPO</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s7">0</span>/25<div class="auto-note">calcul auto</div></td><td>DHCP haute dispo, DFS et sauvegarde fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Stratégie de restriction proposée pour un poste critique</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 8 ============================================================ -->
+    <div class="week-block" id="s8">
+      <p class="week-tag">SEMAINE 8 · 14/09 – 20/09/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Services de fichiers, impression et stockage</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Configurer DFS-N et DFS-R et des quotas de stockage</li>
+          <li>Déployer un accès Bureau à distance (RDS) simple</li>
+          <li>Durcir la sécurité d'un serveur avec une Security Baseline</li>
+          <li>Surveiller un serveur avec l'Observateur d'événements et le Moniteur de performances</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="36,37,38,39,40" data-tracker-week="s8">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="36" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Services de fichiers, impression et stockage</div></div><div class="tracker-row"><button class="check-btn" data-toggle="37" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration DFS et quotas de stockage</div></div><div class="tracker-row"><button class="check-btn" data-toggle="38" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration RDS (Bureau à distance)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="39" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Durcissement sécurité (Security Baseline)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="40" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Surveillance (Observateur d'événements / Perfmon)</div></div>
+      </div>
+
+
+      <h2 class="sec">8.1 — DFS : espace de noms et réplication</h2>
+      <p>DFS comporte deux composants complémentaires :</p>
+      <div class="def">
+        <span class="def-term">DFS-N (Namespace)</span>
+        <p>Regroupe plusieurs partages dispersés sur différents serveurs sous un seul chemin logique unifié (ex. <code>\\cabinet.local\Partages</code>), transparent pour l'utilisateur.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">DFS-R (Replication)</span>
+        <p>Réplique le contenu d'un dossier entre plusieurs serveurs, pour la redondance ou pour rapprocher les données des utilisateurs sur plusieurs sites.</p>
+      </div>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+          <style>.df{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .dfs2{font-family:-apple-system,sans-serif;font-size:10px;fill:#667085;}</style>
+          <rect x="220" y="10" width="160" height="40" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="df" x="235" y="35" fill="#2C4362">\\cabinet.local\Partages</text>
+          <line x1="300" y1="50" x2="150" y2="90" stroke="#98A2B3"/>
+          <line x1="300" y1="50" x2="450" y2="90" stroke="#98A2B3"/>
+          <rect x="80" y="90" width="140" height="40" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="df" x="95" y="115" fill="#2C6B44">SRV01\Compta</text>
+          <rect x="380" y="90" width="140" height="40" rx="8" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="df" x="395" y="115" fill="#8B5E00">SRV02\Direction</text>
+          <line x1="150" y1="130" x2="150" y2="150" stroke="#3F8F5F" stroke-dasharray="4"/>
+          <text class="dfs2" x="60" y="165">Réplication DFS-R vers site 2</text>
+        </svg>
+        <p class="diagram-caption">Fig. 8.1 — Espace de noms DFS unifiant deux serveurs de fichiers</p>
+      </div>
+
+      <h2 class="sec">8.2 — Quotas et gestion du stockage</h2>
+      <p>Le <strong>File Server Resource Manager (FSRM)</strong> permet de définir des quotas par dossier ou utilisateur (limite souple avec alerte, ou stricte avec blocage), ainsi que des filtres de type de fichiers pour interdire certains formats (ex. exécutables sur un partage de documents).</p>
+
+      <h2 class="sec">8.3 — Bureau à distance (RDS) et surveillance</h2>
+      <p>Les <strong>Services Bureau à distance (RDS)</strong> permettent à plusieurs utilisateurs de se connecter simultanément à un serveur pour y exécuter des applications à distance — utile pour centraliser un logiciel métier sans l'installer sur chaque poste.</p>
+      <p>Pour la surveillance :</p>
+      <ul class="std">
+        <li><strong>Observateur d'événements</strong> — journaux Système, Application, Sécurité ; essentiel pour diagnostiquer pannes et incidents de sécurité</li>
+        <li><strong>Moniteur de performances (Perfmon)</strong> — suivi en temps réel ou historique du CPU, RAM, disque, réseau ; permet de détecter une dérive avant la panne</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME (bilan du module)</span>
+        <h4>Infrastructure complète du cabinet comptable</h4>
+        <p><strong>Bilan :</strong> Le cabinet dispose maintenant d'un contrôleur de domaine avec DNS intégré, d'OU structurées avec délégation, de GPO de sécurité, d'un espace de fichiers DFS avec quotas, de sauvegardes automatisées et d'un accès RDS pour le logiciel comptable central.</p>
+        <p><strong>Surveillance mise en place :</strong> un tableau de bord Perfmon basique surveille l'espace disque et la charge CPU du serveur, avec une alerte email si le disque dépasse 85% d'occupation — anticipation plutôt que réaction.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h4>Laboratoire guidé — Configuration RDS (Bureau à distance)</h4></div>
+        <div class="lab-meta">Outil : Server Manager · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Installe le rôle <em>Services Bureau à distance</em> (déploiement rapide, session-based).</li>
+          <li>Ajoute le serveur comme hôte de session RDS.</li>
+          <li>Publie une application (ex. Calculatrice, pour le test) via RemoteApp.</li>
+          <li>Depuis un poste client, connecte-toi via le client Bureau à distance et lance l'application publiée.</li>
+          <li>Vérifie la limite de sessions simultanées configurée.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Laboratoire guidé — Durcissement sécurité (Security Baseline)</h4></div>
+        <div class="lab-meta">Outil : Security Compliance Toolkit · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge la Security Baseline correspondant à Windows Server 2022.</li>
+          <li>Importe les objets GPO fournis dans la Gestion des stratégies de groupe.</li>
+          <li>Lie la baseline à l'OU des serveurs (avec prudence — teste d'abord hors production).</li>
+          <li>Compare les paramètres appliqués avant/après avec <code>gpresult /h rapport.html</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h4>Laboratoire guidé — Surveillance (Observateur d'événements / Perfmon)</h4></div>
+        <div class="lab-meta">Outil : outils natifs Windows Server · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre l'Observateur d'événements, filtre le journal Système sur les erreurs des 7 derniers jours.</li>
+          <li>Crée une vue personnalisée regroupant les événements critiques de sécurité (échecs d'authentification).</li>
+          <li>Ouvre le Moniteur de performances, crée un ensemble de collecteurs de données (CPU, mémoire, disque).</li>
+          <li>Configure une alerte déclenchée si l'espace disque libre descend sous 15%.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 8</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=file%20services" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — File and storage services</div><div class="res-sub">DFS, quotas, RDS et surveillance serveur</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 8</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Quel composant DFS unifie plusieurs partages sous un seul chemin logique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w8q1">DFS-N (Namespace)</label>
+            <label class="quiz-opt"><input type="radio" name="w8q1">DFS-R (Replication)</label>
+            <label class="quiz-opt"><input type="radio" name="w8q1">FSRM</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">DFS-N crée l'espace de noms unifié ; DFS-R gère la réplication du contenu entre serveurs.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. À quoi sert RemoteApp dans RDS ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w8q2">Sauvegarder le serveur à distance</label>
+            <label class="quiz-opt"><input type="radio" name="w8q2">Publier une application unique sans exposer tout le bureau</label>
+            <label class="quiz-opt"><input type="radio" name="w8q2">Chiffrer les sessions RDP</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">RemoteApp permet à l'utilisateur de lancer une seule application distante, qui s'affiche comme une fenêtre locale.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quel outil natif Windows Server permet de suivre le CPU/RAM/disque en continu ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w8q3">Observateur d'événements</label>
+            <label class="quiz-opt"><input type="radio" name="w8q3">Gestionnaire de tâches uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w8q3">Moniteur de performances (Perfmon)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Perfmon collecte des compteurs dans la durée et permet d'historiser les tendances, contrairement au Gestionnaire de tâches (instantané).</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi le cabinet comptable configure-t-il une alerte à 85% d'occupation disque plutôt qu'à 100% ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w8q4">85% est la limite technique de Windows</label>
+            <label class="quiz-opt"><input type="radio" name="w8q4">Pour anticiper et agir avant la panne</label>
+            <label class="quiz-opt"><input type="radio" name="w8q4">C'est une exigence de Windows Server Backup</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une bonne surveillance est proactive, pas réactive — on veut être alerté avant que le disque soit plein.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 8</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>DFS, quotas, RDS, surveillance serveur</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s8">0</span>/25<div class="auto-note">calcul auto</div></td><td>RDS, Security Baseline et surveillance fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de surveillance proposé (seuils, alertes)</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu as construit une infrastructure Windows Server complète : annuaire structuré, sécurité par GPO, stockage résilient, sauvegarde et surveillance — les fondations de tout environnement Microsoft en entreprise, que tu retrouveras enrichies dans les modules Microsoft 365 et Azure.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Infrastructure AD complète</em> — assemble tous les éléments du module dans un environnement de lab unique : domaine, OU structurées avec délégation, GPO de sécurité (Security Baseline), DFS avec quotas, RDS et surveillance active. Documente ton architecture et les décisions prises à chaque étape.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-01-reseaux.html"><div class="lbl">Module précédent</div><div class="ttl">01 · Réseaux</div></a>
+      <a class="next" style="opacity:.5;pointer-events:none;"><div class="lbl">Prochain module</div><div class="ttl">03 · Linux (à venir)</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Windows Server">[{"id": 21, "type": "Cours", "week": 5, "title": "Installation et rôles Windows Server"}, {"id": 22, "type": "TP", "week": 5, "title": "Installation Windows Server (Core vs Desktop Experience)"}, {"id": 23, "type": "Labo", "week": 5, "title": "Installation Windows Server 2022"}, {"id": 24, "type": "Labo", "week": 5, "title": "Promotion d'un contrôleur de domaine"}, {"id": 25, "type": "Labo", "week": 5, "title": "Création d'unités d'organisation (OU) et utilisateurs"}, {"id": 26, "type": "Cours", "week": 6, "title": "Active Directory Domain Services"}, {"id": 27, "type": "TP", "week": 6, "title": "Création d'une forêt / domaine AD"}, {"id": 28, "type": "Labo", "week": 6, "title": "Gestion des groupes et délégation"}, {"id": 29, "type": "Labo", "week": 6, "title": "Configuration de GPO (restrictions logicielles)"}, {"id": 30, "type": "Labo", "week": 6, "title": "Configuration DNS intégré à AD"}, {"id": 31, "type": "Cours", "week": 7, "title": "Stratégies de groupe (GPO) et sécurité"}, {"id": 32, "type": "TP", "week": 7, "title": "Configuration de GPO de sécurité"}, {"id": 33, "type": "Labo", "week": 7, "title": "Configuration DHCP en haute disponibilité"}, {"id": 34, "type": "Labo", "week": 7, "title": "Mise en place du service de fichiers (DFS)"}, {"id": 35, "type": "Labo", "week": 7, "title": "Sauvegarde et restauration Windows Server Backup"}, {"id": 36, "type": "Cours", "week": 8, "title": "Services de fichiers, impression et stockage"}, {"id": 37, "type": "TP", "week": 8, "title": "Configuration DFS et quotas de stockage"}, {"id": 38, "type": "Labo", "week": 8, "title": "Configuration RDS (Bureau à distance)"}, {"id": 39, "type": "Labo", "week": 8, "title": "Durcissement sécurité (Security Baseline)"}, {"id": 40, "type": "Labo", "week": 8, "title": "Surveillance (Observateur d'événements / Perfmon)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>
