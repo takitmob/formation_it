@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 3 · Linux — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 3 — Linux</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s9" data-week-ids="41,42,43,44,45">Semaine 9 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s10" data-week-ids="46,47,48,49,50">Semaine 10 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s11" data-week-ids="51,52,53,54,55">Semaine 11 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s12" data-week-ids="56,57,58,59,60">Semaine 12 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 3 · Linux</div><div class="topbar-sub">Semaines 9–12</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 3 / 13</p>
+    <h1 class="week-title">Linux</h1>
+    <p class="week-dates">21 septembre 2026 → 18 octobre 2026 · Semaines 9–12 · 52 h prévues</p>
+
+    <p class="lead">Linux fait tourner la majorité des serveurs web, des infrastructures cloud et des systèmes embarqués dans le monde. Ce module te rend autonome en ligne de commande : navigation, permissions, gestion de services, et automatisation par scripts — des compétences directement transférables à Azure et au module Python.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Naviguer et administrer un système Linux entièrement en ligne de commande</li>
+        <li>Gérer utilisateurs, groupes et permissions selon le principe du moindre privilège</li>
+        <li>Administrer les services avec systemd et diagnostiquer via les logs</li>
+        <li>Sécuriser un accès SSH et un serveur web</li>
+        <li>Écrire des scripts Bash pour automatiser des tâches récurrentes</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Aucun prérequis Linux. Tu auras besoin d'une VM (VirtualBox ou Hyper-V, déjà utilisé au Module 2) avec <strong>Ubuntu Server LTS</strong> (gratuit). Un terminal SSH (Terminal.app sur Mac, ou l'app Termius sur iPhone) sera utile pour t'entraîner même en déplacement.</p>
+
+    <!-- ============================================================ SEMAINE 9 ============================================================ -->
+    <div class="week-block" id="s9">
+      <p class="week-tag">SEMAINE 9 · 21/09 – 27/09/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux Linux — CLI et systèmes de fichiers</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer les grandes familles de distributions Linux et leurs usages</li>
+          <li>Naviguer dans l'arborescence de fichiers Linux (FHS)</li>
+          <li>Utiliser les commandes de base pour manipuler fichiers et dossiers</li>
+          <li>Installer et gérer des paquets logiciels avec APT</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="41,42,43,44,45" data-tracker-week="s9">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="41" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux Linux (CLI, systèmes de fichiers)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="42" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Navigation et manipulation de fichiers (CLI)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="43" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation d'une distribution Linux (Ubuntu Server)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="44" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des paquets (APT / YUM)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="45" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration réseau sous Linux (netplan/nmcli)</div></div>
+      </div>
+
+
+      <h2 class="sec">9.1 — Distributions et philosophie Linux</h2>
+      <p>Linux est un <strong>noyau</strong> (kernel) open source, distribué avec un ensemble d'outils sous forme de <strong>distributions</strong> (« distros »). Les plus courantes en entreprise :</p>
+      <ul class="std">
+        <li><strong>Famille Debian/Ubuntu</strong> — gestionnaire de paquets APT, très répandue sur les serveurs web et le cloud</li>
+        <li><strong>Famille Red Hat</strong> (RHEL, CentOS Stream, Rocky Linux, Fedora) — gestionnaire de paquets DNF/YUM, standard en environnement critique/entreprise</li>
+        <li><strong>SUSE</strong> — répandue en Europe, notamment sur mainframe et environnements SAP</li>
+      </ul>
+      <p>Ce module utilise <strong>Ubuntu Server</strong> pour sa simplicité de prise en main, mais les concepts sont transférables à toutes les distributions.</p>
+
+      <h2 class="sec">9.2 — L'arborescence de fichiers (FHS)</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.fh{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;fill:#2C4362;} .fs{font-family:-apple-system,sans-serif;font-size:10px;fill:#667085;}</style>
+          <text class="fh" x="20" y="20">/</text><text class="fs" x="45" y="20">racine du système</text>
+          <text class="fh" x="40" y="46">├── /etc</text><text class="fs" x="150" y="46">fichiers de configuration</text>
+          <text class="fh" x="40" y="70">├── /home</text><text class="fs" x="150" y="70">répertoires personnels des utilisateurs</text>
+          <text class="fh" x="40" y="94">├── /var</text><text class="fs" x="150" y="94">données variables — logs, cache, bases de données</text>
+          <text class="fh" x="40" y="118">├── /usr</text><text class="fs" x="150" y="118">programmes et bibliothèques applicatives</text>
+          <text class="fh" x="40" y="142">├── /bin, /sbin</text><text class="fs" x="180" y="142">exécutables essentiels du système</text>
+          <text class="fh" x="40" y="166">├── /opt</text><text class="fs" x="150" y="166">logiciels tiers optionnels</text>
+          <text class="fh" x="40" y="190">└── /mnt, /media</text><text class="fs" x="200" y="190">points de montage (disques, USB, réseau)</text>
+        </svg>
+        <p class="diagram-caption">Fig. 9.1 — Arborescence FHS (Filesystem Hierarchy Standard) simplifiée</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">Tout est fichier</span>
+        <p>Principe fondateur d'Unix/Linux : périphériques, processus et flux de données sont représentés comme des fichiers, manipulables avec les mêmes outils standards (cat, redirection, pipes).</p>
+      </div>
+
+      <h2 class="sec">9.3 — Commandes de base</h2>
+      <table class="eval-tbl">
+        <tr><th>Commande</th><th>Rôle</th></tr>
+        <tr><td class="mono">pwd</td><td>Affiche le répertoire courant</td></tr>
+        <tr><td class="mono">ls -la</td><td>Liste le contenu d'un dossier, y compris fichiers cachés, en détail</td></tr>
+        <tr><td class="mono">cd /chemin</td><td>Change de répertoire</td></tr>
+        <tr><td class="mono">cp / mv / rm</td><td>Copier / déplacer-renommer / supprimer</td></tr>
+        <tr><td class="mono">mkdir -p</td><td>Créer un dossier (et ses parents si besoin)</td></tr>
+        <tr><td class="mono">cat / less</td><td>Afficher le contenu d'un fichier (less : page par page)</td></tr>
+        <tr><td class="mono">grep "motif" fichier</td><td>Rechercher du texte dans un fichier</td></tr>
+      </table>
+
+      <h2 class="sec">9.4 — Gestion des paquets</h2>
+      <p>Sur Ubuntu/Debian, <strong>APT</strong> (Advanced Package Tool) gère l'installation, la mise à jour et la suppression de logiciels, en résolvant automatiquement les dépendances.</p>
+      <pre class="cmdblock">sudo apt update              # rafraîchit la liste des paquets disponibles
+sudo apt upgrade             # met à jour les paquets installés
+sudo apt install nginx       # installe le paquet nginx
+sudo apt remove nginx        # désinstalle nginx</pre>
+      <p>Sur RHEL/Fedora, l'équivalent est <strong>DNF</strong> (anciennement YUM) : <code>sudo dnf install nginx</code>.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Cabinet comptable — remplacement d'un vieux serveur de fichiers</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis le Module 1) souhaite héberger un petit outil web interne de suivi des dossiers clients, sans licence Windows Server additionnelle.</p>
+        <p><strong>Choix retenu :</strong> une VM <strong>Ubuntu Server LTS</strong> légère, gratuite, dédiée à l'hébergement de l'application web via Nginx — coexistant avec le contrôleur de domaine Windows existant sur le même hyperviseur.</p>
+        <p><strong>Pourquoi Linux ici et pas Windows ?</strong> Pour un simple serveur web applicatif, Linux consomme moins de ressources, ne nécessite pas de licence, et bénéficie d'un écosystème mieux adapté à l'hébergement web léger — la bonne pratique consiste à choisir l'OS selon le rôle, pas par habitude.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé 1 — Installation d'une distribution Linux (Ubuntu Server)</h4></div>
+        <div class="lab-meta">Outil : VirtualBox ou Hyper-V · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge l'ISO Ubuntu Server LTS (gratuit, ubuntu.com).</li>
+          <li>Crée une VM (2 vCPU, 2 Go RAM, 20 Go disque minimum).</li>
+          <li>Lance l'installation, choisis un nom d'utilisateur et un mot de passe.</li>
+          <li>Accepte l'installation d'OpenSSH Server pendant l'assistant (utile pour la suite du module).</li>
+          <li>Une fois démarré, connecte-toi et vérifie la version : <code>lsb_release -a</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><h4>Laboratoire guidé 2 — Gestion des paquets (APT / YUM)</h4></div>
+        <div class="lab-meta">Outil : la VM du labo précédent · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Mets à jour le système : <code>sudo apt update &amp;&amp; sudo apt upgrade -y</code>.</li>
+          <li>Installe un outil utile : <code>sudo apt install htop -y</code>.</li>
+          <li>Liste les paquets installés : <code>apt list --installed</code>.</li>
+          <li>Recherche un paquet : <code>apt search nginx</code>.</li>
+          <li>Désinstalle proprement : <code>sudo apt remove htop -y</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h4>Laboratoire guidé 3 — Configuration réseau sous Linux (netplan/nmcli)</h4></div>
+        <div class="lab-meta">Outil : la VM du labo 1 · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Localise le fichier de configuration : <code>cat /etc/netplan/*.yaml</code>.</li>
+          <li>Édite-le pour passer d'une IP DHCP à une IP statique (ex. 192.168.1.50/24).</li>
+          <li>Applique la configuration : <code>sudo netplan apply</code>.</li>
+          <li>Vérifie avec <code>ip a</code>.</li>
+          <li>Teste la connectivité avec <code>ping -c 4 8.8.8.8</code>.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 9</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=linux" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Linux fundamentals</div><div class="res-sub">Parcours officiel gratuit (Linux sur Azure)</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — "Linux Unhatched"</div><div class="res-sub">Cours gratuit d'introduction à Linux</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 9</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Où se trouvent les fichiers de configuration système sous Linux ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w9q1">/home</label>
+            <label class="quiz-opt"><input type="radio" name="w9q1">/etc</label>
+            <label class="quiz-opt"><input type="radio" name="w9q1">/var</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">/etc regroupe la quasi-totalité des fichiers de configuration système.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quelle commande met à jour la liste des paquets disponibles sur Ubuntu ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w9q2">sudo apt update</label>
+            <label class="quiz-opt"><input type="radio" name="w9q2">sudo apt install</label>
+            <label class="quiz-opt"><input type="radio" name="w9q2">sudo apt list</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">"update" rafraîchit le catalogue ; "upgrade" applique ensuite les mises à jour.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quel gestionnaire de paquets utilise la famille Red Hat ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w9q3">APT</label>
+            <label class="quiz-opt"><input type="radio" name="w9q3">Homebrew</label>
+            <label class="quiz-opt"><input type="radio" name="w9q3">DNF / YUM</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">DNF (successeur de YUM) est le gestionnaire de paquets standard sur RHEL, Fedora, Rocky Linux.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, pourquoi choisir Linux pour l'outil web interne ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w9q4">Windows ne peut pas héberger de site web</label>
+            <label class="quiz-opt"><input type="radio" name="w9q4">Moins de ressources, pas de licence, écosystème adapté</label>
+            <label class="quiz-opt"><input type="radio" name="w9q4">Linux est obligatoire pour Nginx</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le choix d'OS doit se faire selon le rôle du serveur, pas par défaut — ici Linux est objectivement plus adapté.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 9</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Distributions, FHS, gestion de paquets</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s9">0</span>/25<div class="auto-note">calcul auto</div></td><td>VM installée, paquets gérés, réseau configuré</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Justification du choix Linux vs Windows pour un rôle donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 10 ============================================================ -->
+    <div class="week-block" id="s10">
+      <p class="week-tag">SEMAINE 10 · 28/09 – 04/10/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Utilisateurs, permissions et processus</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Créer et gérer des utilisateurs et groupes Linux</li>
+          <li>Lire et modifier des permissions (notation symbolique et octale)</li>
+          <li>Utiliser sudo selon le principe du moindre privilège</li>
+          <li>Gérer les processus et planifier des tâches avec cron</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="46,47,48,49,50" data-tracker-week="s10">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="46" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Utilisateurs, permissions et processus</div></div><div class="tracker-row"><button class="check-btn" data-toggle="47" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Gestion des permissions et propriétaires</div></div><div class="tracker-row"><button class="check-btn" data-toggle="48" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des utilisateurs et groupes</div></div><div class="tracker-row"><button class="check-btn" data-toggle="49" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Permissions avancées (ACL, sudo)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="50" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation de tâches avec Cron</div></div>
+      </div>
+
+
+      <h2 class="sec">10.1 — Utilisateurs et groupes</h2>
+      <p>Chaque utilisateur Linux possède un identifiant unique (<strong>UID</strong>) et appartient à un ou plusieurs groupes (<strong>GID</strong>). Les informations de compte sont stockées dans <code>/etc/passwd</code> (infos publiques) et les mots de passe chiffrés dans <code>/etc/shadow</code> (lisible uniquement par root).</p>
+      <pre class="cmdblock">sudo useradd -m -s /bin/bash jdupont   # crée l'utilisateur avec dossier personnel
+sudo passwd jdupont                    # définit son mot de passe
+sudo usermod -aG sudo jdupont          # ajoute jdupont au groupe sudo
+sudo groupadd compta                   # crée un groupe</pre>
+
+      <h2 class="sec">10.2 — Permissions : rwx et notation octale</h2>
+      <p>Chaque fichier possède trois niveaux de permissions — <strong>propriétaire</strong>, <strong>groupe</strong>, <strong>autres</strong> — chacun avec trois droits possibles : <strong>r</strong>ead, <strong>w</strong>rite, e<strong>x</strong>ecute.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+          <style>.pm{font-family:'JetBrains Mono',monospace;font-size:14px;} .pl{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <text class="pm" x="20" y="30" fill="#1B2130">-rwxr-xr--</text>
+          <text class="pl" x="20" y="50">type · propriétaire · groupe · autres</text>
+
+          <rect x="20" y="65" width="80" height="30" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="pm" x="30" y="86" fill="#2C6B44" font-size="12">rwx</text>
+          <text class="pl" x="20" y="108">Propriétaire = 7</text>
+
+          <rect x="110" y="65" width="80" height="30" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="pm" x="120" y="86" fill="#8B5E00" font-size="12">r-x</text>
+          <text class="pl" x="110" y="108">Groupe = 5</text>
+
+          <rect x="200" y="65" width="80" height="30" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="pm" x="212" y="86" fill="#8A3B37" font-size="12">r--</text>
+          <text class="pl" x="200" y="108">Autres = 4</text>
+
+          <text class="pl" x="310" y="86" fill="#2C4362" font-weight="700">chmod 754 fichier</text>
+        </svg>
+        <p class="diagram-caption">Fig. 10.1 — Décomposition des permissions rwx et leur équivalent octal (r=4, w=2, x=1)</p>
+      </div>
+
+      <pre class="cmdblock">chmod 754 script.sh        # rwx pour le propriétaire, r-x pour le groupe, r-- pour les autres
+chmod u+x script.sh        # ajoute le droit d'exécution au propriétaire (notation symbolique)
+chown jdupont:compta fichier.txt   # change propriétaire et groupe</pre>
+
+      <h2 class="sec">10.3 — sudo et le moindre privilège</h2>
+      <div class="def">
+        <span class="def-term">sudo (superuser do)</span>
+        <p>Permet à un utilisateur autorisé d'exécuter une commande avec les privilèges root, de façon tracée (chaque usage est journalisé) — préférable à une connexion permanente en root. La configuration se fait dans <code>/etc/sudoers</code> (à éditer uniquement avec <code>visudo</code>).</p>
+      </div>
+
+      <h2 class="sec">10.4 — Gestion des processus et cron</h2>
+      <pre class="cmdblock">ps aux              # liste tous les processus en cours
+top                 # vue dynamique de l'utilisation CPU/RAM
+kill -9 1234        # termine le processus d'ID 1234
+crontab -e          # édite les tâches planifiées de l'utilisateur courant</pre>
+      <p>Syntaxe cron : <code>minute heure jour mois jour_semaine commande</code>. Exemple — sauvegarde tous les jours à 2h du matin : <code>0 2 * * * /home/jdupont/backup.sh</code>.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Serveur Linux partagé pour le logiciel de réservation</h4>
+        <p><strong>Contexte :</strong> L'hôtel (suivi depuis le Module 2) héberge son logiciel de réservation sur un serveur Linux partagé entre la réception et la direction, chacun avec des besoins d'accès différents.</p>
+        <p><strong>Structure retenue :</strong> deux groupes <code>reception</code> et <code>direction</code>. Le dossier des réservations appartient au groupe <code>reception</code> avec permissions <code>770</code> (lecture/écriture pour le propriétaire et le groupe, rien pour les autres). Le dossier des rapports financiers appartient à <code>direction</code> seule, en <code>750</code>.</p>
+        <p><strong>sudo restreint :</strong> seul l'administrateur système a un accès sudo complet ; le personnel de réception n'a aucun privilège d'administration, réduisant le risque en cas de compte compromis.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20v-1a5 5 0 015-5h4a5 5 0 015 5v1"/></svg></div><h4>Laboratoire guidé — Gestion des utilisateurs et groupes</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée les groupes <code>reception</code> et <code>direction</code>.</li>
+          <li>Crée deux utilisateurs et assigne chacun au groupe correspondant.</li>
+          <li>Vérifie l'appartenance avec <code>groups nom_utilisateur</code>.</li>
+          <li>Consulte <code>/etc/passwd</code> et <code>/etc/group</code> pour repérer les entrées créées.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Laboratoire guidé — Permissions avancées (ACL, sudo)</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Crée un dossier <code>/data/reservations</code> et attribue-le au groupe <code>reception</code>.</li>
+          <li>Applique les permissions <code>chmod 770 /data/reservations</code>.</li>
+          <li>Pour un besoin plus fin, installe et utilise les ACL étendues : <code>sudo setfacl -m u:jdupont:rx /data/reservations</code>.</li>
+          <li>Ajoute un utilisateur au fichier sudoers avec des droits limités (via <code>visudo</code>), par exemple uniquement <code>systemctl restart nginx</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h4>Laboratoire guidé — Automatisation de tâches avec Cron</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un script simple qui archive un dossier : <code>tar -czf backup_$(date +%F).tar.gz /data</code>.</li>
+          <li>Rends-le exécutable : <code>chmod +x backup.sh</code>.</li>
+          <li>Ajoute une tâche cron pour l'exécuter chaque nuit à 2h : <code>crontab -e</code> puis <code>0 2 * * * /home/user/backup.sh</code>.</li>
+          <li>Force une exécution manuelle pour valider le script avant d'attendre le cron.</li>
+          <li>Vérifie les tâches planifiées avec <code>crontab -l</code>.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 10</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=linux" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Linux permissions &amp; users</div><div class="res-sub">Modules officiels gratuits</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 10</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Que signifie la permission octale "754" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w10q1">rwx pour tout le monde</label>
+            <label class="quiz-opt"><input type="radio" name="w10q1">r-- pour le propriétaire uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w10q1">rwx propriétaire, r-x groupe, r-- autres</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">7=rwx, 5=r-x, 4=r-- — voir Fig. 10.1.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Pourquoi préférer sudo à une connexion permanente en root ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w10q2">Chaque usage est tracé et limité dans le temps</label>
+            <label class="quiz-opt"><input type="radio" name="w10q2">sudo est plus rapide</label>
+            <label class="quiz-opt"><input type="radio" name="w10q2">root n'existe pas sous Ubuntu</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La traçabilité et la limitation temporelle réduisent fortement le risque en cas d'erreur ou de compromission.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Dans une syntaxe cron "0 2 * * *", à quelle heure la tâche s'exécute-t-elle ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w10q3">À minuit</label>
+            <label class="quiz-opt"><input type="radio" name="w10q3">Tous les jours à 2h00 du matin</label>
+            <label class="quiz-opt"><input type="radio" name="w10q3">Toutes les 2 minutes</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Ordre cron : minute(0) heure(2) jour(*) mois(*) jour_semaine(*) → tous les jours à 2h00.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi séparer les groupes "reception" et "direction" dans l'étude de cas hôtelière ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w10q4">Pour accélérer le serveur</label>
+            <label class="quiz-opt"><input type="radio" name="w10q4">Pour limiter l'accès aux données selon le rôle (moindre privilège)</label>
+            <label class="quiz-opt"><input type="radio" name="w10q4">Linux l'exige par défaut</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Séparer les groupes permet d'appliquer des permissions différenciées selon le besoin réel de chaque rôle.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 10</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Permissions rwx/octal, sudo, cron</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s10">0</span>/25<div class="auto-note">calcul auto</div></td><td>Utilisateurs/groupes, ACL et tâche cron fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de permissions proposé pour un scénario multi-groupes</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 11 ============================================================ -->
+    <div class="week-block" id="s11">
+      <p class="week-tag">SEMAINE 11 · 05/10 – 11/10/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Administration système — services, systemd, logs</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Gérer les services avec systemd</li>
+          <li>Analyser les journaux système avec journalctl</li>
+          <li>Sécuriser un accès SSH par clés</li>
+          <li>Monter des systèmes de fichiers et comprendre les bases de LVM</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="51,52,53,54,55" data-tracker-week="s11">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="51" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Administration système (services, systemd, logs)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="52" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Gestion de services avec systemctl</div></div><div class="tracker-row"><button class="check-btn" data-toggle="53" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un serveur SSH sécurisé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="54" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Montage de systèmes de fichiers et LVM</div></div><div class="tracker-row"><button class="check-btn" data-toggle="55" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un serveur web Apache/Nginx</div></div>
+      </div>
+
+
+      <h2 class="sec">11.1 — systemd et la gestion des services</h2>
+      <p><strong>systemd</strong> est le système d'initialisation utilisé par la quasi-totalité des distributions modernes. Il démarre, arrête et surveille les <strong>services</strong> (appelés « units »).</p>
+      <pre class="cmdblock">sudo systemctl status nginx     # état actuel du service
+sudo systemctl start nginx      # démarre le service
+sudo systemctl enable nginx     # active le démarrage automatique au boot
+sudo systemctl restart nginx    # redémarre le service</pre>
+
+      <h2 class="sec">11.2 — Logs avec journalctl</h2>
+      <p>systemd centralise les journaux via <strong>journald</strong>, consultables avec <code>journalctl</code> :</p>
+      <pre class="cmdblock">journalctl -u nginx --since today   # logs du service nginx depuis aujourd'hui
+journalctl -p err                   # uniquement les erreurs
+journalctl -f                       # suivi en temps réel (comme "tail -f")</pre>
+
+      <h2 class="sec">11.3 — Sécuriser l'accès SSH</h2>
+      <p>Par défaut, SSH accepte l'authentification par mot de passe — vulnérable au brute-force. La bonne pratique est l'<strong>authentification par clé</strong> :</p>
+      <ol class="std">
+        <li>Génère une paire de clés sur ton poste : <code>ssh-keygen -t ed25519</code></li>
+        <li>Copie la clé publique sur le serveur : <code>ssh-copy-id user@serveur</code></li>
+        <li>Sur le serveur, désactive l'authentification par mot de passe dans <code>/etc/ssh/sshd_config</code> : <code>PasswordAuthentication no</code></li>
+        <li>Désactive aussi la connexion root directe : <code>PermitRootLogin no</code></li>
+        <li>Redémarre le service : <code>sudo systemctl restart sshd</code></li>
+      </ol>
+
+      <h2 class="sec">11.4 — Montage et LVM</h2>
+      <div class="def">
+        <span class="def-term">LVM (Logical Volume Manager)</span>
+        <p>Couche d'abstraction entre les disques physiques et les systèmes de fichiers, permettant de redimensionner des volumes à chaud, d'ajouter du stockage sans interruption, et de créer des snapshots.</p>
+      </div>
+      <pre class="cmdblock">lsblk                        # liste les disques et partitions
+sudo mount /dev/sdb1 /mnt/data   # monte une partition
+df -h                         # espace disque utilisé, lisible</pre>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Serveur Linux embarqué pour la collecte de données capteurs</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis le Module 1) déploie un petit serveur Linux embarqué qui collecte en continu les données de capteurs de température sur la ligne de production, avant de les transmettre à un serveur central.</p>
+        <p><strong>Résilience via systemd :</strong> le service de collecte est configuré avec <code>Restart=always</code> dans son fichier unit systemd — en cas de plantage du processus (bug logiciel, coupure momentanée), systemd le relance automatiquement en quelques secondes, sans intervention humaine.</p>
+        <p><strong>Sécurité :</strong> l'accès SSH au boîtier est restreint par clé uniquement, connexion root désactivée, et les logs sont consultés à distance via journalctl pour diagnostiquer sans devoir se déplacer physiquement sur la ligne.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h4>Laboratoire guidé — Configuration d'un serveur SSH sécurisé</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module + ton poste · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Génère une paire de clés SSH sur ton poste (Mac/PC).</li>
+          <li>Copie ta clé publique sur la VM avec <code>ssh-copy-id</code>.</li>
+          <li>Connecte-toi sans mot de passe pour valider.</li>
+          <li>Désactive l'authentification par mot de passe et la connexion root dans <code>sshd_config</code>.</li>
+          <li>Redémarre le service SSH et vérifie que seule la connexion par clé fonctionne désormais.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg></div><h4>Laboratoire guidé — Montage de systèmes de fichiers et LVM</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ajoute un second disque virtuel à la VM (2 Go suffisent).</li>
+          <li>Crée un volume physique LVM : <code>sudo pvcreate /dev/sdb</code>.</li>
+          <li>Crée un groupe de volumes : <code>sudo vgcreate data_vg /dev/sdb</code>.</li>
+          <li>Crée un volume logique et formate-le : <code>sudo lvcreate -L 1.5G -n data_lv data_vg</code> puis <code>sudo mkfs.ext4 /dev/data_vg/data_lv</code>.</li>
+          <li>Monte-le et vérifie avec <code>df -h</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><h4>Laboratoire guidé — Mise en place d'un serveur web Apache/Nginx</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Installe Nginx : <code>sudo apt install nginx -y</code>.</li>
+          <li>Vérifie qu'il démarre automatiquement : <code>sudo systemctl status nginx</code>.</li>
+          <li>Remplace la page d'accueil par défaut dans <code>/var/www/html/index.html</code>.</li>
+          <li>Accède au serveur depuis un navigateur via son IP.</li>
+          <li>Consulte les logs d'accès : <code>sudo tail -f /var/log/nginx/access.log</code>.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 11</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=linux%20administration" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Linux system administration</div><div class="res-sub">systemd, logs et gestion de services</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 11</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quelle commande active le démarrage automatique d'un service au boot ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w11q1">systemctl start</label>
+            <label class="quiz-opt"><input type="radio" name="w11q1">systemctl enable</label>
+            <label class="quiz-opt"><input type="radio" name="w11q1">systemctl status</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">"enable" configure le démarrage automatique ; "start" ne fait que démarrer immédiatement, sans persistance au reboot.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Pourquoi désactiver PasswordAuthentication en SSH ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w11q2">Ça accélère la connexion</label>
+            <label class="quiz-opt"><input type="radio" name="w11q2">C'est obligatoire pour Ubuntu</label>
+            <label class="quiz-opt"><input type="radio" name="w11q2">Ça élimine le risque de brute-force par mot de passe</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans authentification par mot de passe possible, les attaques par brute-force sur SSH deviennent inefficaces.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel est l'avantage principal de LVM par rapport au partitionnement classique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w11q3">Redimensionnement à chaud et snapshots</label>
+            <label class="quiz-opt"><input type="radio" name="w11q3">Il est plus rapide en lecture</label>
+            <label class="quiz-opt"><input type="radio" name="w11q3">Il ne nécessite pas de formatage</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">LVM permet d'agrandir un volume sans interrompre le service, contrairement à une partition classique.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas usine, à quoi sert "Restart=always" dans un fichier unit systemd ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w11q4">Redémarrer le serveur entier chaque nuit</label>
+            <label class="quiz-opt"><input type="radio" name="w11q4">Relancer automatiquement le service s'il plante</label>
+            <label class="quiz-opt"><input type="radio" name="w11q4">Forcer une mise à jour automatique</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est un mécanisme de résilience : le service redémarre seul en cas de plantage, sans intervention humaine.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 11</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>systemd, journalctl, SSH, LVM</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s11">0</span>/25<div class="auto-note">calcul auto</div></td><td>SSH par clé, LVM et serveur web fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de résilience proposé (Restart, logs, accès)</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 12 ============================================================ -->
+    <div class="week-block" id="s12">
+      <p class="week-tag">SEMAINE 12 · 12/10 – 18/10/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Scripting Bash et automatisation</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Écrire un script Bash avec variables, conditions et boucles</li>
+          <li>Analyser des logs système en profondeur</li>
+          <li>Automatiser une sauvegarde complète</li>
+          <li>Comprendre les principes de SELinux/AppArmor</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="56,57,58,59,60" data-tracker-week="s12">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="56" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Scripting Bash et automatisation</div></div><div class="tracker-row"><button class="check-btn" data-toggle="57" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Écriture de scripts Bash</div></div><div class="tracker-row"><button class="check-btn" data-toggle="58" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de logs système (journalctl)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="59" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Script Bash de sauvegarde automatisée</div></div><div class="tracker-row"><button class="check-btn" data-toggle="60" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Durcissement sécurité Linux (SELinux/AppArmor)</div></div>
+      </div>
+
+
+      <h2 class="sec">12.1 — Syntaxe Bash de base</h2>
+      <pre class="cmdblock">#!/bin/bash
+NOM="serveur01"                      # variable
+if [ -d "/data" ]; then              # condition : le dossier existe ?
+  echo "Le dossier existe sur $NOM"
+else
+  mkdir -p /data
+fi
+
+for fichier in /data/*.log; do       # boucle sur les fichiers .log
+  echo "Traitement de $fichier"
+done</pre>
+      <p>Un script commence toujours par un <strong>shebang</strong> (<code>#!/bin/bash</code>) qui indique l'interpréteur à utiliser. Il doit être rendu exécutable avec <code>chmod +x script.sh</code> puis lancé avec <code>./script.sh</code>.</p>
+
+      <h2 class="sec">12.2 — Arguments et gestion d'erreurs</h2>
+      <pre class="cmdblock">#!/bin/bash
+set -e   # arrête le script à la première erreur
+DOSSIER=$1   # premier argument passé au script
+
+if [ -z "$DOSSIER" ]; then
+  echo "Usage: $0 <dossier>"
+  exit 1
+fi</pre>
+
+      <h2 class="sec">12.3 — Analyse de logs avancée</h2>
+      <pre class="cmdblock">journalctl --since "1 hour ago" -p warning   # avertissements de la dernière heure
+grep -i "failed" /var/log/auth.log            # recherche des échecs de connexion
+journalctl -u sshd | grep "Invalid user"      # tentatives de connexion invalides</pre>
+
+      <h2 class="sec">12.4 — SELinux et AppArmor</h2>
+      <p>Ces deux systèmes ajoutent un <strong>contrôle d'accès obligatoire (MAC)</strong> au-delà des permissions classiques rwx : même un processus root peut être bloqué s'il tente une action non autorisée par sa politique.</p>
+      <ul class="std">
+        <li><strong>SELinux</strong> — utilisé par défaut sur RHEL/Fedora, politique très granulaire mais plus complexe</li>
+        <li><strong>AppArmor</strong> — utilisé par défaut sur Ubuntu/Debian, basé sur des profils par chemin de fichier, plus simple à appréhender</li>
+      </ul>
+      <pre class="cmdblock">sudo aa-status                # état d'AppArmor et profils actifs
+sudo aa-enforce /etc/apparmor.d/usr.sbin.nginx   # applique un profil en mode strict</pre>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique</span>
+        <h4>Sauvegarde automatisée nocturne des dossiers citoyens</h4>
+        <p><strong>Contexte :</strong> La mairie (suivie depuis le Module 1) stocke des dossiers citoyens sensibles sur un serveur Linux et doit garantir une sauvegarde fiable, tracée, et conforme aux exigences de protection des données publiques.</p>
+        <p><strong>Solution :</strong> un script Bash exécuté chaque nuit à 1h via cron, qui archive les dossiers, les chiffre avec GPG, transfère l'archive vers un stockage distant, et journalise chaque étape avec horodatage. En cas d'échec (ex. espace disque insuffisant), le script envoie une alerte email avant d'échouer proprement (<code>set -e</code>).</p>
+        <p><strong>Durcissement :</strong> AppArmor confine le processus de sauvegarde pour qu'il ne puisse accéder qu'aux dossiers strictement nécessaires — même si le script était compromis, l'impact resterait limité.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h4>Laboratoire guidé — Analyse de logs système (journalctl)</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Consulte les erreurs des dernières 24h : <code>journalctl -p err --since "24 hours ago"</code>.</li>
+          <li>Filtre uniquement les logs du service SSH : <code>journalctl -u sshd</code>.</li>
+          <li>Recherche les tentatives de connexion échouées : <code>journalctl -u sshd | grep -i "failed"</code>.</li>
+          <li>Exporte un rapport : <code>journalctl -u sshd --since today > rapport_ssh.txt</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg></div><h4>Laboratoire guidé — Script Bash de sauvegarde automatisée</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module · Durée : 45 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script <code>backup.sh</code> qui archive <code>/data</code> avec horodatage dans le nom de fichier.</li>
+          <li>Ajoute une gestion d'erreur : vérifie l'espace disque disponible avant de lancer l'archivage.</li>
+          <li>Ajoute un journal de sortie : chaque exécution écrit une ligne dans <code>/var/log/backup.log</code>.</li>
+          <li>Planifie le script via cron pour une exécution nocturne.</li>
+          <li>Teste volontairement un cas d'échec (dossier absent) et vérifie que le script échoue proprement avec un message clair.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Laboratoire guidé — Durcissement sécurité Linux (SELinux/AppArmor)</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du module (Ubuntu → AppArmor) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Vérifie l'état d'AppArmor : <code>sudo aa-status</code>.</li>
+          <li>Identifie les profils actifs pour les services installés (ex. nginx).</li>
+          <li>Passe un profil en mode "enforce" (strict) plutôt que "complain" (journalisation seule).</li>
+          <li>Teste que le service continue à fonctionner normalement après durcissement.</li>
+          <li>Consulte les refus de profil dans les logs : <code>journalctl | grep apparmor</code>.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 12</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=bash%20scripting" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Bash scripting</div><div class="res-sub">Introduction officielle et gratuite au scripting Bash</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — Scripting &amp; automation</div><div class="res-sub">Cours gratuit d'introduction au scripting</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 12</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Que fait la ligne "#!/bin/bash" en tête d'un script ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w12q1">Indique l'interpréteur à utiliser (shebang)</label>
+            <label class="quiz-opt"><input type="radio" name="w12q1">C'est un commentaire ignoré</label>
+            <label class="quiz-opt"><input type="radio" name="w12q1">Rend le script exécutable</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le shebang précise à l'OS quel interpréteur utiliser ; l'exécutabilité se règle séparément avec chmod +x.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Que fait "set -e" dans un script Bash ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w12q2">Active le mode débogage</label>
+            <label class="quiz-opt"><input type="radio" name="w12q2">Chiffre les variables</label>
+            <label class="quiz-opt"><input type="radio" name="w12q2">Arrête le script à la première erreur</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans "set -e", un script continue même après une commande échouée, ce qui peut masquer des problèmes.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Quel système de contrôle d'accès obligatoire est utilisé par défaut sur Ubuntu ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w12q3">SELinux</label>
+            <label class="quiz-opt"><input type="radio" name="w12q3">AppArmor</label>
+            <label class="quiz-opt"><input type="radio" name="w12q3">Firewalld</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">AppArmor est activé par défaut sur Ubuntu/Debian ; SELinux l'est sur RHEL/Fedora.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">4. Dans l'étude de cas de la mairie, pourquoi chiffrer l'archive de sauvegarde avec GPG ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w12q4">Protéger des données sensibles même en cas de vol du support</label>
+            <label class="quiz-opt"><input type="radio" name="w12q4">GPG compresse mieux que tar</label>
+            <label class="quiz-opt"><input type="radio" name="w12q4">C'est requis par cron</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le chiffrement protège la confidentialité des données citoyennes, même si le support de sauvegarde est perdu ou volé.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 12</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Syntaxe Bash, gestion d'erreurs, SELinux/AppArmor</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s12">0</span>/25<div class="auto-note">calcul auto</div></td><td>Script de sauvegarde fonctionnel et durci</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script documenté avec gestion d'erreurs et logs</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu es maintenant autonome sur un système Linux : administration en ligne de commande, permissions selon le moindre privilège, gestion de services résilients, et automatisation par scripts. Ces compétences sont directement mobilisées dans les modules Virtualisation (conteneurs Docker tournent sur Linux), Azure et Python.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Serveur web Linux sécurisé et automatisé</em> — assemble un serveur Nginx avec accès SSH par clé uniquement, permissions strictes par groupe, AppArmor en mode enforce, et un script Bash de sauvegarde automatisée planifié par cron. Documente ton architecture de sécurité et ton script commenté.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-02-windows-server.html"><div class="lbl">Module précédent</div><div class="ttl">02 · Windows Server</div></a>
+      <a class="next" href="module-04-virtualisation.html"><div class="lbl">Prochain module</div><div class="ttl">04 · Virtualisation</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Linux">[{"id": 41, "type": "Cours", "week": 9, "title": "Fondamentaux Linux (CLI, systèmes de fichiers)"}, {"id": 42, "type": "TP", "week": 9, "title": "Navigation et manipulation de fichiers (CLI)"}, {"id": 43, "type": "Labo", "week": 9, "title": "Installation d'une distribution Linux (Ubuntu Server)"}, {"id": 44, "type": "Labo", "week": 9, "title": "Gestion des paquets (APT / YUM)"}, {"id": 45, "type": "Labo", "week": 9, "title": "Configuration réseau sous Linux (netplan/nmcli)"}, {"id": 46, "type": "Cours", "week": 10, "title": "Utilisateurs, permissions et processus"}, {"id": 47, "type": "TP", "week": 10, "title": "Gestion des permissions et propriétaires"}, {"id": 48, "type": "Labo", "week": 10, "title": "Gestion des utilisateurs et groupes"}, {"id": 49, "type": "Labo", "week": 10, "title": "Permissions avancées (ACL, sudo)"}, {"id": 50, "type": "Labo", "week": 10, "title": "Automatisation de tâches avec Cron"}, {"id": 51, "type": "Cours", "week": 11, "title": "Administration système (services, systemd, logs)"}, {"id": 52, "type": "TP", "week": 11, "title": "Gestion de services avec systemctl"}, {"id": 53, "type": "Labo", "week": 11, "title": "Configuration d'un serveur SSH sécurisé"}, {"id": 54, "type": "Labo", "week": 11, "title": "Montage de systèmes de fichiers et LVM"}, {"id": 55, "type": "Labo", "week": 11, "title": "Mise en place d'un serveur web Apache/Nginx"}, {"id": 56, "type": "Cours", "week": 12, "title": "Scripting Bash et automatisation"}, {"id": 57, "type": "TP", "week": 12, "title": "Écriture de scripts Bash"}, {"id": 58, "type": "Labo", "week": 12, "title": "Analyse de logs système (journalctl)"}, {"id": 59, "type": "Labo", "week": 12, "title": "Script Bash de sauvegarde automatisée"}, {"id": 60, "type": "Labo", "week": 12, "title": "Durcissement sécurité Linux (SELinux/AppArmor)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

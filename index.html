@@ -19,9 +19,15 @@
   </div>
   <div class="side-section">
     <div class="side-section-title">Modules</div>
-    <a class="side-link" href="module-01-reseaux.html" data-mod-ids="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24">01 · Réseaux<span class="badge"></span></a>
-    <a class="side-link" style="opacity:.5;pointer-events:none;">02 · Windows Server</a>
-    <a class="side-link" style="opacity:.5;pointer-events:none;">03 · Linux</a>
+    <a class="side-link" href="module-01-reseaux.html" data-mod-ids="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20">01 · Réseaux<span class="badge"></span></a>
+    <a class="side-link" href="module-02-windows-server.html" data-mod-ids="21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40">02 · Windows Server<span class="badge"></span></a>
+    <a class="side-link" href="module-03-linux.html" data-mod-ids="41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60">03 · Linux<span class="badge"></span></a>
+    <a class="side-link" href="module-04-virtualisation.html" data-mod-ids="61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80">04 · Virtualisation<span class="badge"></span></a>
+    <a class="side-link" href="module-05-microsoft365.html" data-mod-ids="81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100">05 · Microsoft 365<span class="badge"></span></a>
+    <a class="side-link" href="module-06-azure.html" data-mod-ids="101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120">06 · Azure<span class="badge"></span></a>
+    <a class="side-link" href="module-07-powershell.html" data-mod-ids="121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140">07 · PowerShell<span class="badge"></span></a>
+    <a class="side-link" href="module-08-python.html" data-mod-ids="141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160">08 · Python<span class="badge"></span></a>
+    <a class="side-link" style="opacity:.5;pointer-events:none;">09 · Power Automate</a>
     <a class="side-link" style="opacity:.5;pointer-events:none;">… (à venir)</a>
   </div>
   <div class="side-foot">
@@ -40,14 +46,15 @@
       <p>Support de référence complet — infrastructure, cloud, automatisation &amp; IA. Calqué sur ton Planner professionnel : chaque chapitre correspond exactement à une semaine de ton parcours de 12 mois.</p>
       <div class="hub-progress">
         <div class="pbar-lg"><i style="width:2%"></i></div>
-        <span class="pct">1 / 13 modules disponibles</span>
+        <span class="pct">8 / 13 modules disponibles</span>
       </div>
     </div>
 
     <div class="sync-banner" id="syncBanner" style="background:#fff;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
       <span class="sync-text">Vérification de la synchronisation…</span>
-      <button id="importSyncBtn">Importer ma progression</button>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
       <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
     </div>
 
@@ -62,13 +69,41 @@
         <div class="mod-info"><h3>Réseaux</h3><p>Semaines 1–4 · OSI/TCP-IP, adressage, équipements, protocoles</p></div>
         <span class="mod-status ready">Disponible</span>
       </a>
-      <div class="mod-item locked"><div class="mod-num">02</div><div class="mod-info"><h3>Windows Server</h3><p>Semaines 5–8 · Active Directory, GPO, services de fichiers</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">03</div><div class="mod-info"><h3>Linux</h3><p>Semaines 9–12 · CLI, permissions, administration, Bash</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">04</div><div class="mod-info"><h3>Virtualisation</h3><p>Semaines 13–16 · Hyperviseurs, Hyper-V, Docker, Kubernetes</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">05</div><div class="mod-info"><h3>Microsoft 365</h3><p>Semaines 17–20 · Entra ID, Exchange, SharePoint, Teams</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">06</div><div class="mod-info"><h3>Azure</h3><p>Semaines 21–24 · RBAC, réseaux, VM, gouvernance (AZ-104)</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">07</div><div class="mod-info"><h3>PowerShell</h3><p>Semaines 25–28 · Cmdlets, scripts, remoting, automatisation</p></div><span class="mod-status soon">À venir</span></div>
-      <div class="mod-item locked"><div class="mod-num">08</div><div class="mod-info"><h3>Python</h3><p>Semaines 29–32 · Syntaxe, API REST, pandas, automatisation IT</p></div><span class="mod-status soon">À venir</span></div>
+      <a class="mod-item" href="module-02-windows-server.html">
+        <div class="mod-num">02</div>
+        <div class="mod-info"><h3>Windows Server</h3><p>Semaines 5–8 · Active Directory, GPO, services de fichiers</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-03-linux.html">
+        <div class="mod-num">03</div>
+        <div class="mod-info"><h3>Linux</h3><p>Semaines 9–12 · CLI, permissions, administration, Bash</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-04-virtualisation.html">
+        <div class="mod-num">04</div>
+        <div class="mod-info"><h3>Virtualisation</h3><p>Semaines 13–16 · Hyperviseurs, Hyper-V, Docker, Kubernetes</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-05-microsoft365.html">
+        <div class="mod-num">05</div>
+        <div class="mod-info"><h3>Microsoft 365</h3><p>Semaines 17–20 · Entra ID, Exchange, SharePoint, Teams</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-06-azure.html">
+        <div class="mod-num">06</div>
+        <div class="mod-info"><h3>Azure</h3><p>Semaines 21–24 · RBAC, réseaux, VM, gouvernance (AZ-104)</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-07-powershell.html">
+        <div class="mod-num">07</div>
+        <div class="mod-info"><h3>PowerShell</h3><p>Semaines 25–28 · Cmdlets, scripts, remoting, automatisation</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
+      <a class="mod-item" href="module-08-python.html">
+        <div class="mod-num">08</div>
+        <div class="mod-info"><h3>Python</h3><p>Semaines 29–32 · Syntaxe, API REST, pandas, automatisation IT</p></div>
+        <span class="mod-status ready">Disponible</span>
+      </a>
       <div class="mod-item locked"><div class="mod-num">09</div><div class="mod-info"><h3>Power Automate</h3><p>Semaines 33–36 · Flux, connecteurs, Power Apps</p></div><span class="mod-status soon">À venir</span></div>
       <div class="mod-item locked"><div class="mod-num">10</div><div class="mod-info"><h3>Cybersécurité</h3><p>Semaines 37–40 · Zero Trust, IDS/IPS, réponse aux incidents (SC-900)</p></div><span class="mod-status soon">À venir</span></div>
       <div class="mod-item locked"><div class="mod-num">11</div><div class="mod-info"><h3>IA &amp; Copilot</h3><p>Semaines 41–44 · IA générative, Copilot Studio, gouvernance</p></div><span class="mod-status soon">À venir</span></div>

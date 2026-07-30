@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 8 · Python — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 8 — Python</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s29" data-week-ids="141,142,143,144,145">Semaine 29 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s30" data-week-ids="146,147,148,149,150">Semaine 30 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s31" data-week-ids="151,152,153,154,155">Semaine 31 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s32" data-week-ids="156,157,158,159,160">Semaine 32 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 8 · Python</div><div class="topbar-sub">Semaines 29–32</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 8 / 13</p>
+    <h1 class="week-title">Python</h1>
+    <p class="week-dates">08 février 2027 → 07 mars 2027 · Semaines 29–32 · 52 h prévues</p>
+
+    <p class="lead">Python complète ta boîte à outils d'automatisation : là où PowerShell excelle dans l'écosystème Microsoft, Python est le langage universel de l'automatisation IT, des API et de la data — utile pour tout ce qui sort du monde Windows pur, et indispensable pour le module IA &amp; Copilot à venir.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Maîtriser la syntaxe Python de base (variables, structures, fonctions)</li>
+        <li>Manipuler des fichiers et structures de données complexes</li>
+        <li>Consommer des API REST et automatiser des tâches système</li>
+        <li>Analyser des données avec pandas et les visualiser</li>
+        <li>Livrer un script d'automatisation IT complet et robuste</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Aucun prérequis strict, mais la logique de script du Module 7 (PowerShell) et du Module 3 (Bash) accélère grandement la prise en main. Installe <strong>Python 3.12+</strong> et <strong>VS Code</strong> avec l'extension Python — même environnement que pour PowerShell, cohérent avec ta pratique.</p>
+
+    <!-- ============================================================ SEMAINE 29 ============================================================ -->
+    <div class="week-block" id="s29">
+      <p class="week-tag">SEMAINE 29 · 08/02 – 14/02/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux Python — syntaxe, types, structures</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Écrire des scripts Python avec variables, conditions et boucles</li>
+          <li>Manipuler les types de données de base et les structures (listes, dictionnaires)</li>
+          <li>Lire et écrire des fichiers CSV</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="141,142,143,144,145" data-tracker-week="s29">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="141" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux Python (syntaxe, types, structures)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="142" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Premiers scripts Python</div></div><div class="tracker-row"><button class="check-btn" data-toggle="143" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Variables, boucles et conditions</div></div><div class="tracker-row"><button class="check-btn" data-toggle="144" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Manipulation de listes et dictionnaires</div></div><div class="tracker-row"><button class="check-btn" data-toggle="145" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Lecture/écriture de fichiers CSV</div></div>
+      </div>
+
+
+      <h2 class="sec">29.1 — Syntaxe de base</h2>
+      <pre class="cmdblock">nom = "Marie"                 # chaîne de caractères
+age = 28                      # entier
+actif = True                  # booléen
+
+if age >= 18:
+    print(f"{nom} est majeure")
+else:
+    print(f"{nom} est mineure")
+
+for i in range(5):
+    print(f"Itération {i}")</pre>
+      <p>Contrairement à PowerShell ou Bash, Python utilise <strong>l'indentation</strong> pour délimiter les blocs de code — pas d'accolades ni de <code>end</code>. C'est strict, mais ça force un code lisible par construction.</p>
+
+      <h2 class="sec">29.2 — Listes et dictionnaires</h2>
+      <pre class="cmdblock">serveurs = ["SRV01", "SRV02", "SRV03"]          # liste ordonnée
+config = {"nom": "SRV01", "ram_go": 16, "actif": True}   # dictionnaire clé-valeur
+
+for serveur in serveurs:
+    print(f"Vérification de {serveur}")
+
+print(config["ram_go"])   # accès par clé</pre>
+      <p>Le dictionnaire Python joue le même rôle que l'objet PowerShell ou le JSON — une structure clé-valeur omniprésente dans le développement moderne, y compris pour manipuler les réponses d'API (semaine 31).</p>
+
+      <h2 class="sec">29.3 — Lecture/écriture de fichiers CSV</h2>
+      <pre class="cmdblock">import csv
+
+with open("serveurs.csv", "r", encoding="utf-8") as f:
+    lecteur = csv.DictReader(f)
+    for ligne in lecteur:
+        print(ligne["nom"], ligne["ram_go"])</pre>
+      <p>Le mot-clé <code>with</code> garantit que le fichier se ferme correctement même en cas d'erreur — un réflexe de robustesse, dans le même esprit que le Try/Catch/Finally de PowerShell.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Script d'inventaire des équipements du cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis les Modules 1, 2, 3, 6 et 7) tient son inventaire matériel dans un fichier Excel mis à jour manuellement, souvent en retard.</p>
+        <p><strong>Solution retenue :</strong> un script Python lit un export CSV de l'inventaire, calcule automatiquement l'âge de chaque équipement à partir de sa date d'achat, et signale ceux dépassant 5 ans (candidats au remplacement) — première étape vers une gestion de parc plus rigoureuse, sans outil coûteux.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg></div><h4>Laboratoire guidé 1 — Variables, boucles et conditions</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 + VS Code · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script qui demande un âge à l'utilisateur et affiche une catégorie (mineur/majeur/senior).</li>
+          <li>Ajoute une boucle qui répète la demande jusqu'à une saisie valide.</li>
+          <li>Utilise une boucle for pour afficher les 10 premiers carrés parfaits.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div><h4>Laboratoire guidé 2 — Manipulation de listes et dictionnaires</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une liste de dictionnaires représentant 5 serveurs (nom, RAM, statut).</li>
+          <li>Filtre uniquement les serveurs actifs avec une compréhension de liste.</li>
+          <li>Calcule la RAM totale de tous les serveurs actifs.</li>
+          <li>Trie la liste par RAM décroissante.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18"/></svg></div><h4>Laboratoire guidé 3 — Lecture/écriture de fichiers CSV</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un fichier CSV d'inventaire de test (nom, date d'achat, valeur).</li>
+          <li>Écris un script qui le lit et calcule l'âge de chaque équipement en années.</li>
+          <li>Génère un second CSV ne contenant que les équipements de plus de 5 ans.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 29</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=python" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Python fundamentals</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — Python Essentials</div><div class="res-sub">Cours gratuit complet</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 29</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Comment Python délimite-t-il les blocs de code ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w29q1">Avec des accolades {}</label>
+            <label class="quiz-opt"><input type="radio" name="w29q1">Par l'indentation</label>
+            <label class="quiz-opt"><input type="radio" name="w29q1">Avec des mots-clés begin/end</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'indentation est syntaxiquement obligatoire en Python, contrairement à la plupart des autres langages.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quelle structure Python stocke des paires clé-valeur ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w29q2">Une liste</label>
+            <label class="quiz-opt"><input type="radio" name="w29q2">Un tuple</label>
+            <label class="quiz-opt"><input type="radio" name="w29q2">Un dictionnaire</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le dictionnaire (dict) associe des clés à des valeurs, comme un objet JSON.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Pourquoi utiliser "with open(...)" plutôt que "open()" seul ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w29q3">Le fichier se ferme automatiquement, même en cas d'erreur</label>
+            <label class="quiz-opt"><input type="radio" name="w29q3">C'est plus rapide à l'exécution</label>
+            <label class="quiz-opt"><input type="radio" name="w29q3">Python l'exige pour les CSV uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le contexte "with" garantit la fermeture propre du fichier, évitant les fuites de ressources.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, que signale le script d'inventaire ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w29q4">Les équipements en panne</label>
+            <label class="quiz-opt"><input type="radio" name="w29q4">Les équipements de plus de 5 ans, candidats au remplacement</label>
+            <label class="quiz-opt"><input type="radio" name="w29q4">Les équipements sans garantie</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le script calcule l'âge à partir de la date d'achat pour identifier les candidats au renouvellement.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 29</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Syntaxe Python, indentation, structures de données</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s29">0</span>/25<div class="auto-note">calcul auto</div></td><td>Scripts de base et manipulation CSV fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script d'inventaire appliqué à un jeu de données réel</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 30 ============================================================ -->
+    <div class="week-block" id="s30">
+      <p class="week-tag">SEMAINE 30 · 15/02 – 21/02/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Fonctions, modules et gestion de fichiers</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Créer des fonctions et organiser du code en modules</li>
+          <li>Gérer les exceptions avec try/except</li>
+          <li>Automatiser des tâches système avec les modules os/subprocess</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="146,147,148,149,150" data-tracker-week="s30">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="146" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fonctions, modules et gestion de fichiers</div></div><div class="tracker-row"><button class="check-btn" data-toggle="147" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Manipulation de fichiers et structures de données</div></div><div class="tracker-row"><button class="check-btn" data-toggle="148" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création de fonctions et modules</div></div><div class="tracker-row"><button class="check-btn" data-toggle="149" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des exceptions</div></div><div class="tracker-row"><button class="check-btn" data-toggle="150" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Requêtes API REST (module requests)</div></div>
+      </div>
+
+
+      <h2 class="sec">30.1 — Fonctions et modules</h2>
+      <pre class="cmdblock">def calculer_age(date_achat, aujourdhui):
+    """Retourne l'âge en années entre deux dates."""
+    return (aujourdhui - date_achat).days // 365
+
+# Dans un fichier séparé outils.py, puis :
+from outils import calculer_age</pre>
+      <p>Comme pour les modules PowerShell (Module 7) ou Bash (Module 3), séparer le code en fichiers réutilisables évite la duplication et facilite la maintenance à mesure que les scripts grandissent.</p>
+
+      <h2 class="sec">30.2 — Gestion des exceptions</h2>
+      <pre class="cmdblock">try:
+    with open("config.csv", "r") as f:
+        contenu = f.read()
+except FileNotFoundError:
+    print("Fichier de configuration introuvable — utilisation des valeurs par défaut")
+except Exception as e:
+    print(f"Erreur inattendue : {e}")
+finally:
+    print("Traitement terminé")</pre>
+      <p>Même logique que le Try/Catch/Finally PowerShell (Module 7) : capturer des erreurs <strong>spécifiques</strong> (ici <code>FileNotFoundError</code>) plutôt qu'une exception générique donne un message utile et une réaction adaptée à chaque situation.</p>
+
+      <h2 class="sec">30.3 — Automatisation système avec os/subprocess</h2>
+      <pre class="cmdblock">import os
+import subprocess
+
+for fichier in os.listdir("."):
+    print(fichier)
+
+resultat = subprocess.run(["ping", "-c", "4", "8.8.8.8"], capture_output=True, text=True)
+print(resultat.stdout)</pre>
+      <p><code>subprocess</code> permet à Python d'exécuter n'importe quelle commande système (y compris des scripts Bash ou des cmdlets PowerShell) et de récupérer sa sortie — un pont pratique entre les trois langages de ce parcours.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Script de vérification de connectivité multi-sites</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2, 4, 5, 6 et 7) veut vérifier chaque matin que ses 3 établissements sont bien joignables sur le réseau, en complément du script PowerShell de santé serveur du Module 7.</p>
+        <p><strong>Solution retenue :</strong> un script Python qui ping chaque site via <code>subprocess</code>, capture le résultat, et génère un rapport avec gestion d'exception propre si un site ne répond pas — sans faire planter le script pour les deux autres sites encore joignables.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Création de fonctions et modules</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 + VS Code · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Écris 3 fonctions utilitaires dans un fichier <code>outils.py</code>.</li>
+          <li>Importe et utilise ces fonctions dans un script principal.</li>
+          <li>Ajoute des docstrings expliquant chaque fonction.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z"/></svg></div><h4>Laboratoire guidé — Gestion des exceptions</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script qui tente d'ouvrir un fichier inexistant.</li>
+          <li>Capture spécifiquement FileNotFoundError avec un message clair.</li>
+          <li>Ajoute un bloc except générique pour les autres erreurs imprévues.</li>
+          <li>Teste avec un fichier existant puis inexistant.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="10" rx="2"/></svg></div><h4>Laboratoire guidé — Automatisation système (os/subprocess)</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script qui liste tous les fichiers d'un dossier avec leur taille.</li>
+          <li>Utilise subprocess pour exécuter un ping vers 3 adresses différentes.</li>
+          <li>Capture le code de retour pour déterminer si chaque hôte répond.</li>
+          <li>Génère un résumé texte du résultat.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 30</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=python%20functions" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Python functions &amp; error handling</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 30</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Pourquoi capturer une exception spécifique (FileNotFoundError) plutôt que générique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w30q1">C'est plus rapide à l'exécution</label>
+            <label class="quiz-opt"><input type="radio" name="w30q1">Python l'exige</label>
+            <label class="quiz-opt"><input type="radio" name="w30q1">Ça permet une réaction adaptée à chaque type d'erreur</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un except générique masque la nature réelle du problème et empêche une réaction ciblée.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quel module Python permet d'exécuter une commande système externe ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w30q2">subprocess</label>
+            <label class="quiz-opt"><input type="radio" name="w30q2">csv</label>
+            <label class="quiz-opt"><input type="radio" name="w30q2">json</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">subprocess exécute des commandes système et permet de récupérer leur sortie.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. À quoi sert une docstring dans une fonction Python ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w30q3">Elle est exécutée comme du code</label>
+            <label class="quiz-opt"><input type="radio" name="w30q3">Elle documente le rôle de la fonction</label>
+            <label class="quiz-opt"><input type="radio" name="w30q3">Elle accélère l'exécution</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La docstring est une documentation intégrée, accessible via help() ou les outils d'IDE.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi gérer l'exception si un site ne répond pas ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w30q4">Pour supprimer le site de la liste définitivement</label>
+            <label class="quiz-opt"><input type="radio" name="w30q4">Pour que le script continue de vérifier les autres sites malgré l'échec d'un site</label>
+            <label class="quiz-opt"><input type="radio" name="w30q4">Python plante toujours sans gestion d'erreur</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans gestion d'erreur, un site injoignable pourrait arrêter tout le script au lieu de continuer les vérifications restantes.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 30</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Fonctions, modules, gestion d'exceptions</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s30">0</span>/25<div class="auto-note">calcul auto</div></td><td>Fonctions, exceptions et subprocess maîtrisés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script de vérification multi-sites documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 31 ============================================================ -->
+    <div class="week-block" id="s31">
+      <p class="week-tag">SEMAINE 31 · 22/02 – 28/02/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Python pour l'automatisation IT — API, requests</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Consommer une API REST avec le module requests</li>
+          <li>Faire du scraping web basique et responsable</li>
+          <li>Te connecter à une base de données SQLite</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="151,152,153,154,155" data-tracker-week="s31">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="151" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Python pour l'automatisation IT (API, requests)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="152" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Appel d'API REST avec Python</div></div><div class="tracker-row"><button class="check-btn" data-toggle="153" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation système (os/subprocess)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="154" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Script de scraping web basique</div></div><div class="tracker-row"><button class="check-btn" data-toggle="155" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Manipulation de données avec pandas</div></div>
+      </div>
+
+
+      <h2 class="sec">31.1 — Requêtes API REST</h2>
+      <pre class="cmdblock">import requests
+
+reponse = requests.get("https://api.github.com/users/octocat")
+if reponse.status_code == 200:
+    data = reponse.json()
+    print(data["name"], data["public_repos"])
+else:
+    print(f"Erreur : {reponse.status_code}")</pre>
+      <p>Presque tous les services modernes (GitHub, Microsoft Graph vu au Module 7, services météo, tickets) exposent une API REST. Le module <code>requests</code> est l'outil standard pour les consommer depuis Python — vérifier systématiquement le <code>status_code</code> avant de traiter la réponse est un réflexe de robustesse essentiel.</p>
+
+      <h2 class="sec">31.2 — Scraping web responsable</h2>
+      <div class="def">
+        <span class="def-term">Scraping web</span>
+        <p>Extraction automatisée de données depuis une page web, avec la bibliothèque <code>BeautifulSoup</code> notamment. À utiliser avec discernement : respecter le fichier <code>robots.txt</code> du site, limiter la fréquence des requêtes, et préférer une API officielle quand elle existe.</p>
+      </div>
+
+      <h2 class="sec">31.3 — Connexion à une base de données SQLite</h2>
+      <pre class="cmdblock">import sqlite3
+
+conn = sqlite3.connect("inventaire.db")
+cur = conn.cursor()
+cur.execute("CREATE TABLE IF NOT EXISTS equipements (nom TEXT, ram_go INTEGER)")
+cur.execute("INSERT INTO equipements VALUES (?, ?)", ("SRV01", 16))
+conn.commit()
+
+for ligne in cur.execute("SELECT * FROM equipements"):
+    print(ligne)
+conn.close()</pre>
+      <p><strong>SQLite</strong> est une base de données légère, contenue dans un simple fichier — idéale pour des scripts d'automatisation qui doivent stocker un historique sans monter un vrai serveur de base de données.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique</span>
+        <h4>Suivi automatisé des demandes citoyennes via API</h4>
+        <p><strong>Contexte :</strong> La mairie (suivie depuis les Modules 1, 3 et 4) a modernisé son application de demandes citoyennes en la conteneurisant (Module 4) — l'application expose maintenant une API REST interne.</p>
+        <p><strong>Solution retenue :</strong> un script Python interroge quotidiennement l'API pour récupérer les nouvelles demandes, les stocke dans une base SQLite locale pour historique, et génère des statistiques (nombre de demandes par service, délai moyen de traitement) — sans avoir besoin d'accès direct à la base de production, uniquement via l'API exposée.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg></div><h4>Laboratoire guidé — Requêtes API REST (module requests)</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 + requests · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Installe le module : <code>pip install requests</code>.</li>
+          <li>Interroge une API publique gratuite (ex. api.github.com ou une API météo).</li>
+          <li>Extrait et affiche certains champs de la réponse JSON.</li>
+          <li>Gère le cas d'une réponse en erreur (status_code différent de 200).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><h4>Laboratoire guidé — Automatisation système (os/subprocess) appliquée</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Combine requests et os pour télécharger un fichier depuis une URL et le sauvegarder localement.</li>
+          <li>Vérifie que le dossier de destination existe, sinon crée-le.</li>
+          <li>Ajoute une gestion d'erreur si le téléchargement échoue.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Laboratoire guidé — Connexion à une base de données SQLite</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 (module sqlite3, natif) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une base SQLite avec une table "demandes" (id, service, date, statut).</li>
+          <li>Insère quelques enregistrements de test.</li>
+          <li>Écris une requête SELECT filtrant par statut.</li>
+          <li>Calcule une statistique simple (nombre de demandes par service).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 31</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://requests.readthedocs.io/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle du module requests</div><div class="res-sub">Guide gratuit complet</div></div>
+        </a>
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=python%20api" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Python &amp; APIs</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 31</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que faut-il vérifier avant de traiter une réponse d'API ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w31q1">La taille de la réponse</label>
+            <label class="quiz-opt"><input type="radio" name="w31q1">Le status_code de la réponse</label>
+            <label class="quiz-opt"><input type="radio" name="w31q1">La date du serveur</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le status_code (200 = succès) indique si la requête a réussi avant de traiter les données.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Que faut-il respecter avant de scraper un site web ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w31q2">Rien, le scraping est toujours autorisé</label>
+            <label class="quiz-opt"><input type="radio" name="w31q2">Uniquement la vitesse de connexion</label>
+            <label class="quiz-opt"><input type="radio" name="w31q2">Le fichier robots.txt et la fréquence des requêtes</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le scraping responsable respecte les règles du site (robots.txt) et évite de le surcharger.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Pourquoi choisir SQLite pour un script d'automatisation léger ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w31q3">Base de données contenue dans un simple fichier, sans serveur à gérer</label>
+            <label class="quiz-opt"><input type="radio" name="w31q3">SQLite est plus rapide que toute autre base</label>
+            <label class="quiz-opt"><input type="radio" name="w31q3">Python l'exige par défaut</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">SQLite ne nécessite aucune installation de serveur, idéal pour des besoins de stockage simples et locaux.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de la mairie, pourquoi passer par l'API plutôt qu'un accès direct à la base ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w31q4">L'API est plus rapide qu'une base de données</label>
+            <label class="quiz-opt"><input type="radio" name="w31q4">Éviter un accès direct risqué à la base de production</label>
+            <label class="quiz-opt"><input type="radio" name="w31q4">Python ne sait pas se connecter aux bases de données</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Passer par l'API officielle évite les risques d'un accès direct non contrôlé à la base de production.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 31</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>API REST, scraping responsable, SQLite</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s31">0</span>/25<div class="auto-note">calcul auto</div></td><td>Requêtes API, téléchargement et base SQLite fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script API + base de données documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 32 ============================================================ -->
+    <div class="week-block" id="s32">
+      <p class="week-tag">SEMAINE 32 · 01/03 – 07/03/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Python pour la data — pandas, visualisation</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Manipuler des données tabulaires avec pandas</li>
+          <li>Visualiser des données avec matplotlib</li>
+          <li>Livrer un mini-projet d'automatisation IT complet</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="156,157,158,159,160" data-tracker-week="s32">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="156" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Python pour la data (pandas, visualisation)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="157" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Analyse de données avec pandas</div></div><div class="tracker-row"><button class="check-btn" data-toggle="158" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Visualisation de données (matplotlib)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="159" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Connexion à une base de données SQLite</div></div><div class="tracker-row"><button class="check-btn" data-toggle="160" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mini-projet : script d'automatisation IT</div></div>
+      </div>
+
+
+      <h2 class="sec">32.1 — pandas : manipulation de données tabulaires</h2>
+      <pre class="cmdblock">import pandas as pd
+
+df = pd.read_csv("inventaire.csv")
+print(df.head())                          # aperçu des 5 premières lignes
+print(df.describe())                      # statistiques descriptives
+
+actifs = df[df["statut"] == "actif"]       # filtrage
+par_service = df.groupby("service")["valeur"].sum()   # agrégation</pre>
+      <p><strong>pandas</strong> est l'outil de référence pour manipuler des données tabulaires en Python — le CSV devient un objet <code>DataFrame</code> puissant, avec filtrage, agrégation et jointures bien plus riches que les listes/dictionnaires manuels de la semaine 29.</p>
+
+      <h2 class="sec">32.2 — Visualisation avec matplotlib</h2>
+      <pre class="cmdblock">import matplotlib.pyplot as plt
+
+par_service.plot(kind="bar")
+plt.title("Valeur du parc par service")
+plt.ylabel("Valeur (€)")
+plt.savefig("rapport_parc.png")</pre>
+      <p>Un graphique communique en une image ce qu'un tableau de chiffres demande un effort de lecture — utile pour les rapports destinés à des décideurs non techniques.</p>
+
+      <h2 class="sec">32.3 — Assembler un script d'automatisation complet</h2>
+      <p>Cette dernière semaine consiste à combiner toutes les briques du module : lecture de données (CSV/API/SQLite), traitement (pandas), gestion d'erreurs robuste, et restitution (rapport visuel ou export) — exactement la structure d'un vrai script professionnel.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Bilan du module</span>
+        <h4>Tableau de bord d'inventaire pour le cabinet comptable</h4>
+        <p><strong>Bilan :</strong> Le cabinet comptable dispose maintenant d'un script Python complet qui lit l'inventaire, calcule l'âge des équipements, produit un graphique de répartition par service, et exporte un rapport — l'aboutissement du script CSV simple de la semaine 29.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18"/></svg></div><h4>Laboratoire guidé — Manipulation de données avec pandas</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 + pandas · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe pandas : <code>pip install pandas</code>.</li>
+          <li>Charge ton fichier d'inventaire CSV dans un DataFrame.</li>
+          <li>Filtre et agrège les données par service ou par âge.</li>
+          <li>Exporte le résultat traité dans un nouveau fichier.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="21" x2="5" y2="10.5"/><line x1="12" y1="21" x2="12" y2="5"/><line x1="19" y1="21" x2="19" y2="14"/></svg></div><h4>Laboratoire guidé — Visualisation de données (matplotlib)</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 + matplotlib · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Installe matplotlib : <code>pip install matplotlib</code>.</li>
+          <li>Génère un graphique en barres de la répartition par service.</li>
+          <li>Ajoute titre, légende et labels d'axes.</li>
+          <li>Sauvegarde le graphique en image PNG.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Mini-projet : script d'automatisation IT complet</h4></div>
+        <div class="lab-meta">Outil : Python 3.12 (toutes les bibliothèques du module) · Durée : 60 min</div>
+        <ol class="lab-steps">
+          <li>Assemble un script complet : lecture de données, traitement pandas, gestion d'erreurs, graphique de synthèse.</li>
+          <li>Ajoute des docstrings et une structure en fonctions claires.</li>
+          <li>Teste le script de bout en bout avec un jeu de données réaliste.</li>
+          <li>Documente-le pour ton portfolio.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 32</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://pandas.pydata.org/docs/getting_started/index.html" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle pandas</div><div class="res-sub">Guide de démarrage gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 32</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Comment appelle-t-on la structure de données centrale de pandas ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w32q1">DataFrame</label>
+            <label class="quiz-opt"><input type="radio" name="w32q1">DataTable</label>
+            <label class="quiz-opt"><input type="radio" name="w32q1">DataList</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le DataFrame est l'objet central de pandas pour manipuler des données tabulaires.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Quelle méthode pandas regroupe des données par catégorie pour les agréger ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w32q2">filter()</label>
+            <label class="quiz-opt"><input type="radio" name="w32q2">groupby()</label>
+            <label class="quiz-opt"><input type="radio" name="w32q2">sort()</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">groupby() permet de regrouper puis d'appliquer une fonction d'agrégation (sum, mean...) à chaque groupe.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Pourquoi visualiser des données plutôt que présenter uniquement des chiffres bruts ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w32q3">C'est obligatoire en Python</label>
+            <label class="quiz-opt"><input type="radio" name="w32q3">Les graphiques prennent moins de place mémoire</label>
+            <label class="quiz-opt"><input type="radio" name="w32q3">Communication plus rapide et claire, notamment pour des non-techniciens</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un graphique bien conçu transmet une information en un coup d'œil, particulièrement utile pour un rapport de direction.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Qu'assemble le mini-projet de fin de module ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w32q4">Uniquement des graphiques</label>
+            <label class="quiz-opt"><input type="radio" name="w32q4">Lecture de données, traitement, gestion d'erreurs et restitution</label>
+            <label class="quiz-opt"><input type="radio" name="w32q4">Uniquement du scraping web</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est la structure complète d'un script professionnel, combinant toutes les briques du module.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 32</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>pandas, matplotlib, structure de script professionnel</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s32">0</span>/25<div class="auto-note">calcul auto</div></td><td>DataFrame, graphique et mini-projet fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script d'automatisation complet livré et documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu maîtrises maintenant Python pour l'automatisation IT : scripts robustes, consommation d'API, manipulation et visualisation de données. Combiné à PowerShell (Module 7) et Bash (Module 3), tu disposes des trois langages d'automatisation les plus utilisés en entreprise — une base solide pour le module IA &amp; Copilot à venir.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Outil Python d'automatisation et de reporting IT</em> — livre ton script complet (lecture de données, traitement pandas, gestion d'erreurs, graphique de synthèse), documenté et prêt à être réutilisé sur un nouveau jeu de données.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-07-powershell.html"><div class="lbl">Module précédent</div><div class="ttl">07 · PowerShell</div></a>
+      <a class="next" style="opacity:.5;pointer-events:none;"><div class="lbl">Prochain module</div><div class="ttl">09 · Power Automate (à venir)</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Python">[{"id": 141, "type": "Cours", "week": 29, "title": "Fondamentaux Python (syntaxe, types, structures)"}, {"id": 142, "type": "TP", "week": 29, "title": "Premiers scripts Python"}, {"id": 143, "type": "Labo", "week": 29, "title": "Variables, boucles et conditions"}, {"id": 144, "type": "Labo", "week": 29, "title": "Manipulation de listes et dictionnaires"}, {"id": 145, "type": "Labo", "week": 29, "title": "Lecture/écriture de fichiers CSV"}, {"id": 146, "type": "Cours", "week": 30, "title": "Fonctions, modules et gestion de fichiers"}, {"id": 147, "type": "TP", "week": 30, "title": "Manipulation de fichiers et structures de données"}, {"id": 148, "type": "Labo", "week": 30, "title": "Création de fonctions et modules"}, {"id": 149, "type": "Labo", "week": 30, "title": "Gestion des exceptions"}, {"id": 150, "type": "Labo", "week": 30, "title": "Requêtes API REST (module requests)"}, {"id": 151, "type": "Cours", "week": 31, "title": "Python pour l'automatisation IT (API, requests)"}, {"id": 152, "type": "TP", "week": 31, "title": "Appel d'API REST avec Python"}, {"id": 153, "type": "Labo", "week": 31, "title": "Automatisation système (os/subprocess)"}, {"id": 154, "type": "Labo", "week": 31, "title": "Script de scraping web basique"}, {"id": 155, "type": "Labo", "week": 31, "title": "Manipulation de données avec pandas"}, {"id": 156, "type": "Cours", "week": 32, "title": "Python pour la data (pandas, visualisation)"}, {"id": 157, "type": "TP", "week": 32, "title": "Analyse de données avec pandas"}, {"id": 158, "type": "Labo", "week": 32, "title": "Visualisation de données (matplotlib)"}, {"id": 159, "type": "Labo", "week": 32, "title": "Connexion à une base de données SQLite"}, {"id": 160, "type": "Labo", "week": 32, "title": "Mini-projet : script d'automatisation IT"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 6 · Azure — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 6 — Azure</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s21" data-week-ids="101,102,103,104,105">Semaine 21 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s22" data-week-ids="106,107,108,109,110">Semaine 22 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s23" data-week-ids="111,112,113,114,115">Semaine 23 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s24" data-week-ids="116,117,118,119,120">Semaine 24 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 6 · Azure</div><div class="topbar-sub">Semaines 21–24</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 6 / 13</p>
+    <h1 class="week-title">Azure</h1>
+    <p class="week-dates">14 décembre 2026 → 10 janvier 2027 · Semaines 21–24 · 52 h prévues</p>
+
+    <p class="lead">Azure est le point de convergence de tout ce que tu as appris jusqu'ici : réseaux, virtualisation, identités M365 — tout se retrouve sous forme de services cloud managés. Ce module te prépare directement à la certification <strong>AZ-104</strong> (Azure Administrator).</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Naviguer la hiérarchie Azure (groupes de gestion, abonnements, groupes de ressources)</li>
+        <li>Configurer RBAC, réseaux virtuels et stockage Azure</li>
+        <li>Déployer et gérer des machines virtuelles et leur disponibilité</li>
+        <li>Appliquer une gouvernance (Policy, coûts) et déployer via l'infrastructure as code (ARM/Bicep)</li>
+        <li>Connecter Azure AD Connect pour un scénario hybride</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Modules 1 (réseaux), 2 (AD) et 5 (Entra ID) fortement recommandés. Crée un <strong>compte Azure gratuit</strong> (200$ de crédit les 30 premiers jours, plus des services gratuits en continu) — largement suffisant pour tous les labos de ce module si tu penses à supprimer tes ressources après chaque exercice.</p>
+
+    <!-- ============================================================ SEMAINE 21 ============================================================ -->
+    <div class="week-block" id="s21">
+      <p class="week-tag">SEMAINE 21 · 14/12 – 20/12/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux Azure — régions, abonnements, RBAC</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer la hiérarchie Azure (tenant, groupes de gestion, abonnements, groupes de ressources)</li>
+          <li>Créer et organiser des groupes de ressources</li>
+          <li>Configurer le contrôle d'accès basé sur les rôles (RBAC)</li>
+          <li>Créer un premier réseau virtuel Azure</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="101,102,103,104,105" data-tracker-week="s21">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="101" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux Azure (régions, abonnements, RBAC)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="102" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création d'un abonnement et groupe de ressources</div></div><div class="tracker-row"><button class="check-btn" data-toggle="103" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un groupe de ressources</div></div><div class="tracker-row"><button class="check-btn" data-toggle="104" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration RBAC (contrôle d'accès)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="105" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un réseau virtuel et sous-réseaux</div></div>
+      </div>
+
+
+      <h2 class="sec">21.1 — La hiérarchie Azure</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.az{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .azs{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="220" y="10" width="160" height="34" rx="8" fill="#E9EFF5" stroke="#3D5A80"/><text class="az" x="245" y="32" fill="#2C4362">Tenant Entra ID</text>
+          <line x1="300" y1="44" x2="300" y2="65" stroke="#98A2B3"/>
+          <rect x="180" y="65" width="240" height="34" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/><text class="az" x="210" y="87" fill="#4A3B60">Groupe de gestion</text>
+          <line x1="300" y1="99" x2="300" y2="120" stroke="#98A2B3"/>
+          <rect x="180" y="120" width="240" height="34" rx="8" fill="#E6F1F2" stroke="#3E8188"/><text class="az" x="235" y="142" fill="#264D52">Abonnement</text>
+          <line x1="300" y1="154" x2="150" y2="175" stroke="#98A2B3"/>
+          <line x1="300" y1="154" x2="450" y2="175" stroke="#98A2B3"/>
+          <rect x="70" y="175" width="160" height="34" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/><text class="az" x="80" y="197" fill="#2C6B44">Groupe ressources A</text>
+          <rect x="370" y="175" width="160" height="34" rx="8" fill="#FBF1DA" stroke="#B07C00"/><text class="az" x="380" y="197" fill="#8B5E00">Groupe ressources B</text>
+        </svg>
+        <p class="diagram-caption">Fig. 21.1 — Hiérarchie Azure : tenant → groupes de gestion → abonnements → groupes de ressources</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">Groupe de ressources</span>
+        <p>Conteneur logique regroupant des ressources liées (VM, réseau, disque) qui partagent le même cycle de vie — supprimer le groupe supprime tout son contenu. C'est l'unité d'organisation de base au quotidien.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Abonnement</span>
+        <p>Unité de facturation et de limite de quota — une entreprise peut avoir plusieurs abonnements (ex. Production, Développement, Test) pour isoler coûts et permissions.</p>
+      </div>
+
+      <h2 class="sec">21.2 — RBAC (Role-Based Access Control)</h2>
+      <p>RBAC attribue des permissions via des <strong>rôles</strong> (Lecteur, Contributeur, Propriétaire, ou rôles personnalisés) à une <strong>portée</strong> donnée (groupe de gestion, abonnement, groupe de ressources, ou ressource individuelle) — même logique de moindre privilège que la délégation AD (Module 2).</p>
+      <table class="eval-tbl">
+        <tr><th>Rôle</th><th>Permissions</th></tr>
+        <tr><td>Lecteur</td><td>Consultation uniquement, aucune modification</td></tr>
+        <tr><td>Contributeur</td><td>Créer et gérer des ressources, mais pas gérer les accès</td></tr>
+        <tr><td>Propriétaire</td><td>Contrôle total, y compris la gestion des accès RBAC</td></tr>
+      </table>
+
+      <h2 class="sec">21.3 — Régions et zones de disponibilité</h2>
+      <p>Azure opère des <strong>régions</strong> (datacenters géographiques, ex. France Centre) composées de <strong>zones de disponibilité</strong> (datacenters physiquement séparés au sein d'une région) — déployer sur plusieurs zones protège contre une panne localisée sans le coût d'une réplication inter-régions.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Premier abonnement Azure du cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis les Modules 1, 2 et 3) veut migrer progressivement certains services vers Azure, en commençant petit.</p>
+        <p><strong>Structure retenue :</strong> un seul abonnement pour l'instant, avec deux groupes de ressources distincts : <code>RG-Production</code> et <code>RG-Test</code>. Le comptable stagiaire reçoit le rôle <strong>Lecteur</strong> sur l'abonnement (visibilité uniquement), tandis que l'administrateur IT externe reçoit <strong>Contributeur</strong> limité au groupe Test pour expérimenter sans risque sur la production.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div><h4>Laboratoire guidé 1 — Création d'un groupe de ressources</h4></div>
+        <div class="lab-meta">Outil : Portail Azure (compte gratuit) · Durée : 20 min</div>
+        <ol class="lab-steps">
+          <li>Crée un compte Azure gratuit si ce n'est pas déjà fait.</li>
+          <li>Dans le portail, crée un groupe de ressources <code>RG-Formation</code> dans la région France Centre.</li>
+          <li>Ajoute un tag <code>Environnement=Formation</code> pour t'entraîner à la gestion par étiquettes.</li>
+          <li>Vérifie sa création dans la liste des groupes de ressources.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20v-1a5 5 0 015-5h4a5 5 0 015 5v1"/></svg></div><h4>Laboratoire guidé 2 — Configuration RBAC (contrôle d'accès)</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Sur le groupe de ressources créé, ouvre l'onglet <em>Contrôle d'accès (IAM)</em>.</li>
+          <li>Ajoute une attribution de rôle "Lecteur" à un utilisateur de test.</li>
+          <li>Vérifie via "Vérifier l'accès" que l'utilisateur a bien les permissions attendues.</li>
+          <li>Explore la différence entre rôle intégré et rôle personnalisé (sans en créer).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h4>Laboratoire guidé 3 — Création d'un réseau virtuel et sous-réseaux</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée un réseau virtuel (VNet) <code>VNet-Formation</code> avec l'espace d'adressage <code>10.20.0.0/16</code>.</li>
+          <li>Crée deux sous-réseaux : <code>subnet-app</code> (10.20.1.0/24) et <code>subnet-data</code> (10.20.2.0/24) — réutilise la méthode de subnetting du Module 1.</li>
+          <li>Vérifie la configuration dans l'onglet Sous-réseaux du VNet.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 21</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20administrator" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Azure Administrator (AZ-104)</div><div class="res-sub">Parcours officiel gratuit de préparation à la certification</div></div>
+        </a>
+        <a class="res-item" href="https://azure.microsoft.com/fr-fr/free/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div>
+          <div class="res-text"><div class="res-title">Compte Azure gratuit</div><div class="res-sub">200$ de crédit + services gratuits en continu</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 21</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que se passe-t-il si tu supprimes un groupe de ressources ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w21q1">Rien, il faut supprimer chaque ressource individuellement</label>
+            <label class="quiz-opt"><input type="radio" name="w21q1">Toutes les ressources qu'il contient sont supprimées</label>
+            <label class="quiz-opt"><input type="radio" name="w21q1">Seul le nom du groupe est supprimé</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le groupe de ressources et son contenu partagent le même cycle de vie — attention à la suppression en cascade.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quel rôle RBAC permet de consulter sans rien modifier ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w21q2">Lecteur</label>
+            <label class="quiz-opt"><input type="radio" name="w21q2">Contributeur</label>
+            <label class="quiz-opt"><input type="radio" name="w21q2">Propriétaire</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le rôle Lecteur n'autorise que la consultation, aucune action de modification.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Que protège le déploiement sur plusieurs zones de disponibilité ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w21q3">Les cyberattaques</label>
+            <label class="quiz-opt"><input type="radio" name="w21q3">Les erreurs de configuration</label>
+            <label class="quiz-opt"><input type="radio" name="w21q3">Une panne localisée d'un datacenter</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les zones de disponibilité sont physiquement séparées au sein d'une même région, protégeant contre une panne locale.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, pourquoi le stagiaire reçoit-il uniquement le rôle Lecteur ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w21q4">Azure impose ce rôle aux stagiaires</label>
+            <label class="quiz-opt"><input type="radio" name="w21q4">Principe du moindre privilège : il n'a pas besoin de modifier les ressources</label>
+            <label class="quiz-opt"><input type="radio" name="w21q4">Le rôle Contributeur est payant</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">On attribue toujours le rôle minimal nécessaire à la tâche réelle de la personne.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 21</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Hiérarchie Azure, RBAC, régions/zones</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s21">0</span>/25<div class="auto-note">calcul auto</div></td><td>Groupe de ressources, RBAC et VNet configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Structure d'abonnement/RBAC proposée pour un scénario</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 22 ============================================================ -->
+    <div class="week-block" id="s22">
+      <p class="week-tag">SEMAINE 22 · 21/12 – 27/12/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Réseaux et stockage Azure</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Configurer un réseau virtuel Azure complet</li>
+          <li>Sécuriser un sous-réseau avec un NSG</li>
+          <li>Déployer une première VM Azure</li>
+          <li>Configurer le stockage Azure (Blob, Files)</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="106,107,108,109,110" data-tracker-week="s22">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="106" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Réseaux et stockage Azure</div></div><div class="tracker-row"><button class="check-btn" data-toggle="107" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration d'un réseau virtuel Azure (VNet)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="108" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un NSG (Network Security Group)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="109" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Déploiement d'une VM Windows/Linux Azure</div></div><div class="tracker-row"><button class="check-btn" data-toggle="110" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration du stockage Azure (Blob, Files)</div></div>
+      </div>
+
+
+      <h2 class="sec">22.1 — Réseau virtuel Azure (VNet) approfondi</h2>
+      <p>Un VNet est l'équivalent cloud du réseau local (Module 1) : il définit un espace d'adressage privé, peut être segmenté en sous-réseaux, et connecté à d'autres VNets (peering) ou à un réseau on-premises (VPN Gateway, ExpressRoute).</p>
+
+      <h2 class="sec">22.2 — NSG (Network Security Group)</h2>
+      <div class="def">
+        <span class="def-term">NSG</span>
+        <p>Équivalent Azure des ACL de pare-feu (Module 1) : liste de règles autorisant ou refusant du trafic entrant/sortant, appliquée à un sous-réseau ou à une interface réseau spécifique. Les règles sont évaluées par ordre de priorité numérique (la plus basse en premier).</p>
+      </div>
+
+      <h2 class="sec">22.3 — Déploiement d'une VM Azure</h2>
+      <p>Une VM Azure combine : une image (Windows ou Linux, Marketplace ou personnalisée), une taille (SKU définissant vCPU/RAM), un disque managé, une carte réseau connectée à un sous-réseau, et optionnellement une IP publique.</p>
+
+      <h2 class="sec">22.4 — Stockage Azure : Blob et Files</h2>
+      <ul class="std">
+        <li><strong>Blob Storage</strong> — stockage d'objets non structurés (fichiers, images, sauvegardes), avec niveaux d'accès (Chaud/Froid/Archive) pour optimiser les coûts selon la fréquence d'accès</li>
+        <li><strong>Azure Files</strong> — partages de fichiers SMB accessibles comme un lecteur réseau classique, montable depuis Windows ou Linux — équivalent cloud du DFS vu au Module 2</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Migration du stockage de photos et documents vers Azure Blob</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2, 4 et 5) stocke des milliers de photos de chambres et documents contractuels sur des disques locaux vieillissants.</p>
+        <p><strong>Solution retenue :</strong> migration vers Azure Blob Storage avec gestion automatique des niveaux — les photos actives (moins de 90 jours) restent en niveau Chaud, les documents contractuels de plus de 2 ans basculent automatiquement en niveau Archive (coût très réduit, restauration en quelques heures si besoin).</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h4>Laboratoire guidé — Configuration d'un NSG (Network Security Group)</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un NSG <code>NSG-Formation</code>.</li>
+          <li>Ajoute une règle entrante autorisant le RDP (port 3389) uniquement depuis ton IP publique.</li>
+          <li>Ajoute une règle refusant tout autre trafic entrant (priorité plus élevée en numéro = évaluée après).</li>
+          <li>Associe le NSG au sous-réseau <code>subnet-app</code> créé en semaine 21.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Déploiement d'une VM Windows/Linux Azure</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une VM (taille B1s, éligible au niveau gratuit) dans le groupe de ressources de formation.</li>
+          <li>Associe-la au VNet et sous-réseau créés en semaine 21.</li>
+          <li>Connecte-toi via RDP (Windows) ou SSH (Linux).</li>
+          <li><strong>Important :</strong> supprime la VM après le test pour ne pas consommer inutilement ton crédit gratuit.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18"/></svg></div><h4>Laboratoire guidé — Configuration du stockage Azure (Blob, Files)</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un compte de stockage.</li>
+          <li>Crée un conteneur Blob et téléverse un fichier de test.</li>
+          <li>Change son niveau d'accès de Chaud à Froid et observe l'impact sur le coût estimé.</li>
+          <li>Crée un partage Azure Files et monte-le depuis ta VM ou ton poste local.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 22</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20networking" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Azure networking &amp; storage</div><div class="res-sub">Modules officiels gratuits</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 22</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Dans quel ordre les règles NSG sont-elles évaluées ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w22q1">Alphabétique</label>
+            <label class="quiz-opt"><input type="radio" name="w22q1">Aléatoire</label>
+            <label class="quiz-opt"><input type="radio" name="w22q1">Par priorité numérique croissante</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La règle avec le numéro de priorité le plus bas est évaluée en premier.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quel niveau d'accès Blob Storage minimise le coût pour des données rarement consultées ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w22q2">Archive</label>
+            <label class="quiz-opt"><input type="radio" name="w22q2">Chaud</label>
+            <label class="quiz-opt"><input type="radio" name="w22q2">Premium</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le niveau Archive est le moins cher, adapté aux données rarement accédées, avec un délai de restauration plus long.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Quel service Azure est l'équivalent cloud du DFS vu au Module 2 ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w22q2b">Blob Storage</label>
+            <label class="quiz-opt"><input type="radio" name="w22q2b">Azure Files</label>
+            <label class="quiz-opt"><input type="radio" name="w22q2b">Azure Backup</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Azure Files offre des partages SMB montables, comme un DFS mais géré dans le cloud.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi supprimer une VM Azure après un test sur un compte gratuit ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w22q4">Azure l'exige après 24h</label>
+            <label class="quiz-opt"><input type="radio" name="w22q4">Pour éviter de consommer inutilement le crédit gratuit</label>
+            <label class="quiz-opt"><input type="radio" name="w22q4">Les VM de test s'auto-détruisent sinon</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une VM continue de facturer tant qu'elle existe (même arrêtée, le disque reste facturé) — bon réflexe de nettoyage.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 22</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>NSG, VM Azure, niveaux de stockage Blob</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s22">0</span>/25<div class="auto-note">calcul auto</div></td><td>NSG, VM et stockage déployés puis nettoyés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Stratégie de niveaux de stockage proposée pour un scénario</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 23 ============================================================ -->
+    <div class="week-block" id="s23">
+      <p class="week-tag">SEMAINE 23 · 28/12/2026 – 03/01/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Machines virtuelles et services de calcul</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Répartir la charge entre plusieurs VMs avec Azure Load Balancer</li>
+          <li>Mettre en place des sauvegardes automatisées avec Azure Backup</li>
+          <li>Surveiller l'infrastructure avec Azure Monitor et configurer des alertes</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="111,112,113,114,115" data-tracker-week="s23">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="111" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Machines virtuelles et services de calcul</div></div><div class="tracker-row"><button class="check-btn" data-toggle="112" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Déploiement d'une VM Azure</div></div><div class="tracker-row"><button class="check-btn" data-toggle="113" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'Azure Load Balancer</div></div><div class="tracker-row"><button class="check-btn" data-toggle="114" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'Azure Backup</div></div><div class="tracker-row"><button class="check-btn" data-toggle="115" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'Azure Monitor et alertes</div></div>
+      </div>
+
+
+      <h2 class="sec">23.1 — Azure Load Balancer</h2>
+      <p>Répartit le trafic réseau entrant entre plusieurs VMs, avec des <strong>sondes d'intégrité</strong> qui détectent automatiquement une VM défaillante et cessent de lui envoyer du trafic — principe similaire au basculement DHCP (Module 2), appliqué ici à la répartition de charge web.</p>
+
+      <h2 class="sec">23.2 — Azure Backup</h2>
+      <p>Service managé de sauvegarde des VMs, avec planification automatique, rétention configurable, et restauration granulaire (fichier unique ou VM complète) — l'équivalent cloud de Windows Server Backup (Module 2), sans gérer l'infrastructure de stockage sous-jacente.</p>
+
+      <h2 class="sec">23.3 — Azure Monitor et alertes</h2>
+      <div class="def">
+        <span class="def-term">Azure Monitor</span>
+        <p>Collecte des métriques (CPU, mémoire, disque, réseau) et des journaux de toutes les ressources Azure, avec la possibilité de créer des <strong>règles d'alerte</strong> déclenchant une notification (email, SMS) ou une action automatisée (redémarrage, scaling) selon des seuils définis.</p>
+      </div>
+      <p>C'est la continuité directe de Perfmon et de l'Observateur d'événements (Module 2), mais centralisée pour toutes les ressources cloud, avec des tableaux de bord visuels.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Haute disponibilité pour le portail de suivi de production</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis les Modules 1, 2, 3 et 4) migre son portail web de suivi de production vers Azure, avec une exigence de disponibilité continue pendant les heures de production.</p>
+        <p><strong>Architecture retenue :</strong> deux VMs identiques derrière un Azure Load Balancer, avec Azure Backup planifiant une sauvegarde quotidienne à 3h du matin (hors production), et une alerte Azure Monitor déclenchée si le CPU moyen dépasse 80% pendant plus de 10 minutes — permettant d'anticiper un besoin de scaling avant la saturation.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="4"/><circle cx="17" cy="7" r="4"/><path d="M3 20a4 4 0 014-4h0a4 4 0 014 4M13 20a4 4 0 014-4h0a4 4 0 014 4"/></svg></div><h4>Laboratoire guidé — Configuration d'Azure Load Balancer</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Déploie deux petites VMs identiques (ou réutilise-en une existante + une nouvelle).</li>
+          <li>Crée un Load Balancer public avec une règle de répartition sur le port 80.</li>
+          <li>Configure une sonde d'intégrité HTTP.</li>
+          <li>Teste l'accès via l'IP publique du Load Balancer et observe la répartition.</li>
+          <li>Nettoie toutes les ressources créées après le test.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg></div><h4>Laboratoire guidé — Mise en place d'Azure Backup</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un coffre de sauvegarde (Recovery Services Vault).</li>
+          <li>Configure une stratégie de sauvegarde quotidienne avec rétention de 30 jours.</li>
+          <li>Associe une VM de test à cette stratégie.</li>
+          <li>Lance une sauvegarde immédiate pour valider le fonctionnement.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="21" x2="5" y2="10.5"/><line x1="12" y1="21" x2="12" y2="5"/><line x1="19" y1="21" x2="19" y2="14"/></svg></div><h4>Laboratoire guidé — Configuration d'Azure Monitor et alertes</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre Azure Monitor et consulte les métriques d'une VM de test.</li>
+          <li>Crée une règle d'alerte : CPU moyen &gt; 80% pendant 10 minutes.</li>
+          <li>Configure un groupe d'actions envoyant un email de notification.</li>
+          <li>Documente la configuration pour ton portfolio.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 23</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20monitor" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Azure Monitor &amp; Backup</div><div class="res-sub">Modules officiels gratuits</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 23</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que fait une sonde d'intégrité du Load Balancer ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w23q1">Elle chiffre le trafic</label>
+            <label class="quiz-opt"><input type="radio" name="w23q1">Elle détecte une VM défaillante et cesse de lui envoyer du trafic</label>
+            <label class="quiz-opt"><input type="radio" name="w23q1">Elle sauvegarde les VMs</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La sonde vérifie régulièrement l'état des VMs et retire automatiquement celles qui ne répondent plus.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. À quoi correspond Azure Backup en équivalent local (Module 2) ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w23q2">DFS</label>
+            <label class="quiz-opt"><input type="radio" name="w23q2">GPO</label>
+            <label class="quiz-opt"><input type="radio" name="w23q2">Windows Server Backup</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les deux services assurent la sauvegarde/restauration, Azure Backup en version managée cloud.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Que permet une règle d'alerte Azure Monitor ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w23q3">Notifier ou déclencher une action selon un seuil</label>
+            <label class="quiz-opt"><input type="radio" name="w23q3">Supprimer automatiquement les ressources</label>
+            <label class="quiz-opt"><input type="radio" name="w23q3">Chiffrer les logs</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une alerte peut notifier une équipe ou déclencher une action automatisée (ex. scaling) quand un seuil est franchi.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de l'usine, pourquoi planifier la sauvegarde à 3h du matin ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w23q4">Azure Backup ne fonctionne que la nuit</label>
+            <label class="quiz-opt"><input type="radio" name="w23q4">Pour éviter d'impacter les performances pendant la production</label>
+            <label class="quiz-opt"><input type="radio" name="w23q4">C'est moins cher la nuit</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Planifier les tâches lourdes hors des heures critiques est une bonne pratique opérationnelle classique.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 23</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Load Balancer, Azure Backup, Azure Monitor</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s23">0</span>/25<div class="auto-note">calcul auto</div></td><td>Load Balancer, Backup et alertes configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Architecture HA proposée pour un scénario critique</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 24 ============================================================ -->
+    <div class="week-block" id="s24">
+      <p class="week-tag">SEMAINE 24 · 04/01 – 10/01/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Gouvernance, coûts et sécurité — préparation AZ-104</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Appliquer des Azure Policy pour la conformité</li>
+          <li>Déployer des ressources via templates ARM/Bicep (infrastructure as code)</li>
+          <li>Configurer Azure AD Connect pour un scénario hybride</li>
+          <li>Gérer et optimiser les coûts Azure</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="116,117,118,119,120" data-tracker-week="s24">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="116" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Gouvernance, coûts et sécurité (prépa AZ-104)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="117" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Gouvernance (Policy, Cost Management)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="118" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Déploiement avec templates ARM/Bicep</div></div><div class="tracker-row"><button class="check-btn" data-toggle="119" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'Azure AD Connect (hybride)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="120" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des coûts (Azure Cost Management)</div></div>
+      </div>
+
+
+      <h2 class="sec">24.1 — Azure Policy</h2>
+      <div class="def">
+        <span class="def-term">Azure Policy</span>
+        <p>Règles de conformité appliquées automatiquement aux ressources (ex. "toutes les VMs doivent être dans la région France Centre", "un tag Environnement est obligatoire"). Contrairement à RBAC qui contrôle <em>qui peut faire quoi</em>, Policy contrôle <em>ce qui est autorisé</em>, indépendamment de l'utilisateur.</p>
+      </div>
+
+      <h2 class="sec">24.2 — Infrastructure as Code : ARM et Bicep</h2>
+      <p>Plutôt que créer des ressources manuellement dans le portail, on peut les décrire dans un fichier et les déployer de façon reproductible :</p>
+      <ul class="std">
+        <li><strong>Templates ARM</strong> (Azure Resource Manager) — format JSON natif d'Azure, verbeux mais universel</li>
+        <li><strong>Bicep</strong> — langage plus lisible qui se compile vers ARM, adopté comme standard moderne recommandé par Microsoft</li>
+      </ul>
+      <pre class="cmdblock">// Exemple Bicep simplifié : un groupe de ressources avec un compte de stockage
+resource storage 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: 'stformationcabinet'
+  location: 'francecentral'
+  sku: { name: 'Standard_LRS' }
+  kind: 'StorageV2'
+}</pre>
+      <p>L'avantage majeur : la même infrastructure peut être recréée identique à l'identique en environnement de test, de préproduction et de production — fini les différences de configuration invisibles entre environnements.</p>
+
+      <h2 class="sec">24.3 — Azure AD Connect (scénario hybride)</h2>
+      <p>Synchronise les comptes d'un AD DS local (Module 2) vers Entra ID, permettant une identité unique pour l'utilisateur, que ce soit pour se connecter au domaine local ou à M365/Azure — le pont entre l'infrastructure historique et le cloud.</p>
+
+      <h2 class="sec">24.4 — Gestion des coûts</h2>
+      <p><strong>Azure Cost Management</strong> permet de suivre les dépenses en temps réel, définir des budgets avec alertes, et identifier les ressources sous-utilisées (VM allumée en permanence mais peu sollicitée, disque orphelin non attaché) — une compétence directement rentable pour toute organisation.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Bilan du module</span>
+        <h4>Gouvernance complète pour le cabinet comptable</h4>
+        <p><strong>Bilan :</strong> Le cabinet comptable dispose maintenant d'une infrastructure Azure gouvernée : Azure Policy impose la région et le tagging, l'infrastructure est déployée via Bicep pour garantir la reproductibilité, Azure AD Connect synchronise les identités avec l'AD local existant, et un budget mensuel avec alerte à 80% évite les mauvaises surprises de facturation.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Laboratoire guidé — Déploiement avec templates ARM/Bicep</h4></div>
+        <div class="lab-meta">Outil : Azure CLI ou Cloud Shell · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre Azure Cloud Shell depuis le portail.</li>
+          <li>Écris un fichier Bicep simple créant un compte de stockage.</li>
+          <li>Déploie-le : <code>az deployment group create --resource-group RG-Formation --template-file main.bicep</code>.</li>
+          <li>Vérifie la ressource créée dans le portail.</li>
+          <li>Supprime-la pour libérer le crédit gratuit.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg></div><h4>Laboratoire guidé — Configuration d'Azure AD Connect (hybride)</h4></div>
+        <div class="lab-meta">Outil : documentation + schéma (labo conceptuel) · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Consulte la documentation Microsoft sur les prérequis d'Azure AD Connect.</li>
+          <li>Schématise l'architecture de synchronisation entre ton AD local (Module 2) et Entra ID.</li>
+          <li>Identifie les objets qui seraient synchronisés (utilisateurs, groupes) et ceux qui ne le seraient pas.</li>
+          <li>Documente les options d'authentification hybride (Password Hash Sync vs Pass-through Authentication).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h4>Laboratoire guidé — Gestion des coûts (Azure Cost Management)</h4></div>
+        <div class="lab-meta">Outil : Portail Azure · Durée : 20 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre Azure Cost Management + Facturation.</li>
+          <li>Consulte l'analyse des coûts par groupe de ressources.</li>
+          <li>Crée un budget mensuel avec une alerte à 80% de consommation.</li>
+          <li>Identifie les ressources encore actives issues des labos précédents et supprime celles qui ne sont plus nécessaires.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 24</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=azure%20policy%20bicep" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Governance &amp; Bicep</div><div class="res-sub">Parcours officiel gratuit (prépa AZ-104)</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 24</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quelle est la différence entre RBAC et Azure Policy ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w24q1">Ils font exactement la même chose</label>
+            <label class="quiz-opt"><input type="radio" name="w24q1">RBAC contrôle qui peut agir, Policy contrôle ce qui est autorisé</label>
+            <label class="quiz-opt"><input type="radio" name="w24q1">Policy remplace RBAC depuis 2024</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">RBAC = permissions par utilisateur ; Policy = règles de conformité indépendantes de l'utilisateur.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel langage moderne est recommandé pour l'infrastructure as code Azure ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w24q2">PowerShell DSC</label>
+            <label class="quiz-opt"><input type="radio" name="w24q2">JSON pur</label>
+            <label class="quiz-opt"><input type="radio" name="w24q2">Bicep</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Bicep est plus lisible que le JSON ARM natif et se compile automatiquement vers celui-ci.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Que fait Azure AD Connect ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w24q3">Synchronise les comptes AD local vers Entra ID</label>
+            <label class="quiz-opt"><input type="radio" name="w24q3">Sauvegarde les VMs Azure</label>
+            <label class="quiz-opt"><input type="radio" name="w24q3">Chiffre le trafic réseau</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Azure AD Connect crée le pont d'identité entre l'AD local et Entra ID pour un scénario hybride.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi vérifier régulièrement les ressources inutilisées avec Cost Management ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w24q4">Azure les supprime automatiquement sinon</label>
+            <label class="quiz-opt"><input type="radio" name="w24q4">Une ressource orpheline continue de coûter sans apporter de valeur</label>
+            <label class="quiz-opt"><input type="radio" name="w24q4">C'est requis pour la certification AZ-104</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les ressources non attachées ou sous-utilisées facturent silencieusement — un contrôle régulier évite le gaspillage.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 24</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Policy, Bicep, AD Connect, gestion des coûts</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s24">0</span>/25<div class="auto-note">calcul auto</div></td><td>Déploiement Bicep, schéma hybride, budget configuré</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de gouvernance complet documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu maîtrises maintenant Azure de bout en bout : hiérarchie et gouvernance, réseaux et stockage, machines virtuelles et haute disponibilité, infrastructure as code, et scénario hybride avec l'AD local. C'est la préparation directe de la certification <strong>AZ-104</strong>.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Architecture cloud Azure</em> — déploie une infrastructure complète (VNet, NSG, VM ou Load Balancer, stockage, budget) via Bicep, documente ton architecture et ta stratégie de gouvernance, en t'assurant de nettoyer toutes les ressources après démonstration.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-05-microsoft365.html"><div class="lbl">Module précédent</div><div class="ttl">05 · Microsoft 365</div></a>
+      <a class="next" href="module-07-powershell.html"><div class="lbl">Prochain module</div><div class="ttl">07 · PowerShell</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Azure">[{"id": 101, "type": "Cours", "week": 21, "title": "Fondamentaux Azure (régions, abonnements, RBAC)"}, {"id": 102, "type": "TP", "week": 21, "title": "Création d'un abonnement et groupe de ressources"}, {"id": 103, "type": "Labo", "week": 21, "title": "Création d'un groupe de ressources"}, {"id": 104, "type": "Labo", "week": 21, "title": "Configuration RBAC (contrôle d'accès)"}, {"id": 105, "type": "Labo", "week": 21, "title": "Création d'un réseau virtuel et sous-réseaux"}, {"id": 106, "type": "Cours", "week": 22, "title": "Réseaux et stockage Azure"}, {"id": 107, "type": "TP", "week": 22, "title": "Configuration d'un réseau virtuel Azure (VNet)"}, {"id": 108, "type": "Labo", "week": 22, "title": "Configuration d'un NSG (Network Security Group)"}, {"id": 109, "type": "Labo", "week": 22, "title": "Déploiement d'une VM Windows/Linux Azure"}, {"id": 110, "type": "Labo", "week": 22, "title": "Configuration du stockage Azure (Blob, Files)"}, {"id": 111, "type": "Cours", "week": 23, "title": "Machines virtuelles et services de calcul"}, {"id": 112, "type": "TP", "week": 23, "title": "Déploiement d'une VM Azure"}, {"id": 113, "type": "Labo", "week": 23, "title": "Configuration d'Azure Load Balancer"}, {"id": 114, "type": "Labo", "week": 23, "title": "Mise en place d'Azure Backup"}, {"id": 115, "type": "Labo", "week": 23, "title": "Configuration d'Azure Monitor et alertes"}, {"id": 116, "type": "Cours", "week": 24, "title": "Gouvernance, coûts et sécurité (prépa AZ-104)"}, {"id": 117, "type": "TP", "week": 24, "title": "Gouvernance (Policy, Cost Management)"}, {"id": 118, "type": "Labo", "week": 24, "title": "Déploiement avec templates ARM/Bicep"}, {"id": 119, "type": "Labo", "week": 24, "title": "Configuration d'Azure AD Connect (hybride)"}, {"id": 120, "type": "Labo", "week": 24, "title": "Gestion des coûts (Azure Cost Management)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

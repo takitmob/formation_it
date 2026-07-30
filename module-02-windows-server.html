@@ -41,7 +41,8 @@
     <div class="sync-banner" id="syncBanner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
       <span class="sync-text">Vérification de la synchronisation…</span>
-      <button id="importSyncBtn">Importer ma progression</button>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
       <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
     </div>
 
@@ -79,6 +80,12 @@
           <li>Installer Windows Server et le préparer pour la promotion en contrôleur de domaine</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="21,22,23,24,25" data-tracker-week="s5">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="21" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Installation et rôles Windows Server</div></div><div class="tracker-row"><button class="check-btn" data-toggle="22" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Installation Windows Server (Core vs Desktop Experience)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="23" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation Windows Server 2022</div></div><div class="tracker-row"><button class="check-btn" data-toggle="24" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Promotion d'un contrôleur de domaine</div></div><div class="tracker-row"><button class="check-btn" data-toggle="25" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'unités d'organisation (OU) et utilisateurs</div></div>
+      </div>
+
 
       <h2 class="sec">5.1 — Éditions et modes d'installation</h2>
       <p>Windows Server existe en deux éditions principales : <strong>Standard</strong> (jusqu'à 2 machines virtuelles incluses par licence, adaptée aux PME) et <strong>Datacenter</strong> (virtualisation illimitée, adaptée aux grands environnements et à l'hyperconvergence). À l'installation, deux modes sont proposés :</p>
@@ -240,7 +247,7 @@
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Éditions, Core vs Desktop Experience, rôles courants</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>Serveur installé, promu en DC, OU/utilisateurs créés</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s5">0</span>/25<div class="auto-note">calcul auto</div></td><td>Serveur installé, promu en DC, OU/utilisateurs créés</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Justification du choix d'édition/mode pour un scénario donné</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -260,6 +267,12 @@
           <li>Comprendre le rôle du DNS intégré à AD</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="26,27,28,29,30" data-tracker-week="s6">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="26" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Active Directory Domain Services</div></div><div class="tracker-row"><button class="check-btn" data-toggle="27" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création d'une forêt / domaine AD</div></div><div class="tracker-row"><button class="check-btn" data-toggle="28" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des groupes et délégation</div></div><div class="tracker-row"><button class="check-btn" data-toggle="29" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration de GPO (restrictions logicielles)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="30" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration DNS intégré à AD</div></div>
+      </div>
+
 
       <h2 class="sec">6.1 — La hiérarchie Active Directory</h2>
       <p>Active Directory organise les ressources d'une entreprise selon une hiérarchie à plusieurs niveaux :</p>
@@ -420,7 +433,7 @@
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Hiérarchie AD, groupes, DNS intégré</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>Groupes, délégation et GPO fonctionnels</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s6">0</span>/25<div class="auto-note">calcul auto</div></td><td>Groupes, délégation et GPO fonctionnels</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Structure OU proposée pour un scénario multi-sites</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -440,6 +453,12 @@
           <li>Sauvegarder et restaurer un serveur avec Windows Server Backup</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="31,32,33,34,35" data-tracker-week="s7">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="31" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Stratégies de groupe (GPO) et sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="32" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration de GPO de sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="33" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration DHCP en haute disponibilité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="34" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place du service de fichiers (DFS)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="35" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Sauvegarde et restauration Windows Server Backup</div></div>
+      </div>
+
 
       <h2 class="sec">7.1 — L'ordre d'application des GPO : LSDOU</h2>
       <p>Quand un utilisateur ou un ordinateur se connecte, Windows applique les GPO dans un ordre précis, chaque niveau pouvant écraser le précédent :</p>
@@ -578,7 +597,7 @@
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Ordre LSDOU, familles de paramètres GPO</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>DHCP haute dispo, DFS et sauvegarde fonctionnels</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s7">0</span>/25<div class="auto-note">calcul auto</div></td><td>DHCP haute dispo, DFS et sauvegarde fonctionnels</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Stratégie de restriction proposée pour un poste critique</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -598,6 +617,12 @@
           <li>Surveiller un serveur avec l'Observateur d'événements et le Moniteur de performances</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="36,37,38,39,40" data-tracker-week="s8">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="36" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Services de fichiers, impression et stockage</div></div><div class="tracker-row"><button class="check-btn" data-toggle="37" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration DFS et quotas de stockage</div></div><div class="tracker-row"><button class="check-btn" data-toggle="38" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration RDS (Bureau à distance)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="39" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Durcissement sécurité (Security Baseline)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="40" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Surveillance (Observateur d'événements / Perfmon)</div></div>
+      </div>
+
 
       <h2 class="sec">8.1 — DFS : espace de noms et réplication</h2>
       <p>DFS comporte deux composants complémentaires :</p>
@@ -735,7 +760,7 @@
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>DFS, quotas, RDS, surveillance serveur</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>RDS, Security Baseline et surveillance fonctionnels</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s8">0</span>/25<div class="auto-note">calcul auto</div></td><td>RDS, Security Baseline et surveillance fonctionnels</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de surveillance proposé (seuils, alertes)</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -755,6 +780,8 @@
 
   </div>
 </div>
+<script id="module-activities" type="application/json" data-module="Windows Server">[{"id": 21, "type": "Cours", "week": 5, "title": "Installation et rôles Windows Server"}, {"id": 22, "type": "TP", "week": 5, "title": "Installation Windows Server (Core vs Desktop Experience)"}, {"id": 23, "type": "Labo", "week": 5, "title": "Installation Windows Server 2022"}, {"id": 24, "type": "Labo", "week": 5, "title": "Promotion d'un contrôleur de domaine"}, {"id": 25, "type": "Labo", "week": 5, "title": "Création d'unités d'organisation (OU) et utilisateurs"}, {"id": 26, "type": "Cours", "week": 6, "title": "Active Directory Domain Services"}, {"id": 27, "type": "TP", "week": 6, "title": "Création d'une forêt / domaine AD"}, {"id": 28, "type": "Labo", "week": 6, "title": "Gestion des groupes et délégation"}, {"id": 29, "type": "Labo", "week": 6, "title": "Configuration de GPO (restrictions logicielles)"}, {"id": 30, "type": "Labo", "week": 6, "title": "Configuration DNS intégré à AD"}, {"id": 31, "type": "Cours", "week": 7, "title": "Stratégies de groupe (GPO) et sécurité"}, {"id": 32, "type": "TP", "week": 7, "title": "Configuration de GPO de sécurité"}, {"id": 33, "type": "Labo", "week": 7, "title": "Configuration DHCP en haute disponibilité"}, {"id": 34, "type": "Labo", "week": 7, "title": "Mise en place du service de fichiers (DFS)"}, {"id": 35, "type": "Labo", "week": 7, "title": "Sauvegarde et restauration Windows Server Backup"}, {"id": 36, "type": "Cours", "week": 8, "title": "Services de fichiers, impression et stockage"}, {"id": 37, "type": "TP", "week": 8, "title": "Configuration DFS et quotas de stockage"}, {"id": 38, "type": "Labo", "week": 8, "title": "Configuration RDS (Bureau à distance)"}, {"id": 39, "type": "Labo", "week": 8, "title": "Durcissement sécurité (Security Baseline)"}, {"id": 40, "type": "Labo", "week": 8, "title": "Surveillance (Observateur d'événements / Perfmon)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
 <script src="assets/manual.js"></script>
 </body>
 </html>

@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 7 · PowerShell — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 7 — PowerShell</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s25" data-week-ids="121,122,123,124,125">Semaine 25 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s26" data-week-ids="126,127,128,129,130">Semaine 26 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s27" data-week-ids="131,132,133,134,135">Semaine 27 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s28" data-week-ids="136,137,138,139,140">Semaine 28 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-08-python.html">08 · Python →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 7 · PowerShell</div><div class="topbar-sub">Semaines 25–28</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 7 / 13</p>
+    <h1 class="week-title">PowerShell</h1>
+    <p class="week-dates">11 janvier 2027 → 07 février 2027 · Semaines 25–28 · 52 h prévues</p>
+
+    <p class="lead">PowerShell est le langage d'automatisation natif de l'écosystème Microsoft — Windows Server, Active Directory, M365 et Azure se pilotent tous avec les mêmes cmdlets. Ce module transforme les tâches manuelles répétitives des modules précédents en scripts fiables et réutilisables.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Maîtriser le pipeline PowerShell et les cmdlets essentielles</li>
+        <li>Écrire des scripts avec variables, boucles, fonctions et gestion d'erreurs</li>
+        <li>Administrer des serveurs à distance avec PowerShell Remoting</li>
+        <li>Créer des modules personnalisés et automatiser des rapports</li>
+        <li>Interagir avec l'API Microsoft Graph pour piloter M365/Azure</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Modules 2 (AD DS) recommandé pour les labos d'administration. Utilise <strong>PowerShell 7+</strong> (multiplateforme, gratuit) avec <strong>Visual Studio Code</strong> et son extension PowerShell — l'environnement de développement standard aujourd'hui, bien plus confortable que l'ISE historique.</p>
+
+    <!-- ============================================================ SEMAINE 25 ============================================================ -->
+    <div class="week-block" id="s25">
+      <p class="week-tag">SEMAINE 25 · 11/01 – 17/01/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux PowerShell — cmdlets, pipeline</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Comprendre la logique Verbe-Nom des cmdlets</li>
+          <li>Utiliser le pipeline pour chaîner des commandes</li>
+          <li>Filtrer et trier des objets</li>
+          <li>Gérer des utilisateurs Active Directory en ligne de commande</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="121,122,123,124,125" data-tracker-week="s25">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="121" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux PowerShell (cmdlets, pipeline)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="122" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Exploration du pipeline PowerShell</div></div><div class="tracker-row"><button class="check-btn" data-toggle="123" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Cmdlets de base (Get, Set, New, Remove)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="124" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Filtrage et tri d'objets (Where-Object)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="125" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des utilisateurs AD via PowerShell</div></div>
+      </div>
+
+
+      <h2 class="sec">25.1 — La logique Verbe-Nom</h2>
+      <p>Toutes les cmdlets PowerShell suivent la convention <strong>Verbe-Nom</strong> : <code>Get-Process</code>, <code>Set-Content</code>, <code>New-Item</code>, <code>Remove-Item</code>. Cette cohérence rend PowerShell prévisible — une fois la logique comprise, on devine souvent le nom d'une cmdlet.</p>
+      <table class="eval-tbl">
+        <tr><th>Verbe</th><th>Action</th></tr>
+        <tr><td class="mono">Get</td><td>Récupérer une information</td></tr>
+        <tr><td class="mono">Set</td><td>Modifier une propriété existante</td></tr>
+        <tr><td class="mono">New</td><td>Créer un nouvel objet</td></tr>
+        <tr><td class="mono">Remove</td><td>Supprimer</td></tr>
+      </table>
+
+      <h2 class="sec">25.2 — Le pipeline : objets, pas texte</h2>
+      <p>Contrairement à Bash (Module 3) qui fait circuler du <strong>texte</strong> entre les commandes, PowerShell fait circuler de véritables <strong>objets .NET</strong> avec leurs propriétés — un avantage majeur pour manipuler des données structurées sans parsing fragile.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="20" y="30" font-family="'JetBrains Mono',monospace" font-size="13" fill="#2C4362">Get-Process | Where-Object CPU -gt 50 | Sort-Object CPU -Descending</text>
+          <text x="20" y="55" font-family="-apple-system,sans-serif" font-size="10" fill="#667085">1. Récupère tous les processus (objets)  →  2. Filtre ceux dont le CPU &gt; 50  →  3. Trie par CPU décroissant</text>
+          <text x="20" y="80" font-family="-apple-system,sans-serif" font-size="10" fill="#667085">Chaque étape reçoit et transmet de vrais objets — leurs propriétés restent accessibles à chaque maillon.</text>
+        </svg>
+      </div>
+
+      <h2 class="sec">25.3 — Filtrage et tri</h2>
+      <pre class="cmdblock">Get-Service | Where-Object Status -eq "Running"
+Get-ADUser -Filter * | Sort-Object Surname
+Get-Process | Select-Object Name, CPU, Id -First 5</pre>
+
+      <h2 class="sec">25.4 — Gestion des utilisateurs AD via PowerShell</h2>
+      <p>Tout ce que tu as fait manuellement en Module 2 (créer des utilisateurs, des OU, des groupes) devient scriptable et reproductible :</p>
+      <pre class="cmdblock">Get-ADUser -Filter * -SearchBase "OU=Comptabilite,DC=cabinet,DC=local"
+New-ADUser -Name "Marie Dubois" -SamAccountName "marie.dubois" -Enabled $true</pre>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Automatisation de la création de comptes au cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis les Modules 1, 2, 3 et 6) recrute plusieurs stagiaires chaque année et perd du temps à recréer manuellement les comptes AD un par un (Module 2).</p>
+        <p><strong>Solution retenue :</strong> un script PowerShell qui lit un fichier CSV (nom, prénom, service) et crée automatiquement chaque compte AD avec le bon nommage, l'affectation à la bonne OU, et l'ajout au bon groupe de sécurité — ce qui prenait 10 minutes par utilisateur ne prend plus que quelques secondes, sans erreur de frappe.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M15 6l6 6-6 6"/></svg></div><h4>Laboratoire guidé 1 — Cmdlets de base (Get, Set, New, Remove)</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 + VS Code · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Liste les 10 processus consommant le plus de CPU : <code>Get-Process | Sort-Object CPU -Descending | Select-Object -First 10</code>.</li>
+          <li>Crée un dossier de test : <code>New-Item -Path C:\\Test -ItemType Directory</code>.</li>
+          <li>Modifie un attribut de fichier : <code>Set-ItemProperty</code>.</li>
+          <li>Nettoie : <code>Remove-Item -Path C:\\Test -Recurse</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg></div><h4>Laboratoire guidé 2 — Filtrage et tri d'objets (Where-Object)</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Liste les services arrêtés : <code>Get-Service | Where-Object Status -eq "Stopped"</code>.</li>
+          <li>Combine filtrage et tri sur les processus par mémoire utilisée.</li>
+          <li>Utilise <code>Select-Object</code> pour n'afficher que certaines colonnes.</li>
+          <li>Exporte le résultat en CSV : <code>| Export-Csv services.csv -NoTypeInformation</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20v-1a5 5 0 015-5h4a5 5 0 015 5v1"/></svg></div><h4>Laboratoire guidé 3 — Gestion des utilisateurs AD via PowerShell</h4></div>
+        <div class="lab-meta">Outil : PowerShell + module ActiveDirectory (VM du Module 2) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Liste tous les utilisateurs d'une OU : <code>Get-ADUser -Filter * -SearchBase "OU=Comptabilite,DC=cabinet,DC=local"</code>.</li>
+          <li>Crée un nouvel utilisateur via cmdlet plutôt que l'interface graphique.</li>
+          <li>Modifie un attribut en masse (ex. département) pour plusieurs utilisateurs filtrés.</li>
+          <li>Compare le temps requis vs la méthode manuelle du Module 2.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 25</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — PowerShell fundamentals</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 25</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Quel verbe utilise-t-on pour créer un nouvel objet en PowerShell ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w25q1">New</label>
+            <label class="quiz-opt"><input type="radio" name="w25q1">Create</label>
+            <label class="quiz-opt"><input type="radio" name="w25q1">Add</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La convention PowerShell utilise "New-" pour la création (New-Item, New-ADUser...).</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Que fait circuler le pipeline PowerShell entre les commandes ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w25q2">Du texte brut, comme Bash</label>
+            <label class="quiz-opt"><input type="radio" name="w25q2">De véritables objets avec leurs propriétés</label>
+            <label class="quiz-opt"><input type="radio" name="w25q2">Des fichiers temporaires</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est la différence fondamentale avec les shells Unix classiques — un avantage pour manipuler des données structurées.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quelle cmdlet filtre des objets selon une condition ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w25q3">Select-Object</label>
+            <label class="quiz-opt"><input type="radio" name="w25q3">Sort-Object</label>
+            <label class="quiz-opt"><input type="radio" name="w25q3">Where-Object</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Where-Object filtre selon une condition ; Select-Object choisit des propriétés ; Sort-Object trie.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, quel est le bénéfice principal du script CSV ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w25q4">Il remplace complètement Active Directory</label>
+            <label class="quiz-opt"><input type="radio" name="w25q4">Rapidité et fiabilité par rapport à la saisie manuelle répétée</label>
+            <label class="quiz-opt"><input type="radio" name="w25q4">Il fonctionne sans PowerShell</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation élimine les erreurs de saisie répétitives et accélère fortement le processus.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 25</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Convention Verbe-Nom, pipeline d'objets</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s25">0</span>/25<div class="auto-note">calcul auto</div></td><td>Cmdlets de base et gestion AD en PowerShell maîtrisées</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script de filtrage/tri appliqué à un cas réel</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 26 ============================================================ -->
+    <div class="week-block" id="s26">
+      <p class="week-tag">SEMAINE 26 · 18/01 – 24/01/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Variables, boucles et fonctions</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Utiliser variables, tableaux et boucles</li>
+          <li>Créer des fonctions réutilisables</li>
+          <li>Gérer les erreurs avec Try/Catch</li>
+          <li>Administrer un serveur à distance avec PowerShell Remoting</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="126,127,128,129,130" data-tracker-week="s26">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="126" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Variables, boucles et fonctions</div></div><div class="tracker-row"><button class="check-btn" data-toggle="127" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création de scripts (variables et boucles)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="128" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création de fonctions réutilisables</div></div><div class="tracker-row"><button class="check-btn" data-toggle="129" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des erreurs (Try/Catch)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="130" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>PowerShell Remoting (Invoke-Command)</div></div>
+      </div>
+
+
+      <h2 class="sec">26.1 — Variables, tableaux et boucles</h2>
+      <pre class="cmdblock">$nom = "Marie"                      # variable simple
+$utilisateurs = @("jean", "marie", "paul")   # tableau
+
+foreach ($u in $utilisateurs) {
+    Write-Host "Traitement de $u"
+}
+
+$i = 0
+while ($i -lt 5) {
+    Write-Host "Compteur : $i"
+    $i++
+}</pre>
+
+      <h2 class="sec">26.2 — Fonctions réutilisables</h2>
+      <pre class="cmdblock">function Get-DiskSpaceReport {
+    param(
+        [string]$ComputerName = "localhost"
+    )
+    Get-PSDrive -PSProvider FileSystem | Select-Object Name, Used, Free
+}
+
+Get-DiskSpaceReport</pre>
+      <p>Une fonction bien conçue accepte des <strong>paramètres</strong> (comme <code>$ComputerName</code> ci-dessus) pour rester réutilisable dans différents contextes, plutôt que de coder des valeurs en dur.</p>
+
+      <h2 class="sec">26.3 — Gestion des erreurs (Try/Catch)</h2>
+      <pre class="cmdblock">try {
+    Get-ADUser -Identity "utilisateur_inexistant" -ErrorAction Stop
+} catch {
+    Write-Warning "Utilisateur introuvable : $($_.Exception.Message)"
+} finally {
+    Write-Host "Traitement terminé"
+}</pre>
+      <p>Sans gestion d'erreur, un script s'arrête brutalement ou pire, continue silencieusement avec des données incorrectes. <code>Try/Catch/Finally</code> permet de réagir proprement et de garder une trace claire de ce qui s'est passé.</p>
+
+      <h2 class="sec">26.4 — PowerShell Remoting</h2>
+      <div class="def">
+        <span class="def-term">PowerShell Remoting (WinRM)</span>
+        <p>Permet d'exécuter des commandes sur un ou plusieurs serveurs distants comme si tu étais connecté localement, via le protocole WinRM. Fondation de l'administration à grande échelle : plus besoin de se connecter serveur par serveur.</p>
+      </div>
+      <pre class="cmdblock">Invoke-Command -ComputerName SRV01,SRV02 -ScriptBlock { Get-Service | Where-Object Status -eq "Stopped" }</pre>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Script de vérification de santé multi-serveurs</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2, 4, 5 et 6) possède plusieurs serveurs Windows répartis sur ses 3 établissements et veut un contrôle de santé quotidien centralisé.</p>
+        <p><strong>Solution retenue :</strong> une fonction PowerShell avec gestion d'erreur robuste (Try/Catch) qui utilise PowerShell Remoting pour interroger chaque serveur (espace disque, services critiques arrêtés, dernière sauvegarde), avec un rapport consolidé envoyé chaque matin — au lieu de vérifier manuellement chaque serveur un par un.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Création de fonctions réutilisables</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 + VS Code · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Écris une fonction <code>Get-DiskSpaceReport</code> acceptant un paramètre ComputerName.</li>
+          <li>Ajoute un paramètre optionnel de seuil d'alerte (ex. moins de 10% d'espace libre).</li>
+          <li>Fais retourner un objet structuré plutôt que du texte affiché.</li>
+          <li>Teste la fonction sur ta machine locale.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z"/></svg></div><h4>Laboratoire guidé — Gestion des erreurs (Try/Catch)</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script qui tente d'accéder à un chemin réseau inexistant.</li>
+          <li>Encadre-le d'un Try/Catch qui journalise l'erreur dans un fichier.</li>
+          <li>Ajoute un bloc Finally qui s'exécute dans tous les cas.</li>
+          <li>Teste avec un chemin valide puis invalide pour valider les deux branches.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg></div><h4>Laboratoire guidé — PowerShell Remoting (Invoke-Command)</h4></div>
+        <div class="lab-meta">Outil : PowerShell + 2 VM Windows (Module 2) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Active le Remoting sur les VM cibles : <code>Enable-PSRemoting -Force</code>.</li>
+          <li>Depuis ton poste, exécute une commande à distance sur une VM.</li>
+          <li>Étends la commande à plusieurs serveurs simultanément.</li>
+          <li>Combine avec Try/Catch pour gérer un serveur injoignable proprement.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 26</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell%20scripting" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — PowerShell scripting</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 26</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi préférer une fonction paramétrée à des valeurs codées en dur ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w26q1">C'est plus rapide à exécuter</label>
+            <label class="quiz-opt"><input type="radio" name="w26q1">Le script devient réutilisable dans différents contextes</label>
+            <label class="quiz-opt"><input type="radio" name="w26q1">PowerShell l'exige</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les paramètres permettent d'adapter le comportement sans réécrire le script.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Que fait le bloc Finally dans un Try/Catch/Finally ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w26q2">Il ne s'exécute qu'en cas d'erreur</label>
+            <label class="quiz-opt"><input type="radio" name="w26q2">Il annule les modifications</label>
+            <label class="quiz-opt"><input type="radio" name="w26q2">Il s'exécute toujours, erreur ou pas</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Finally s'exécute systématiquement, utile pour le nettoyage (fermer un fichier, une connexion...).</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel protocole sous-tend PowerShell Remoting ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w26q3">WinRM</label>
+            <label class="quiz-opt"><input type="radio" name="w26q3">SSH uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w26q3">FTP</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">WinRM (Windows Remote Management) est le protocole natif utilisé par Invoke-Command.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, quel est l'apport principal du script de santé multi-serveurs ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w26q4">Il remplace les sauvegardes</label>
+            <label class="quiz-opt"><input type="radio" name="w26q4">Centraliser une vérification qui serait autrement manuelle et répétitive</label>
+            <label class="quiz-opt"><input type="radio" name="w26q4">Il sécurise le réseau Wi-Fi</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation centralise une tâche répétitive sur plusieurs sites, gagnant du temps et réduisant les oublis.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 26</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Fonctions, Try/Catch, Remoting</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s26">0</span>/25<div class="auto-note">calcul auto</div></td><td>Fonction, gestion d'erreurs et Remoting fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Script de vérification multi-serveurs documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 27 ============================================================ -->
+    <div class="week-block" id="s27">
+      <p class="week-tag">SEMAINE 27 · 25/01 – 31/01/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Gestion à distance (WinRM) et modules</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Automatiser des rapports exportés en CSV/HTML</li>
+          <li>Gérer les services Windows via script</li>
+          <li>Interagir avec l'API Microsoft Graph</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="131,132,133,134,135" data-tracker-week="s27">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="131" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Gestion à distance (WinRM) et modules</div></div><div class="tracker-row"><button class="check-btn" data-toggle="132" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Gestion à distance de serveurs</div></div><div class="tracker-row"><button class="check-btn" data-toggle="133" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation de rapports (export CSV/HTML)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="134" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des services Windows via script</div></div><div class="tracker-row"><button class="check-btn" data-toggle="135" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Interaction avec l'API Microsoft Graph</div></div>
+      </div>
+
+
+      <h2 class="sec">27.1 — Automatisation de rapports</h2>
+      <pre class="cmdblock">Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 |
+    ConvertTo-Html -Title "Rapport CPU" | Out-File rapport.html
+
+Get-ADUser -Filter * -Properties LastLogonDate |
+    Select-Object Name, LastLogonDate |
+    Export-Csv derniere_connexion.csv -NoTypeInformation -Encoding UTF8</pre>
+      <p>Combiner cmdlets et export permet de générer automatiquement des rapports réguliers (via une tâche planifiée) sans intervention manuelle.</p>
+
+      <h2 class="sec">27.2 — Gestion des services Windows via script</h2>
+      <pre class="cmdblock">Get-Service -Name "Spooler" | Restart-Service
+Get-Service | Where-Object {$_.Status -eq "Stopped" -and $_.StartType -eq "Automatic"} |
+    Start-Service</pre>
+      <p>Ce dernier exemple illustre un cas très courant en administration : redémarrer automatiquement tout service configuré en démarrage automatique mais actuellement arrêté — un filet de sécurité simple contre les plantages silencieux.</p>
+
+      <h2 class="sec">27.3 — Interaction avec Microsoft Graph</h2>
+      <div class="def">
+        <span class="def-term">Microsoft Graph</span>
+        <p>API unifiée permettant de piloter par script l'ensemble des services M365 et Entra ID (utilisateurs, emails, calendriers, Teams, licences) — le module PowerShell <code>Microsoft.Graph</code> en est le point d'entrée natif.</p>
+      </div>
+      <pre class="cmdblock">Connect-MgGraph -Scopes "User.Read.All"
+Get-MgUser -Filter "department eq 'Comptabilite'"</pre>
+      <p>C'est le pont direct entre les compétences PowerShell de ce module et l'administration M365 vue au Module 5 — la même logique de script s'applique, cette fois au cloud plutôt qu'à l'AD local.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Rapport quotidien automatisé des services critiques</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis les Modules 1, 2, 3, 4 et 6) veut un rapport quotidien de l'état des services Windows critiques liés à la supervision de production, sans qu'un technicien ait à se connecter manuellement chaque matin.</p>
+        <p><strong>Solution retenue :</strong> un script planifié (Task Scheduler, approfondi en semaine 28) qui vérifie l'état de chaque service critique, tente un redémarrage automatique si arrêté, et génère un rapport HTML envoyé par email — combinant les compétences des semaines 26 et 27 en une seule solution robuste.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div><h4>Laboratoire guidé — Automatisation de rapports (export CSV/HTML)</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Génère un rapport HTML des 10 processus les plus gourmands en mémoire.</li>
+          <li>Génère un export CSV des utilisateurs AD avec leur dernière connexion.</li>
+          <li>Ajoute une mise en forme conditionnelle basique dans le HTML (via balises CSS inline).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div><h4>Laboratoire guidé — Gestion des services Windows via script</h4></div>
+        <div class="lab-meta">Outil : PowerShell 7 (VM Windows Server) · Durée : 20 min</div>
+        <ol class="lab-steps">
+          <li>Liste tous les services en démarrage automatique mais arrêtés.</li>
+          <li>Écris un script qui les redémarre automatiquement et journalise chaque action.</li>
+          <li>Teste en arrêtant volontairement un service non critique.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></div><h4>Laboratoire guidé — Interaction avec l'API Microsoft Graph</h4></div>
+        <div class="lab-meta">Outil : module Microsoft.Graph, tenant du Module 5 · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe le module : <code>Install-Module Microsoft.Graph -Scope CurrentUser</code>.</li>
+          <li>Connecte-toi à ton tenant M365 de test avec <code>Connect-MgGraph</code>.</li>
+          <li>Récupère la liste des utilisateurs avec <code>Get-MgUser</code>.</li>
+          <li>Filtre par département et exporte le résultat en CSV.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 27</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20graph%20powershell" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Microsoft Graph PowerShell</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 27</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quelle cmdlet convertit un résultat en page HTML ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w27q1">Export-Html</label>
+            <label class="quiz-opt"><input type="radio" name="w27q1">ConvertTo-Html</label>
+            <label class="quiz-opt"><input type="radio" name="w27q1">Out-Html</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">ConvertTo-Html transforme des objets PowerShell en page HTML formatée.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel module PowerShell permet d'interagir avec M365/Entra ID via API ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w27q2">ActiveDirectory</label>
+            <label class="quiz-opt"><input type="radio" name="w27q2">AzureRM</label>
+            <label class="quiz-opt"><input type="radio" name="w27q2">Microsoft.Graph</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Microsoft.Graph est le point d'entrée PowerShell natif vers l'API Graph.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Pourquoi journaliser chaque redémarrage automatique de service ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w27q3">Pour garder une trace en cas de problème récurrent</label>
+            <label class="quiz-opt"><input type="radio" name="w27q3">PowerShell l'exige</label>
+            <label class="quiz-opt"><input type="radio" name="w27q3">Pour ralentir volontairement le script</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La journalisation permet de détecter un service qui plante de façon répétée, signe d'un problème sous-jacent.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de l'usine, pourquoi automatiser le rapport quotidien plutôt qu'une vérification manuelle ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w27q4">La vérification manuelle est interdite</label>
+            <label class="quiz-opt"><input type="radio" name="w27q4">Fiabilité et gain de temps, sans dépendre d'un technicien disponible chaque matin</label>
+            <label class="quiz-opt"><input type="radio" name="w27q4">Un script est toujours plus rapide qu'un humain</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation garantit la régularité du contrôle, indépendamment des aléas humains.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 27</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Export de rapports, gestion de services, Microsoft Graph</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s27">0</span>/25<div class="auto-note">calcul auto</div></td><td>Rapports, gestion de services et Graph fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Rapport automatisé documenté pour un scénario donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 28 ============================================================ -->
+    <div class="week-block" id="s28">
+      <p class="week-tag">SEMAINE 28 · 01/02 – 07/02/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Automatisation avancée — scripts, VS Code</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Créer un module PowerShell personnalisé</li>
+          <li>Écrire un script de provisionnement automatisé de VM</li>
+          <li>Planifier des tâches avec le Planificateur Windows</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="136,137,138,139,140" data-tracker-week="s28">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="136" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Automatisation avancée (scripts, VS Code)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="137" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Script d'automatisation complet</div></div><div class="tracker-row"><button class="check-btn" data-toggle="138" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un module PowerShell personnalisé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="139" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Script de provisionnement automatisé de VM</div></div><div class="tracker-row"><button class="check-btn" data-toggle="140" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Planification de tâches (Task Scheduler)</div></div>
+      </div>
+
+
+      <h2 class="sec">28.1 — Créer un module PowerShell personnalisé</h2>
+      <p>Un <strong>module</strong> (fichier <code>.psm1</code>) regroupe plusieurs fonctions réutilisables dans un package importable — l'équivalent PowerShell d'une bibliothèque Python (Module 8) ou d'un package Docker (Module 4).</p>
+      <pre class="cmdblock"># MonModule.psm1
+function Get-DiskSpaceReport { ... }
+function New-BulkADUser { ... }
+Export-ModuleMember -Function Get-DiskSpaceReport, New-BulkADUser</pre>
+      <pre class="cmdblock">Import-Module .\MonModule.psm1
+Get-DiskSpaceReport</pre>
+
+      <h2 class="sec">28.2 — Script de provisionnement automatisé</h2>
+      <p>Combine tout ce que tu as appris : création d'une VM Azure (Module 6) ou Hyper-V (Module 4) pilotée entièrement par script, avec configuration post-déploiement (installation de rôles, jonction au domaine) — l'équivalent PowerShell de l'infrastructure as code Bicep vue au Module 6.</p>
+
+      <h2 class="sec">28.3 — Planification de tâches (Task Scheduler)</h2>
+      <pre class="cmdblock">$action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-File C:\Scripts\rapport.ps1"
+$trigger = New-ScheduledTaskTrigger -Daily -At "06:00"
+Register-ScheduledTask -TaskName "RapportQuotidien" -Action $action -Trigger $trigger</pre>
+      <p>C'est l'équivalent Windows de cron (Module 3) — la logique de planification est la même, la syntaxe diffère.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Bilan du module</span>
+        <h4>Boîte à outils PowerShell pour le cabinet comptable</h4>
+        <p><strong>Bilan :</strong> Le cabinet comptable dispose maintenant d'un module PowerShell personnalisé regroupant toutes ses fonctions d'administration courantes : création d'utilisateurs en masse, rapports de santé serveur, vérification de services — le tout planifié automatiquement et exécuté sans intervention manuelle quotidienne.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Création d'un module PowerShell personnalisé</h4></div>
+        <div class="lab-meta">Outil : VS Code · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Crée un fichier <code>ToolboxCabinet.psm1</code> regroupant 2-3 fonctions des semaines précédentes.</li>
+          <li>Ajoute <code>Export-ModuleMember</code> pour exposer les fonctions publiques.</li>
+          <li>Importe le module et teste chaque fonction.</li>
+          <li>Ajoute un fichier manifeste <code>.psd1</code> avec version et description.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="10" rx="2"/></svg></div><h4>Laboratoire guidé — Script de provisionnement automatisé de VM</h4></div>
+        <div class="lab-meta">Outil : PowerShell + Hyper-V ou Azure · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Écris un script qui crée une VM Hyper-V (Module 4) avec des paramètres (nom, RAM, disque) en argument.</li>
+          <li>Ajoute une gestion d'erreur si la VM existe déjà.</li>
+          <li>Teste le script de bout en bout.</li>
+          <li>Compare avec l'équivalent Azure CLI/Bicep du Module 6.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h4>Laboratoire guidé — Planification de tâches (Task Scheduler)</h4></div>
+        <div class="lab-meta">Outil : PowerShell (Task Scheduler) · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Planifie l'un de tes scripts de rapport (semaine 27) pour une exécution quotidienne à 6h.</li>
+          <li>Vérifie la tâche créée avec <code>Get-ScheduledTask</code>.</li>
+          <li>Force une exécution manuelle pour valider avant d'attendre l'heure planifiée.</li>
+          <li>Consulte l'historique d'exécution de la tâche.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 28</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=powershell%20modules" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — PowerShell modules &amp; automation</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 28</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quelle extension de fichier utilise un module PowerShell ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w28q1">.ps1</label>
+            <label class="quiz-opt"><input type="radio" name="w28q1">.psd1</label>
+            <label class="quiz-opt"><input type="radio" name="w28q1">.psm1</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">.psm1 est le fichier module ; .psd1 est le manifeste ; .ps1 est un script simple.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quelle cmdlet expose les fonctions publiques d'un module ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w28q2">Export-ModuleMember</label>
+            <label class="quiz-opt"><input type="radio" name="w28q2">Publish-Module</label>
+            <label class="quiz-opt"><input type="radio" name="w28q2">Import-Module</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Export-ModuleMember détermine quelles fonctions sont accessibles après import du module.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Quel est l'équivalent Windows de cron (Module 3) ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w28q3">Task Manager</label>
+            <label class="quiz-opt"><input type="radio" name="w28q3">Planificateur de tâches (Task Scheduler)</label>
+            <label class="quiz-opt"><input type="radio" name="w28q3">Event Viewer</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le Planificateur de tâches Windows joue le même rôle que cron sous Linux.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi tester manuellement une tâche planifiée avant d'attendre son déclenchement automatique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w28q4">Windows l'exige</label>
+            <label class="quiz-opt"><input type="radio" name="w28q4">Valider que le script fonctionne avant de dépendre de la planification</label>
+            <label class="quiz-opt"><input type="radio" name="w28q4">Ça accélère le premier déclenchement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Mieux vaut détecter une erreur immédiatement que d'attendre le lendemain matin pour découvrir un échec.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 28</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Modules, provisionnement, Task Scheduler</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s28">0</span>/25<div class="auto-note">calcul auto</div></td><td>Module, script de provisionnement et tâche planifiée fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Module documenté avec au moins 3 fonctions</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu es maintenant capable de transformer n'importe quelle tâche répétitive vue dans les modules précédents (Windows Server, M365, Azure) en script fiable, réutilisable et planifié. C'est une compétence transversale qui démultiplie ta valeur professionnelle — l'automatisation est ce qui distingue un technicien d'un administrateur senior.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Suite de scripts d'automatisation IT</em> — regroupe tes meilleurs scripts du module dans un module PowerShell documenté (création d'utilisateurs, rapports de santé, provisionnement), avec gestion d'erreurs et planification automatique.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-06-azure.html"><div class="lbl">Module précédent</div><div class="ttl">06 · Azure</div></a>
+      <a class="next" href="module-08-python.html"><div class="lbl">Prochain module</div><div class="ttl">08 · Python</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="PowerShell">[{"id": 121, "type": "Cours", "week": 25, "title": "Fondamentaux PowerShell (cmdlets, pipeline)"}, {"id": 122, "type": "TP", "week": 25, "title": "Exploration du pipeline PowerShell"}, {"id": 123, "type": "Labo", "week": 25, "title": "Cmdlets de base (Get, Set, New, Remove)"}, {"id": 124, "type": "Labo", "week": 25, "title": "Filtrage et tri d'objets (Where-Object)"}, {"id": 125, "type": "Labo", "week": 25, "title": "Gestion des utilisateurs AD via PowerShell"}, {"id": 126, "type": "Cours", "week": 26, "title": "Variables, boucles et fonctions"}, {"id": 127, "type": "TP", "week": 26, "title": "Création de scripts (variables et boucles)"}, {"id": 128, "type": "Labo", "week": 26, "title": "Création de fonctions réutilisables"}, {"id": 129, "type": "Labo", "week": 26, "title": "Gestion des erreurs (Try/Catch)"}, {"id": 130, "type": "Labo", "week": 26, "title": "PowerShell Remoting (Invoke-Command)"}, {"id": 131, "type": "Cours", "week": 27, "title": "Gestion à distance (WinRM) et modules"}, {"id": 132, "type": "TP", "week": 27, "title": "Gestion à distance de serveurs"}, {"id": 133, "type": "Labo", "week": 27, "title": "Automatisation de rapports (export CSV/HTML)"}, {"id": 134, "type": "Labo", "week": 27, "title": "Gestion des services Windows via script"}, {"id": 135, "type": "Labo", "week": 27, "title": "Interaction avec l'API Microsoft Graph"}, {"id": 136, "type": "Cours", "week": 28, "title": "Automatisation avancée (scripts, VS Code)"}, {"id": 137, "type": "TP", "week": 28, "title": "Script d'automatisation complet"}, {"id": 138, "type": "Labo", "week": 28, "title": "Création d'un module PowerShell personnalisé"}, {"id": 139, "type": "Labo", "week": 28, "title": "Script de provisionnement automatisé de VM"}, {"id": 140, "type": "Labo", "week": 28, "title": "Planification de tâches (Task Scheduler)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

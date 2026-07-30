@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 4 · Virtualisation — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 4 — Virtualisation</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s13" data-week-ids="61,62,63,64,65">Semaine 13 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s14" data-week-ids="66,67,68,69,70">Semaine 14 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s15" data-week-ids="71,72,73,74,75">Semaine 15 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s16" data-week-ids="76,77,78,79,80">Semaine 16 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365 →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 4 · Virtualisation</div><div class="topbar-sub">Semaines 13–16</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 4 / 13</p>
+    <h1 class="week-title">Virtualisation</h1>
+    <p class="week-dates">19 octobre 2026 → 15 novembre 2026 · Semaines 13–16 · 52 h prévues</p>
+
+    <p class="lead">La virtualisation est le socle technique du cloud moderne : elle permet de faire tourner plusieurs serveurs logiques sur une seule machine physique. Ce module te fait passer des VMs classiques (Hyper-V, VMware, Proxmox) aux conteneurs (Docker) et à une première approche de Kubernetes — un continuum que tu retrouveras intégralement dans Azure.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Expliquer les différences entre hyperviseurs de type 1 et type 2</li>
+        <li>Installer et configurer Hyper-V, avec switches virtuels et points de contrôle</li>
+        <li>Comparer objectivement Hyper-V, VMware et Proxmox selon un contexte donné</li>
+        <li>Déployer des conteneurs Docker et les orchestrer avec Docker Compose</li>
+        <li>Comprendre les concepts de base de Kubernetes (pods, cluster, scaling)</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Modules 2 et 3 recommandés (tu vas virtualiser des VMs Windows et Linux). Ton poste doit supporter la virtualisation imbriquée (nested virtualization) si tu utilises déjà une VM — sinon utilise directement ton MacBook comme hôte.</p>
+
+    <!-- ============================================================ SEMAINE 13 ============================================================ -->
+    <div class="week-block" id="s13">
+      <p class="week-tag">SEMAINE 13 · 19/10 – 25/10/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Concepts de virtualisation — hyperviseurs type 1/2</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Définir la virtualisation et ses bénéfices concrets</li>
+          <li>Distinguer hyperviseur type 1 (bare-metal) et type 2 (hébergé)</li>
+          <li>Identifier les composants virtuels d'une VM</li>
+          <li>Installer un premier hyperviseur et créer une VM</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="61,62,63,64,65" data-tracker-week="s13">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="61" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Concepts de virtualisation (hyperviseurs type 1/2)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="62" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Installation d'un hyperviseur (Hyper-V/VirtualBox)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="63" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation Hyper-V sur Windows Server</div></div><div class="tracker-row"><button class="check-btn" data-toggle="64" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un switch virtuel</div></div><div class="tracker-row"><button class="check-btn" data-toggle="65" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Migration de VM (Live Migration)</div></div>
+      </div>
+
+
+      <h2 class="sec">13.1 — Qu'est-ce que la virtualisation ?</h2>
+      <p>La virtualisation permet de faire tourner plusieurs systèmes d'exploitation <strong>isolés</strong> sur une même machine physique, chacun croyant disposer de son propre matériel dédié. Bénéfices majeurs : <strong>consolidation</strong> (moins de serveurs physiques, moins de coûts), <strong>isolation</strong> (une VM plantée n'affecte pas les autres), et <strong>agilité</strong> (créer, cloner ou supprimer une VM en quelques minutes, snapshots pour revenir en arrière).</p>
+
+      <h2 class="sec">13.2 — Hyperviseurs type 1 vs type 2</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.hv{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .hs{font-family:-apple-system,sans-serif;font-size:10px;fill:#667085;}</style>
+          <text class="hv" x="20" y="20" fill="#2C4362">Type 1 — Bare-metal</text>
+          <rect x="20" y="30" width="240" height="30" fill="#E7F3EC" stroke="#3F8F5F"/><text class="hv" x="35" y="50" fill="#2C6B44" font-size="11">VM 1 · VM 2 · VM 3</text>
+          <rect x="20" y="64" width="240" height="30" fill="#3D5A80"/><text class="hv" x="35" y="84" fill="#fff" font-size="11">Hyperviseur (Hyper-V, ESXi)</text>
+          <rect x="20" y="98" width="240" height="30" fill="#98A2B3"/><text class="hv" x="35" y="118" fill="#fff" font-size="11">Matériel physique</text>
+          <text class="hs" x="20" y="145">Installé directement sur le matériel — performances</text>
+          <text class="hs" x="20" y="158">maximales, standard en production/datacenter</text>
+
+          <text class="hv" x="340" y="20" fill="#4A3B60">Type 2 — Hébergé</text>
+          <rect x="340" y="30" width="240" height="30" fill="#EFEBF5" stroke="#7C6A9C"/><text class="hv" x="355" y="50" fill="#4A3B60" font-size="11">VM 1 · VM 2</text>
+          <rect x="340" y="64" width="240" height="30" fill="#7C6A9C"/><text class="hv" x="355" y="84" fill="#fff" font-size="11">Hyperviseur (VirtualBox, Workstation)</text>
+          <rect x="340" y="98" width="240" height="30" fill="#3D5A80"/><text class="hv" x="355" y="118" fill="#fff" font-size="11">OS hôte (Windows/Mac/Linux)</text>
+          <rect x="340" y="132" width="240" height="26" fill="#98A2B3"/><text class="hv" x="355" y="150" fill="#fff" font-size="11">Matériel physique</text>
+          <text class="hs" x="340" y="178">Installé comme une application sur un OS existant —</text>
+          <text class="hs" x="340" y="191">idéal pour le poste de travail et les tests</text>
+        </svg>
+        <p class="diagram-caption">Fig. 13.1 — Hyperviseur de type 1 (bare-metal) vs type 2 (hébergé)</p>
+      </div>
+
+      <table class="eval-tbl">
+        <tr><th></th><th>Type 1 (bare-metal)</th><th>Type 2 (hébergé)</th></tr>
+        <tr><td>Exemples</td><td>Hyper-V, VMware ESXi, Proxmox VE</td><td>VirtualBox, VMware Workstation</td></tr>
+        <tr><td>Performance</td><td>Maximale (accès direct au matériel)</td><td>Réduite (overhead de l'OS hôte)</td></tr>
+        <tr><td>Usage typique</td><td>Serveurs, datacenter, production</td><td>Poste de travail, tests, apprentissage</td></tr>
+      </table>
+
+      <h2 class="sec">13.3 — Composants virtuels d'une VM</h2>
+      <ul class="std">
+        <li><strong>vCPU</strong> — cœurs de processeur virtuels alloués à la VM</li>
+        <li><strong>vRAM</strong> — mémoire vive allouée</li>
+        <li><strong>Disque virtuel</strong> — fichier représentant le disque dur (VHDX pour Hyper-V, VMDK pour VMware)</li>
+        <li><strong>Carte réseau virtuelle (vNIC)</strong> — connectée à un switch virtuel</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Consolidation de 3 serveurs physiques en un seul hôte</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis le Module 1) possède 3 vieux serveurs physiques distincts : le contrôleur de domaine, le serveur de fichiers, et le serveur applicatif Linux. Coûts de maintenance et d'électricité élevés.</p>
+        <p><strong>Solution retenue :</strong> un seul serveur physique performant avec <strong>Hyper-V</strong> (type 1), hébergeant les 3 rôles comme VMs distinctes. Chaque VM garde son isolation logique (si une plante, les autres continuent), tout en réduisant le matériel physique de 3 à 1.</p>
+        <p><strong>Bénéfice concret :</strong> possibilité de prendre des <em>points de contrôle</em> avant chaque mise à jour risquée, et de restaurer une VM en quelques minutes en cas de problème — impossible avec du matériel physique seul.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé 1 — Installation Hyper-V sur Windows Server</h4></div>
+        <div class="lab-meta">Outil : la VM Windows Server du Module 2 · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Dans Server Manager, ajoute le rôle <strong>Hyper-V</strong>.</li>
+          <li>Sélectionne la carte réseau à utiliser pour le switch virtuel externe pendant l'assistant.</li>
+          <li>Redémarre le serveur pour finaliser l'installation.</li>
+          <li>Ouvre le <em>Gestionnaire Hyper-V</em> et vérifie que le rôle est actif.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h4>Laboratoire guidé 2 — Création d'un switch virtuel</h4></div>
+        <div class="lab-meta">Outil : Gestionnaire Hyper-V · Durée : 20 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre le <em>Gestionnaire de commutateurs virtuels</em>.</li>
+          <li>Crée un switch <strong>Externe</strong> (accès réseau physique) pour les VMs devant sortir sur le réseau.</li>
+          <li>Crée un switch <strong>Interne</strong> (communication VM ↔ hôte uniquement, pas d'accès externe).</li>
+          <li>Crée un switch <strong>Privé</strong> (communication VM ↔ VM uniquement, isolé de tout).</li>
+          <li>Associe chaque type à un cas d'usage réel (ex. Privé pour un labo de test isolé).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13a9 9 0 0114 0M12 21a9 9 0 000-18"/></svg></div><h4>Laboratoire guidé 3 — Migration de VM (Live Migration)</h4></div>
+        <div class="lab-meta">Outil : 2 hôtes Hyper-V (ou simulation) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Configure deux hôtes Hyper-V dans le même domaine (ou simule le concept si un seul hôte disponible).</li>
+          <li>Active la Live Migration dans les paramètres Hyper-V de chaque hôte.</li>
+          <li>Lance une migration à chaud d'une VM en service vers l'autre hôte.</li>
+          <li>Observe la continuité de service (ping continu vers la VM pendant la migration).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 13</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=hyper-v" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Hyper-V virtualization</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 13</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Quel type d'hyperviseur s'installe directement sur le matériel, sans OS hôte ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w13q1">Type 1 (bare-metal)</label>
+            <label class="quiz-opt"><input type="radio" name="w13q1">Type 2 (hébergé)</label>
+            <label class="quiz-opt"><input type="radio" name="w13q1">Type 3</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Type 1 s'installe directement sur le matériel (Hyper-V, ESXi, Proxmox) pour des performances maximales.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel format de disque virtuel utilise Hyper-V ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w13q2">VMDK</label>
+            <label class="quiz-opt"><input type="radio" name="w13q2">QCOW2</label>
+            <label class="quiz-opt"><input type="radio" name="w13q2">VHDX</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">VHDX est le format Hyper-V ; VMDK est utilisé par VMware.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Quel type de switch virtuel Hyper-V isole complètement les VMs du réseau physique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w13q3">Externe</label>
+            <label class="quiz-opt"><input type="radio" name="w13q3">Privé</label>
+            <label class="quiz-opt"><input type="radio" name="w13q3">Interne</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le switch Privé permet uniquement la communication entre VMs, sans accès réseau externe ni à l'hôte.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, quel est le bénéfice clé de la consolidation ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w13q4">Les VMs sont plus rapides que le matériel physique</label>
+            <label class="quiz-opt"><input type="radio" name="w13q4">Moins de matériel, isolation logique conservée, snapshots possibles</label>
+            <label class="quiz-opt"><input type="radio" name="w13q4">La virtualisation supprime le besoin de sauvegardes</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La consolidation réduit les coûts matériels tout en gardant les bénéfices d'isolation et de réversibilité (snapshots).</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 13</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Type 1 vs type 2, composants virtuels</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s13">0</span>/25<div class="auto-note">calcul auto</div></td><td>Hyper-V installé, switches virtuels, migration testée</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de consolidation proposé pour un scénario donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 14 ============================================================ -->
+    <div class="week-block" id="s14">
+      <p class="week-tag">SEMAINE 14 · 26/10 – 01/11/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Hyper-V — Installation et configuration</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Créer et configurer des machines virtuelles Hyper-V complètes</li>
+          <li>Utiliser les points de contrôle (checkpoints) à bon escient</li>
+          <li>Installer VMware Workstation/ESXi et Proxmox VE en comparaison</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="66,67,68,69,70" data-tracker-week="s14">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="66" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Hyper-V - Installation et configuration</div></div><div class="tracker-row"><button class="check-btn" data-toggle="67" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création et gestion de machines virtuelles</div></div><div class="tracker-row"><button class="check-btn" data-toggle="68" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion de snapshots / points de contrôle</div></div><div class="tracker-row"><button class="check-btn" data-toggle="69" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation VMware Workstation/ESXi</div></div><div class="tracker-row"><button class="check-btn" data-toggle="70" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation Proxmox VE</div></div>
+      </div>
+
+
+      <h2 class="sec">14.1 — Créer et gérer une VM Hyper-V</h2>
+      <p>La création d'une VM implique de définir : génération (1 = BIOS legacy, 2 = UEFI moderne, recommandée pour Windows/Linux récents), quantité de vCPU et vRAM (statique ou dynamique), taille et type de disque virtuel (à taille fixe = performance, dynamique = économie d'espace), et switch réseau à associer.</p>
+
+      <h2 class="sec">14.2 — Points de contrôle (checkpoints)</h2>
+      <div class="def">
+        <span class="def-term">Point de contrôle standard</span>
+        <p>Capture l'état complet de la VM (disque, mémoire, configuration) à un instant T. Pratique pour tester une mise à jour risquée, mais <strong>déconseillé en production continue</strong> — accumule des fichiers différentiels qui dégradent les performances dans la durée.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Point de contrôle de production</span>
+        <p>Utilise la technologie VSS (Volume Shadow Copy) pour une capture cohérente sans capturer l'état mémoire — plus sûr pour des VMs de production car sans risque d'incohérence applicative à la restauration.</p>
+      </div>
+
+      <h2 class="sec">14.3 — VMware et Proxmox : premières installations</h2>
+      <p><strong>VMware ESXi</strong> (gratuit en version limitée) est l'hyperviseur type 1 historique du marché entreprise. <strong>Proxmox VE</strong> est une alternative <strong>open source et gratuite</strong>, de plus en plus adoptée par les PME cherchant à éviter les coûts de licence VMware — elle intègre nativement la gestion de conteneurs LXC en plus des VMs classiques.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Isolation d'un service par VM (suite du Module 2)</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière veut isoler chaque service applicatif (réservation, PMS, Wi-Fi invités) dans sa propre VM sur l'hôte Hyper-V déjà en place.</p>
+        <p><strong>Points de contrôle :</strong> avant chaque mise à jour du logiciel de réservation, un point de contrôle de production est pris automatiquement (tâche planifiée), permettant un retour arrière en quelques minutes en cas de problème, sans affecter les autres VMs.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h4>Laboratoire guidé — Gestion de snapshots / points de contrôle</h4></div>
+        <div class="lab-meta">Outil : Gestionnaire Hyper-V · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Sur une VM existante, crée un point de contrôle de production.</li>
+          <li>Modifie volontairement un fichier de configuration dans la VM.</li>
+          <li>Restaure le point de contrôle et vérifie que la modification a disparu.</li>
+          <li>Configure le type de point de contrôle par défaut de la VM (Production vs Standard).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div><h4>Laboratoire guidé — Installation VMware Workstation/ESXi</h4></div>
+        <div class="lab-meta">Outil : VMware (gratuit) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge VMware Workstation Player (gratuit pour usage personnel).</li>
+          <li>Crée une VM de test et compare l'expérience de configuration à Hyper-V.</li>
+          <li>Si le matériel le permet, teste l'installation d'ESXi sur une VM imbriquée pour découvrir l'interface d'un hyperviseur type 1.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div><h4>Laboratoire guidé — Installation Proxmox VE</h4></div>
+        <div class="lab-meta">Outil : Proxmox VE (gratuit, open source) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge l'ISO Proxmox VE.</li>
+          <li>Installe-le sur une VM imbriquée ou un second poste dédié.</li>
+          <li>Accède à l'interface web d'administration (port 8006).</li>
+          <li>Crée une première VM de test et compare l'expérience à Hyper-V/VMware.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 14</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=hyper-v" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Hyper-V checkpoints</div><div class="res-sub">Documentation officielle gratuite</div></div>
+        </a>
+        <a class="res-item" href="https://www.proxmox.com/en/proxmox-virtual-environment/documentation" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle Proxmox VE</div><div class="res-sub">Guide complet gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 14</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi éviter les points de contrôle standard en production continue ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w14q1">Ils sont payants</label>
+            <label class="quiz-opt"><input type="radio" name="w14q1">Ils accumulent des fichiers différentiels qui dégradent les performances</label>
+            <label class="quiz-opt"><input type="radio" name="w14q1">Ils suppriment les données</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les checkpoints standard accumulent des différentiels non fusionnés qui pèsent sur la performance dans la durée.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quelle technologie utilise le point de contrôle de production pour rester cohérent ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w14q2">VSS (Volume Shadow Copy)</label>
+            <label class="quiz-opt"><input type="radio" name="w14q2">RAID</label>
+            <label class="quiz-opt"><input type="radio" name="w14q2">BitLocker</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">VSS garantit une capture cohérente au niveau applicatif, sans capturer l'état mémoire volatile.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quel est l'avantage principal de Proxmox VE face à VMware ESXi ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w14q3">Plus rapide en tout point</label>
+            <label class="quiz-opt"><input type="radio" name="w14q3">Compatible uniquement avec Linux</label>
+            <label class="quiz-opt"><input type="radio" name="w14q3">Open source et gratuit, sans coût de licence</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Proxmox VE est entièrement gratuit et open source, attractif pour les PME face aux licences VMware.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi automatiser la prise de point de contrôle avant mise à jour ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w14q4">Pour permettre un retour arrière rapide en cas de problème</label>
+            <label class="quiz-opt"><input type="radio" name="w14q4">Pour accélérer la mise à jour</label>
+            <label class="quiz-opt"><input type="radio" name="w14q4">C'est une exigence Hyper-V</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le point de contrôle sert de filet de sécurité rapide à restaurer, indépendamment des autres VMs.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 14</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Configuration VM, checkpoints, comparatif hyperviseurs</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s14">0</span>/25<div class="auto-note">calcul auto</div></td><td>Checkpoints, VMware et Proxmox installés et testés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Stratégie de checkpoint proposée pour un environnement de prod</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 15 ============================================================ -->
+    <div class="week-block" id="s15">
+      <p class="week-tag">SEMAINE 15 · 02/11 – 08/11/2026</p>
+      <h2 class="week-title" style="font-size:22px;">VMware / Proxmox — alternatives et comparaison</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Comparer objectivement Hyper-V, VMware et Proxmox selon un contexte</li>
+          <li>Configurer la haute disponibilité d'une VM</li>
+          <li>Installer Docker Engine et créer des images personnalisées</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="71,72,73,74,75" data-tracker-week="s15">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="71" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>VMware / Proxmox - Alternatives et comparaison</div></div><div class="tracker-row"><button class="check-btn" data-toggle="72" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Réseaux virtuels et snapshots</div></div><div class="tracker-row"><button class="check-btn" data-toggle="73" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration haute disponibilité VM</div></div><div class="tracker-row"><button class="check-btn" data-toggle="74" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Installation Docker Engine</div></div><div class="tracker-row"><button class="check-btn" data-toggle="75" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'images Docker personnalisées</div></div>
+      </div>
+
+
+      <h2 class="sec">15.1 — Comparatif des trois hyperviseurs</h2>
+      <table class="eval-tbl">
+        <tr><th></th><th>Hyper-V</th><th>VMware ESXi/vSphere</th><th>Proxmox VE</th></tr>
+        <tr><td>Coût</td><td>Inclus avec Windows Server</td><td>Licences payantes (vSphere)</td><td>Gratuit, open source</td></tr>
+        <tr><td>Écosystème</td><td>Intégration Microsoft (AD, Azure)</td><td>Standard historique entreprise</td><td>Communauté active, LXC intégré</td></tr>
+        <tr><td>Cas d'usage typique</td><td>Environnements 100% Microsoft</td><td>Grands datacenters, multi-cloud</td><td>PME, labo, budget limité</td></tr>
+      </table>
+      <p><strong>Il n'y a pas de "meilleur" hyperviseur dans l'absolu</strong> — le bon choix dépend de l'écosystème existant, du budget, et des compétences internes. C'est un raisonnement que tu retrouveras identique pour choisir entre Azure, AWS et GCP.</p>
+
+      <h2 class="sec">15.2 — Haute disponibilité VM</h2>
+      <div class="def">
+        <span class="def-term">Cluster de basculement (Failover Cluster)</span>
+        <p>Plusieurs hôtes physiques regroupés logiquement : si un hôte tombe en panne, les VMs qu'il hébergeait redémarrent automatiquement sur un autre hôte du cluster, avec une interruption minimale.</p>
+      </div>
+      <p>Prérequis typiques : stockage partagé (SAN, ou Storage Spaces Direct), réseau dédié entre les nœuds, et au minimum 2 hôtes.</p>
+
+      <h2 class="sec">15.3 — Introduction à Docker : conteneurs vs VMs</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.cv{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .cs{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <text class="cv" x="20" y="20" fill="#2C4362">Machines virtuelles</text>
+          <rect x="20" y="30" width="80" height="26" fill="#E7F3EC" stroke="#3F8F5F"/><text class="cs" x="28" y="47" fill="#2C6B44">App A</text>
+          <rect x="110" y="30" width="80" height="26" fill="#FBF1DA" stroke="#B07C00"/><text class="cs" x="118" y="47" fill="#8B5E00">App B</text>
+          <rect x="20" y="58" width="80" height="22" fill="#E9EFF5" stroke="#3D5A80"/><text class="cs" x="30" y="73" fill="#2C4362">OS invité</text>
+          <rect x="110" y="58" width="80" height="22" fill="#E9EFF5" stroke="#3D5A80"/><text class="cs" x="120" y="73" fill="#2C4362">OS invité</text>
+          <rect x="20" y="82" width="170" height="24" fill="#3D5A80"/><text class="cv" x="30" y="98" fill="#fff" font-size="10">Hyperviseur</text>
+          <rect x="20" y="108" width="170" height="20" fill="#98A2B3"/><text class="cv" x="30" y="122" fill="#fff" font-size="10">Matériel</text>
+          <text class="cs" x="20" y="150">Chaque VM embarque son propre OS complet</text>
+          <text class="cs" x="20" y="163">→ isolation forte, mais plus lourd (Go)</text>
+
+          <text class="cv" x="330" y="20" fill="#264D52">Conteneurs (Docker)</text>
+          <rect x="330" y="30" width="80" height="26" fill="#E7F3EC" stroke="#3F8F5F"/><text class="cs" x="338" y="47" fill="#2C6B44">App A</text>
+          <rect x="420" y="30" width="80" height="26" fill="#FBF1DA" stroke="#B07C00"/><text class="cs" x="428" y="47" fill="#8B5E00">App B</text>
+          <rect x="330" y="58" width="170" height="24" fill="#3E8188"/><text class="cv" x="340" y="74" fill="#fff" font-size="10">Docker Engine</text>
+          <rect x="330" y="84" width="170" height="22" fill="#E9EFF5" stroke="#3D5A80"/><text class="cs" x="345" y="99" fill="#2C4362">OS hôte (partagé)</text>
+          <rect x="330" y="108" width="170" height="20" fill="#98A2B3"/><text class="cv" x="340" y="122" fill="#fff" font-size="10">Matériel</text>
+          <text class="cs" x="330" y="150">Les conteneurs partagent le noyau de l'hôte</text>
+          <text class="cs" x="330" y="163">→ démarrage en secondes, très léger (Mo)</text>
+        </svg>
+        <p class="diagram-caption">Fig. 15.1 — VMs (isolation forte, lourdes) vs conteneurs (légers, partagent le noyau hôte)</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">Image Docker</span>
+        <p>Modèle en lecture seule décrivant un environnement applicatif complet (code, dépendances, configuration), construit à partir d'un <strong>Dockerfile</strong>. Un <strong>conteneur</strong> est une instance en cours d'exécution de cette image.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Cluster haute disponibilité pour la VM SCADA critique</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis les Modules 1 et 2) héberge sa VM de supervision SCADA critique sur un seul hôte Hyper-V — point de défaillance unique inacceptable pour une ligne de production.</p>
+        <p><strong>Solution retenue :</strong> un cluster de basculement à 2 nœuds avec stockage partagé. En cas de panne matérielle d'un hôte, la VM SCADA redémarre automatiquement sur le second nœud en quelques minutes — un compromis pragmatique entre coût et disponibilité, sans nécessiter la complexité d'une solution "zéro interruption".</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="4"/><circle cx="17" cy="7" r="4"/><path d="M3 20a4 4 0 014-4h0a4 4 0 014 4M13 20a4 4 0 014-4h0a4 4 0 014 4"/></svg></div><h4>Laboratoire guidé — Configuration haute disponibilité VM</h4></div>
+        <div class="lab-meta">Outil : Hyper-V (simulation cluster) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Sur deux hôtes (ou VMs imbriquées simulant deux hôtes), active la fonctionnalité <em>Clustering de basculement</em>.</li>
+          <li>Valide la configuration du cluster avec l'assistant de validation.</li>
+          <li>Ajoute une VM comme ressource hautement disponible du cluster.</li>
+          <li>Simule une panne du nœud actif et observe le basculement automatique.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="10" rx="2"/><circle cx="8" cy="13" r="1.5"/><circle cx="14" cy="13" r="1.5"/></svg></div><h4>Laboratoire guidé — Installation Docker Engine</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du Module 3 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Installe Docker Engine : <code>curl -fsSL https://get.docker.com | sh</code>.</li>
+          <li>Vérifie l'installation : <code>sudo docker run hello-world</code>.</li>
+          <li>Lance un conteneur Nginx : <code>sudo docker run -d -p 8080:80 nginx</code>.</li>
+          <li>Accède au serveur via le port 8080 depuis un navigateur.</li>
+          <li>Liste les conteneurs actifs : <code>sudo docker ps</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Création d'images Docker personnalisées</h4></div>
+        <div class="lab-meta">Outil : Docker Engine · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Crée un fichier <code>Dockerfile</code> :
+          <pre class="cmdblock">FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html</pre></li>
+          <li>Crée un fichier <code>index.html</code> personnalisé.</li>
+          <li>Construis l'image : <code>docker build -t mon-site:1.0 .</code></li>
+          <li>Lance un conteneur à partir de cette image : <code>docker run -d -p 8081:80 mon-site:1.0</code>.</li>
+          <li>Vérifie que ta page personnalisée s'affiche bien.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 15</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="10" rx="2"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle Docker — Get Started</div><div class="res-sub">Guide gratuit officiel</div></div>
+        </a>
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=failover%20clustering" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Failover clustering</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 15</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quel hyperviseur est entièrement gratuit et open source ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w15q1">VMware vSphere</label>
+            <label class="quiz-opt"><input type="radio" name="w15q1">Hyper-V Datacenter</label>
+            <label class="quiz-opt"><input type="radio" name="w15q1">Proxmox VE</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Proxmox VE est open source et gratuit, contrairement aux licences VMware vSphere.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que partagent les conteneurs Docker, contrairement aux VMs ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w15q2">Le noyau du système d'exploitation hôte</label>
+            <label class="quiz-opt"><input type="radio" name="w15q2">La même adresse IP</label>
+            <label class="quiz-opt"><input type="radio" name="w15q2">Le même disque virtuel</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est ce partage du noyau qui rend les conteneurs beaucoup plus légers et rapides à démarrer que des VMs.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Que décrit un Dockerfile ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w15q3">La configuration réseau du conteneur</label>
+            <label class="quiz-opt"><input type="radio" name="w15q3">Les instructions pour construire une image Docker</label>
+            <label class="quiz-opt"><input type="radio" name="w15q3">Le journal d'exécution</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le Dockerfile est la recette de construction d'une image, exécutée par "docker build".</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de l'usine, que prévient le cluster de basculement ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w15q4">Les cyberattaques</label>
+            <label class="quiz-opt"><input type="radio" name="w15q4">Une interruption prolongée en cas de panne matérielle</label>
+            <label class="quiz-opt"><input type="radio" name="w15q4">Les erreurs de configuration humaine</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le cluster protège contre la panne matérielle d'un hôte en redémarrant automatiquement la VM ailleurs.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 15</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Comparatif hyperviseurs, VM vs conteneurs</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s15">0</span>/25<div class="auto-note">calcul auto</div></td><td>Cluster HA testé, Docker installé et image construite</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Choix d'hyperviseur justifié pour un scénario donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 16 ============================================================ -->
+    <div class="week-block" id="s16">
+      <p class="week-tag">SEMAINE 16 · 09/11 – 15/11/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Conteneurisation (Docker) et introduction Kubernetes</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Orchestrer plusieurs conteneurs avec Docker Compose</li>
+          <li>Expliquer les concepts de base de Kubernetes (pods, cluster, scaling)</li>
+          <li>Déployer un premier cluster local avec Minikube</li>
+          <li>Sauvegarder et répliquer des VMs</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="76,77,78,79,80" data-tracker-week="s16">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="76" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Conteneurisation (Docker) et intro Kubernetes</div></div><div class="tracker-row"><button class="check-btn" data-toggle="77" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Déploiement de conteneurs Docker</div></div><div class="tracker-row"><button class="check-btn" data-toggle="78" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Orchestration simple avec Docker Compose</div></div><div class="tracker-row"><button class="check-btn" data-toggle="79" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Introduction à Kubernetes (Minikube)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="80" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Sauvegarde et réplication de VM</div></div>
+      </div>
+
+
+      <h2 class="sec">16.1 — Docker Compose</h2>
+      <p><strong>Docker Compose</strong> permet de définir et lancer une application composée de plusieurs conteneurs (ex. un site web + une base de données) à partir d'un seul fichier <code>docker-compose.yml</code>.</p>
+      <pre class="cmdblock">version: "3.9"
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: motdepasse</pre>
+      <p>Une seule commande <code>docker compose up -d</code> démarre l'ensemble de la pile applicative.</p>
+
+      <h2 class="sec">16.2 — Introduction à Kubernetes</h2>
+      <p><strong>Kubernetes</strong> (K8s) orchestre des conteneurs à grande échelle, sur plusieurs machines — Docker Compose reste local à une seule machine, Kubernetes gère un cluster entier avec haute disponibilité, mise à l'échelle automatique et auto-réparation.</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+          <style>.kb{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .ks{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="15" width="560" height="34" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="kb" x="35" y="37" fill="#2C4362">Cluster Kubernetes</text>
+
+          <rect x="40" y="65" width="150" height="34" rx="6" fill="#7C6A9C"/><text class="kb" x="55" y="87" fill="#fff" font-size="10">Nœud Control Plane</text>
+          <rect x="210" y="65" width="150" height="34" rx="6" fill="#3F8F5F"/><text class="kb" x="225" y="87" fill="#fff" font-size="10">Nœud Worker 1</text>
+          <rect x="380" y="65" width="150" height="34" rx="6" fill="#3F8F5F"/><text class="kb" x="395" y="87" fill="#fff" font-size="10">Nœud Worker 2</text>
+
+          <rect x="220" y="112" width="60" height="28" rx="5" fill="#E7F3EC" stroke="#3F8F5F"/><text class="ks" x="230" y="130" fill="#2C6B44">Pod A</text>
+          <rect x="290" y="112" width="60" height="28" rx="5" fill="#E7F3EC" stroke="#3F8F5F"/><text class="ks" x="300" y="130" fill="#2C6B44">Pod B</text>
+          <rect x="390" y="112" width="60" height="28" rx="5" fill="#E7F3EC" stroke="#3F8F5F"/><text class="ks" x="400" y="130" fill="#2C6B44">Pod A</text>
+          <rect x="460" y="112" width="60" height="28" rx="5" fill="#E7F3EC" stroke="#3F8F5F"/><text class="ks" x="470" y="130" fill="#2C6B44">Pod C</text>
+          <text class="ks" x="40" y="165">Le Control Plane décide où placer chaque "pod" (groupe de conteneurs) selon la charge et les ressources disponibles</text>
+        </svg>
+        <p class="diagram-caption">Fig. 16.1 — Architecture simplifiée d'un cluster Kubernetes : control plane + nœuds workers exécutant des pods</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">Pod</span>
+        <p>Plus petite unité déployable dans Kubernetes — regroupe un ou plusieurs conteneurs partageant le même réseau et stockage.</p>
+      </div>
+      <div class="def">
+        <span class="def-term">Scaling automatique</span>
+        <p>Kubernetes peut ajouter ou retirer des instances de pods automatiquement selon la charge (CPU, mémoire), garantissant la disponibilité pendant les pics de trafic sans intervention manuelle.</p>
+      </div>
+      <p><strong>Minikube</strong> permet de faire tourner un cluster Kubernetes complet à échelle réduite sur ton propre poste, idéal pour apprendre sans infrastructure cloud.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique</span>
+        <h4>Modernisation d'une application legacy avec des conteneurs</h4>
+        <p><strong>Contexte :</strong> La mairie (suivie depuis les Modules 1 et 3) souhaite moderniser une vieille application de gestion des demandes citoyennes, actuellement installée manuellement sur un serveur physique fragile.</p>
+        <p><strong>Solution retenue :</strong> conteneurisation de l'application avec Docker (une image reproductible, versionnée), orchestrée via Docker Compose pour l'instant (volume raisonnable). Kubernetes est identifié comme évolution future si le volume de demandes citoyennes justifie un besoin de scaling automatique.</p>
+        <p><strong>Bénéfice concret :</strong> déploiement reproductible en quelques minutes sur n'importe quelle machine, fini les "ça marche sur mon poste mais pas en prod" liés aux différences d'environnement.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="7" height="10" rx="1"/><rect x="14" y="8" width="7" height="10" rx="1"/><line x1="10" y1="13" x2="14" y2="13"/></svg></div><h4>Laboratoire guidé — Orchestration simple avec Docker Compose</h4></div>
+        <div class="lab-meta">Outil : la VM Linux du Module 3 · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe Docker Compose (inclus avec Docker Engine récent).</li>
+          <li>Écris un fichier <code>docker-compose.yml</code> avec un service web (Nginx) et une base de données (PostgreSQL).</li>
+          <li>Lance la pile : <code>docker compose up -d</code>.</li>
+          <li>Vérifie que les deux conteneurs tournent : <code>docker compose ps</code>.</li>
+          <li>Arrête proprement la pile : <code>docker compose down</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div><h4>Laboratoire guidé — Introduction à Kubernetes (Minikube)</h4></div>
+        <div class="lab-meta">Outil : Minikube (gratuit) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Installe Minikube et démarre un cluster local : <code>minikube start</code>.</li>
+          <li>Déploie une première application : <code>kubectl create deployment demo --image=nginx</code>.</li>
+          <li>Expose-la : <code>kubectl expose deployment demo --port=80 --type=NodePort</code>.</li>
+          <li>Liste les pods créés : <code>kubectl get pods</code>.</li>
+          <li>Teste le scaling : <code>kubectl scale deployment demo --replicas=3</code> puis revérifie <code>kubectl get pods</code>.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg></div><h4>Laboratoire guidé — Sauvegarde et réplication de VM</h4></div>
+        <div class="lab-meta">Outil : Hyper-V ou Proxmox · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Exporte une VM complète (fichiers de configuration + disques virtuels).</li>
+          <li>Importe-la sur un second hôte pour valider la portabilité.</li>
+          <li>Si Proxmox est disponible, configure une réplication planifiée entre deux nœuds.</li>
+          <li>Documente la procédure de restauration pour ton portfolio.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 16</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://kubernetes.io/fr/docs/tutorials/kubernetes-basics/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div>
+          <div class="res-text"><div class="res-title">Kubernetes.io — Tutoriel officiel (FR)</div><div class="res-sub">Guide interactif gratuit</div></div>
+        </a>
+        <a class="res-item" href="https://docs.docker.com/compose/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="7" height="10" rx="1"/><rect x="14" y="8" width="7" height="10" rx="1"/></svg></div>
+          <div class="res-text"><div class="res-title">Documentation officielle Docker Compose</div><div class="res-sub">Guide gratuit officiel</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 16</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. À quoi sert Docker Compose ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w16q1">Créer des images Docker</label>
+            <label class="quiz-opt"><input type="radio" name="w16q1">Orchestrer plusieurs conteneurs à partir d'un seul fichier</label>
+            <label class="quiz-opt"><input type="radio" name="w16q1">Surveiller la sécurité des conteneurs</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Docker Compose démarre toute une pile applicative (plusieurs conteneurs liés) en une seule commande.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quelle est la plus petite unité déployable dans Kubernetes ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w16q2">Un conteneur</label>
+            <label class="quiz-opt"><input type="radio" name="w16q2">Un nœud</label>
+            <label class="quiz-opt"><input type="radio" name="w16q2">Un pod</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un pod regroupe un ou plusieurs conteneurs partageant réseau et stockage — c'est l'unité de base de Kubernetes.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quelle différence majeure entre Docker Compose et Kubernetes ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w16q3">Kubernetes orchestre sur plusieurs machines, Compose reste local</label>
+            <label class="quiz-opt"><input type="radio" name="w16q3">Compose est payant, Kubernetes gratuit</label>
+            <label class="quiz-opt"><input type="radio" name="w16q3">Ils font exactement la même chose</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Kubernetes gère un cluster multi-machines avec scaling automatique ; Compose orchestre localement, sur une seule machine.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de la mairie, pourquoi choisir Docker Compose plutôt que Kubernetes pour l'instant ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w16q4">Kubernetes ne fonctionne pas avec des applications legacy</label>
+            <label class="quiz-opt"><input type="radio" name="w16q4">Le volume actuel ne justifie pas la complexité de Kubernetes</label>
+            <label class="quiz-opt"><input type="radio" name="w16q4">Docker Compose est plus rapide en production</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Adopter la complexité de Kubernetes seulement quand le besoin réel (scaling, volume) le justifie est une bonne pratique d'ingénierie.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 16</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Docker Compose, concepts Kubernetes (pod, scaling)</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s16">0</span>/25<div class="auto-note">calcul auto</div></td><td>Compose et Minikube fonctionnels, VM sauvegardée</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Décision Compose vs Kubernetes justifiée pour un scénario</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu maîtrises maintenant tout le spectre de la virtualisation moderne : des VMs classiques (Hyper-V, VMware, Proxmox) jusqu'aux conteneurs et à une première approche de Kubernetes. C'est exactement la trajectoire que suit l'industrie — tu es prêt pour Azure, où ces mêmes concepts se retrouvent sous forme de services managés.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Cluster de virtualisation avec conteneurs Docker</em> — déploie une petite application multi-conteneurs (web + base de données) via Docker Compose sur ta VM Linux, documente ton architecture, et compare dans un court rapport les compromis VM vs conteneurs pour ce cas d'usage précis.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-03-linux.html"><div class="lbl">Module précédent</div><div class="ttl">03 · Linux</div></a>
+      <a class="next" href="module-05-microsoft365.html"><div class="lbl">Prochain module</div><div class="ttl">05 · Microsoft 365</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Virtualisation">[{"id": 61, "type": "Cours", "week": 13, "title": "Concepts de virtualisation (hyperviseurs type 1/2)"}, {"id": 62, "type": "TP", "week": 13, "title": "Installation d'un hyperviseur (Hyper-V/VirtualBox)"}, {"id": 63, "type": "Labo", "week": 13, "title": "Installation Hyper-V sur Windows Server"}, {"id": 64, "type": "Labo", "week": 13, "title": "Création d'un switch virtuel"}, {"id": 65, "type": "Labo", "week": 13, "title": "Migration de VM (Live Migration)"}, {"id": 66, "type": "Cours", "week": 14, "title": "Hyper-V - Installation et configuration"}, {"id": 67, "type": "TP", "week": 14, "title": "Création et gestion de machines virtuelles"}, {"id": 68, "type": "Labo", "week": 14, "title": "Gestion de snapshots / points de contrôle"}, {"id": 69, "type": "Labo", "week": 14, "title": "Installation VMware Workstation/ESXi"}, {"id": 70, "type": "Labo", "week": 14, "title": "Installation Proxmox VE"}, {"id": 71, "type": "Cours", "week": 15, "title": "VMware / Proxmox - Alternatives et comparaison"}, {"id": 72, "type": "TP", "week": 15, "title": "Réseaux virtuels et snapshots"}, {"id": 73, "type": "Labo", "week": 15, "title": "Configuration haute disponibilité VM"}, {"id": 74, "type": "Labo", "week": 15, "title": "Installation Docker Engine"}, {"id": 75, "type": "Labo", "week": 15, "title": "Création d'images Docker personnalisées"}, {"id": 76, "type": "Cours", "week": 16, "title": "Conteneurisation (Docker) et intro Kubernetes"}, {"id": 77, "type": "TP", "week": 16, "title": "Déploiement de conteneurs Docker"}, {"id": 78, "type": "Labo", "week": 16, "title": "Orchestration simple avec Docker Compose"}, {"id": 79, "type": "Labo", "week": 16, "title": "Introduction à Kubernetes (Minikube)"}, {"id": 80, "type": "Labo", "week": 16, "title": "Sauvegarde et réplication de VM"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

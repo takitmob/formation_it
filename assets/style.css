@@ -180,7 +180,8 @@ pre.cmdblock{font-family:var(--font-mono); font-size:12.5px; background:#1B2130;
 /* ---------- Progress banner (localStorage sync) ---------- */
 .sync-banner{display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:var(--radius-sm); background:var(--surface-alt); border:1px solid var(--border); font-size:12px; color:var(--ink-soft); margin-bottom:18px;}
 .sync-banner svg{width:15px;height:15px; flex-shrink:0;}
-.sync-banner button{margin-left:auto; font-size:11.5px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border:none; padding:5px 10px; border-radius:100px; flex-shrink:0;}
+.sync-banner button{font-size:11.5px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border:none; padding:5px 10px; border-radius:100px; flex-shrink:0;}
+.sync-banner button:first-of-type{margin-left:auto;}
 
 /* ---------- Prev/next nav ---------- */
 .chapter-nav{display:flex; justify-content:space-between; gap:10px; margin-top:44px; padding-top:20px; border-top:1px solid var(--border);}
@@ -189,8 +190,33 @@ pre.cmdblock{font-family:var(--font-mono); font-size:12.5px; background:#1B2130;
 .chapter-nav .ttl{font-size:13px; font-weight:600; color:var(--ink); margin-top:2px;}
 .chapter-nav a.next{text-align:right;}
 
+/* ---------- Weekly tracker (checkboxes synced to Planner) ---------- */
+.tracker{margin-bottom:22px;}
+.tracker .section-title{margin-bottom:4px;}
+.tracker-sub{font-size:12px;color:var(--ink-faint);margin-bottom:12px;}
+.tracker-row{display:flex; align-items:center; gap:12px; padding:10px 4px; border-bottom:1px solid var(--border-soft);}
+.tracker-row:last-child{border-bottom:none;}
+.check-btn{
+  width:26px; height:26px; border-radius:8px; border:1.5px solid var(--border); background:var(--surface-alt);
+  flex-shrink:0; display:flex; align-items:center; justify-content:center; padding:0; position:relative;
+}
+.check-btn svg{width:15px;height:15px; color:#fff; opacity:0; transition:opacity .12s ease;}
+.check-btn.checked{background:var(--done); border-color:var(--done);}
+.check-btn.checked svg{opacity:1;}
+.tracker-text{flex:1; min-width:0; font-size:13.5px; color:var(--ink);}
+.tracker-text .ttype{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-faint); display:block; margin-bottom:1px;}
+.eval-tbl td.computed{font-family:var(--font-mono); text-align:center; font-weight:700; color:var(--accent-ink); background:var(--accent-soft);}
+.eval-tbl td.computed .auto-note{display:block; font-size:8.5px; font-weight:600; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.03em; margin-top:1px;}
+
+.manual-toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; padding:10px 18px;
+  border-radius:100px; font-size:12.5px; font-weight:600; z-index:100; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s;
+}
+.manual-toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+@media (max-width:899px){.manual-toast{bottom:20px;}}
+
 @media print{
-  .side,.topbar,.scrim,.chapter-nav,.sync-banner{display:none !important;}
+  .side,.topbar,.scrim,.chapter-nav,.sync-banner,.manual-toast{display:none !important;}
   .content-wrap{margin-left:0 !important;}
   body{background:#fff;}
 }

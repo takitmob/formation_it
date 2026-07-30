@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 5 · Microsoft 365 — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 5 — Microsoft 365</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s17" data-week-ids="81,82,83,84,85">Semaine 17 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s18" data-week-ids="86,87,88,89,90">Semaine 18 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s19" data-week-ids="91,92,93,94,95">Semaine 19 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s20" data-week-ids="96,97,98,99,100">Semaine 20 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 5 · Microsoft 365</div><div class="topbar-sub">Semaines 17–20</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 5 / 13</p>
+    <h1 class="week-title">Microsoft 365</h1>
+    <p class="week-dates">16 novembre 2026 → 13 décembre 2026 · Semaines 17–20 · 52 h prévues</p>
+
+    <p class="lead">Microsoft 365 est l'environnement collaboratif le plus déployé en entreprise. Ce module te fait passer de l'utilisateur au futur administrateur : gestion des identités avec Entra ID, sécurité et conformité, et administration complète d'un tenant — la préparation directe de la certification MS-102.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Configurer et administrer un tenant Microsoft 365 complet</li>
+        <li>Gérer les identités avec Entra ID (ex-Azure AD) : utilisateurs, groupes, MFA, accès conditionnel</li>
+        <li>Mettre en place les stratégies de sécurité et de conformité (DLP, Intune)</li>
+        <li>Administrer Exchange Online, SharePoint et Teams</li>
+        <li>Produire des rapports d'utilisation et gérer la gouvernance</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Aucun prérequis technique strict, mais les notions d'identité et de sécurité du Module 2 (AD DS) aident à comprendre Entra ID. Tu auras besoin d'un <strong>tenant Microsoft 365 Developer</strong> (gratuit, renouvelable, via le programme Microsoft 365 Developer Program) — un vrai environnement complet pour t'entraîner sans risque.</p>
+
+    <!-- ============================================================ SEMAINE 17 ============================================================ -->
+    <div class="week-block" id="s17">
+      <p class="week-tag">SEMAINE 17 · 16/11 – 22/11/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Écosystème M365 — Exchange, SharePoint, Teams</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Décrire les briques principales de l'écosystème Microsoft 365</li>
+          <li>Créer et configurer un tenant M365</li>
+          <li>Gérer les utilisateurs et groupes Entra ID</li>
+          <li>Activer l'authentification multifacteur (MFA)</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="81,82,83,84,85" data-tracker-week="s17">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="81" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Écosystème M365 (Exchange, SharePoint, Teams)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="82" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration d'un tenant M365</div></div><div class="tracker-row"><button class="check-btn" data-toggle="83" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création et configuration d'un tenant M365</div></div><div class="tracker-row"><button class="check-btn" data-toggle="84" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des utilisateurs et groupes Entra ID</div></div><div class="tracker-row"><button class="check-btn" data-toggle="85" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration de l'authentification multifacteur</div></div>
+      </div>
+
+
+      <h2 class="sec">17.1 — Vue d'ensemble de l'écosystème M365</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+          <style>.mb{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .ms{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="15" width="560" height="34" rx="8" fill="#E9EFF5" stroke="#3D5A80"/><text class="mb" x="35" y="37" fill="#2C4362">Microsoft Entra ID — identité &amp; accès (fondation commune)</text>
+
+          <rect x="20" y="65" width="130" height="50" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/>
+          <text class="mb" x="32" y="88" fill="#2C6B44">Exchange Online</text><text class="ms" x="32" y="103">Messagerie, calendrier</text>
+
+          <rect x="165" y="65" width="130" height="50" rx="8" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="mb" x="177" y="88" fill="#8B5E00">SharePoint</text><text class="ms" x="177" y="103">Sites, documents partagés</text>
+
+          <rect x="310" y="65" width="130" height="50" rx="8" fill="#E6F1F2" stroke="#3E8188"/>
+          <text class="mb" x="322" y="88" fill="#264D52">Teams</text><text class="ms" x="322" y="103">Chat, visio, canaux</text>
+
+          <rect x="455" y="65" width="130" height="50" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/>
+          <text class="mb" x="467" y="88" fill="#4A3B60">Intune</text><text class="ms" x="467" y="103">Gestion des appareils</text>
+
+          <rect x="20" y="130" width="565" height="50" rx="8" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="mb" x="32" y="153" fill="#8A3B37">Purview / Defender</text><text class="ms" x="32" y="168">Conformité, protection des données, sécurité — transverses à tout l'écosystème</text>
+        </svg>
+        <p class="diagram-caption">Fig. 17.1 — Écosystème M365 : Entra ID comme fondation d'identité commune à tous les services</p>
+      </div>
+
+      <p>Le point clé à retenir : <strong>tout repose sur Entra ID</strong>. Un même compte utilisateur donne accès à Exchange, SharePoint, Teams et tous les autres services, avec des permissions gérées centralement — c'est le même principe qu'Active Directory (Module 2), mais dans le cloud.</p>
+
+      <h2 class="sec">17.2 — Création et configuration d'un tenant</h2>
+      <p>Un <strong>tenant</strong> M365 est l'instance dédiée d'une organisation dans le cloud Microsoft, identifiée par un domaine <code>*.onmicrosoft.com</code> (personnalisable avec un domaine propre). Sa création se fait via le Centre d'administration Microsoft 365.</p>
+
+      <h2 class="sec">17.3 — Gestion des utilisateurs et groupes Entra ID</h2>
+      <p>Comme pour AD DS, Entra ID distingue plusieurs types de groupes : <strong>groupes de sécurité</strong> (permissions), <strong>groupes Microsoft 365</strong> (collaboration, avec boîte mail et SharePoint associés), et <strong>groupes de distribution</strong> (listes de diffusion).</p>
+
+      <h2 class="sec">17.4 — Authentification multifacteur (MFA)</h2>
+      <div class="def">
+        <span class="def-term">MFA (Multi-Factor Authentication)</span>
+        <p>Exige une seconde preuve d'identité en plus du mot de passe (code d'application, notification push, clé de sécurité). Réduit drastiquement le risque de compromission de compte, même si le mot de passe est volé.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Migration vers M365 pour la chaîne hôtelière (suite du Module 2)</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2 et 4) migre sa messagerie et ses outils collaboratifs vers M365, en conservant la structure OU par établissement définie sous AD DS.</p>
+        <p><strong>Approche retenue :</strong> synchronisation Entra ID Connect entre l'AD local existant et le tenant M365 (approfondi en semaine 18), MFA obligatoire pour tous les comptes ayant accès aux données de réservation, avec exemption temporaire progressive pendant la période de transition pour ne pas bloquer le personnel en formation.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé 1 — Création et configuration d'un tenant M365</h4></div>
+        <div class="lab-meta">Outil : Microsoft 365 Developer Program (gratuit) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Inscris-toi au programme Microsoft 365 Developer (gratuit, renouvelable tous les 90 jours d'usage actif).</li>
+          <li>Récupère ton tenant de test avec des données d'exemple pré-remplies.</li>
+          <li>Explore le Centre d'administration Microsoft 365.</li>
+          <li>Identifie le domaine par défaut de ton tenant (<code>*.onmicrosoft.com</code>).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20v-1a5 5 0 015-5h4a5 5 0 015 5v1"/></svg></div><h4>Laboratoire guidé 2 — Gestion des utilisateurs et groupes Entra ID</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration M365 · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée 3 nouveaux utilisateurs dans le Centre d'administration.</li>
+          <li>Crée un groupe Microsoft 365 nommé "Direction-Hotel".</li>
+          <li>Ajoute les utilisateurs créés au groupe.</li>
+          <li>Vérifie que le groupe a bien généré une boîte mail et un site SharePoint associés.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h4>Laboratoire guidé 3 — Configuration de l'authentification multifacteur</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration M365 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Dans le Centre d'administration, active le MFA de sécurité par défaut ou via une stratégie ciblée.</li>
+          <li>Configure un compte de test avec l'application Microsoft Authenticator.</li>
+          <li>Teste une connexion : vérifie que le second facteur est bien demandé.</li>
+          <li>Explore les méthodes alternatives disponibles (SMS, appel, clé FIDO2).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 17</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=microsoft%20365%20administrator" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — M365 Administrator</div><div class="res-sub">Parcours officiel gratuit (prépa MS-102)</div></div>
+        </a>
+        <a class="res-item" href="https://developer.microsoft.com/microsoft-365/dev-program" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft 365 Developer Program</div><div class="res-sub">Tenant de test gratuit avec données d'exemple</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 17</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quel service constitue la fondation d'identité commune à tout l'écosystème M365 ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w17q1">SharePoint</label>
+            <label class="quiz-opt"><input type="radio" name="w17q1">Entra ID</label>
+            <label class="quiz-opt"><input type="radio" name="w17q1">Teams</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Entra ID gère l'identité et l'accès pour tous les autres services M365.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel type de groupe Entra ID génère automatiquement une boîte mail et un site SharePoint ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w17q2">Groupe de sécurité</label>
+            <label class="quiz-opt"><input type="radio" name="w17q2">Groupe de distribution</label>
+            <label class="quiz-opt"><input type="radio" name="w17q2">Groupe Microsoft 365</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le groupe Microsoft 365 est pensé pour la collaboration et embarque automatiquement ces ressources.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Pourquoi le MFA réduit-il fortement le risque de compromission ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w17q3">Un mot de passe volé seul ne suffit plus à se connecter</label>
+            <label class="quiz-opt"><input type="radio" name="w17q3">Il chiffre automatiquement les emails</label>
+            <label class="quiz-opt"><input type="radio" name="w17q3">Il remplace le besoin de mot de passe</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le second facteur bloque l'accès même si le mot de passe est compromis.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi une exemption MFA temporaire et progressive ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w17q4">Le MFA n'est pas compatible avec les hôtels</label>
+            <label class="quiz-opt"><input type="radio" name="w17q4">Pour ne pas bloquer le personnel en cours de formation</label>
+            <label class="quiz-opt"><input type="radio" name="w17q4">C'est une exigence de Microsoft</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un déploiement progressif évite de bloquer l'activité opérationnelle pendant la période d'apprentissage.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 17</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Écosystème M365, rôle d'Entra ID, MFA</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s17">0</span>/25<div class="auto-note">calcul auto</div></td><td>Tenant configuré, utilisateurs/groupes créés, MFA actif</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de déploiement MFA proposé pour une organisation</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 18 ============================================================ -->
+    <div class="week-block" id="s18">
+      <p class="week-tag">SEMAINE 18 · 23/11 – 29/11/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Gestion des identités (Entra ID)</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Gérer les licences utilisateurs</li>
+          <li>Mettre en place l'accès conditionnel</li>
+          <li>Configurer Exchange Online (boîtes, règles)</li>
+          <li>Créer un site SharePoint d'équipe</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="86,87,88,89,90" data-tracker-week="s18">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="86" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Gestion des identités (Entra ID)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="87" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Gestion des utilisateurs et licences</div></div><div class="tracker-row"><button class="check-btn" data-toggle="88" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place de l'accès conditionnel</div></div><div class="tracker-row"><button class="check-btn" data-toggle="89" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration Exchange Online (boîtes, règles)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="90" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un site SharePoint d'équipe</div></div>
+      </div>
+
+
+      <h2 class="sec">18.1 — Gestion des licences</h2>
+      <p>Chaque utilisateur a besoin d'une <strong>licence</strong> (ex. Microsoft 365 Business Standard, E3, E5) pour accéder aux services. Les licences peuvent être assignées individuellement ou automatiquement via des <strong>groupes avec assignation de licence basée sur groupe</strong> — bonne pratique pour simplifier la gestion à grande échelle.</p>
+
+      <h2 class="sec">18.2 — Accès conditionnel</h2>
+      <div class="def">
+        <span class="def-term">Accès conditionnel</span>
+        <p>Règles qui autorisent, bloquent ou exigent des conditions supplémentaires (MFA, appareil conforme) selon le contexte de connexion : localisation, appareil, application, niveau de risque détecté. Exemple : exiger le MFA uniquement pour les connexions depuis l'extérieur du réseau de l'entreprise.</p>
+      </div>
+      <p>C'est l'évolution moderne du concept de sécurité périmétrique (pare-feu du Module 1) : au lieu de sécuriser un périmètre réseau fixe, on évalue le risque à chaque tentative de connexion — principe central du <strong>Zero Trust</strong>, approfondi au Module 10 (Cybersécurité).</p>
+
+      <h2 class="sec">18.3 — Exchange Online</h2>
+      <p>Administration des boîtes aux lettres : quotas, délégation d'accès, règles de transport (ex. ajouter un avertissement sur les emails externes), et boîtes partagées pour les équipes.</p>
+
+      <h2 class="sec">18.4 — SharePoint : sites d'équipe</h2>
+      <p>Un site SharePoint d'équipe fournit une bibliothèque de documents partagée, avec gestion fine des permissions et historique de versions — la base de la collaboration documentaire M365, intégrée nativement dans Teams.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel (suite)</span>
+        <h4>Accès conditionnel pour le personnel en télétravail partiel</h4>
+        <p><strong>Contexte :</strong> Certains cadres de la chaîne hôtelière accèdent aux outils de gestion depuis leur domicile en dehors des heures de bureau.</p>
+        <p><strong>Règle d'accès conditionnel mise en place :</strong> connexion depuis un réseau reconnu de l'hôtel → accès normal ; connexion depuis un lieu inconnu → MFA obligatoire + appareil conforme requis ; connexion depuis un pays à risque non justifié par l'activité → blocage automatique.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div><h4>Laboratoire guidé — Mise en place de l'accès conditionnel</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration Entra ID · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une nouvelle stratégie d'accès conditionnel.</li>
+          <li>Définis les utilisateurs concernés (groupe de test).</li>
+          <li>Condition : localisation en dehors d'une plage IP de confiance.</li>
+          <li>Contrôle d'accès : exiger le MFA.</li>
+          <li>Active la stratégie en mode "rapport seul" d'abord (bonne pratique avant activation réelle).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div><h4>Laboratoire guidé — Configuration Exchange Online (boîtes, règles)</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration Exchange · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une boîte aux lettres partagée <code>reservations@tenant.onmicrosoft.com</code>.</li>
+          <li>Donne accès en délégation à 2 utilisateurs.</li>
+          <li>Crée une règle de transport ajoutant un bandeau "Email externe" aux messages entrants de l'extérieur.</li>
+          <li>Teste l'envoi d'un email externe et vérifie le bandeau.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 4v16M4 9h16"/></svg></div><h4>Laboratoire guidé — Création d'un site SharePoint d'équipe</h4></div>
+        <div class="lab-meta">Outil : SharePoint Admin Center · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un nouveau site d'équipe "Direction-Hotel".</li>
+          <li>Ajoute une bibliothèque de documents et téléverse un fichier de test.</li>
+          <li>Configure les permissions pour restreindre l'accès au groupe créé en semaine 17.</li>
+          <li>Vérifie l'intégration automatique avec Teams.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 18</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=conditional%20access" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Conditional Access</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 18</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Quel principe de sécurité moderne sous-tend l'accès conditionnel ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w18q1">La sécurité périmétrique classique</label>
+            <label class="quiz-opt"><input type="radio" name="w18q1">Le Zero Trust — évaluer le risque à chaque connexion</label>
+            <label class="quiz-opt"><input type="radio" name="w18q1">Le chiffrement de bout en bout uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'accès conditionnel évalue le contexte de chaque connexion plutôt que de se fier à un périmètre réseau fixe.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Pourquoi tester une stratégie d'accès conditionnel en mode "rapport seul" avant activation ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w18q2">Pour vérifier son impact avant de bloquer de vrais utilisateurs</label>
+            <label class="quiz-opt"><input type="radio" name="w18q2">C'est le seul mode disponible gratuitement</label>
+            <label class="quiz-opt"><input type="radio" name="w18q2">Le mode rapport est plus rapide</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le mode rapport seul permet d'observer l'effet réel de la règle sans risquer de bloquer accidentellement des utilisateurs légitimes.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quel type de boîte aux lettres permet à plusieurs utilisateurs de gérer les mêmes emails ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w18q3">Boîte personnelle</label>
+            <label class="quiz-opt"><input type="radio" name="w18q3">Boîte d'archive</label>
+            <label class="quiz-opt"><input type="radio" name="w18q3">Boîte partagée</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La boîte partagée permet la délégation d'accès à plusieurs utilisateurs, idéale pour une adresse d'équipe.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, que se passe-t-il pour une connexion depuis un pays à risque non justifié ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w18q4">MFA supplémentaire seulement</label>
+            <label class="quiz-opt"><input type="radio" name="w18q4">Blocage automatique</label>
+            <label class="quiz-opt"><input type="radio" name="w18q4">Aucune restriction</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La règle définie bloque automatiquement ces connexions à haut risque.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 18</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Licences, accès conditionnel, Zero Trust</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s18">0</span>/25<div class="auto-note">calcul auto</div></td><td>Accès conditionnel, Exchange et SharePoint configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Politique d'accès conditionnel proposée pour un scénario</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 19 ============================================================ -->
+    <div class="week-block" id="s19">
+      <p class="week-tag">SEMAINE 19 · 30/11 – 06/12/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Sécurité et conformité M365</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Configurer Teams (canaux, permissions)</li>
+          <li>Mettre en place la protection contre la perte de données (DLP)</li>
+          <li>Gérer les appareils avec Intune (MDM)</li>
+          <li>Comprendre les fondations de la conformité M365 (prépa SC-900)</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="91,92,93,94,95" data-tracker-week="s19">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="91" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Sécurité et conformité M365</div></div><div class="tracker-row"><button class="check-btn" data-toggle="92" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Stratégies de sécurité (MFA, Accès conditionnel)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="93" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration Teams (canaux, permissions)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="94" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Protection contre la perte de données (DLP)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="95" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des appareils avec Intune (MDM)</div></div>
+      </div>
+
+
+      <h2 class="sec">19.1 — Teams : canaux et permissions</h2>
+      <p>Une équipe Teams s'organise en <strong>canaux</strong> — standards (visibles par tous les membres) ou privés (accès restreint à un sous-groupe). Chaque canal dispose de son propre espace de conversation, fichiers et onglets d'applications intégrées.</p>
+
+      <h2 class="sec">19.2 — Protection contre la perte de données (DLP)</h2>
+      <div class="def">
+        <span class="def-term">DLP (Data Loss Prevention)</span>
+        <p>Stratégies qui détectent automatiquement les données sensibles (numéros de carte bancaire, données personnelles) dans les emails ou documents, et bloquent ou avertissent avant tout partage non autorisé — vers l'extérieur notamment.</p>
+      </div>
+
+      <h2 class="sec">19.3 — Gestion des appareils avec Intune (MDM)</h2>
+      <p><strong>Intune</strong> (Mobile Device Management) permet de gérer les appareils accédant aux ressources de l'entreprise : imposer un code PIN, chiffrement du disque, effacement à distance en cas de perte, et déploiement automatique d'applications. Concept clé : la <strong>conformité d'appareil</strong> — un appareil non conforme peut être bloqué par une règle d'accès conditionnel (lien direct avec la semaine 18).</p>
+
+      <h2 class="sec">19.4 — Fondations de la conformité (prépa SC-900)</h2>
+      <p>Le <strong>Centre de conformité Microsoft Purview</strong> centralise : étiquettes de sensibilité (classification des documents), politiques de rétention, eDiscovery (recherche légale de contenu), et tableaux de bord de conformité réglementaire (RGPD notamment) — sujet directement examiné dans la certification SC-900.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel (bilan sécurité)</span>
+        <h4>Protection des données de cartes bancaires clients</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière traite des données de paiement clients par email lors de réservations groupées — un risque de fuite de données sensibles si mal géré.</p>
+        <p><strong>Solution DLP :</strong> une stratégie détecte automatiquement tout numéro de carte bancaire dans un email sortant et bloque l'envoi avec un message d'avertissement à l'expéditeur, l'invitant à utiliser le portail de paiement sécurisé à la place.</p>
+        <p><strong>Intune :</strong> tous les téléphones du personnel accédant à la messagerie doivent avoir un code PIN et le chiffrement activé — sinon l'accès à Outlook mobile est automatiquement bloqué par la règle d'accès conditionnel.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8.5a5 5 0 10-10 0M7 8.5v6a5 5 0 0010 0v-6"/></svg></div><h4>Laboratoire guidé — Configuration Teams (canaux, permissions)</h4></div>
+        <div class="lab-meta">Outil : Teams Admin Center · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée une équipe "Direction-Hotel" (ou réutilise le groupe M365 existant).</li>
+          <li>Ajoute un canal privé "Confidentiel-RH".</li>
+          <li>Vérifie que seuls les membres explicitement ajoutés y ont accès.</li>
+          <li>Configure une politique de messagerie restreignant la modification des messages après envoi.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h4>Laboratoire guidé — Protection contre la perte de données (DLP)</h4></div>
+        <div class="lab-meta">Outil : Centre de conformité Purview · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une nouvelle stratégie DLP.</li>
+          <li>Sélectionne le type d'information sensible "Numéro de carte bancaire".</li>
+          <li>Configure l'action : bloquer l'envoi et notifier l'expéditeur.</li>
+          <li>Teste en envoyant un email de test contenant un faux numéro de carte.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="10" y1="18" x2="14" y2="18"/></svg></div><h4>Laboratoire guidé — Gestion des appareils avec Intune (MDM)</h4></div>
+        <div class="lab-meta">Outil : Intune Admin Center · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée une stratégie de conformité d'appareil (PIN requis, chiffrement activé).</li>
+          <li>Applique-la au groupe d'utilisateurs de test.</li>
+          <li>Lie-la à une règle d'accès conditionnel exigeant un appareil conforme.</li>
+          <li>Documente le comportement attendu pour un appareil non conforme.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 19</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — SC-900 Fundamentals</div><div class="res-sub">Parcours officiel gratuit de préparation à la certification</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 19</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Que détecte automatiquement une stratégie DLP ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w19q1">Les virus dans les pièces jointes</label>
+            <label class="quiz-opt"><input type="radio" name="w19q1">Les tentatives de phishing</label>
+            <label class="quiz-opt"><input type="radio" name="w19q1">Les données sensibles (cartes bancaires, données perso)</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">DLP se concentre sur la détection et la protection des données sensibles avant leur fuite.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que permet Intune sur un appareil perdu ou volé ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w19q2">L'effacement à distance</label>
+            <label class="quiz-opt"><input type="radio" name="w19q2">La localisation GPS uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w19q2">Rien, Intune ne gère pas cela</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Intune permet un effacement à distance des données professionnelles sur un appareil perdu.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Quel outil centralise les étiquettes de sensibilité et l'eDiscovery ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w19q3">Teams Admin Center</label>
+            <label class="quiz-opt"><input type="radio" name="w19q3">Microsoft Purview</label>
+            <label class="quiz-opt"><input type="radio" name="w19q3">Exchange Online</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Microsoft Purview est le centre de conformité regroupant ces fonctionnalités.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, que se passe-t-il si un employé essaie d'envoyer un numéro de carte bancaire par email ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w19q4">L'email part normalement</label>
+            <label class="quiz-opt"><input type="radio" name="w19q4">L'envoi est bloqué avec un avertissement</label>
+            <label class="quiz-opt"><input type="radio" name="w19q4">Le compte est immédiatement suspendu</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La stratégie DLP bloque l'envoi et alerte l'expéditeur, sans mesure punitive automatique disproportionnée.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 19</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>DLP, Intune, conformité (fondations SC-900)</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s19">0</span>/25<div class="auto-note">calcul auto</div></td><td>Teams, DLP et Intune configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Stratégie DLP proposée pour des données sensibles données</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 20 ============================================================ -->
+    <div class="week-block" id="s20">
+      <p class="week-tag">SEMAINE 20 · 07/12 – 13/12/2026</p>
+      <h2 class="week-title" style="font-size:22px;">Administration et licences M365</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Configurer la gouvernance et les politiques de rétention</li>
+          <li>Produire des rapports d'utilisation M365</li>
+          <li>Migrer des boîtes aux lettres vers Exchange Online</li>
+          <li>Avoir une vision complète de l'administration M365 pour MS-102</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="96,97,98,99,100" data-tracker-week="s20">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="96" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Administration et licences M365</div></div><div class="tracker-row"><button class="check-btn" data-toggle="97" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration SharePoint et Teams</div></div><div class="tracker-row"><button class="check-btn" data-toggle="98" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration de la gouvernance et rétention</div></div><div class="tracker-row"><button class="check-btn" data-toggle="99" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Rapports et tableaux de bord d'utilisation M365</div></div><div class="tracker-row"><button class="check-btn" data-toggle="100" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Migration de boîtes aux lettres vers Exchange Online</div></div>
+      </div>
+
+
+      <h2 class="sec">20.1 — Gouvernance et rétention</h2>
+      <p>Les <strong>politiques de rétention</strong> définissent combien de temps les données sont conservées avant suppression automatique (ou conservation obligatoire, selon les exigences légales). La <strong>gouvernance des groupes</strong> ajoute une expiration automatique et un renouvellement périodique pour éviter l'accumulation de groupes obsolètes — un problème classique en entreprise.</p>
+
+      <h2 class="sec">20.2 — Rapports et tableaux de bord d'utilisation</h2>
+      <p>Le Centre d'administration M365 fournit des rapports natifs : activité par utilisateur (emails envoyés, réunions Teams, documents édités), adoption des licences, et scores de sécurité (<strong>Secure Score</strong>) — un indicateur chiffré de la posture de sécurité globale du tenant, avec des recommandations priorisées.</p>
+
+      <h2 class="sec">20.3 — Migration vers Exchange Online</h2>
+      <p>Une migration de boîtes aux lettres (depuis un serveur Exchange local ou un autre fournisseur) suit généralement une approche par <strong>vagues</strong> : migration pilote sur un petit groupe, validation, puis migration du reste par lots planifiés hors heures de pointe pour limiter l'impact.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Bilan du module</span>
+        <h4>Tableau de bord de gouvernance pour la chaîne hôtelière</h4>
+        <p><strong>Bilan :</strong> La chaîne hôtelière dispose maintenant d'un tenant M365 complet : identités synchronisées, MFA et accès conditionnel actifs, DLP protégeant les données de paiement, Intune gérant les appareils mobiles, Teams structuré par canaux, et politiques de rétention conformes.</p>
+        <p><strong>Suivi continu :</strong> un rapport mensuel de Secure Score est présenté à la direction, avec un objectif d'amélioration continue — la sécurité M365 n'est jamais "terminée", elle se pilote dans la durée.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h4>Laboratoire guidé — Configuration de la gouvernance et rétention</h4></div>
+        <div class="lab-meta">Outil : Centre de conformité Purview · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée une politique de rétention pour les emails (ex. conservation 5 ans, suppression ensuite).</li>
+          <li>Applique-la à l'ensemble des boîtes du tenant de test.</li>
+          <li>Configure l'expiration automatique des groupes M365 inactifs après 180 jours.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="21" x2="5" y2="10.5"/><line x1="12" y1="21" x2="12" y2="5"/><line x1="19" y1="21" x2="19" y2="14"/></svg></div><h4>Laboratoire guidé — Rapports et tableaux de bord d'utilisation M365</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration M365 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre les rapports d'utilisation dans le Centre d'administration.</li>
+          <li>Consulte le rapport d'activité Teams et Exchange des 30 derniers jours.</li>
+          <li>Ouvre le tableau de bord Secure Score et identifie 3 recommandations prioritaires.</li>
+          <li>Exporte un rapport pour ton portfolio.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M15 6l6 6-6 6"/></svg></div><h4>Laboratoire guidé — Migration de boîtes aux lettres vers Exchange Online</h4></div>
+        <div class="lab-meta">Outil : Centre d'administration Exchange · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Dans le centre d'administration Exchange, explore l'assistant de migration.</li>
+          <li>Identifie les types de migration disponibles (coupée, par étapes, hybride).</li>
+          <li>Simule la planification d'une migration par vagues pour un scénario à 50 boîtes.</li>
+          <li>Documente le plan de communication utilisateur associé (dates, consignes).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 20</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=m365%20administrator" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Manage Microsoft 365</div><div class="res-sub">Parcours officiel gratuit (prépa MS-102)</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 20</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que mesure le Secure Score ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w20q1">Le nombre de licences utilisées</label>
+            <label class="quiz-opt"><input type="radio" name="w20q1">La posture de sécurité globale du tenant</label>
+            <label class="quiz-opt"><input type="radio" name="w20q1">La vitesse du réseau</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le Secure Score chiffre la posture de sécurité et propose des recommandations priorisées.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Pourquoi migrer les boîtes aux lettres par vagues plutôt que toutes en même temps ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w20q2">Microsoft l'exige techniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w20q2">C'est plus rapide au total</label>
+            <label class="quiz-opt"><input type="radio" name="w20q2">Limiter l'impact et pouvoir valider avant de continuer</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une migration pilote permet de détecter les problèmes avant qu'ils n'affectent tout le monde.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. À quoi sert l'expiration automatique des groupes M365 ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w20q3">Éviter l'accumulation de groupes obsolètes</label>
+            <label class="quiz-opt"><input type="radio" name="w20q3">Économiser des licences</label>
+            <label class="quiz-opt"><input type="radio" name="w20q3">Forcer un changement de mot de passe</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La gouvernance des groupes limite la prolifération de groupes non maintenus dans le temps.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Pourquoi dit-on que la sécurité M365 "se pilote dans la durée" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w20q4">Parce que les licences expirent chaque mois</label>
+            <label class="quiz-opt"><input type="radio" name="w20q4">Parce que les menaces évoluent et la configuration doit être réévaluée régulièrement</label>
+            <label class="quiz-opt"><input type="radio" name="w20q4">Parce que Microsoft change l'interface tous les mois</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une bonne posture de sécurité nécessite un suivi et des ajustements continus, pas une configuration figée.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 20</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Gouvernance, rétention, migration, Secure Score</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s20">0</span>/25<div class="auto-note">calcul auto</div></td><td>Rétention configurée, rapports consultés, plan de migration</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de migration par vagues documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu es maintenant capable d'administrer un tenant Microsoft 365 complet : identités, sécurité, conformité, collaboration et gouvernance. C'est la préparation directe de la certification <strong>MS-102</strong>, et une compétence transversale que tu retrouveras enrichie dans les modules Azure et Cybersécurité.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Déploiement complet d'un tenant M365 pour PME</em> — assemble tous les éléments : identités et MFA, accès conditionnel, DLP, Intune, Teams structuré, et politique de rétention. Documente ton architecture de sécurité et présente ton Secure Score final.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-04-virtualisation.html"><div class="lbl">Module précédent</div><div class="ttl">04 · Virtualisation</div></a>
+      <a class="next" style="opacity:.5;pointer-events:none;"><div class="lbl">Prochain module</div><div class="ttl">06 · Azure (à venir)</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Microsoft 365">[{"id": 81, "type": "Cours", "week": 17, "title": "Écosystème M365 (Exchange, SharePoint, Teams)"}, {"id": 82, "type": "TP", "week": 17, "title": "Configuration d'un tenant M365"}, {"id": 83, "type": "Labo", "week": 17, "title": "Création et configuration d'un tenant M365"}, {"id": 84, "type": "Labo", "week": 17, "title": "Gestion des utilisateurs et groupes Entra ID"}, {"id": 85, "type": "Labo", "week": 17, "title": "Configuration de l'authentification multifacteur"}, {"id": 86, "type": "Cours", "week": 18, "title": "Gestion des identités (Entra ID)"}, {"id": 87, "type": "TP", "week": 18, "title": "Gestion des utilisateurs et licences"}, {"id": 88, "type": "Labo", "week": 18, "title": "Mise en place de l'accès conditionnel"}, {"id": 89, "type": "Labo", "week": 18, "title": "Configuration Exchange Online (boîtes, règles)"}, {"id": 90, "type": "Labo", "week": 18, "title": "Création d'un site SharePoint d'équipe"}, {"id": 91, "type": "Cours", "week": 19, "title": "Sécurité et conformité M365"}, {"id": 92, "type": "TP", "week": 19, "title": "Stratégies de sécurité (MFA, Accès conditionnel)"}, {"id": 93, "type": "Labo", "week": 19, "title": "Configuration Teams (canaux, permissions)"}, {"id": 94, "type": "Labo", "week": 19, "title": "Protection contre la perte de données (DLP)"}, {"id": 95, "type": "Labo", "week": 19, "title": "Gestion des appareils avec Intune (MDM)"}, {"id": 96, "type": "Cours", "week": 20, "title": "Administration et licences M365"}, {"id": 97, "type": "TP", "week": 20, "title": "Configuration SharePoint et Teams"}, {"id": 98, "type": "Labo", "week": 20, "title": "Configuration de la gouvernance et rétention"}, {"id": 99, "type": "Labo", "week": 20, "title": "Rapports et tableaux de bord d'utilisation M365"}, {"id": 100, "type": "Labo", "week": 20, "title": "Migration de boîtes aux lettres vers Exchange Online"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

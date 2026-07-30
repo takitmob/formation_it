@@ -26,6 +26,10 @@
     <a class="side-link" href="#s4" data-week-ids="16,17,18,19,20">Semaine 4 <span class="week-badge"></span></a>
     <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
   </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server →</a>
+  </div>
   <div class="side-foot">
     <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
   </div>
@@ -40,7 +44,8 @@
     <div class="sync-banner" id="syncBanner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
       <span class="sync-text">Vérification de la synchronisation…</span>
-      <button id="importSyncBtn">Importer ma progression</button>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
       <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
     </div>
 
@@ -79,6 +84,12 @@
           <li>Reconnaître les principales topologies réseau et leurs usages</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="1,2,3,4,5" data-tracker-week="s1">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="1" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux réseau (modèle OSI et TCP/IP)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="2" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Câblage et topologie réseau (Packet Tracer)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="3" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un switch Cisco (VLAN)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="4" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un routeur Cisco (routage statique)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="5" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Subnetting IPv4 avancé</div></div>
+      </div>
+
 
       <h2 class="sec">1.1 — Qu'est-ce qu'un réseau informatique ?</h2>
       <p>Un <strong>réseau informatique</strong> est un ensemble d'équipements (ordinateurs, serveurs, imprimantes, téléphones IP, objets connectés) reliés entre eux pour échanger des données. Cet échange repose toujours sur trois éléments : un <strong>support de transmission</strong> (câble cuivre, fibre optique, ondes radio), des <strong>règles de communication</strong> appelées protocoles, et des <strong>équipements d'interconnexion</strong> (switch, routeur, point d'accès).</p>
@@ -430,7 +441,7 @@ R1(config-if)# no shutdown</pre></li>
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Maîtrise du vocabulaire OSI/TCP-IP, capacité à expliquer l'encapsulation</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>VLAN, routage statique et subnetting réalisés sans aide</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s1">0</span>/25<div class="auto-note">calcul auto</div></td><td>VLAN, routage statique et subnetting réalisés sans aide</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Justification argumentée d'un choix de topologie pour un cas donné</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -451,6 +462,12 @@ R1(config-if)# no shutdown</pre></li>
           <li>Lire et écrire une adresse IPv6</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="6,7,8,9,10" data-tracker-week="s2">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="6" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Adressage IP et sous-réseaux (IPv4/IPv6)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="7" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Calcul et découpage de sous-réseaux</div></div><div class="tracker-row"><button class="check-btn" data-toggle="8" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration IPv6 de base</div></div><div class="tracker-row"><button class="check-btn" data-toggle="9" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un serveur DHCP</div></div><div class="tracker-row"><button class="check-btn" data-toggle="10" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un serveur DNS</div></div>
+      </div>
+
 
       <h2 class="sec">2.1 — Structure d'une adresse IPv4</h2>
       <p>Une adresse IPv4 est un nombre de <strong>32 bits</strong>, écrit sous forme de 4 blocs de 8 bits (octets) séparés par des points — ex. <code>192.168.1.10</code>. Chaque octet va de 0 à 255. L'adresse se divise toujours en deux parties : la <strong>partie réseau</strong> (identifie le sous-réseau) et la <strong>partie hôte</strong> (identifie la machine à l'intérieur de ce sous-réseau).</p>
@@ -628,7 +645,7 @@ R1(config-if)# no shutdown</pre></li>
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Compréhension du CIDR, du NAT, et de la structure IPv6</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>Serveur DHCP/DNS fonctionnel, IPv6 configuré</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s2">0</span>/25<div class="auto-note">calcul auto</div></td><td>Serveur DHCP/DNS fonctionnel, IPv6 configuré</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan d'adressage complet pour un scénario à 3 VLANs</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -648,6 +665,12 @@ R1(config-if)# no shutdown</pre></li>
           <li>Créer des règles de pare-feu (ACL) de base</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="11,12,13,14,15" data-tracker-week="s3">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="11" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Équipements réseau (switch, routeur, pare-feu)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="12" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration VLAN et routage inter-VLAN</div></div><div class="tracker-row"><button class="check-btn" data-toggle="13" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de trames avec Wireshark</div></div><div class="tracker-row"><button class="check-btn" data-toggle="14" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un pare-feu (ACL)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="15" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Simulation topologie d'entreprise (Packet Tracer)</div></div>
+      </div>
+
 
       <h2 class="sec">3.1 — Le switch : commutation et table MAC</h2>
       <p>Un switch apprend automatiquement quelle adresse MAC se trouve derrière chaque port en observant le trafic entrant, puis construit une <strong>table d'adresses MAC (CAM table)</strong>. Quand une trame arrive, il consulte cette table pour l'envoyer directement au bon port — sans inonder tout le réseau, sauf si l'adresse est inconnue (flooding) ou pour un broadcast.</p>
@@ -819,7 +842,7 @@ Router(config)# access-list 10 deny any</pre></li>
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>Fonctionnement switch/routeur, VLAN, ACL</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>Topologie complète fonctionnelle avec routage inter-VLAN</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s3">0</span>/25<div class="auto-note">calcul auto</div></td><td>Topologie complète fonctionnelle avec routage inter-VLAN</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Schéma documenté de la topologie d'entreprise simulée</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -840,6 +863,12 @@ Router(config)# access-list 10 deny any</pre></li>
           <li>Sécuriser un réseau Wi-Fi avec WPA3</li>
         </ul>
       </div>
+      <div class="card card-pad tracker" data-tracker="16,17,18,19,20" data-tracker-week="s4">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="16" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Protocoles réseau (DNS, DHCP, HTTP/HTTPS, VPN)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="17" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration DHCP/DNS et test de connectivité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="18" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Diagnostic de pannes réseau (ping, traceroute)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="19" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration VPN site-à-site</div></div><div class="tracker-row"><button class="check-btn" data-toggle="20" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Sécurisation d'un réseau Wi-Fi (WPA3)</div></div>
+      </div>
+
 
       <h2 class="sec">4.1 — DHCP et le processus DORA</h2>
       <p>Le <strong>DHCP</strong> (Dynamic Host Configuration Protocol) attribue automatiquement une adresse IP à un client. L'échange suit 4 étapes, résumées par l'acronyme <strong>DORA</strong> :</p>
@@ -1015,7 +1044,7 @@ Router(config)# access-list 10 deny any</pre></li>
       <table class="eval-tbl">
         <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
         <tr><td>Théorie</td><td class="num">/25</td><td>DORA, résolution DNS, HTTPS/TLS, types de VPN</td></tr>
-        <tr><td>Pratique / Labos</td><td class="num">/25</td><td>VPN site-à-site fonctionnel, Wi-Fi sécurisé en WPA3</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s4">0</span>/25<div class="auto-note">calcul auto</div></td><td>VPN site-à-site fonctionnel, Wi-Fi sécurisé en WPA3</td></tr>
         <tr><td>Projet appliqué</td><td class="num">/25</td><td>Méthode de diagnostic appliquée à un scénario de panne</td></tr>
         <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
       </table>
@@ -1030,11 +1059,13 @@ Router(config)# access-list 10 deny any</pre></li>
 
     <div class="chapter-nav">
       <a href="index.html"><div class="lbl">Retour</div><div class="ttl">Table des matières</div></a>
-      <a class="next" style="opacity:.5;pointer-events:none;"><div class="lbl">Prochain module</div><div class="ttl">02 · Windows Server (à venir)</div></a>
+      <a class="next" href="module-02-windows-server.html"><div class="lbl">Prochain module</div><div class="ttl">02 · Windows Server</div></a>
     </div>
 
   </div>
 </div>
+<script id="module-activities" type="application/json" data-module="Réseaux">[{"id": 1, "type": "Cours", "week": 1, "title": "Fondamentaux réseau (modèle OSI et TCP/IP)"}, {"id": 2, "type": "TP", "week": 1, "title": "Câblage et topologie réseau (Packet Tracer)"}, {"id": 3, "type": "Labo", "week": 1, "title": "Configuration d'un switch Cisco (VLAN)"}, {"id": 4, "type": "Labo", "week": 1, "title": "Configuration d'un routeur Cisco (routage statique)"}, {"id": 5, "type": "Labo", "week": 1, "title": "Subnetting IPv4 avancé"}, {"id": 6, "type": "Cours", "week": 2, "title": "Adressage IP et sous-réseaux (IPv4/IPv6)"}, {"id": 7, "type": "TP", "week": 2, "title": "Calcul et découpage de sous-réseaux"}, {"id": 8, "type": "Labo", "week": 2, "title": "Configuration IPv6 de base"}, {"id": 9, "type": "Labo", "week": 2, "title": "Mise en place d'un serveur DHCP"}, {"id": 10, "type": "Labo", "week": 2, "title": "Mise en place d'un serveur DNS"}, {"id": 11, "type": "Cours", "week": 3, "title": "Équipements réseau (switch, routeur, pare-feu)"}, {"id": 12, "type": "TP", "week": 3, "title": "Configuration VLAN et routage inter-VLAN"}, {"id": 13, "type": "Labo", "week": 3, "title": "Analyse de trames avec Wireshark"}, {"id": 14, "type": "Labo", "week": 3, "title": "Configuration d'un pare-feu (ACL)"}, {"id": 15, "type": "Labo", "week": 3, "title": "Simulation topologie d'entreprise (Packet Tracer)"}, {"id": 16, "type": "Cours", "week": 4, "title": "Protocoles réseau (DNS, DHCP, HTTP/HTTPS, VPN)"}, {"id": 17, "type": "TP", "week": 4, "title": "Configuration DHCP/DNS et test de connectivité"}, {"id": 18, "type": "Labo", "week": 4, "title": "Diagnostic de pannes réseau (ping, traceroute)"}, {"id": 19, "type": "Labo", "week": 4, "title": "Configuration VPN site-à-site"}, {"id": 20, "type": "Labo", "week": 4, "title": "Sécurisation d'un réseau Wi-Fi (WPA3)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
 <script src="assets/manual.js"></script>
 </body>
 </html>
