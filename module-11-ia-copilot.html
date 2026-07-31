@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 11 · IA &amp; Copilot — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+    <a class="side-link" href="module-08-python.html">08 · Python</a>
+    <a class="side-link" href="module-09-power-automate.html">09 · Power Automate</a>
+    <a class="side-link" href="module-10-cybersecurite.html">10 · Cybersécurité</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 11 — IA &amp; Copilot</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s41" data-week-ids="201,202,203,204,205">Semaine 41 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s42" data-week-ids="206,207,208,209,210">Semaine 42 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s43" data-week-ids="211,212,213,214,215">Semaine 43 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s44" data-week-ids="216,217,218,219,220">Semaine 44 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 11 · IA &amp; Copilot</div><div class="topbar-sub">Semaines 41–44</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 11 / 13</p>
+    <h1 class="week-title">IA &amp; Copilot</h1>
+    <p class="week-dates">03 mai 2027 → 30 mai 2027 · Semaines 41–44 · 52 h prévues</p>
+
+    <p class="lead">Dernier module technique du parcours : l'intelligence artificielle appliquée à l'IT. Tu apprendras à utiliser Copilot comme outil quotidien, à construire des agents conversationnels, et à comprendre les enjeux de gouvernance — sans prérequis en data science.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Comprendre les fondamentaux du Machine Learning et de l'IA générative</li>
+        <li>Utiliser Microsoft Copilot efficacement dans un contexte professionnel</li>
+        <li>Créer un agent conversationnel avec Copilot Studio</li>
+        <li>Appliquer l'IA générative à l'automatisation IT (scripts, analyse)</li>
+        <li>Évaluer les risques et la gouvernance de l'IA en entreprise</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Les Modules 5 (M365), 7 (PowerShell), 8 (Python) et 9 (Power Automate) nourrissent directement ce module — Copilot s'intègre à tous ces outils. Un abonnement <strong>Microsoft 365 Copilot</strong> ou un accès à <strong>Copilot Studio</strong> (essai gratuit disponible) sera utile pour les labos.</p>
+
+    <!-- ============================================================ SEMAINE 41 ============================================================ -->
+    <div class="week-block" id="s41">
+      <p class="week-tag">SEMAINE 41 · 03/05 – 09/05/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux de l'IA et du Machine Learning</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Distinguer IA, Machine Learning et IA générative</li>
+          <li>Comprendre le principe de fonctionnement d'un modèle de langage (LLM)</li>
+          <li>Utiliser Microsoft Copilot dans M365</li>
+          <li>Comparer différents outils IA (Copilot, ChatGPT, Claude)</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="201,202,203,204,205" data-tracker-week="s41">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="201" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux de l'IA et du Machine Learning</div></div><div class="tracker-row"><button class="check-btn" data-toggle="202" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Découverte des outils IA (Copilot, Claude)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="203" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Prise en main de Microsoft Copilot (M365)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="204" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'un agent conversationnel (Copilot Studio)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="205" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation de rapports avec l'IA générative</div></div>
+      </div>
+
+
+      <h2 class="sec">41.1 — IA, Machine Learning, IA générative : les distinguer</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.ab{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .as{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="20" width="460" height="180" rx="12" fill="#F3F5F8" stroke="#98A2B3"/>
+          <text class="ab" x="35" y="42" fill="#4B5566">Intelligence Artificielle</text>
+          <rect x="45" y="55" width="410" height="130" rx="10" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="ab" x="60" y="77" fill="#2C4362">Machine Learning</text>
+          <text class="as" x="60" y="93">Systèmes qui apprennent à partir de données</text>
+          <rect x="80" y="105" width="340" height="65" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/>
+          <text class="ab" x="95" y="127" fill="#4A3B60">IA générative (LLM)</text>
+          <text class="as" x="95" y="143">Génère du texte, du code, des images —</text>
+          <text class="as" x="95" y="156">Copilot, ChatGPT, Claude</text>
+        </svg>
+        <p class="diagram-caption">Fig. 41.1 — L'IA générative est un sous-ensemble du Machine Learning, lui-même un sous-ensemble de l'IA</p>
+      </div>
+
+      <div class="def">
+        <span class="def-term">LLM (Large Language Model)</span>
+        <p>Modèle entraîné sur d'immenses quantités de texte pour prédire la suite la plus probable d'une séquence de mots — c'est ce mécanisme de prédiction qui, à grande échelle, produit des réponses cohérentes, du code fonctionnel ou des résumés pertinents.</p>
+      </div>
+
+      <h2 class="sec">41.2 — Microsoft Copilot dans l'écosystème M365</h2>
+      <p>Copilot s'intègre directement dans Word, Excel, Outlook, Teams et PowerPoint — il a accès (avec les permissions de l'utilisateur, respectant le RBAC du Module 5) aux données du tenant pour contextualiser ses réponses, contrairement à un chatbot public isolé.</p>
+
+      <h2 class="sec">41.3 — Comparer les outils IA</h2>
+      <table class="eval-tbl">
+        <tr><th>Outil</th><th>Point fort</th></tr>
+        <tr><td>Microsoft Copilot</td><td>Intégration native M365, respect du contexte d'entreprise (RBAC, DLP du Module 5)</td></tr>
+        <tr><td>ChatGPT</td><td>Écosystème de plugins large, très répandu</td></tr>
+        <tr><td>Claude</td><td>Fenêtre de contexte étendue, rigueur sur les tâches longues et l'analyse de documents</td></tr>
+      </table>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Premiers usages de Copilot au cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi tout au long du parcours) a acquis des licences Copilot pour tester son usage professionnel.</p>
+        <p><strong>Premiers cas d'usage identifiés :</strong> résumé automatique de longues chaînes d'emails avant une réunion, génération d'un premier brouillon de rapport client à partir de données Excel, et aide à la rédaction de réponses standardisées — avec une règle claire : toute sortie générée par IA est relue avant envoi, jamais publiée telle quelle.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg></div><h4>Laboratoire guidé 1 — Prise en main de Microsoft Copilot (M365)</h4></div>
+        <div class="lab-meta">Outil : Copilot M365 (tenant du Module 5) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre Copilot dans Word et demande-lui de générer un premier brouillon de document.</li>
+          <li>Teste Copilot dans Outlook pour résumer un fil de discussion.</li>
+          <li>Teste Copilot dans Excel pour analyser un petit jeu de données.</li>
+          <li>Note les différences de qualité selon la clarté de tes instructions (prompts).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h4>Laboratoire guidé 2 — Découverte des outils IA (Copilot, Claude)</h4></div>
+        <div class="lab-meta">Outil : Copilot, Claude (essai gratuit) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Pose la même question technique (ex. "explique le fonctionnement d'un VNet Azure") à deux outils IA différents.</li>
+          <li>Compare la précision, la structure et les éventuelles erreurs des réponses.</li>
+          <li>Teste une tâche d'analyse de document plus longue et compare la gestion du contexte.</li>
+          <li>Documente tes observations sur les forces respectives de chaque outil.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18"/></svg></div><h4>Laboratoire guidé 3 — Analyse de données assistée par IA</h4></div>
+        <div class="lab-meta">Outil : Copilot dans Excel · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Charge un jeu de données simple dans Excel (ex. inventaire du Module 8).</li>
+          <li>Demande à Copilot d'identifier des tendances ou anomalies.</li>
+          <li>Demande la génération d'un graphique de synthèse.</li>
+          <li>Vérifie manuellement l'exactitude des conclusions proposées.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 41</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Copilot fundamentals</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 41</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quelle relation existe entre IA, Machine Learning et IA générative ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w41q1">Ce sont trois domaines complètement séparés</label>
+            <label class="quiz-opt"><input type="radio" name="w41q1">L'IA générative contient le Machine Learning</label>
+            <label class="quiz-opt"><input type="radio" name="w41q1">L'IA générative est un sous-ensemble du Machine Learning, lui-même sous-ensemble de l'IA</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Chaque niveau est inclus dans le précédent, comme illustré en Fig. 41.1.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que fait fondamentalement un LLM ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w41q2">Il prédit la suite la plus probable d'une séquence de texte</label>
+            <label class="quiz-opt"><input type="radio" name="w41q2">Il recherche dans une base de données préexistante</label>
+            <label class="quiz-opt"><input type="radio" name="w41q2">Il exécute des règles fixes programmées manuellement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La prédiction statistique de texte est le mécanisme fondamental des LLM.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Pourquoi Copilot M365 diffère-t-il d'un chatbot IA public isolé ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w41q3">Il est gratuit contrairement aux autres</label>
+            <label class="quiz-opt"><input type="radio" name="w41q3">Il accède aux données du tenant avec les permissions de l'utilisateur</label>
+            <label class="quiz-opt"><input type="radio" name="w41q3">Il ne fonctionne que hors ligne</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'intégration au contexte M365 (données, RBAC) distingue Copilot d'un assistant IA généraliste isolé.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, quelle règle encadre l'usage de Copilot ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w41q4">Aucune sortie IA n'est jamais utilisée</label>
+            <label class="quiz-opt"><input type="radio" name="w41q4">Toute sortie générée est relue avant envoi, jamais publiée telle quelle</label>
+            <label class="quiz-opt"><input type="radio" name="w41q4">Seule la direction peut utiliser Copilot</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La relecture humaine systématique reste une bonne pratique essentielle avec l'IA générative.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 41</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>IA/ML/IA générative, fonctionnement des LLM</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s41">0</span>/25<div class="auto-note">calcul auto</div></td><td>Copilot testé dans plusieurs applications M365</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Comparatif d'outils IA documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 42 ============================================================ -->
+    <div class="week-block" id="s42">
+      <p class="week-tag">SEMAINE 42 · 10/05 – 16/05/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Microsoft Copilot (M365 Copilot, Copilot Studio)</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Créer un agent conversationnel avec Copilot Studio</li>
+          <li>Intégrer Copilot avec Power Automate</li>
+          <li>Pratiquer le prompt engineering pour des cas d'usage IT</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="206,207,208,209,210" data-tracker-week="s42">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="206" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Microsoft Copilot (M365 Copilot, Copilot Studio)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="207" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création d'un agent Copilot Studio</div></div><div class="tracker-row"><button class="check-btn" data-toggle="208" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Utilisation de l'IA pour la génération de scripts</div></div><div class="tracker-row"><button class="check-btn" data-toggle="209" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de données assistée par IA</div></div><div class="tracker-row"><button class="check-btn" data-toggle="210" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Intégration Copilot + Power Automate</div></div>
+      </div>
+
+
+      <h2 class="sec">42.1 — Copilot Studio : créer un agent conversationnel</h2>
+      <div class="def">
+        <span class="def-term">Copilot Studio</span>
+        <p>Outil low-code (dans la lignée du Module 9) permettant de créer des agents conversationnels personnalisés — répondant aux questions fréquentes, déclenchant des actions (via connecteurs Power Automate), sans écrire de code d'IA.</p>
+      </div>
+      <p>Un agent se construit autour de <strong>sujets</strong> (thèmes de conversation), chacun avec des <strong>déclencheurs</strong> (phrases types de l'utilisateur) et des <strong>actions</strong> (réponse, appel de flux, escalade vers un humain).</p>
+
+      <h2 class="sec">42.2 — Intégration Copilot + Power Automate</h2>
+      <p>Un agent Copilot Studio peut appeler un flux Power Automate en arrière-plan — par exemple, un employé demande "quel est le statut de ma demande de congés ?" et l'agent interroge la liste SharePoint (via un flux du Module 9) pour répondre en temps réel, sans intervention humaine.</p>
+
+      <h2 class="sec">42.3 — Prompt engineering pour l'IT</h2>
+      <p>La qualité d'une réponse IA dépend directement de la qualité de l'instruction (prompt). Quelques principes utiles pour des cas d'usage IT :</p>
+      <ul class="std">
+        <li><strong>Contexte explicite</strong> — préciser l'environnement (ex. "pour un script PowerShell ciblant Windows Server 2022")</li>
+        <li><strong>Format attendu</strong> — demander explicitement un tableau, une liste, du code commenté</li>
+        <li><strong>Contraintes</strong> — préciser les limites (ex. "sans dépendance externe", "compatible PowerShell 5.1")</li>
+        <li><strong>Itération</strong> — affiner par des demandes de suivi plutôt que tout attendre d'un seul prompt</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Agent Copilot Studio pour les demandes du personnel</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie tout au long du parcours) reçoit de nombreuses questions répétitives du personnel sur les procédures internes (horaires, congés, accès aux outils).</p>
+        <p><strong>Solution retenue :</strong> un agent Copilot Studio intégré à Teams, capable de répondre aux questions fréquentes à partir de la documentation interne (SharePoint du Module 5), d'interroger le statut d'une demande de congés via un flux Power Automate, et d'escalader vers les RH pour les questions plus complexes qu'il ne sait pas traiter.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h4>Laboratoire guidé — Création d'un agent conversationnel (Copilot Studio)</h4></div>
+        <div class="lab-meta">Outil : Copilot Studio (essai gratuit) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Crée un nouvel agent dans Copilot Studio.</li>
+          <li>Ajoute un sujet répondant à une question fréquente (ex. horaires d'ouverture).</li>
+          <li>Connecte une source de connaissances (document SharePoint ou site web).</li>
+          <li>Teste l'agent dans le panneau de test intégré.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg></div><h4>Laboratoire guidé — Intégration Copilot + Power Automate</h4></div>
+        <div class="lab-meta">Outil : Copilot Studio + Power Automate (Module 9) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ajoute un sujet qui appelle un flux Power Automate existant du Module 9.</li>
+          <li>Configure les entrées transmises au flux depuis la conversation.</li>
+          <li>Teste que l'agent restitue correctement le résultat du flux dans sa réponse.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg></div><h4>Laboratoire guidé — Prompt engineering pour cas d'usage IT</h4></div>
+        <div class="lab-meta">Outil : Copilot ou Claude · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Demande un script sans contexte précis, observe le résultat générique.</li>
+          <li>Reformule avec contexte, format et contraintes explicites.</li>
+          <li>Compare la pertinence des deux réponses.</li>
+          <li>Documente 3 principes de prompt engineering que tu retiens.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 42</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=copilot%20studio" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Copilot Studio</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 42</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que regroupe un "sujet" dans Copilot Studio ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w42q1">Uniquement une réponse texte fixe</label>
+            <label class="quiz-opt"><input type="radio" name="w42q1">Un thème de conversation avec déclencheurs et actions</label>
+            <label class="quiz-opt"><input type="radio" name="w42q1">Un utilisateur autorisé</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un sujet structure une conversation autour d'un thème précis avec sa propre logique.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Comment un agent Copilot Studio peut-il interroger une donnée en temps réel ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w42q2">En appelant un flux Power Automate</label>
+            <label class="quiz-opt"><input type="radio" name="w42q2">Ce n'est pas possible</label>
+            <label class="quiz-opt"><input type="radio" name="w42q2">Uniquement via Python</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'intégration avec Power Automate permet à l'agent d'interroger des systèmes externes en direct.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Quel élément améliore le plus la qualité d'une réponse IA à une demande technique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w42q3">La longueur du prompt uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w42q3">L'heure de la journée</label>
+            <label class="quiz-opt"><input type="radio" name="w42q3">Le contexte, le format attendu et les contraintes explicites</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un prompt précis et structuré donne des réponses bien plus pertinentes qu'une demande vague.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, que fait l'agent face à une question trop complexe ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w42q4">Il invente une réponse</label>
+            <label class="quiz-opt"><input type="radio" name="w42q4">Il escalade vers les RH</label>
+            <label class="quiz-opt"><input type="radio" name="w42q4">Il ignore la question</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'escalade vers un humain pour les cas hors périmètre est une bonne pratique de conception d'agent.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 42</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Copilot Studio, prompt engineering</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s42">0</span>/25<div class="auto-note">calcul auto</div></td><td>Agent créé et intégré à un flux Power Automate</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Agent conversationnel documenté pour un cas d'usage</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 43 ============================================================ -->
+    <div class="week-block" id="s43">
+      <p class="week-tag">SEMAINE 43 · 17/05 – 23/05/2027</p>
+      <h2 class="week-title" style="font-size:22px;">IA générative appliquée à l'IT</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Utiliser l'IA pour générer et déboguer des scripts</li>
+          <li>Automatiser des rapports avec l'IA générative</li>
+          <li>Comprendre les concepts de base de la détection d'anomalies par IA</li>
+          <li>Construire un chatbot de support IT basique</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="211,212,213,214,215" data-tracker-week="s43">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="211" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>IA générative appliquée à l'IT</div></div><div class="tracker-row"><button class="check-btn" data-toggle="212" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Automatisation de tâches IT avec l'IA</div></div><div class="tracker-row"><button class="check-btn" data-toggle="213" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Prompt engineering pour cas d'usage IT</div></div><div class="tracker-row"><button class="check-btn" data-toggle="214" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Détection d'anomalies avec l'IA (concepts)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="215" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Chatbot de support IT basique</div></div>
+      </div>
+
+
+      <h2 class="sec">43.1 — Génération et débogage de scripts</h2>
+      <p>L'IA générative accélère l'écriture de scripts PowerShell (Module 7) ou Python (Module 8) — mais ne remplace jamais la compréhension : chaque script généré doit être <strong>lu, compris et testé</strong> avant exécution en production. L'IA excelle particulièrement pour expliquer une erreur ou proposer une première ébauche à affiner.</p>
+
+      <h2 class="sec">43.2 — Automatisation de rapports avec l'IA</h2>
+      <p>Combiné à Power Automate (Module 9) ou un script Python (Module 8), un appel à un modèle IA peut résumer automatiquement un ensemble de données brutes en synthèse lisible — utile pour transformer les logs techniques du Module 10 en rapport compréhensible par une direction non technique.</p>
+
+      <h2 class="sec">43.3 — Détection d'anomalies (concepts)</h2>
+      <div class="def">
+        <span class="def-term">Détection d'anomalies par IA</span>
+        <p>Les modèles de Machine Learning peuvent apprendre un comportement "normal" (trafic réseau, charge CPU) et signaler automatiquement les écarts significatifs — une extension moderne des alertes à seuil fixe vues avec Azure Monitor (Module 6), capable de détecter des schémas plus subtils qu'un simple dépassement de valeur.</p>
+      </div>
+
+      <h2 class="sec">43.4 — Chatbot de support IT</h2>
+      <p>En combinant Copilot Studio (semaine 42) et une base de connaissance (documentation interne, tickets résolus), on peut construire un premier niveau de support IT automatisé qui répond aux questions courantes (mot de passe oublié, imprimante hors ligne) avant escalade vers un technicien humain.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Synthèse automatisée des logs de production par IA</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie tout au long du parcours) génère des milliers de lignes de logs quotidiens depuis ses systèmes de supervision — illisibles pour la direction sans effort d'analyse technique.</p>
+        <p><strong>Solution retenue :</strong> un script Python (Module 8) collecte les logs, puis un appel à un modèle IA générative produit une synthèse quotidienne en langage clair ("3 arrêts machine mineurs, aucun incident critique, tendance de température stable"), envoyée automatiquement via Power Automate (Module 9) — combinant les trois derniers modules du parcours.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg></div><h4>Laboratoire guidé — Utilisation de l'IA pour la génération de scripts</h4></div>
+        <div class="lab-meta">Outil : Copilot ou Claude · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Demande à l'IA de générer un script PowerShell reprenant une tâche du Module 7.</li>
+          <li>Relis attentivement le script généré avant toute exécution.</li>
+          <li>Teste-le dans un environnement contrôlé, jamais directement en production.</li>
+          <li>Documente une erreur ou approximation que tu as dû corriger.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div><h4>Laboratoire guidé — Détection d'anomalies avec l'IA (concepts)</h4></div>
+        <div class="lab-meta">Outil : réflexion + documentation (labo conceptuel) · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Reprends un scénario de surveillance du Module 6 (Azure Monitor à seuil fixe).</li>
+          <li>Décris comment une détection d'anomalies par IA pourrait détecter un problème que le seuil fixe manquerait.</li>
+          <li>Identifie les risques de faux positifs d'une telle approche.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h4>Laboratoire guidé — Chatbot de support IT basique</h4></div>
+        <div class="lab-meta">Outil : Copilot Studio · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ajoute 3-4 sujets de support IT courant à ton agent de la semaine 42 (mot de passe, accès, imprimante).</li>
+          <li>Configure une escalade claire vers un humain si l'agent ne sait pas répondre.</li>
+          <li>Teste plusieurs formulations de la même question pour vérifier la robustesse.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 43</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=generative%20ai" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Generative AI for IT</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 43</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi toujours relire un script généré par IA avant de l'exécuter ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w43q1">L'IA ne génère jamais d'erreur</label>
+            <label class="quiz-opt"><input type="radio" name="w43q1">L'IA peut se tromper ou mal interpréter le contexte</label>
+            <label class="quiz-opt"><input type="radio" name="w43q1">C'est juste une formalité sans importance</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'IA générative peut produire du code plausible mais incorrect — la vérification humaine reste indispensable.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel avantage la détection d'anomalies par IA a-t-elle sur une alerte à seuil fixe ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w43q2">Elle est toujours gratuite</label>
+            <label class="quiz-opt"><input type="radio" name="w43q2">Elle ne génère jamais de faux positif</label>
+            <label class="quiz-opt"><input type="radio" name="w43q2">Elle détecte des schémas plus subtils qu'un simple dépassement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'IA peut apprendre un comportement "normal" complexe, au-delà d'un simple seuil numérique.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel est le rôle de l'escalade humaine dans un chatbot de support IT ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w43q3">Prendre le relais quand l'agent ne sait pas répondre</label>
+            <label class="quiz-opt"><input type="radio" name="w43q3">Remplacer entièrement l'agent</label>
+            <label class="quiz-opt"><input type="radio" name="w43q3">Vérifier chaque conversation avant qu'elle ait lieu</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'escalade garantit qu'aucune question complexe ne reste sans réponse adéquate.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas usine, combien de modules précédents combine la solution de synthèse de logs ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w43q4">1</label>
+            <label class="quiz-opt"><input type="radio" name="w43q4">3 (Python, Power Automate, IA générative)</label>
+            <label class="quiz-opt"><input type="radio" name="w43q4">Aucun, c'est un module isolé</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La solution illustre comment les compétences du parcours se combinent en pratique, pas en silos isolés.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 43</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Génération de scripts, détection d'anomalies, chatbot</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s43">0</span>/25<div class="auto-note">calcul auto</div></td><td>Script IA relu/testé, chatbot support fonctionnel</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Cas d'usage IA appliqué à un scénario IT documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 44 ============================================================ -->
+    <div class="week-block" id="s44">
+      <p class="week-tag">SEMAINE 44 · 24/05 – 30/05/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Éthique, gouvernance et sécurité de l'IA</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Évaluer les risques liés à l'IA générative en entreprise</li>
+          <li>Analyser un cas de gouvernance des données et de l'IA</li>
+          <li>Livrer un mini-projet d'assistant IA complet</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="216,217,218,219,220" data-tracker-week="s44">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="216" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Éthique, gouvernance et sécurité de l'IA</div></div><div class="tracker-row"><button class="check-btn" data-toggle="217" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Étude de cas : gouvernance IA en entreprise</div></div><div class="tracker-row"><button class="check-btn" data-toggle="218" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Évaluation des risques liés à l'IA générative</div></div><div class="tracker-row"><button class="check-btn" data-toggle="219" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Étude de cas : gouvernance des données et IA</div></div><div class="tracker-row"><button class="check-btn" data-toggle="220" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mini-projet : assistant IA pour tâches admin.</div></div>
+      </div>
+
+
+      <h2 class="sec">44.1 — Risques de l'IA générative en entreprise</h2>
+      <ul class="std">
+        <li><strong>Hallucination</strong> — l'IA peut générer une information plausible mais fausse, avec la même confiance apparente qu'une information exacte</li>
+        <li><strong>Fuite de données</strong> — envoyer des données confidentielles à un outil IA public non contractualisé viole potentiellement la confidentialité (retour au Module 5, DLP)</li>
+        <li><strong>Biais</strong> — un modèle reflète les biais présents dans ses données d'entraînement</li>
+        <li><strong>Dépendance excessive</strong> — accepter une sortie IA sans esprit critique</li>
+      </ul>
+
+      <h2 class="sec">44.2 — Gouvernance des données et de l'IA</h2>
+      <p>Une politique de gouvernance IA en entreprise définit typiquement : quels outils IA sont autorisés, quelles données peuvent (ou non) leur être soumises, qui est responsable de la vérification des sorties, et comment sont tracés les usages — un prolongement direct des politiques de conformité vues au Module 5 (Purview) et au Module 10 (SC-900).</p>
+
+      <div class="def">
+        <span class="def-term">Principe de responsabilité humaine</span>
+        <p>Quelle que soit la sophistication d'un outil IA, la responsabilité finale d'une décision ou d'une action reste humaine — l'IA assiste, elle ne décide pas seule dans un contexte professionnel engageant.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique</span>
+        <h4>Charte d'usage de l'IA générative pour la mairie</h4>
+        <p><strong>Contexte :</strong> La mairie (suivie tout au long du parcours) souhaite encadrer l'usage de l'IA générative par ses agents, notamment pour éviter que des données citoyennes sensibles (Module 10, RGPD) ne soient transmises à des outils IA publics non contractualisés.</p>
+        <p><strong>Charte mise en place :</strong> seul Copilot M365 (intégré au tenant, sous contrat de traitement des données) est autorisé pour tout traitement impliquant des données citoyennes ; les outils IA publics grand public restent réservés à des tâches génériques sans donnée sensible ; toute sortie IA utilisée dans un document officiel doit être relue et validée par un agent responsable, nommément identifié.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z"/></svg></div><h4>Laboratoire guidé — Évaluation des risques liés à l'IA générative</h4></div>
+        <div class="lab-meta">Outil : grille d'évaluation (document) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Liste 3 cas d'usage IA envisageables dans une organisation de ton choix.</li>
+          <li>Pour chacun, évalue le risque d'hallucination et de fuite de données.</li>
+          <li>Propose une mesure de mitigation pour chaque risque identifié.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Laboratoire guidé — Étude de cas : gouvernance des données et IA</h4></div>
+        <div class="lab-meta">Outil : document + Purview (Module 5) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Rédige une charte d'usage IA simplifiée pour une organisation.</li>
+          <li>Précise quels outils sont autorisés pour quels types de données.</li>
+          <li>Relie ta charte aux mécanismes DLP du Module 5 (comment les appliquer techniquement).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Mini-projet : assistant IA pour tâches administratives</h4></div>
+        <div class="lab-meta">Outil : Copilot Studio + Power Automate (toutes les briques du module) · Durée : 60 min</div>
+        <ol class="lab-steps">
+          <li>Assemble un agent complet : sujets multiples, connexion à une source de données, intégration Power Automate.</li>
+          <li>Ajoute une gestion claire de l'escalade humaine.</li>
+          <li>Applique les principes de gouvernance définis dans les labos précédents.</li>
+          <li>Documente ton assistant pour ton portfolio, avec sa charte d'usage.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 44</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=responsible%20ai" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Responsible AI</div><div class="res-sub">Parcours officiel gratuit sur la gouvernance IA</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 44</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Que désigne une "hallucination" en IA générative ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w44q1">Une information plausible mais fausse générée avec confiance</label>
+            <label class="quiz-opt"><input type="radio" name="w44q1">Un bug d'affichage</label>
+            <label class="quiz-opt"><input type="radio" name="w44q1">Une panne du serveur IA</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'IA peut inventer des faits sans le signaler comme incertain — d'où l'importance de la vérification humaine.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Pourquoi éviter de soumettre des données confidentielles à un outil IA public non contractualisé ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w44q1b">Ça ralentit la réponse</label>
+            <label class="quiz-opt"><input type="radio" name="w44q1b">L'IA refuse automatiquement</label>
+            <label class="quiz-opt"><input type="radio" name="w44q1b">Risque de fuite de confidentialité, sans garantie contractuelle de traitement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans contrat de traitement des données, la confidentialité des informations soumises n'est pas garantie.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Selon le principe de responsabilité humaine, qui reste responsable d'une décision assistée par IA ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w44q3">L'IA elle-même</label>
+            <label class="quiz-opt"><input type="radio" name="w44q3">L'humain qui utilise et valide la sortie</label>
+            <label class="quiz-opt"><input type="radio" name="w44q3">Personne, la responsabilité est diluée</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'IA assiste la décision mais la responsabilité finale reste humaine en contexte professionnel.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">4. Dans l'étude de cas de la mairie, pourquoi limiter l'usage à Copilot M365 pour les données citoyennes ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w44q4">Il est sous contrat de traitement des données du tenant</label>
+            <label class="quiz-opt"><input type="radio" name="w44q4">C'est le seul outil IA qui existe</label>
+            <label class="quiz-opt"><input type="radio" name="w44q4">C'est gratuit</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le cadre contractuel du tenant M365 offre des garanties que les outils publics génériques n'offrent pas.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 44</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Risques IA, gouvernance, responsabilité humaine</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s44">0</span>/25<div class="auto-note">calcul auto</div></td><td>Évaluation de risques, charte et mini-projet livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Assistant IA complet avec charte de gouvernance</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu clôtures ici les 11 modules techniques du parcours en sachant utiliser l'IA générative de façon productive et responsable : Copilot au quotidien, agents conversationnels, automatisation intelligente, et conscience claire des risques et de la gouvernance. Il te reste maintenant à assembler toutes ces compétences dans ton Projet Final.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Assistant IA pour tâches administratives</em> — livre ton agent Copilot Studio complet, intégré à un flux Power Automate, avec sa charte de gouvernance documentée.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-10-cybersecurite.html"><div class="lbl">Module précédent</div><div class="ttl">10 · Cybersécurité</div></a>
+      <a class="next" style="opacity:.5;pointer-events:none;"><div class="lbl">Prochain module</div><div class="ttl">12 · Projet Final (à venir)</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="IA & Copilot">[{"id": 201, "type": "Cours", "week": 41, "title": "Fondamentaux de l'IA et du Machine Learning"}, {"id": 202, "type": "TP", "week": 41, "title": "Découverte des outils IA (Copilot, Claude)"}, {"id": 203, "type": "Labo", "week": 41, "title": "Prise en main de Microsoft Copilot (M365)"}, {"id": 204, "type": "Labo", "week": 41, "title": "Création d'un agent conversationnel (Copilot Studio)"}, {"id": 205, "type": "Labo", "week": 41, "title": "Automatisation de rapports avec l'IA générative"}, {"id": 206, "type": "Cours", "week": 42, "title": "Microsoft Copilot (M365 Copilot, Copilot Studio)"}, {"id": 207, "type": "TP", "week": 42, "title": "Création d'un agent Copilot Studio"}, {"id": 208, "type": "Labo", "week": 42, "title": "Utilisation de l'IA pour la génération de scripts"}, {"id": 209, "type": "Labo", "week": 42, "title": "Analyse de données assistée par IA"}, {"id": 210, "type": "Labo", "week": 42, "title": "Intégration Copilot + Power Automate"}, {"id": 211, "type": "Cours", "week": 43, "title": "IA générative appliquée à l'IT"}, {"id": 212, "type": "TP", "week": 43, "title": "Automatisation de tâches IT avec l'IA"}, {"id": 213, "type": "Labo", "week": 43, "title": "Prompt engineering pour cas d'usage IT"}, {"id": 214, "type": "Labo", "week": 43, "title": "Détection d'anomalies avec l'IA (concepts)"}, {"id": 215, "type": "Labo", "week": 43, "title": "Chatbot de support IT basique"}, {"id": 216, "type": "Cours", "week": 44, "title": "Éthique, gouvernance et sécurité de l'IA"}, {"id": 217, "type": "TP", "week": 44, "title": "Étude de cas : gouvernance IA en entreprise"}, {"id": 218, "type": "Labo", "week": 44, "title": "Évaluation des risques liés à l'IA générative"}, {"id": 219, "type": "Labo", "week": 44, "title": "Étude de cas : gouvernance des données et IA"}, {"id": 220, "type": "Labo", "week": 44, "title": "Mini-projet : assistant IA pour tâches admin."}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

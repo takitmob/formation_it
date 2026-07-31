@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 10 · Cybersécurité — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+    <a class="side-link" href="module-08-python.html">08 · Python</a>
+    <a class="side-link" href="module-09-power-automate.html">09 · Power Automate</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 10 — Cybersécurité</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s37" data-week-ids="181,182,183,184,185">Semaine 37 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s38" data-week-ids="186,187,188,189,190">Semaine 38 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s39" data-week-ids="191,192,193,194,195">Semaine 39 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s40" data-week-ids="196,197,198,199,200">Semaine 40 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-11-ia-copilot.html">11 · IA &amp; Copilot →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 10 · Cybersécurité</div><div class="topbar-sub">Semaines 37–40</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 10 / 13</p>
+    <h1 class="week-title">Cybersécurité</h1>
+    <p class="week-dates">05 avril 2027 → 02 mai 2027 · Semaines 37–40 · 52 h prévues</p>
+
+    <p class="lead">Ce module rassemble et approfondit tout ce que tu as vu de façon transversale dans les 9 modules précédents (pare-feu, MFA, ACL, DLP, accès conditionnel) en une discipline structurée. C'est la préparation directe de la certification <strong>SC-900</strong>.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Appliquer les principes fondamentaux de sécurité (triade CIA, surface d'attaque)</li>
+        <li>Sécuriser un périmètre réseau avec pare-feu et IDS/IPS</li>
+        <li>Mettre en œuvre une architecture Zero Trust</li>
+        <li>Détecter et analyser des incidents de sécurité</li>
+        <li>Élaborer un plan de réponse aux incidents et un audit de conformité</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Tous les modules précédents nourrissent celui-ci, en particulier les Modules 1 (réseaux/pare-feu), 5 (MFA/accès conditionnel/DLP) et 6 (RBAC/NSG). Ce module est <strong>défensif et pédagogique</strong> : tous les labos s'exécutent dans des environnements isolés que tu contrôles, jamais sur des systèmes tiers sans autorisation.</p>
+
+    <!-- ============================================================ SEMAINE 37 ============================================================ -->
+    <div class="week-block" id="s37">
+      <p class="week-tag">SEMAINE 37 · 05/04 – 11/04/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Fondamentaux cybersécurité — CIA, menaces</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer la triade CIA (Confidentialité, Intégrité, Disponibilité)</li>
+          <li>Catégoriser les principaux types de menaces</li>
+          <li>Analyser des vulnérabilités avec un scanner</li>
+          <li>Mettre en place un IDS/IPS de base</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="181,182,183,184,185" data-tracker-week="s37">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="181" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Fondamentaux cybersécurité (CIA, menaces)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="182" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Analyse de vulnérabilités de base</div></div><div class="tracker-row"><button class="check-btn" data-toggle="183" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de vulnérabilités avec un scanner</div></div><div class="tracker-row"><button class="check-btn" data-toggle="184" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration d'un pare-feu Windows avancé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="185" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mise en place d'un IDS/IPS (Snort/Suricata)</div></div>
+      </div>
+
+
+      <h2 class="sec">37.1 — La triade CIA</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.cb{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .cs{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <circle cx="180" cy="90" r="70" fill="#E7F3EC" stroke="#3F8F5F" opacity="0.7"/>
+          <circle cx="320" cy="90" r="70" fill="#FBF1DA" stroke="#B07C00" opacity="0.7"/>
+          <circle cx="250" cy="180" r="70" fill="#E6F1F2" stroke="#3E8188" opacity="0.7"/>
+          <text class="cb" x="130" y="70" fill="#2C6B44">Confidentialité</text>
+          <text class="cs" x="120" y="88">Seuls les autorisés accèdent</text>
+          <text class="cb" x="280" y="70" fill="#8B5E00">Intégrité</text>
+          <text class="cs" x="270" y="88">Données non altérées</text>
+          <text class="cb" x="210" y="195" fill="#264D52">Disponibilité</text>
+          <text class="cs" x="195" y="210">Accessible quand nécessaire</text>
+        </svg>
+        <p class="diagram-caption">Fig. 37.1 — La triade CIA : les trois piliers de toute décision de sécurité</p>
+      </div>
+
+      <p>Chaque contrôle de sécurité vise à protéger un ou plusieurs de ces trois piliers. Le chiffrement (Module 6, BitLocker) protège la <strong>confidentialité</strong>. Une signature numérique protège l'<strong>intégrité</strong>. Un cluster de basculement (Module 4) protège la <strong>disponibilité</strong>. Comprendre quel pilier un incident menace aide à prioriser la réponse.</p>
+
+      <h2 class="sec">37.2 — Catégories de menaces</h2>
+      <ul class="std">
+        <li><strong>Malware</strong> — virus, ransomware, chevaux de Troie</li>
+        <li><strong>Ingénierie sociale</strong> — phishing, prétexting, exploitation de la confiance humaine plutôt que technique</li>
+        <li><strong>Attaques réseau</strong> — déni de service (DoS/DDoS), interception (Man-in-the-Middle)</li>
+        <li><strong>Menace interne</strong> — employé malveillant ou négligent, souvent sous-estimée</li>
+      </ul>
+
+      <h2 class="sec">37.3 — Surface d'attaque et vulnérabilités</h2>
+      <div class="def">
+        <span class="def-term">Surface d'attaque</span>
+        <p>Ensemble des points d'entrée exploitables d'un système (ports ouverts, comptes, applications exposées). Réduire la surface d'attaque — désactiver un service inutile, fermer un port non utilisé — est souvent plus efficace qu'ajouter une couche de protection supplémentaire.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Premier audit de vulnérabilités du cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis les Modules 1, 2, 3, 6, 7, 8 et 9) n'a jamais fait auditer son infrastructure depuis sa mise en place.</p>
+        <p><strong>Constat du premier scan :</strong> un port RDP exposé directement sur Internet (menace critique — cible fréquente de brute-force), le service DHCP du Module 2 encore accessible depuis le réseau invité, et plusieurs comptes de service avec des mots de passe qui n'ont jamais expiré. Chaque point est priorisé selon son impact potentiel sur la triade CIA avant correction.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div><h4>Laboratoire guidé 1 — Analyse de vulnérabilités avec un scanner</h4></div>
+        <div class="lab-meta">Outil : Nmap (gratuit) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Installe Nmap sur ta machine.</li>
+          <li>Scanne ta propre VM de test (jamais un système que tu ne contrôles pas) : <code>nmap -sV 192.168.1.X</code>.</li>
+          <li>Identifie les ports ouverts et les services associés.</li>
+          <li>Compare avec ce que tu attends réellement d'être ouvert — signale toute surprise.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div><h4>Laboratoire guidé 2 — Configuration d'un pare-feu Windows avancé</h4></div>
+        <div class="lab-meta">Outil : Pare-feu Windows Defender (VM du Module 2) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre le Pare-feu Windows Defender avec fonctions avancées de sécurité.</li>
+          <li>Crée une règle entrante bloquant explicitement le port RDP depuis l'extérieur du réseau local.</li>
+          <li>Vérifie l'ordre d'évaluation des règles (blocage prioritaire sur autorisation).</li>
+          <li>Teste la connectivité depuis une IP autorisée puis non autorisée.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Laboratoire guidé 3 — Mise en place d'un IDS/IPS (Snort/Suricata)</h4></div>
+        <div class="lab-meta">Outil : Suricata (gratuit, VM Linux du Module 3) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Installe Suricata sur ta VM Linux : <code>sudo apt install suricata</code>.</li>
+          <li>Active les règles de détection par défaut.</li>
+          <li>Génère un trafic suspect de test (scan de ports depuis une autre VM).</li>
+          <li>Consulte les alertes générées dans les logs Suricata.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 37</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — SC-900 Fundamentals</div><div class="res-sub">Parcours officiel gratuit de préparation à la certification</div></div>
+        </a>
+        <a class="res-item" href="https://skillsforall.com/catalog" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">Cisco Skills for All — Introduction to Cybersecurity</div><div class="res-sub">Cours gratuit complet</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 37</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que protège le chiffrement dans la triade CIA ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w37q1">La disponibilité</label>
+            <label class="quiz-opt"><input type="radio" name="w37q1">La confidentialité</label>
+            <label class="quiz-opt"><input type="radio" name="w37q1">L'intégrité uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le chiffrement empêche la lecture des données par des personnes non autorisées — pilier confidentialité.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Que désigne le "phishing" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w37q2">Une attaque par déni de service</label>
+            <label class="quiz-opt"><input type="radio" name="w37q2">Un virus informatique</label>
+            <label class="quiz-opt"><input type="radio" name="w37q2">Une technique d'ingénierie sociale par email</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le phishing exploite la confiance humaine plutôt qu'une faille technique.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Pourquoi réduire la surface d'attaque est souvent plus efficace qu'ajouter une protection ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w37q3">Moins de points d'entrée = moins de risques à surveiller</label>
+            <label class="quiz-opt"><input type="radio" name="w37q3">C'est moins cher</label>
+            <label class="quiz-opt"><input type="radio" name="w37q3">Ce n'est pas vraiment plus efficace</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Supprimer un point d'entrée élimine le risque à sa source, plutôt que de le gérer indéfiniment.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet, pourquoi le port RDP exposé sur Internet est-il critique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w37q4">RDP est un protocole obsolète</label>
+            <label class="quiz-opt"><input type="radio" name="w37q4">C'est une cible fréquente d'attaques par brute-force</label>
+            <label class="quiz-opt"><input type="radio" name="w37q4">RDP consomme trop de bande passante</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">RDP exposé directement est une des cibles les plus scannées et attaquées sur Internet.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 37</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Triade CIA, catégories de menaces, surface d'attaque</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s37">0</span>/25<div class="auto-note">calcul auto</div></td><td>Scan, pare-feu et IDS/IPS fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Rapport d'audit de vulnérabilités priorisé</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 38 ============================================================ -->
+    <div class="week-block" id="s38">
+      <p class="week-tag">SEMAINE 38 · 12/04 – 18/04/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Sécurité réseau et périmétrique — IDS/IPS</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Différencier IDS et IPS</li>
+          <li>Durcir un système selon les CIS Benchmarks</li>
+          <li>Sensibiliser via une simulation de phishing</li>
+          <li>Configurer une authentification multifacteur robuste</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="186,187,188,189,190" data-tracker-week="s38">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="186" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Sécurité réseau et périmétrique (IDS/IPS)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="187" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Configuration d'un pare-feu et règles de sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="188" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Durcissement d'un système (CIS Benchmarks)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="189" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Simulation de phishing et sensibilisation</div></div><div class="tracker-row"><button class="check-btn" data-toggle="190" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Configuration de l'authentification multifacteur</div></div>
+      </div>
+
+
+      <h2 class="sec">38.1 — IDS vs IPS</h2>
+      <table class="eval-tbl">
+        <tr><th></th><th>IDS (Détection)</th><th>IPS (Prévention)</th></tr>
+        <tr><td>Action</td><td>Détecte et alerte</td><td>Détecte et bloque automatiquement</td></tr>
+        <tr><td>Position</td><td>En dérivation (hors chemin du trafic)</td><td>En ligne (dans le chemin du trafic)</td></tr>
+        <tr><td>Risque</td><td>Aucun faux positif bloquant</td><td>Un faux positif peut bloquer du trafic légitime</td></tr>
+      </table>
+      <p>Le choix entre IDS et IPS dépend de la tolérance au risque : un IPS mal réglé peut bloquer du trafic métier légitime (faux positif), tandis qu'un IDS se contente d'alerter sans agir — un compromis classique entre sécurité et disponibilité (retour à la triade CIA).</p>
+
+      <h2 class="sec">38.2 — Durcissement système (CIS Benchmarks)</h2>
+      <div class="def">
+        <span class="def-term">CIS Benchmarks</span>
+        <p>Guides de configuration sécurisée gratuits, maintenus par le Center for Internet Security, disponibles pour Windows, Linux, Azure et la plupart des technologies courantes — le prolongement naturel de la Security Baseline vue au Module 2.</p>
+      </div>
+
+      <h2 class="sec">38.3 — Sensibilisation au phishing</h2>
+      <p>La technologie seule ne suffit jamais : une <strong>campagne de simulation de phishing</strong> (envoi d'emails de test inoffensifs imitant une attaque réelle) mesure et améliore la vigilance des utilisateurs, souvent le maillon le plus exposé de la chaîne de sécurité.</p>
+
+      <h2 class="sec">38.4 — MFA robuste</h2>
+      <p>Retour approfondi sur le MFA vu au Module 5 : toutes les méthodes ne se valent pas. Un code SMS est vulnérable au SIM swapping ; une application d'authentification (TOTP) est plus robuste ; une clé de sécurité physique (FIDO2) offre la meilleure protection contre le phishing, car elle vérifie cryptographiquement le domaine du site.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Campagne de sensibilisation après une tentative de phishing réelle</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2, 4, 5, 6, 7 et 9) a été ciblée par un email de phishing imitant une facture fournisseur, cliqué par un employé de la réception.</p>
+        <p><strong>Réponse mise en place :</strong> une campagne de simulation de phishing mensuelle pour mesurer et améliorer la vigilance, combinée à un renforcement du MFA (passage de SMS à application TOTP pour tout le personnel administratif), et un IDS surveillant désormais le trafic sortant vers des domaines nouvellement enregistrés (indicateur fréquent de campagnes de phishing actives).</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Laboratoire guidé — Durcissement d'un système (CIS Benchmarks)</h4></div>
+        <div class="lab-meta">Outil : CIS Benchmarks (gratuit) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Télécharge le CIS Benchmark correspondant à ta VM Linux ou Windows.</li>
+          <li>Applique 3-5 recommandations concrètes (désactivation de service inutile, durcissement de configuration).</li>
+          <li>Documente chaque changement et son impact potentiel.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg></div><h4>Laboratoire guidé — Simulation de phishing et sensibilisation</h4></div>
+        <div class="lab-meta">Outil : Microsoft Defender (Attack Simulator, tenant du Module 5) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre le simulateur d'attaques dans le portail de sécurité Microsoft Defender.</li>
+          <li>Crée une campagne de simulation de phishing pour des utilisateurs de test.</li>
+          <li>Consulte le rapport de résultats (taux de clic, de signalement).</li>
+          <li>Propose un plan de formation ciblé selon les résultats.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h4>Laboratoire guidé — Configuration de l'authentification multifacteur robuste</h4></div>
+        <div class="lab-meta">Outil : Entra ID (Module 5) · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Compare les méthodes MFA disponibles dans ton tenant de test.</li>
+          <li>Désactive la méthode SMS comme option principale pour les comptes à privilèges.</li>
+          <li>Configure Microsoft Authenticator comme méthode recommandée.</li>
+          <li>Documente les méthodes autorisées par niveau de sensibilité de compte.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 38</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://www.cisecurity.org/cis-benchmarks" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <div class="res-text"><div class="res-title">CIS Benchmarks (officiel, gratuit)</div><div class="res-sub">Guides de durcissement pour tous les OS courants</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 38</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Quelle est la différence principale entre IDS et IPS ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w38q1">L'IPS bloque activement, l'IDS se contente d'alerter</label>
+            <label class="quiz-opt"><input type="radio" name="w38q1">Ils font exactement la même chose</label>
+            <label class="quiz-opt"><input type="radio" name="w38q1">L'IDS est plus récent que l'IPS</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'IPS agit en ligne pour bloquer, l'IDS se contente de détecter et signaler.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Quelle méthode MFA est la plus résistante au phishing ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w38q2">SMS</label>
+            <label class="quiz-opt"><input type="radio" name="w38q2">Clé de sécurité physique (FIDO2)</label>
+            <label class="quiz-opt"><input type="radio" name="w38q2">Aucune différence entre elles</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">FIDO2 vérifie cryptographiquement le domaine, rendant le phishing inefficace même si l'utilisateur est trompé.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Pourquoi la technologie seule ne suffit-elle pas en cybersécurité ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w38q3">Elle coûte trop cher</label>
+            <label class="quiz-opt"><input type="radio" name="w38q3">Elle est toujours obsolète</label>
+            <label class="quiz-opt"><input type="radio" name="w38q3">L'humain reste souvent le maillon le plus exposé</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le phishing exploite précisément la confiance humaine, indépendamment de la robustesse technique.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi surveiller les domaines nouvellement enregistrés ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w38q4">C'est requis par la loi</label>
+            <label class="quiz-opt"><input type="radio" name="w38q4">C'est un indicateur fréquent de campagnes de phishing actives</label>
+            <label class="quiz-opt"><input type="radio" name="w38q4">Ça accélère le réseau</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les attaquants enregistrent souvent des domaines juste avant une campagne, ce qui en fait un signal de détection utile.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 38</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>IDS/IPS, CIS Benchmarks, robustesse MFA</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s38">0</span>/25<div class="auto-note">calcul auto</div></td><td>Durcissement, simulation phishing et MFA configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de sensibilisation proposé pour une organisation</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 39 ============================================================ -->
+    <div class="week-block" id="s39">
+      <p class="week-tag">SEMAINE 39 · 19/04 – 25/04/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Gestion des identités et des accès — Zero Trust</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Expliquer les trois principes du Zero Trust</li>
+          <li>Analyser des logs de sécurité avec un SIEM basique</li>
+          <li>Gérer les accès privilégiés (PIM/PAM)</li>
+          <li>Chiffrer des données au repos et en transit</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="191,192,193,194,195" data-tracker-week="s39">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="191" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Gestion des identités et des accès (Zero Trust)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="192" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Mise en place de politiques Zero Trust</div></div><div class="tracker-row"><button class="check-btn" data-toggle="193" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de logs de sécurité (SIEM basique)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="194" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des accès privilégiés (PIM/PAM)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="195" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Chiffrement de données (BitLocker/VPN)</div></div>
+      </div>
+
+
+      <h2 class="sec">39.1 — Les trois principes du Zero Trust</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+          <style>.zb{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;} .zs{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="20" width="175" height="80" rx="8" fill="#E9EFF5" stroke="#3D5A80"/>
+          <text class="zb" x="35" y="45" fill="#2C4362">Vérifier explicitement</text>
+          <text class="zs" x="35" y="65">Authentifier et autoriser</text>
+          <text class="zs" x="35" y="78">systématiquement, chaque fois</text>
+
+          <rect x="212" y="20" width="175" height="80" rx="8" fill="#FBF1DA" stroke="#B07C00"/>
+          <text class="zb" x="227" y="45" fill="#8B5E00">Moindre privilège</text>
+          <text class="zs" x="227" y="65">Accès juste-à-temps et</text>
+          <text class="zs" x="227" y="78">juste-suffisant</text>
+
+          <rect x="404" y="20" width="175" height="80" rx="8" fill="#F8EAE9" stroke="#B4504B"/>
+          <text class="zb" x="419" y="45" fill="#8A3B37">Assumer la brèche</text>
+          <text class="zs" x="419" y="65">Segmenter, chiffrer, surveiller</text>
+          <text class="zs" x="419" y="78">comme si l'attaquant est déjà là</text>
+        </svg>
+        <p class="diagram-caption">Fig. 39.1 — Les trois principes fondateurs du Zero Trust</p>
+      </div>
+
+      <p>Le Zero Trust, introduit conceptuellement au Module 5 (accès conditionnel), abandonne l'idée d'un périmètre réseau de confiance : chaque requête est vérifiée, quelle que soit son origine, interne ou externe.</p>
+
+      <h2 class="sec">39.2 — Analyse de logs (SIEM)</h2>
+      <div class="def">
+        <span class="def-term">SIEM (Security Information and Event Management)</span>
+        <p>Système qui centralise et corrèle les logs de multiples sources (pare-feu, serveurs, applications) pour détecter des schémas d'attaque invisibles source par source — <strong>Microsoft Sentinel</strong> est le SIEM natif Azure, gratuit jusqu'à un certain volume.</p>
+      </div>
+
+      <h2 class="sec">39.3 — PIM/PAM : gestion des accès privilégiés</h2>
+      <p><strong>PIM</strong> (Privileged Identity Management, natif Entra ID) permet l'élévation de privilège <strong>temporaire et justifiée</strong> plutôt que des rôles admin permanents — un administrateur active son rôle pour une durée limitée, avec approbation et journalisation, réduisant drastiquement la fenêtre d'exposition d'un compte à privilèges.</p>
+
+      <h2 class="sec">39.4 — Chiffrement au repos et en transit</h2>
+      <ul class="std">
+        <li><strong>Chiffrement au repos</strong> — protège les données stockées (BitLocker, chiffrement Azure Storage par défaut)</li>
+        <li><strong>Chiffrement en transit</strong> — protège les données en mouvement (TLS vu au Module 1, VPN IPsec)</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Accès privilégié temporaire pour la maintenance SCADA</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis les Modules 1, 2, 3, 4, 6 et 7) accordait auparavant des droits d'administrateur permanents à l'équipe de maintenance sur les serveurs de supervision — un risque disproportionné pour un besoin ponctuel.</p>
+        <p><strong>Solution retenue :</strong> mise en place de PIM — les techniciens de maintenance demandent une élévation de privilège justifiée (ex. "mise à jour trimestrielle planifiée"), valable 4 heures, avec approbation du responsable IT et journalisation complète de chaque action effectuée durant la fenêtre d'accès.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h4>Laboratoire guidé — Analyse de logs de sécurité (SIEM basique)</h4></div>
+        <div class="lab-meta">Outil : Microsoft Sentinel (essai gratuit) ou logs locaux · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Connecte une source de logs à Sentinel (ou analyse les journaux d'événements locaux du Module 2).</li>
+          <li>Recherche les tentatives de connexion échouées répétées (indicateur de brute-force).</li>
+          <li>Crée une règle d'alerte simple sur ce pattern.</li>
+          <li>Documente le processus de triage d'une alerte.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><h4>Laboratoire guidé — Gestion des accès privilégiés (PIM/PAM)</h4></div>
+        <div class="lab-meta">Outil : Entra ID PIM (tenant du Module 5) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Active Privileged Identity Management sur ton tenant de test.</li>
+          <li>Configure un rôle éligible (plutôt qu'actif en permanence) pour un compte de test.</li>
+          <li>Effectue une demande d'activation avec justification.</li>
+          <li>Consulte l'historique d'activation et les actions journalisées.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h4>Laboratoire guidé — Chiffrement de données (BitLocker/VPN)</h4></div>
+        <div class="lab-meta">Outil : VM Windows du Module 2 · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Active BitLocker sur le disque de ta VM Windows de test.</li>
+          <li>Sauvegarde la clé de récupération générée.</li>
+          <li>Vérifie l'état du chiffrement avec <code>manage-bde -status</code>.</li>
+          <li>Relie ce mécanisme au VPN IPsec vu au Module 1 (chiffrement en transit vs au repos).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 39</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=zero%20trust" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Zero Trust &amp; PIM</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 39</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quel principe Zero Trust consiste à limiter les accès au strict nécessaire ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w39q1">Vérifier explicitement</label>
+            <label class="quiz-opt"><input type="radio" name="w39q1">Assumer la brèche</label>
+            <label class="quiz-opt"><input type="radio" name="w39q1">Moindre privilège</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le moindre privilège limite les accès au strict nécessaire, de façon juste-à-temps.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Quel est l'intérêt principal d'un SIEM ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w39q2">Corréler des logs de multiples sources pour détecter des schémas invisibles isolément</label>
+            <label class="quiz-opt"><input type="radio" name="w39q2">Remplacer le pare-feu</label>
+            <label class="quiz-opt"><input type="radio" name="w39q2">Chiffrer automatiquement les données</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La corrélation multi-source est la valeur centrale d'un SIEM, impossible à obtenir en regardant chaque log séparément.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Que permet PIM par rapport à un rôle admin permanent ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w39q3">Rien de différent</label>
+            <label class="quiz-opt"><input type="radio" name="w39q3">Une élévation temporaire, justifiée et journalisée</label>
+            <label class="quiz-opt"><input type="radio" name="w39q3">Un accès plus rapide aux ressources</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">PIM réduit la fenêtre d'exposition d'un compte à privilèges par rapport à un accès permanent.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de l'usine, quel bénéfice apporte PIM pour la maintenance SCADA ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w39q4">Les techniciens travaillent plus vite</label>
+            <label class="quiz-opt"><input type="radio" name="w39q4">Le risque d'un accès admin permanent inutilisé est éliminé</label>
+            <label class="quiz-opt"><input type="radio" name="w39q4">Plus besoin d'authentification</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'accès n'existe que pendant la fenêtre justifiée, réduisant la surface d'attaque disponible en permanence.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 39</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Zero Trust, SIEM, PIM/PAM, chiffrement</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s39">0</span>/25<div class="auto-note">calcul auto</div></td><td>Analyse de logs, PIM et BitLocker configurés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Politique PIM proposée pour un scénario d'accès sensible</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 40 ============================================================ -->
+    <div class="week-block" id="s40">
+      <p class="week-tag">SEMAINE 40 · 26/04 – 02/05/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Réponse aux incidents et conformité — préparation SC-900</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Analyser un malware en environnement isolé</li>
+          <li>Élaborer un plan de réponse à un incident</li>
+          <li>Réaliser un audit de conformité (ISO 27001/NIST)</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="196,197,198,199,200" data-tracker-week="s40">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="196" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Réponse aux incidents (prépa SC-900)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="197" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Simulation de réponse à un incident</div></div><div class="tracker-row"><button class="check-btn" data-toggle="198" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Analyse de malware en environnement isolé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="199" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Plan de réponse à un incident de sécurité</div></div><div class="tracker-row"><button class="check-btn" data-toggle="200" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Audit de conformité (ISO 27001/NIST)</div></div>
+      </div>
+
+
+      <h2 class="sec">40.1 — Analyse de malware en sandbox</h2>
+      <div class="def">
+        <span class="def-term">Sandbox (bac à sable)</span>
+        <p>Environnement isolé (VM sans accès réseau réel, souvent instantanée et jetable) permettant d'exécuter un fichier suspect pour observer son comportement sans risque pour le système de production — jamais analyser un fichier suspect sur une machine connectée au réseau réel.</p>
+      </div>
+
+      <h2 class="sec">40.2 — Plan de réponse aux incidents</h2>
+      <p>Un plan structuré suit généralement ces phases : <strong>Préparation</strong> (avant l'incident) → <strong>Détection</strong> (identifier qu'un incident a lieu) → <strong>Confinement</strong> (isoler pour limiter la propagation) → <strong>Éradication</strong> (supprimer la cause) → <strong>Récupération</strong> (restaurer le service) → <strong>Retour d'expérience</strong> (documenter et améliorer).</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 90" xmlns="http://www.w3.org/2000/svg">
+          <style>.pi{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;fill:#2C4362;}</style>
+          <rect x="10" y="25" width="90" height="34" rx="6" fill="#E9EFF5" stroke="#3D5A80"/><text class="pi" x="20" y="46">Préparation</text>
+          <rect x="110" y="25" width="90" height="34" rx="6" fill="#FBF1DA" stroke="#B07C00"/><text class="pi" x="122" y="46" fill="#8B5E00">Détection</text>
+          <rect x="210" y="25" width="90" height="34" rx="6" fill="#F8EAE9" stroke="#B4504B"/><text class="pi" x="215" y="46" fill="#8A3B37">Confinement</text>
+          <rect x="310" y="25" width="90" height="34" rx="6" fill="#F8EAE9" stroke="#B4504B"/><text class="pi" x="320" y="46" fill="#8A3B37">Éradication</text>
+          <rect x="410" y="25" width="90" height="34" rx="6" fill="#E7F3EC" stroke="#3F8F5F"/><text class="pi" x="415" y="46" fill="#2C6B44">Récupération</text>
+          <rect x="510" y="25" width="80" height="34" rx="6" fill="#EFEBF5" stroke="#7C6A9C"/><text class="pi" x="515" y="41" fill="#4A3B60">Retour</text><text class="pi" x="515" y="53" fill="#4A3B60">d'expérience</text>
+        </svg>
+        <p class="diagram-caption">Fig. 40.1 — Les 6 phases d'un plan de réponse aux incidents</p>
+      </div>
+
+      <h2 class="sec">40.3 — Audit de conformité</h2>
+      <p><strong>ISO 27001</strong> (norme internationale de gestion de la sécurité de l'information) et le <strong>NIST Cybersecurity Framework</strong> (référentiel américain, largement adopté) structurent l'évaluation de la maturité sécurité d'une organisation autour de fonctions communes : identifier, protéger, détecter, répondre, récupérer — une grille de lecture qui recoupe directement le plan de réponse aux incidents ci-dessus.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Administration publique (bilan)</span>
+        <h4>Plan de réponse aux incidents pour la mairie</h4>
+        <p><strong>Bilan :</strong> La mairie (suivie depuis les Modules 1, 3, 4 et 8) dispose maintenant d'un plan de réponse documenté : procédure de confinement d'un poste infecté (déconnexion réseau immédiate), contacts d'astreinte, et obligation légale de notification à la CNIL en cas de fuite de données personnelles sous 72 heures — une exigence réglementaire spécifique aux administrations publiques traitant des données citoyennes.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/></svg></div><h4>Laboratoire guidé — Analyse de malware en environnement isolé</h4></div>
+        <div class="lab-meta">Outil : VM jetable isolée (Module 4) · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Crée une VM de test sans accès réseau réel (switch privé, Module 4).</li>
+          <li>Prends un point de contrôle avant toute manipulation.</li>
+          <li>Analyse un fichier suspect de test (échantillon pédagogique, jamais un vrai malware) avec un outil comme VirusTotal ou un antivirus en mode analyse.</li>
+          <li>Restaure le point de contrôle après l'analyse — ne jamais réutiliser la VM sans restauration.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z"/></svg></div><h4>Laboratoire guidé — Plan de réponse à un incident de sécurité</h4></div>
+        <div class="lab-meta">Outil : document + schéma (labo conceptuel) · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Choisis un scénario d'incident réaliste (ransomware, fuite de données).</li>
+          <li>Rédige les 6 phases de réponse pour ce scénario précis.</li>
+          <li>Identifie les responsables et délais pour chaque phase.</li>
+          <li>Ajoute les obligations légales de notification applicables.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Laboratoire guidé — Audit de conformité (ISO 27001/NIST)</h4></div>
+        <div class="lab-meta">Outil : grille d'auto-évaluation (gratuite) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Consulte une checklist gratuite d'auto-évaluation NIST CSF.</li>
+          <li>Évalue ton environnement de formation sur 5-10 critères des fonctions Identifier/Protéger/Détecter.</li>
+          <li>Priorise 3 actions d'amélioration selon le résultat.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 40</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=incident%20response" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Incident response &amp; compliance</div><div class="res-sub">Parcours officiel gratuit (prépa SC-900)</div></div>
+        </a>
+        <a class="res-item" href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <div class="res-text"><div class="res-title">NIST Cybersecurity Framework (officiel, gratuit)</div><div class="res-sub">Référentiel complet de conformité</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 40</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi analyser un malware uniquement en sandbox isolée ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w40q1">C'est plus rapide</label>
+            <label class="quiz-opt"><input type="radio" name="w40q1">Pour éviter tout risque de propagation au réseau de production</label>
+            <label class="quiz-opt"><input type="radio" name="w40q1">Les antivirus l'exigent</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'isolation empêche le malware d'affecter le réseau réel pendant l'analyse.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quelle phase du plan de réponse vise à isoler la menace pour limiter sa propagation ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w40q2">Préparation</label>
+            <label class="quiz-opt"><input type="radio" name="w40q2">Récupération</label>
+            <label class="quiz-opt"><input type="radio" name="w40q2">Confinement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le confinement limite l'impact avant l'éradication de la cause.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quel référentiel structure la sécurité autour de "identifier, protéger, détecter, répondre, récupérer" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w40q3">NIST Cybersecurity Framework</label>
+            <label class="quiz-opt"><input type="radio" name="w40q3">RGPD</label>
+            <label class="quiz-opt"><input type="radio" name="w40q3">RFC 1918</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Ces cinq fonctions constituent le cœur du NIST CSF, largement adopté à l'international.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas de la mairie, quelle obligation légale spécifique s'applique en cas de fuite de données ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w40q4">Aucune obligation particulière</label>
+            <label class="quiz-opt"><input type="radio" name="w40q4">Notification à la CNIL sous 72 heures</label>
+            <label class="quiz-opt"><input type="radio" name="w40q4">Fermeture immédiate de la mairie</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La réglementation impose un délai strict de notification pour les violations de données personnelles.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 40</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Sandbox, phases de réponse, ISO 27001/NIST</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s40">0</span>/25<div class="auto-note">calcul auto</div></td><td>Analyse malware, plan de réponse et audit réalisés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Plan de réponse complet documenté pour un scénario</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu maîtrises maintenant la cybersécurité comme discipline structurée : de la triade CIA jusqu'au plan de réponse aux incidents et à la conformité réglementaire. C'est la préparation directe de la certification <strong>SC-900</strong>, et une lentille qui éclaire rétroactivement tous les modules précédents.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Plan de sécurisation et de réponse aux incidents</em> — élabore un plan complet pour une organisation de ton choix : audit de vulnérabilités, mesures Zero Trust, et plan de réponse aux incidents en 6 phases avec obligations réglementaires.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-09-power-automate.html"><div class="lbl">Module précédent</div><div class="ttl">09 · Power Automate</div></a>
+      <a class="next" href="module-11-ia-copilot.html"><div class="lbl">Prochain module</div><div class="ttl">11 · IA &amp; Copilot</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Cybersécurité">[{"id": 181, "type": "Cours", "week": 37, "title": "Fondamentaux cybersécurité (CIA, menaces)"}, {"id": 182, "type": "TP", "week": 37, "title": "Analyse de vulnérabilités de base"}, {"id": 183, "type": "Labo", "week": 37, "title": "Analyse de vulnérabilités avec un scanner"}, {"id": 184, "type": "Labo", "week": 37, "title": "Configuration d'un pare-feu Windows avancé"}, {"id": 185, "type": "Labo", "week": 37, "title": "Mise en place d'un IDS/IPS (Snort/Suricata)"}, {"id": 186, "type": "Cours", "week": 38, "title": "Sécurité réseau et périmétrique (IDS/IPS)"}, {"id": 187, "type": "TP", "week": 38, "title": "Configuration d'un pare-feu et règles de sécurité"}, {"id": 188, "type": "Labo", "week": 38, "title": "Durcissement d'un système (CIS Benchmarks)"}, {"id": 189, "type": "Labo", "week": 38, "title": "Simulation de phishing et sensibilisation"}, {"id": 190, "type": "Labo", "week": 38, "title": "Configuration de l'authentification multifacteur"}, {"id": 191, "type": "Cours", "week": 39, "title": "Gestion des identités et des accès (Zero Trust)"}, {"id": 192, "type": "TP", "week": 39, "title": "Mise en place de politiques Zero Trust"}, {"id": 193, "type": "Labo", "week": 39, "title": "Analyse de logs de sécurité (SIEM basique)"}, {"id": 194, "type": "Labo", "week": 39, "title": "Gestion des accès privilégiés (PIM/PAM)"}, {"id": 195, "type": "Labo", "week": 39, "title": "Chiffrement de données (BitLocker/VPN)"}, {"id": 196, "type": "Cours", "week": 40, "title": "Réponse aux incidents (prépa SC-900)"}, {"id": 197, "type": "TP", "week": 40, "title": "Simulation de réponse à un incident"}, {"id": 198, "type": "Labo", "week": 40, "title": "Analyse de malware en environnement isolé"}, {"id": 199, "type": "Labo", "week": 40, "title": "Plan de réponse à un incident de sécurité"}, {"id": 200, "type": "Labo", "week": 40, "title": "Audit de conformité (ISO 27001/NIST)"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

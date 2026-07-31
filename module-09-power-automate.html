@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 9 · Power Automate — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+    <a class="side-link" href="module-08-python.html">08 · Python</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 9 — Power Automate</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s33" data-week-ids="161,162,163,164,165">Semaine 33 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s34" data-week-ids="166,167,168,169,170">Semaine 34 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s35" data-week-ids="171,172,173,174,175">Semaine 35 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s36" data-week-ids="176,177,178,179,180">Semaine 36 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; projet</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-10-cybersecurite.html">10 · Cybersécurité →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 9 · Power Automate</div><div class="topbar-sub">Semaines 33–36</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 9 / 13</p>
+    <h1 class="week-title">Power Automate</h1>
+    <p class="week-dates">08 mars 2027 → 04 avril 2027 · Semaines 33–36 · 52 h prévues</p>
+
+    <p class="lead">Power Automate ouvre l'automatisation à ceux qui ne codent pas — le complément low-code de PowerShell et Python. Ce module te fait construire des flux qui connectent M365, Teams, SharePoint et des services externes sans écrire une seule ligne de code.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Comprendre la place du low-code dans la Power Platform</li>
+        <li>Créer des flux automatisés déclenchés par événement ou planification</li>
+        <li>Connecter plusieurs services via des connecteurs (SharePoint, Teams, API externes)</li>
+        <li>Créer une application Power Apps basique intégrée à un flux</li>
+        <li>Gérer les erreurs et livrer un processus métier automatisé complet</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Prérequis &amp; matériel</h2>
+    <p>Le tenant M365 du Module 5 est réutilisé directement — Power Automate est inclus. Aucune compétence de programmation requise, mais la logique de script des Modules 3, 7 et 8 (conditions, boucles, gestion d'erreurs) se transpose directement en logique de flux visuelle.</p>
+
+    <!-- ============================================================ SEMAINE 33 ============================================================ -->
+    <div class="week-block" id="s33">
+      <p class="week-tag">SEMAINE 33 · 08/03 – 14/03/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Introduction au low-code et Power Platform</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Situer Power Automate dans l'écosystème Power Platform</li>
+          <li>Créer un premier flux automatisé déclenché par email</li>
+          <li>Distinguer les types de déclencheurs et d'actions</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="161,162,163,164,165" data-tracker-week="s33">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="161" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Introduction au low-code et Power Platform</div></div><div class="tracker-row"><button class="check-btn" data-toggle="162" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Création d'un premier flux automatisé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="163" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Flux déclenché par email (Outlook)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="164" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Flux d'approbation de documents</div></div><div class="tracker-row"><button class="check-btn" data-toggle="165" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation SharePoint (notifications)</div></div>
+      </div>
+
+
+      <h2 class="sec">33.1 — La Power Platform</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg">
+          <style>.pb{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .ps{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="20" width="130" height="60" rx="8" fill="#E9EFF5" stroke="#3D5A80"/><text class="pb" x="32" y="45" fill="#2C4362">Power Automate</text><text class="ps" x="32" y="62">Flux automatisés</text>
+          <rect x="165" y="20" width="130" height="60" rx="8" fill="#FBF1DA" stroke="#B07C00"/><text class="pb" x="177" y="45" fill="#8B5E00">Power Apps</text><text class="ps" x="177" y="62">Applications low-code</text>
+          <rect x="310" y="20" width="130" height="60" rx="8" fill="#E6F1F2" stroke="#3E8188"/><text class="pb" x="322" y="45" fill="#264D52">Power BI</text><text class="ps" x="322" y="62">Tableaux de bord</text>
+          <rect x="455" y="20" width="130" height="60" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/><text class="pb" x="467" y="45" fill="#4A3B60">Copilot Studio</text><text class="ps" x="467" y="62">Agents IA (Module 11)</text>
+          <text class="ps" x="20" y="110" fill="#2C4362" font-weight="700">Tous s'appuient sur les mêmes connecteurs et sur Dataverse pour le stockage de données</text>
+        </svg>
+        <p class="diagram-caption">Fig. 33.1 — Les quatre piliers de la Power Platform Microsoft</p>
+      </div>
+
+      <p>Le <strong>low-code</strong> permet de construire des automatisations via une interface visuelle (glisser-déposer de blocs) plutôt qu'en écrivant du code — accessible à des utilisateurs métier, tout en restant extensible par du code pour les cas avancés (connecteurs personnalisés, expressions).</p>
+
+      <h2 class="sec">33.2 — Anatomie d'un flux</h2>
+      <p>Un flux Power Automate se compose toujours d'un <strong>déclencheur</strong> (l'événement qui démarre le flux) suivi d'une ou plusieurs <strong>actions</strong> (les étapes exécutées).</p>
+      <ul class="std">
+        <li><strong>Déclencheur automatisé</strong> — réagit à un événement (email reçu, fichier ajouté)</li>
+        <li><strong>Déclencheur planifié</strong> — s'exécute à intervalle régulier (équivalent visuel de cron/Task Scheduler des Modules 3 et 7)</li>
+        <li><strong>Déclencheur manuel (instantané)</strong> — lancé à la demande par un utilisateur, souvent depuis un bouton ou Teams</li>
+      </ul>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — PME</span>
+        <h4>Notification automatique des nouvelles factures au cabinet comptable</h4>
+        <p><strong>Contexte :</strong> Le cabinet comptable (suivi depuis les Modules 1, 2, 3, 6, 7 et 8) reçoit des factures clients par email, actuellement traitées manuellement chaque matin.</p>
+        <p><strong>Solution retenue :</strong> un flux Power Automate se déclenche à chaque email reçu contenant une pièce jointe PDF dans la boîte dédiée, enregistre automatiquement le fichier dans le bon dossier SharePoint, et notifie l'équipe comptable dans un canal Teams — sans qu'un développeur n'ait été nécessaire pour le construire.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé 1 — Création d'un premier flux automatisé</h4></div>
+        <div class="lab-meta">Outil : Power Automate (tenant M365 du Module 5) · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Ouvre make.powerautomate.com avec ton tenant de test.</li>
+          <li>Crée un flux automatisé avec le déclencheur "Nouveau message reçu" (Outlook).</li>
+          <li>Ajoute une action "Envoyer une notification" vers Teams.</li>
+          <li>Active le flux et teste en envoyant un email au compte concerné.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div><h4>Laboratoire guidé 2 — Flux déclenché par email (Outlook)</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Modifie le flux précédent pour filtrer uniquement les emails avec pièce jointe.</li>
+          <li>Ajoute une condition : traiter uniquement les PDF.</li>
+          <li>Ajoute une action pour enregistrer la pièce jointe dans un dossier SharePoint.</li>
+          <li>Teste avec un email contenant un PDF puis un email sans pièce jointe.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Laboratoire guidé 3 — Flux d'approbation de documents</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée un flux déclenché par l'ajout d'un fichier dans une bibliothèque SharePoint.</li>
+          <li>Ajoute une action "Créer une approbation" assignée à un utilisateur de test.</li>
+          <li>Configure les actions selon la réponse (approuvé/rejeté).</li>
+          <li>Teste le flux de bout en bout, y compris les deux réponses possibles.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 33</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Power Automate fundamentals</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 33</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Que regroupe la Power Platform ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w33q1">Uniquement Power Automate</label>
+            <label class="quiz-opt"><input type="radio" name="w33q1">Power Automate, Power Apps, Power BI et Copilot Studio</label>
+            <label class="quiz-opt"><input type="radio" name="w33q1">Excel et Word uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Ces quatre outils partagent les mêmes connecteurs et la même base de données Dataverse.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que déclenche automatiquement un flux "planifié" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w33q2">Une exécution à intervalle régulier</label>
+            <label class="quiz-opt"><input type="radio" name="w33q2">Un clic utilisateur</label>
+            <label class="quiz-opt"><input type="radio" name="w33q2">Un email uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est l'équivalent visuel de cron (Module 3) ou du Planificateur de tâches (Module 7).</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Qui peut construire un flux Power Automate ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w33q3">Uniquement des développeurs certifiés</label>
+            <label class="quiz-opt"><input type="radio" name="w33q3">Uniquement l'administrateur M365</label>
+            <label class="quiz-opt"><input type="radio" name="w33q3">Un utilisateur métier sans compétence de programmation</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est précisément l'intérêt du low-code : rendre l'automatisation accessible sans coder.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet comptable, quel est le bénéfice du flux de factures ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w33q4">Il remplace le logiciel comptable</label>
+            <label class="quiz-opt"><input type="radio" name="w33q4">Il élimine le tri manuel quotidien des emails de factures</label>
+            <label class="quiz-opt"><input type="radio" name="w33q4">Il chiffre automatiquement les factures</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation supprime une tâche répétitive à faible valeur ajoutée effectuée manuellement chaque jour.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 33</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Power Platform, types de déclencheurs</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s33">0</span>/25<div class="auto-note">calcul auto</div></td><td>Flux email et approbation fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Flux de notification de factures documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 34 ============================================================ -->
+    <div class="week-block" id="s34">
+      <p class="week-tag">SEMAINE 34 · 15/03 – 21/03/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Création de flux automatisés</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Intégrer Teams dans un flux</li>
+          <li>Créer des flux planifiés récurrents</li>
+          <li>Utiliser variables et conditions pour des flux plus riches</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="166,167,168,169,170" data-tracker-week="s34">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="166" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Création de flux automatisés</div></div><div class="tracker-row"><button class="check-btn" data-toggle="167" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Flux d'approbation automatisé</div></div><div class="tracker-row"><button class="check-btn" data-toggle="168" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Intégration Teams (notifications automatiques)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="169" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Flux planifié (tâches récurrentes)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="170" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Variables et conditions dans un flux</div></div>
+      </div>
+
+
+      <h2 class="sec">34.1 — Intégration Teams</h2>
+      <p>Power Automate peut poster des messages dans un canal Teams, créer des cartes adaptatives interactives (boutons d'action directement dans le message), ou déclencher un flux depuis un message Teams — rapprochant l'automatisation de l'endroit où les équipes collaborent déjà au quotidien.</p>
+
+      <h2 class="sec">34.2 — Flux planifiés récurrents</h2>
+      <p>Un déclencheur de <strong>récurrence</strong> définit une fréquence (toutes les heures, chaque jour à 8h, chaque lundi) — même logique que cron (Module 3) ou le Planificateur de tâches (Module 7), mais configurée visuellement.</p>
+
+      <h2 class="sec">34.3 — Variables et conditions</h2>
+      <pre class="cmdblock">Initialiser une variable : CompteurErreurs = 0
+Condition : Si Statut = "Échec"
+    Alors : Incrémenter CompteurErreurs de 1
+    Sinon : Continuer
+Condition : Si CompteurErreurs > 3
+    Alors : Envoyer une alerte à l'administrateur</pre>
+      <p>Ces blocs logiques reproduisent exactement ce que tu ferais avec des variables et des <code>if/else</code> en Python (Module 8) ou PowerShell (Module 7) — la logique de programmation reste identique, seule l'interface change.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Hôtel</span>
+        <h4>Rapport quotidien automatisé d'occupation des chambres</h4>
+        <p><strong>Contexte :</strong> La chaîne hôtelière (suivie depuis les Modules 2, 4, 5, 6 et 7) veut un résumé quotidien du taux d'occupation envoyé automatiquement à la direction dans Teams, sans dépendre d'un rapport manuel du personnel de réception.</p>
+        <p><strong>Solution retenue :</strong> un flux planifié chaque jour à 7h qui interroge la liste SharePoint des réservations, calcule le taux d'occupation avec des variables, et poste une carte adaptative dans le canal Teams "Direction" avec un code couleur (vert/orange/rouge) selon le taux — visible en un coup d'œil au démarrage de la journée.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8.5a5 5 0 10-10 0M7 8.5v6a5 5 0 0010 0v-6"/></svg></div><h4>Laboratoire guidé — Intégration Teams (notifications automatiques)</h4></div>
+        <div class="lab-meta">Outil : Power Automate + Teams · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Crée un flux postant un message dans un canal Teams.</li>
+          <li>Transforme-le en carte adaptative avec un titre et un bouton d'action.</li>
+          <li>Teste le déclenchement et vérifie l'affichage dans Teams.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h4>Laboratoire guidé — Flux planifié (tâches récurrentes)</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un flux avec un déclencheur de récurrence quotidienne à 7h.</li>
+          <li>Ajoute une action de lecture d'une liste SharePoint.</li>
+          <li>Force une exécution manuelle immédiate pour tester sans attendre 7h.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Variables et conditions dans un flux</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 30 min</div>
+        <ol class="lab-steps">
+          <li>Initialise une variable numérique dans un flux.</li>
+          <li>Ajoute une condition qui compare cette variable à un seuil.</li>
+          <li>Configure des actions différentes selon le résultat de la condition (branche Oui/Non).</li>
+          <li>Teste les deux branches avec des valeurs différentes.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 34</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20automate%20teams" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Power Automate + Teams</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 34</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Que permet une carte adaptative dans Teams ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w34q1">Un message interactif avec boutons d'action</label>
+            <label class="quiz-opt"><input type="radio" name="w34q1">Un fichier PDF automatique</label>
+            <label class="quiz-opt"><input type="radio" name="w34q1">Une réunion planifiée</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les cartes adaptatives permettent une interaction directe dans le message, sans quitter Teams.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Quel équivalent du Module 3 correspond au déclencheur de récurrence ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w34q2">grep</label>
+            <label class="quiz-opt"><input type="radio" name="w34q2">cron</label>
+            <label class="quiz-opt"><input type="radio" name="w34q2">systemctl</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les deux planifient une exécution récurrente selon une fréquence définie.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. À quoi sert une condition dans un flux ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w34q3">Ralentir volontairement le flux</label>
+            <label class="quiz-opt"><input type="radio" name="w34q3">Chiffrer les données</label>
+            <label class="quiz-opt"><input type="radio" name="w34q3">Exécuter des actions différentes selon un critère</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une condition crée deux branches (Oui/Non), même logique qu'un if/else en code.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas hôtelière, pourquoi un code couleur dans le rapport Teams ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w34q4">Power Automate l'exige</label>
+            <label class="quiz-opt"><input type="radio" name="w34q4">Lecture instantanée de la situation sans devoir analyser les chiffres</label>
+            <label class="quiz-opt"><input type="radio" name="w34q4">C'est plus joli visuellement uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un code couleur permet une lecture instantanée par la direction, sans effort d'interprétation.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 34</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Cartes adaptatives, récurrence, variables/conditions</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s34">0</span>/25<div class="auto-note">calcul auto</div></td><td>Flux Teams, planifié et conditionnel fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Rapport automatisé documenté pour un scénario donné</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 35 ============================================================ -->
+    <div class="week-block" id="s35">
+      <p class="week-tag">SEMAINE 35 · 22/03 – 28/03/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Connecteurs et intégrations — SharePoint, Teams</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Combiner plusieurs connecteurs dans un même flux</li>
+          <li>Créer un connecteur personnalisé vers une API externe</li>
+          <li>Automatiser la collecte de données via formulaires</li>
+          <li>Créer une première application Power Apps</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="171,172,173,174,175" data-tracker-week="s35">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="171" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Connecteurs et intégrations (SharePoint, Teams)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="172" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Intégration multi-connecteurs</div></div><div class="tracker-row"><button class="check-btn" data-toggle="173" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Connecteur personnalisé (API externe)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="174" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Automatisation de collecte de données (formulaires)</div></div><div class="tracker-row"><button class="check-btn" data-toggle="175" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Création d'une application Power Apps basique</div></div>
+      </div>
+
+
+      <h2 class="sec">35.1 — Les connecteurs</h2>
+      <div class="def">
+        <span class="def-term">Connecteur</span>
+        <p>Interface préconstruite reliant Power Automate à un service (SharePoint, Outlook, Teams, mais aussi des centaines de services tiers comme Twitter, Salesforce, ou une API REST maison). Plus de 1000 connecteurs existent nativement.</p>
+      </div>
+      <p>Un flux "multi-connecteurs" enchaîne des actions provenant de plusieurs services — c'est là que la vraie valeur de Power Automate apparaît : orchestrer des systèmes qui ne se parlent pas nativement entre eux.</p>
+
+      <h2 class="sec">35.2 — Connecteur personnalisé vers une API externe</h2>
+      <p>Quand aucun connecteur natif n'existe, on peut créer un <strong>connecteur personnalisé</strong> à partir d'une définition OpenAPI/Swagger ou manuellement, en spécifiant l'URL de base, l'authentification, et les actions disponibles — le pont entre Power Automate et n'importe quelle API REST (même logique que le module <code>requests</code> Python vu au Module 8).</p>
+
+      <h2 class="sec">35.3 — Collecte de données via formulaires</h2>
+      <p><strong>Microsoft Forms</strong> couplé à Power Automate permet de déclencher un flux à chaque nouvelle réponse à un formulaire — collecte de données terrain, demandes internes, ou enquêtes de satisfaction, automatiquement routées vers SharePoint ou Teams.</p>
+
+      <h2 class="sec">35.4 — Introduction à Power Apps</h2>
+      <p><strong>Power Apps</strong> permet de créer une application avec formulaires et interface personnalisée, sans code, connectée aux mêmes connecteurs que Power Automate — le complément visuel/interactif des flux qui tournent en arrière-plan.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Usine</span>
+        <h4>Remontée de défauts qualité via API du système de production</h4>
+        <p><strong>Contexte :</strong> L'usine (suivie depuis les Modules 1, 2, 3, 4 et 6) a un système de contrôle qualité qui expose une API REST (comme vu conceptuellement au Module 8) mais aucun connecteur natif n'existe pour ce système propriétaire.</p>
+        <p><strong>Solution retenue :</strong> un connecteur personnalisé Power Automate créé à partir de la documentation de l'API, permettant de déclencher un flux dès qu'un défaut qualité est enregistré, avec notification immédiate au responsable qualité dans Teams et création automatique d'un ticket de suivi.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a3.5 3.5 0 005 0l3-3a3.5 3.5 0 00-5-5l-1 1"/><path d="M14 10a3.5 3.5 0 00-5 0l-3 3a3.5 3.5 0 005 5l1-1"/></svg></div><h4>Laboratoire guidé — Connecteur personnalisé (API externe)</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Choisis une API publique gratuite avec documentation OpenAPI.</li>
+          <li>Crée un connecteur personnalisé pointant vers cette API.</li>
+          <li>Teste une action du connecteur dans un flux simple.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div><h4>Laboratoire guidé — Automatisation de collecte de données (formulaires)</h4></div>
+        <div class="lab-meta">Outil : Microsoft Forms + Power Automate · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Crée un formulaire Microsoft Forms simple (3-4 questions).</li>
+          <li>Crée un flux déclenché à chaque nouvelle réponse.</li>
+          <li>Enregistre automatiquement les réponses dans une liste SharePoint.</li>
+          <li>Teste en soumettant une réponse de test.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="18" x2="15" y2="18"/></svg></div><h4>Laboratoire guidé — Création d'une application Power Apps basique</h4></div>
+        <div class="lab-meta">Outil : Power Apps · Durée : 40 min</div>
+        <ol class="lab-steps">
+          <li>Crée une application à partir d'une liste SharePoint existante.</li>
+          <li>Personnalise l'écran de saisie (ajout/modification d'un enregistrement).</li>
+          <li>Teste l'application en mode aperçu.</li>
+          <li>Partage-la avec un utilisateur de test.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 35</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20apps" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Power Apps &amp; connectors</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 35</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Que faut-il créer quand aucun connecteur natif n'existe pour un système ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w35q1">Rien, c'est impossible</label>
+            <label class="quiz-opt"><input type="radio" name="w35q1">Un script Python séparé</label>
+            <label class="quiz-opt"><input type="radio" name="w35q1">Un connecteur personnalisé</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Le connecteur personnalisé permet de connecter Power Automate à n'importe quelle API REST documentée.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que déclenche l'intégration Microsoft Forms + Power Automate ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w35q2">Un flux à chaque nouvelle réponse au formulaire</label>
+            <label class="quiz-opt"><input type="radio" name="w35q2">Un flux uniquement à la création du formulaire</label>
+            <label class="quiz-opt"><input type="radio" name="w35q2">Rien automatiquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Chaque soumission de formulaire peut déclencher un flux dédié.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">3. Que permet Power Apps par rapport à Power Automate seul ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w35q3">Rien de plus, ils sont identiques</label>
+            <label class="quiz-opt"><input type="radio" name="w35q3">Une interface applicative personnalisée pour interagir avec les données</label>
+            <label class="quiz-opt"><input type="radio" name="w35q3">Seulement l'envoi d'emails</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Power Apps ajoute une couche d'interface utilisateur, alors que Power Automate reste dans les flux en arrière-plan.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas usine, pourquoi le connecteur personnalisé est-il nécessaire ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w35q4">Power Automate ne fonctionne pas dans l'industrie</label>
+            <label class="quiz-opt"><input type="radio" name="w35q4">Le système qualité est propriétaire, sans connecteur natif disponible</label>
+            <label class="quiz-opt"><input type="radio" name="w35q4">C'est plus rapide qu'un connecteur natif</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un connecteur personnalisé comble l'absence de connecteur natif pour un système spécifique à l'entreprise.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 35</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Connecteurs, Forms, Power Apps</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s35">0</span>/25<div class="auto-note">calcul auto</div></td><td>Connecteur personnalisé, formulaire et app fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Scénario multi-connecteurs documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 36 ============================================================ -->
+    <div class="week-block" id="s36">
+      <p class="week-tag">SEMAINE 36 · 29/03 – 04/04/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Power Apps — introduction approfondie</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Intégrer Power Apps et Power Automate ensemble</li>
+          <li>Gérer les erreurs dans un flux de façon robuste</li>
+          <li>Livrer un mini-projet d'automatisation de processus métier complet</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="176,177,178,179,180" data-tracker-week="s36">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/5</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="176" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Cours</span>Power Apps - Introduction</div></div><div class="tracker-row"><button class="check-btn" data-toggle="177" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">TP</span>Application Power Apps simple</div></div><div class="tracker-row"><button class="check-btn" data-toggle="178" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Intégration Power Apps + Power Automate</div></div><div class="tracker-row"><button class="check-btn" data-toggle="179" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Gestion des erreurs dans un flux</div></div><div class="tracker-row"><button class="check-btn" data-toggle="180" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Labo</span>Mini-projet : automatisation d'un processus métier</div></div>
+      </div>
+
+
+      <h2 class="sec">36.1 — Intégration Power Apps + Power Automate</h2>
+      <p>Une application Power Apps peut déclencher un flux Power Automate directement depuis un bouton (ex. "Soumettre pour approbation"), et recevoir en retour le résultat du flux pour mettre à jour l'interface — les deux outils se complètent, l'un pour l'interaction utilisateur, l'autre pour la logique métier en arrière-plan.</p>
+
+      <h2 class="sec">36.2 — Gestion des erreurs dans un flux</h2>
+      <p>Comme pour un script Python (Try/Except) ou PowerShell (Try/Catch), Power Automate propose une configuration <strong>"Exécuter après"</strong> sur chaque action, permettant de définir un comportement spécifique en cas d'échec — par exemple, envoyer une alerte si une action précédente échoue, plutôt que de laisser le flux planter silencieusement.</p>
+
+      <h2 class="sec">36.3 — Assembler un processus métier complet</h2>
+      <p>Cette dernière semaine consiste à combiner toutes les briques : déclencheur, connecteurs multiples, conditions, gestion d'erreurs, et éventuellement une interface Power Apps — la structure complète d'une automatisation professionnelle prête à être déployée.</p>
+
+      <div class="case">
+        <span class="case-tag">📁 Étude de cas — Bilan du module</span>
+        <h4>Processus complet d'onboarding pour le cabinet comptable</h4>
+        <p><strong>Bilan :</strong> Le cabinet comptable dispose maintenant d'un processus d'accueil de nouveaux employés entièrement automatisé : une application Power Apps de demande d'accès, un flux qui route la demande vers le bon approbateur, crée les accès nécessaires (en lien avec les scripts PowerShell du Module 7), et notifie toutes les parties prenantes dans Teams — un processus qui prenait plusieurs jours d'échanges email ne prend plus que quelques heures.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Intégration Power Apps + Power Automate</h4></div>
+        <div class="lab-meta">Outil : Power Apps + Power Automate · Durée : 35 min</div>
+        <ol class="lab-steps">
+          <li>Ajoute un bouton dans ton application Power Apps de la semaine 35.</li>
+          <li>Connecte-le à un flux Power Automate déclenché manuellement.</li>
+          <li>Fais remonter le résultat du flux dans l'interface de l'application.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z"/></svg></div><h4>Laboratoire guidé — Gestion des erreurs dans un flux</h4></div>
+        <div class="lab-meta">Outil : Power Automate · Durée : 25 min</div>
+        <ol class="lab-steps">
+          <li>Sur une action de ton flux, configure "Exécuter après" pour le cas d'échec.</li>
+          <li>Ajoute une action d'alerte déclenchée uniquement en cas d'échec de l'étape précédente.</li>
+          <li>Force volontairement une erreur pour valider le comportement.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Laboratoire guidé — Mini-projet : automatisation d'un processus métier complet</h4></div>
+        <div class="lab-meta">Outil : Power Automate + Power Apps + Teams · Durée : 60 min</div>
+        <ol class="lab-steps">
+          <li>Choisis un processus métier réaliste (demande de congés, onboarding, validation d'achat).</li>
+          <li>Conçois le flux complet : déclencheur, approbation, notification, gestion d'erreurs.</li>
+          <li>Ajoute si possible une interface Power Apps de saisie.</li>
+          <li>Documente le processus pour ton portfolio.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 36</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=power%20platform" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Power Platform end-to-end</div><div class="res-sub">Parcours officiel gratuit</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 36</h4><span class="quiz-progress">4 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Comment une application Power Apps peut-elle déclencher un flux ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w36q1">Ce n'est pas possible</label>
+            <label class="quiz-opt"><input type="radio" name="w36q1">Depuis un bouton dans l'application</label>
+            <label class="quiz-opt"><input type="radio" name="w36q1">Uniquement via un email</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un bouton Power Apps peut appeler directement un flux Power Automate.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel équivalent PowerShell/Python correspond à "Exécuter après" en cas d'échec ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w36q2">Get-Service</label>
+            <label class="quiz-opt"><input type="radio" name="w36q2">Import-Module</label>
+            <label class="quiz-opt"><input type="radio" name="w36q2">Try/Catch ou Try/Except</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Ces trois mécanismes servent tous à réagir spécifiquement à un échec plutôt que de planter silencieusement.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Que comprend un processus métier automatisé "complet" ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w36q3">Déclencheur, logique conditionnelle, gestion d'erreurs, notification</label>
+            <label class="quiz-opt"><input type="radio" name="w36q3">Uniquement un déclencheur</label>
+            <label class="quiz-opt"><input type="radio" name="w36q3">Uniquement une notification finale</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un processus robuste combine toutes ces briques, pas seulement une notification isolée.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">4. Dans l'étude de cas du cabinet, quel bénéfice principal apporte le processus d'onboarding automatisé ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w36q4">Il supprime le besoin d'approbation</label>
+            <label class="quiz-opt"><input type="radio" name="w36q4">Il réduit un processus de plusieurs jours à quelques heures</label>
+            <label class="quiz-opt"><input type="radio" name="w36q4">Il remplace les RH</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation accélère fortement un processus auparavant basé sur des échanges email manuels.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 36</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Intégration Apps/Automate, gestion d'erreurs</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s36">0</span>/25<div class="auto-note">calcul auto</div></td><td>Intégration, gestion d'erreurs et mini-projet fonctionnels</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Processus métier automatisé livré et documenté</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; projet appliqué</h3>
+      <p>Tu es maintenant capable de construire des automatisations low-code complètes, connectant M365, Teams et des services externes — accessible aux profils non-développeurs tout en restant extensible via des connecteurs personnalisés. Combiné à PowerShell et Python, tu couvres tout le spectre de l'automatisation IT, du script pur au low-code visuel.</p>
+      <p><strong>Projet appliqué de fin de module</strong> (à documenter dans ta feuille Portfolio du Planner) : <em>Automatisation d'un processus métier de bout en bout</em> — livre ton flux complet (déclencheur, conditions, gestion d'erreurs, notification, éventuellement interface Power Apps), documenté avec un schéma du processus.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-08-python.html"><div class="lbl">Module précédent</div><div class="ttl">08 · Python</div></a>
+      <a class="next" href="module-10-cybersecurite.html"><div class="lbl">Prochain module</div><div class="ttl">10 · Cybersécurité</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Power Automate">[{"id": 161, "type": "Cours", "week": 33, "title": "Introduction au low-code et Power Platform"}, {"id": 162, "type": "TP", "week": 33, "title": "Création d'un premier flux automatisé"}, {"id": 163, "type": "Labo", "week": 33, "title": "Flux déclenché par email (Outlook)"}, {"id": 164, "type": "Labo", "week": 33, "title": "Flux d'approbation de documents"}, {"id": 165, "type": "Labo", "week": 33, "title": "Automatisation SharePoint (notifications)"}, {"id": 166, "type": "Cours", "week": 34, "title": "Création de flux automatisés"}, {"id": 167, "type": "TP", "week": 34, "title": "Flux d'approbation automatisé"}, {"id": 168, "type": "Labo", "week": 34, "title": "Intégration Teams (notifications automatiques)"}, {"id": 169, "type": "Labo", "week": 34, "title": "Flux planifié (tâches récurrentes)"}, {"id": 170, "type": "Labo", "week": 34, "title": "Variables et conditions dans un flux"}, {"id": 171, "type": "Cours", "week": 35, "title": "Connecteurs et intégrations (SharePoint, Teams)"}, {"id": 172, "type": "TP", "week": 35, "title": "Intégration multi-connecteurs"}, {"id": 173, "type": "Labo", "week": 35, "title": "Connecteur personnalisé (API externe)"}, {"id": 174, "type": "Labo", "week": 35, "title": "Automatisation de collecte de données (formulaires)"}, {"id": 175, "type": "Labo", "week": 35, "title": "Création d'une application Power Apps basique"}, {"id": 176, "type": "Cours", "week": 36, "title": "Power Apps - Introduction"}, {"id": 177, "type": "TP", "week": 36, "title": "Application Power Apps simple"}, {"id": 178, "type": "Labo", "week": 36, "title": "Intégration Power Apps + Power Automate"}, {"id": 179, "type": "Labo", "week": 36, "title": "Gestion des erreurs dans un flux"}, {"id": 180, "type": "Labo", "week": 36, "title": "Mini-projet : automatisation d'un processus métier"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>
