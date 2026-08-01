@@ -254,6 +254,13 @@ button.pill{appearance:none;}
 .legend-item{display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--ink-soft);}
 .legend-item .sw{width:9px;height:9px;border-radius:3px;}
 
+.manual-link-card{display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); text-decoration:none; margin-bottom:16px;}
+.manual-link-card .mlc-icon{font-size:21px; flex-shrink:0;}
+.manual-link-card .mlc-text{flex:1; min-width:0; display:flex; flex-direction:column;}
+.manual-link-card .mlc-text strong{color:var(--ink); font-size:13.5px;}
+.manual-link-card .mlc-text span{color:var(--ink-faint); font-size:11.5px;}
+.manual-link-card .mlc-arrow{color:var(--ink-faint); font-size:17px; flex-shrink:0;}
+
 @media (prefers-reduced-motion: reduce){
   .tick.now{animation:none;}
   .chev{transition:none;}
@@ -266,6 +273,7 @@ button.pill{appearance:none;}
     <div class="brand"><span class="dot"></span><span>Transformation<br>Numérique</span></div>
     <ul class="nav-list" id="navList"></ul>
     <div class="sidebar-foot">
+      <a class="tool-btn" href="index.html" style="text-decoration:none;justify-content:center;">📘 Manuel de formation</a>
       <button class="tool-btn" id="exportBtn"></button>
       <button class="tool-btn" id="importBtn"></button>
     </div>
@@ -530,6 +538,11 @@ function renderDashboard(){
     '<h1 class="page-title">Tableau de bord</h1>'+
     '<p class="page-sub">Infrastructure, cloud, automatisation &amp; IA — parcours 12 mois</p>'+
   '</div>'+
+  '<a class="manual-link-card" href="index.html">'+
+    '<div class="mlc-icon">📘</div>'+
+    '<div class="mlc-text"><strong>Manuel de formation</strong><span>Cours, laboratoires et quiz pour chaque semaine</span></div>'+
+    '<div class="mlc-arrow">→</div>'+
+  '</a>'+
   '<div class="kpi-row">'+kpiHtml+'</div>'+
   '<div class="card hero-card" style="margin-bottom:16px;">'+
     '<div class="ring-wrap">'+ringSvg+'<div class="ring-label"><div class="pct">'+Math.round(g.pct*100)+'%</div><div class="wk">complété</div></div></div>'+

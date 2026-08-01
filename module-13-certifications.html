@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 13 · Certifications — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+    <a class="side-link" href="module-08-python.html">08 · Python</a>
+    <a class="side-link" href="module-09-power-automate.html">09 · Power Automate</a>
+    <a class="side-link" href="module-10-cybersecurite.html">10 · Cybersécurité</a>
+    <a class="side-link" href="module-11-ia-copilot.html">11 · IA &amp; Copilot</a>
+    <a class="side-link" href="module-12-projet-final.html">12 · Projet Final</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 13 — Certifications</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s51" data-week-ids="227">Semaine 51 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s52" data-week-ids="228">Semaine 52 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Bilan final du parcours</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 13 · Certifications</div><div class="topbar-sub">Semaines 51–52</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 13 / 13 — DERNIER MODULE</p>
+    <h1 class="week-title">Certifications</h1>
+    <p class="week-dates">12 juillet 2027 → 25 juillet 2027 · Semaines 51–52 · 40 h prévues</p>
+
+    <p class="lead">Douze mois de travail se concentrent maintenant sur trois examens officiels : <strong>SC-900</strong>, <strong>AZ-104</strong> et <strong>MS-102</strong>. Ce dernier module te donne la stratégie de révision, la logistique d'examen, et clôture ton parcours par un bilan complet.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Structurer une révision efficace sur 2 semaines pour 3 certifications</li>
+        <li>Connaître le format et la logistique de chaque examen</li>
+        <li>Passer les examens dans de bonnes conditions</li>
+        <li>Faire le bilan complet de 12 mois de formation</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Les trois certifications visées</h2>
+    <table class="eval-tbl">
+      <tr><th>Certification</th><th>Domaine</th><th>Modules de préparation</th><th>Format</th></tr>
+      <tr><td class="mono">SC-900</td><td>Security, Compliance, Identity Fundamentals</td><td>Modules 5, 10</td><td>40-60 questions, ~60 min</td></tr>
+      <tr><td class="mono">AZ-104</td><td>Azure Administrator</td><td>Modules 1, 6</td><td>40-60 questions, ~120-150 min</td></tr>
+      <tr><td class="mono">MS-102</td><td>Microsoft 365 Administrator</td><td>Modules 2, 5</td><td>40-60 questions, ~150 min</td></tr>
+    </table>
+    <p style="font-size:12.5px;color:var(--ink-faint);">Les formats précis (durée, nombre de questions, score de passage) évoluent régulièrement — vérifie toujours la page officielle de l'examen sur Microsoft Learn avant de réserver, les chiffres ci-dessus sont indicatifs.</p>
+
+    <!-- ============================================================ SEMAINE 51 ============================================================ -->
+    <div class="week-block" id="s51">
+      <p class="week-tag">SEMAINE 51 · 12/07 – 18/07/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Révision intensive — SC-900, AZ-104, MS-102</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Identifier tes lacunes réelles via des examens blancs</li>
+          <li>Prioriser ta révision selon tes résultats</li>
+          <li>Réserver tes examens au bon moment</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="227" data-tracker-week="s51">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="227" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Certification</span>Révision intensive SC-900 / AZ-104 / MS-102 + examens blancs</div></div>
+      </div>
+
+
+      <h2 class="sec">51.1 — Stratégie de révision en une semaine</h2>
+      <p>Avec trois examens à préparer en peu de temps, la priorité n'est pas de tout relire depuis le début, mais d'identifier <strong>précisément</strong> ce qui reste flou :</p>
+      <ol class="std">
+        <li>Passe un examen blanc de chaque certification <strong>avant</strong> de réviser — cela révèle tes lacunes réelles, pas celles que tu supposes.</li>
+        <li>Concentre ta révision sur les domaines où le score est le plus faible.</li>
+        <li>Revisite les modules correspondants du manuel (voir tableau ci-dessus) plutôt que de repartir de zéro.</li>
+        <li>Repasse un second examen blanc en fin de semaine pour mesurer la progression.</li>
+      </ol>
+
+      <h2 class="sec">51.2 — Ressources d'examens blancs</h2>
+      <p>Microsoft propose des <strong>évaluations officielles gratuites</strong> (Microsoft Learn Practice Assessments) pour chacune des trois certifications — la source la plus fiable, car alignée sur le format réel de l'examen, contrairement à certains sites tiers dont la qualité varie.</p>
+
+      <h2 class="sec">51.3 — Quand réserver l'examen</h2>
+      <div class="def">
+        <span class="def-term">Seuil de réservation raisonnable</span>
+        <p>Une bonne pratique : réserver un examen une fois que ton score aux évaluations officielles dépasse 80% de façon stable (pas un score isolé favorable). Réserver trop tôt expose au risque d'échec évitable ; trop tard fait perdre l'élan de fin de parcours.</p>
+      </div>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>Répartir les trois examens dans le temps</h4>
+        <p>Si ton score n'est pas encore homogène sur les trois certifications, envisage de passer d'abord celle où tu es le plus prêt (souvent SC-900, la plus courte), pour gagner en confiance avant d'attaquer AZ-104 et MS-102 — plus denses. Rien n'oblige à les passer toutes la même semaine si le Planner le permet.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Livrable — Résultats aux 3 examens blancs officiels</h4></div>
+        <div class="lab-meta">Outil : Microsoft Learn Practice Assessments (gratuit) · Durée : 3-4 h</div>
+        <ol class="lab-steps">
+          <li>Passe l'examen blanc officiel SC-900, note ton score par domaine.</li>
+          <li>Passe l'examen blanc officiel AZ-104, note ton score par domaine.</li>
+          <li>Passe l'examen blanc officiel MS-102, note ton score par domaine.</li>
+          <li>Identifie les 3 domaines les plus faibles au total, toutes certifications confondues.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Livrable — Plan de révision ciblé</h4></div>
+        <div class="lab-meta">Format : document · Durée : 1-2 h</div>
+        <ol class="lab-steps">
+          <li>Liste les modules du manuel à revisiter selon tes lacunes identifiées.</li>
+          <li>Planifie tes créneaux de révision sur les jours restants de la semaine.</li>
+          <li>Note les dates cibles de réservation pour chaque examen.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Livrable — Second passage des examens blancs</h4></div>
+        <div class="lab-meta">Outil : Microsoft Learn Practice Assessments · Durée : 3-4 h</div>
+        <ol class="lab-steps">
+          <li>Repasse les 3 examens blancs en fin de semaine.</li>
+          <li>Compare tes scores avec ceux du début de semaine.</li>
+          <li>Réserve les examens dont le score dépasse ton seuil de confiance.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 51</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/credentials/certifications/security-compliance-and-identity-fundamentals/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+          <div class="res-text"><div class="res-title">Fiche officielle SC-900</div><div class="res-sub">Format, domaines, inscription</div></div>
+        </a>
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/credentials/certifications/azure-administrator/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg></div>
+          <div class="res-text"><div class="res-title">Fiche officielle AZ-104</div><div class="res-sub">Format, domaines, inscription</div></div>
+        </a>
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/credentials/certifications/m365-administrator-associate/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Fiche officielle MS-102</div><div class="res-sub">Format, domaines, inscription</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 51</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi passer un examen blanc avant de réviser plutôt qu'après ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w51q1">Ça n'a pas d'importance</label>
+            <label class="quiz-opt"><input type="radio" name="w51q1">Ça révèle les lacunes réelles, pas celles supposées</label>
+            <label class="quiz-opt"><input type="radio" name="w51q1">C'est plus facile de le faire en premier</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un diagnostic précis avant de réviser cible l'effort là où il est réellement nécessaire.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Pourquoi préférer les évaluations officielles Microsoft Learn ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w51q2">Elles sont alignées sur le format réel de l'examen</label>
+            <label class="quiz-opt"><input type="radio" name="w51q2">Elles sont plus courtes</label>
+            <label class="quiz-opt"><input type="radio" name="w51q2">Elles ne sont pas gratuites</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Contrairement à certains sites tiers, la source officielle garantit un alignement fiable avec l'examen réel.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Que faut-il éviter en réservant un examen ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w51q3">Réserver trop tard</label>
+            <label class="quiz-opt"><input type="radio" name="w51q3">Réserver après un examen blanc</label>
+            <label class="quiz-opt"><input type="radio" name="w51q3">Réserver sur un score isolé favorable, non stable</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un score stable sur plusieurs tentatives est un indicateur bien plus fiable qu'un score isolé.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 51</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Format des 3 examens, stratégie de révision</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s51">0</span>/25<div class="auto-note">calcul auto</div></td><td>Examens blancs et plan de révision livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Progression mesurée entre les deux passages d'examens blancs</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 52 ============================================================ -->
+    <div class="week-block" id="s52">
+      <p class="week-tag">SEMAINE 52 · 19/07 – 25/07/2027 · DERNIÈRE SEMAINE</p>
+      <h2 class="week-title" style="font-size:22px;">Passage des examens et bilan annuel</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Te présenter à l'examen dans de bonnes conditions</li>
+          <li>Gérer le temps et le stress pendant l'épreuve</li>
+          <li>Tirer un bilan complet de tes 12 mois de formation</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="228" data-tracker-week="s52">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="228" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Certification</span>Passage des examens de certification et bilan annuel</div></div>
+      </div>
+
+
+      <h2 class="sec">52.1 — Logistique du jour de l'examen</h2>
+      <p>Les examens Microsoft se passent via <strong>Pearson VUE</strong>, soit en centre d'examen, soit à distance avec surveillance en ligne. Points de vigilance pour un examen à distance : pièce isolée et rangée, pièce d'identité valide, connexion Internet stable testée à l'avance, et arrivée en ligne au moins 30 minutes avant l'heure prévue pour la vérification d'identité.</p>
+
+      <h2 class="sec">52.2 — Gérer le temps et le stress</h2>
+      <ul class="std">
+        <li>Lis chaque question entièrement avant de répondre — les questions à choix multiples contiennent souvent des pièges de lecture rapide.</li>
+        <li>Marque les questions incertaines pour révision plutôt que de bloquer dessus.</li>
+        <li>Surveille le temps restant à intervalles réguliers, sans obsession.</li>
+        <li>Une nuit de sommeil correcte avant l'examen vaut mieux qu'une session de révision tardive la veille.</li>
+      </ul>
+
+      <h2 class="sec">52.3 — Après l'examen</h2>
+      <p>Le résultat (réussite/échec, parfois un score détaillé par domaine) est généralement communiqué immédiatement ou sous quelques jours. En cas d'échec, une politique de nouvelle tentative existe (délai d'attente variable) — ce n'est pas une fin de parcours, juste une information sur où concentrer l'effort avant de retenter.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>Un échec à l'examen n'invalide pas 12 mois de travail</h4>
+        <p>Le score d'un examen mesure un instant précis, pas la totalité de tes compétences réelles — celles-ci sont déjà démontrées par ton Projet Final et ton Portfolio. Si un examen ne passe pas du premier coup, ajuste et retente ; ça n'efface en rien tout ce que tu as construit.</p>
+      </div>
+
+      <h2 class="sec">52.4 — Bilan annuel du parcours complet</h2>
+      <p>Cette dernière réflexion couvre l'année entière, pas seulement ce module. Reprends ton Planner et ton Portfolio, et documente :</p>
+      <ol class="std">
+        <li><strong>Compétences acquises</strong> — reliste les 11 modules techniques et ce que tu sais faire concrètement aujourd'hui que tu ne savais pas faire il y a un an</li>
+        <li><strong>Projets démontrables</strong> — les 11 projets de portfolio + le Projet Final, prêts à être présentés</li>
+        <li><strong>Certifications obtenues</strong> — SC-900, AZ-104, MS-102</li>
+        <li><strong>Méthode de travail</strong> — pas seulement des connaissances techniques : cadrage de projet, documentation, tests, présentation</li>
+        <li><strong>Prochaines étapes</strong> — spécialisation, veille technologique continue, prochains projets</li>
+      </ol>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Livrable — Passage des examens (ou simulation finale)</h4></div>
+        <div class="lab-meta">Outil : Pearson VUE · Durée : selon planning de réservation</div>
+        <ol class="lab-steps">
+          <li>Présente-toi à chaque examen réservé, dans les conditions décrites en 52.1.</li>
+          <li>Documente ton score et ton ressenti pour chaque tentative.</li>
+          <li>Si un examen n'est pas encore prêt à être passé, planifie sa date définitive au-delà de ce parcours de 12 mois.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Livrable — Bilan annuel complet du parcours</h4></div>
+        <div class="lab-meta">Format : document de synthèse (2-3 pages) · Durée : 3-4 h</div>
+        <ol class="lab-steps">
+          <li>Reprends les 5 points de la section 52.4 et documente chacun honnêtement.</li>
+          <li>Relis ton tout premier objectif fixé en semaine 1 du Module 1 — compare avec où tu en es aujourd'hui.</li>
+          <li>Définis 2-3 objectifs concrets pour les 12 prochains mois.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 52</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://www.pearsonvue.com/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg></div>
+          <div class="res-text"><div class="res-title">Pearson VUE — réservation d'examens</div><div class="res-sub">Plateforme officielle de passage des certifications Microsoft</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 52</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Combien de temps avant l'examen à distance faut-il se connecter ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w52q1">Pile à l'heure</label>
+            <label class="quiz-opt"><input type="radio" name="w52q1">5 minutes avant</label>
+            <label class="quiz-opt"><input type="radio" name="w52q1">Au moins 30 minutes avant, pour la vérification d'identité</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La vérification d'identité et de l'environnement prend du temps — mieux vaut prévoir une marge.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Que faire face à une question incertaine pendant l'examen ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w52q2">Bloquer dessus jusqu'à trouver la réponse parfaite</label>
+            <label class="quiz-opt"><input type="radio" name="w52q2">La marquer pour révision et continuer</label>
+            <label class="quiz-opt"><input type="radio" name="w52q2">Abandonner l'examen</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Marquer et continuer protège la gestion du temps sur l'ensemble de l'examen.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Qu'est-ce qui démontre déjà tes compétences, indépendamment du résultat d'un examen ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w52q3">Ton Projet Final et ton Portfolio</label>
+            <label class="quiz-opt"><input type="radio" name="w52q3">Rien tant que l'examen n'est pas réussi</label>
+            <label class="quiz-opt"><input type="radio" name="w52q3">Uniquement le nombre d'heures passées à réviser</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Les projets concrets réalisés tout au long du parcours sont une preuve de compétence indépendante du score d'un examen.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 52</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Logistique d'examen, gestion du temps et du stress</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s52">0</span>/25<div class="auto-note">calcul auto</div></td><td>Examens passés et bilan annuel livré</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Profondeur et honnêteté du bilan annuel</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ BILAN FINAL DU MANUEL ============================================================ -->
+    <div class="synth" id="synthese" style="background:linear-gradient(135deg,var(--accent) 0%, var(--accent-ink) 100%); border:none;">
+      <h3 style="color:#fff;">🏁 Fin du parcours — 52 semaines, 13 modules, 220 activités</h3>
+      <p style="color:rgba(255,255,255,.92);">Tu as parcouru l'intégralité du manuel : des fondamentaux réseau jusqu'à l'IA générative, en passant par l'administration Windows et Linux, le cloud Azure, l'automatisation en trois langages différents, la cybersécurité, et un projet intégrateur complet. Chaque module s'est appuyé sur les précédents — ce n'est pas une collection de sujets isolés, mais une progression cohérente vers une véritable expertise en infrastructure, cloud et automatisation.</p>
+      <p style="color:rgba(255,255,255,.92);">Ce manuel reste ton support de référence : reviens-y chaque fois qu'un concept a besoin d'être rafraîchi, que ce soit pour une mission professionnelle, une certification à repasser, ou un nouveau projet. Les études de cas du cabinet comptable, de l'hôtel, de l'usine et de la mairie t'ont montré comment ces compétences s'appliquent à des contextes réels très différents — c'est cette capacité d'adaptation, plus que la mémorisation de commandes, qui fait un professionnel IT solide.</p>
+      <p style="color:rgba(255,255,255,.92);"><strong>Prochaine étape :</strong> maintiens ton Portfolio à jour, continue la veille technologique, et transforme ce que tu as appris en opportunités concrètes — que ce soit pour ton activité de consulting Smart Building, tes projets domotique, ou de nouvelles missions professionnelles.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-12-projet-final.html"><div class="lbl">Module précédent</div><div class="ttl">12 · Projet Final</div></a>
+      <a class="next" href="index.html"><div class="lbl">Retour</div><div class="ttl">Table des matières</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Certifications">[{"id": 227, "type": "Certification", "week": 51, "title": "Révision intensive SC-900 / AZ-104 / MS-102 + examens blancs"}, {"id": 228, "type": "Certification", "week": 52, "title": "Passage des examens de certification et bilan annuel"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

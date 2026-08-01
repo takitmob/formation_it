@@ -122,7 +122,7 @@ function recomputeModuleEvaluation(state){
   var mod = moduleNameOf();
   var acts = moduleActivities();
   if(!mod || !acts.length) return;
-  var practical = acts.filter(function(a){ return a.type==='TP' || a.type==='Labo'; });
+  var practical = acts.filter(function(a){ return a.type!=='Cours'; });
   var done = practical.filter(function(a){
     var s = state.activities[a.id];
     return s && s.status === 'Terminé';
@@ -133,8 +133,13 @@ function recomputeModuleEvaluation(state){
 }
 
 function weekPracticalScore(state, weekIds){
-  /* weekIds = [coursId, tpId, labo1Id, labo2Id, labo3Id] — pratique = TP + 3 labos (skip Cours) */
-  var practicalIds = weekIds.slice(1);
+  /* pratique = tout sauf le Cours (TP+Labos habituellement ; Jalon/Certification pour modules 12-13) */
+  var acts = moduleActivities();
+  var practicalIds = weekIds.filter(function(id){
+    var a = acts.find(function(x){ return x.id === id; });
+    return !a || a.type !== 'Cours';
+  });
+  if(!practicalIds.length) practicalIds = weekIds.slice(1);
   var done = practicalIds.filter(function(id){
     var s = state.activities[id];
     return s && s.status === 'Terminé';
@@ -259,10 +264,115 @@ function initSyncImportExport(){
   }
 }
 
+/* ===================== STEPPER (one week at a time) ===================== */
+function initStepper(){
+  var content = document.querySelector('.content');
+  if(!content) return;
+  var steps = Array.prototype.filter.call(content.children, function(el){
+    return el.classList.contains('week-block') || el.classList.contains('synth');
+  });
+  if(!steps.length) return;
+
+  function stepShortLabel(step){
+    if(step.classList.contains('synth')) return 'Synthèse';
+    var tag = step.querySelector('.week-tag');
+    if(!tag) return 'Semaine';
+    var txt = tag.textContent.split('·')[0].trim();
+    return txt.replace('SEMAINE', 'S');
+  }
+  function stepFullLabel(step){
+    if(step.classList.contains('synth')) return 'Synthèse & projet';
+    var tag = step.querySelector('.week-tag');
+    return tag ? tag.textContent.trim() : 'Étape';
+  }
+
+  var progressBar = document.createElement('div');
+  progressBar.className = 'stepper-progress';
+  steps.forEach(function(step, i){
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'stepper-dot';
+    dot.setAttribute('data-step-index', i);
+    dot.title = stepFullLabel(step);
+    progressBar.appendChild(dot);
+  });
+  var caption = document.createElement('p');
+  caption.className = 'stepper-caption';
+  steps[0].parentNode.insertBefore(progressBar, steps[0]);
+  steps[0].parentNode.insertBefore(caption, steps[0]);
+
+  function currentIndex(){
+    for(var i=0;i<steps.length;i++) if(steps[i].classList.contains('active')) return i;
+    return 0;
+  }
+
+  function showStep(index, opts){
+    index = Math.max(0, Math.min(steps.length-1, index));
+    steps.forEach(function(s,i){ s.classList.toggle('active', i===index); });
+    Array.prototype.forEach.call(progressBar.children, function(d,i){
+      d.classList.toggle('active', i===index);
+      d.classList.toggle('done', i<index);
+    });
+    caption.textContent = stepFullLabel(steps[index]) + ' — étape ' + (index+1) + ' / ' + steps.length;
+    renderStepNav(index);
+    if(!opts || opts.scroll !== false){
+      var top = content.getBoundingClientRect().top + window.scrollY - 10;
+      window.scrollTo({top: Math.max(top,0), behavior:'smooth'});
+    }
+  }
+
+  function renderStepNav(index){
+    var old = steps[index].querySelector(':scope > .step-nav');
+    if(old) old.remove();
+    var nav = document.createElement('div');
+    nav.className = 'step-nav';
+    var prevDisabled = index === 0;
+    var isLast = index === steps.length - 1;
+    var nextLabel = isLast ? '' : (steps[index+1].classList.contains('synth') ? 'Voir la synthèse →' : 'Semaine suivante →');
+    nav.innerHTML =
+      '<button type="button" class="step-btn prev'+(prevDisabled?' invisible':'')+'" data-goto="'+(index-1)+'">← Semaine précédente</button>'+
+      '<span class="step-progress-label">'+(index+1)+' / '+steps.length+'</span>'+
+      '<button type="button" class="step-btn next'+(isLast?' invisible':'')+'" data-goto="'+(index+1)+'">'+nextLabel+'</button>';
+    steps[index].appendChild(nav);
+  }
+
+  progressBar.addEventListener('click', function(e){
+    var dot = e.target.closest('[data-step-index]');
+    if(dot) goTo(Number(dot.getAttribute('data-step-index')));
+  });
+  content.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-goto]');
+    if(btn && !btn.classList.contains('invisible')) goTo(Number(btn.getAttribute('data-goto')));
+  });
+
+  function goTo(index){
+    index = Math.max(0, Math.min(steps.length-1, index));
+    var step = steps[index];
+    if(step.id && location.hash.replace('#','') !== step.id){
+      location.hash = step.id;
+    } else {
+      showStep(index);
+    }
+  }
+
+  window.addEventListener('hashchange', function(){
+    var hash = location.hash.replace('#','');
+    var idx = -1;
+    for(var i=0;i<steps.length;i++) if(steps[i].id === hash) idx = i;
+    if(idx !== -1) showStep(idx);
+  });
+
+  var initialHash = location.hash.replace('#','');
+  var initialIdx = -1;
+  for(var i=0;i<steps.length;i++) if(steps[i].id === initialHash) initialIdx = i;
+  showStep(initialIdx === -1 ? 0 : initialIdx, {scroll:false});
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   initSidebar();
   initQuiz();
   initTracker();
   applySyncBadges();
   initSyncImportExport();
+  initStepper();
 });

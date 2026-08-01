@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Module 12 · Projet Final — Manuel de Formation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="scrim" id="scrim"></div>
+<nav class="side" id="side">
+  <a class="brand" href="index.html"><span class="dot"></span><span>Manuel de<br>Formation</span></a>
+  <div class="side-section">
+    <div class="side-section-title">Vue d'ensemble</div>
+    <a class="side-link" href="index.html">Table des matières</a>
+    <a class="side-link" href="module-01-reseaux.html">01 · Réseaux</a>
+    <a class="side-link" href="module-02-windows-server.html">02 · Windows Server</a>
+    <a class="side-link" href="module-03-linux.html">03 · Linux</a>
+    <a class="side-link" href="module-04-virtualisation.html">04 · Virtualisation</a>
+    <a class="side-link" href="module-05-microsoft365.html">05 · Microsoft 365</a>
+    <a class="side-link" href="module-06-azure.html">06 · Azure</a>
+    <a class="side-link" href="module-07-powershell.html">07 · PowerShell</a>
+    <a class="side-link" href="module-08-python.html">08 · Python</a>
+    <a class="side-link" href="module-09-power-automate.html">09 · Power Automate</a>
+    <a class="side-link" href="module-10-cybersecurite.html">10 · Cybersécurité</a>
+    <a class="side-link" href="module-11-ia-copilot.html">11 · IA &amp; Copilot</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Module 12 — Projet Final</div>
+    <a class="side-link" href="#intro">Introduction du module</a>
+    <a class="side-link" href="#s45" data-week-ids="221">Semaine 45 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s46" data-week-ids="222">Semaine 46 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s47" data-week-ids="223">Semaine 47 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s48" data-week-ids="224">Semaine 48 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s49" data-week-ids="225">Semaine 49 <span class="week-badge"></span></a>
+    <a class="side-link" href="#s50" data-week-ids="226">Semaine 50 <span class="week-badge"></span></a>
+    <a class="side-link" href="#synthese">Synthèse &amp; bilan</a>
+  </div>
+  <div class="side-section">
+    <div class="side-section-title">Suite</div>
+    <a class="side-link" href="module-13-certifications.html">13 · Certifications →</a>
+  </div>
+  <div class="side-foot">
+    <a href="Transformation_Numerique_App.html" style="display:block;text-align:center;padding:9px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-weight:600;color:var(--ink-soft);text-decoration:none;">↗ Ouvrir le Planner (app)</a>
+  </div>
+</nav>
+<div class="content-wrap">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+    <div><div class="topbar-title">Module 12 · Projet Final</div><div class="topbar-sub">Semaines 45–50</div></div>
+  </div>
+  <div class="content">
+
+    <div class="sync-banner" id="syncBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><polyline points="14 3 18 3 18 7"/><polyline points="10 21 6 21 6 17"/></svg>
+      <span class="sync-text">Vérification de la synchronisation…</span>
+      <button id="exportSyncBtn" style="margin-left:auto;">Exporter</button>
+      <button id="importSyncBtn">Importer</button>
+      <input type="file" id="syncFileInput" accept="application/json" style="display:none;">
+    </div>
+
+    <p class="week-tag" id="intro">MODULE 12 / 13</p>
+    <h1 class="week-title">Projet Final</h1>
+    <p class="week-dates">31 mai 2027 → 11 juillet 2027 · Semaines 45–50 · 90 h prévues</p>
+
+    <p class="lead">Ce module ne t'apprend plus de nouvelles notions — il te fait <strong>assembler</strong> les onze modules précédents dans un projet intégrateur unique, du cahier des charges jusqu'à la démonstration finale. C'est la pièce maîtresse de ton portfolio professionnel.</p>
+
+    <div class="obj-box">
+      <div class="obj-title">Objectifs de compétences du module</div>
+      <ul>
+        <li>Cadrer un projet IT réel avec un cahier des charges structuré</li>
+        <li>Concevoir une architecture intégrée (réseau, cloud, sécurité, identité)</li>
+        <li>Implémenter une infrastructure fonctionnelle documentée</li>
+        <li>Automatiser et intégrer l'IA dans un contexte opérationnel</li>
+        <li>Tester, sécuriser, documenter et présenter un projet devant un public</li>
+      </ul>
+    </div>
+
+    <h2 class="sec" style="border-top:none;">Choisis ton contexte de projet</h2>
+    <p>Tout au long du manuel, quatre organisations ont accompagné les études de cas de chaque module : le <strong>cabinet comptable</strong> (PME), la <strong>chaîne hôtelière</strong>, l'<strong>usine de production</strong>, et la <strong>mairie</strong> (administration publique). Pour ton projet final, choisis-en une comme fil rouge — ou combine des éléments de plusieurs pour un scénario qui te ressemble davantage. L'important : un contexte suffisamment concret pour justifier chaque décision technique.</p>
+
+    <div class="obj-box" style="background:var(--surface-alt);border-color:var(--border);">
+      <div class="obj-title" style="color:var(--ink-faint);">Rappel des 4 contextes du manuel</div>
+      <ul style="color:var(--ink);">
+        <li><strong>Cabinet comptable (PME)</strong> — infrastructure légère, budget contraint, équipe non-IT</li>
+        <li><strong>Chaîne hôtelière</strong> — multi-sites, isolation réseau invités/staff/IoT, disponibilité continue</li>
+        <li><strong>Usine de production</strong> — segmentation IT/OT, haute disponibilité critique, sécurité stricte</li>
+        <li><strong>Administration publique (mairie)</strong> — conformité réglementaire renforcée, données sensibles</li>
+      </ul>
+    </div>
+
+    <h2 class="sec">Comment ce module est structuré</h2>
+    <p>Chaque semaine correspond à une <strong>phase de projet</strong> plutôt qu'à une notion technique nouvelle. Au lieu de laboratoires guidés, tu trouveras des <strong>livrables attendus</strong> — les preuves concrètes de ta progression, à documenter dans ton Portfolio. La grille d'évaluation reste identique en structure au reste du manuel.</p>
+
+    <!-- ============================================================ SEMAINE 45 ============================================================ -->
+    <div class="week-block" id="s45">
+      <p class="week-tag">SEMAINE 45 · 31/05 – 06/06/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Cadrage du projet final — cahier des charges</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Choisir et justifier le contexte de ton projet</li>
+          <li>Rédiger un cahier des charges structuré</li>
+          <li>Définir des critères de succès mesurables</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="221" data-tracker-week="s45">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="221" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Cadrage du projet final (cahier des charges)</div></div>
+      </div>
+
+
+      <h2 class="sec">45.1 — Rédiger un cahier des charges</h2>
+      <p>Un cahier des charges répond à quatre questions avant toute décision technique :</p>
+      <ul class="std">
+        <li><strong>Contexte</strong> — qui est l'organisation, quelle est sa situation actuelle ?</li>
+        <li><strong>Besoins</strong> — quels problèmes concrets le projet doit-il résoudre ?</li>
+        <li><strong>Contraintes</strong> — budget, compétences internes, délais, réglementation</li>
+        <li><strong>Livrables attendus</strong> — qu'est-ce qui prouvera que le projet est terminé ?</li>
+      </ul>
+      <p>C'est exactement la démarche que tu as vue répétée à travers chaque étude de cas du manuel — cette fois, c'est toi qui la mènes de bout en bout.</p>
+
+      <h2 class="sec">45.2 — Définir des critères de succès mesurables</h2>
+      <div class="def">
+        <span class="def-term">Critère de succès mesurable</span>
+        <p>Un objectif vérifiable, pas une intention vague. "Le réseau doit être sécurisé" n'est pas mesurable ; "aucun port d'administration exposé directement sur Internet, MFA actif sur 100% des comptes à privilège" l'est.</p>
+      </div>
+
+      <h2 class="sec">45.3 — Planifier les 6 semaines</h2>
+      <p>Découpe ton projet selon les phases du module : conception (S46), implémentation infrastructure (S47), automatisation/IA (S48), tests et documentation (S49), présentation (S50). Un planning réaliste tient compte du temps disponible réel — mieux vaut un périmètre plus restreint mais complet qu'un projet ambitieux à moitié fini.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Exemple de cadrage</span>
+        <h4>Cahier des charges simplifié — cabinet comptable</h4>
+        <p><strong>Besoin :</strong> moderniser l'infrastructure existante (Modules 1-2) avec une identité hybride M365, une sauvegarde cloud, et un premier niveau d'automatisation des tâches d'administration.</p>
+        <p><strong>Contraintes :</strong> budget proche de zéro (utiliser les paliers gratuits Azure/M365), pas d'équipe IT dédiée à temps plein — donc privilégier la simplicité d'exploitation à la sophistication technique.</p>
+        <p><strong>Critères de succès :</strong> authentification hybride fonctionnelle, sauvegarde automatisée testée par une restauration réelle, au moins un script d'automatisation documenté et un agent Copilot répondant aux questions courantes du personnel.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Livrable — Cahier des charges rédigé</h4></div>
+        <div class="lab-meta">Format : document (1-2 pages) · Durée estimée : 3-4 h</div>
+        <ol class="lab-steps">
+          <li>Choisis ton contexte (un des 4 du manuel, ou un scénario personnel).</li>
+          <li>Rédige contexte, besoins, contraintes et livrables attendus.</li>
+          <li>Définis 4-5 critères de succès mesurables.</li>
+          <li>Enregistre ce document — il servira de référence pour toutes les décisions des semaines suivantes.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg></div><h4>Livrable — Planning macro sur 6 semaines</h4></div>
+        <div class="lab-meta">Format : tableau ou diagramme simple · Durée estimée : 1 h</div>
+        <ol class="lab-steps">
+          <li>Répartis les grandes tâches sur les 5 semaines restantes.</li>
+          <li>Identifie les dépendances (ex. l'infrastructure doit exister avant l'automatisation).</li>
+          <li>Prévois une marge pour les imprévus, notamment en semaine 49 (tests).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 45</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=project%20management" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Gestion de projet IT</div><div class="res-sub">Concepts gratuits de cadrage de projet</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 45</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi un critère de succès doit-il être mesurable ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w45q1">Pour impressionner le client</label>
+            <label class="quiz-opt"><input type="radio" name="w45q1">Pour pouvoir vérifier objectivement si le projet a réussi</label>
+            <label class="quiz-opt"><input type="radio" name="w45q1">Ce n'est pas vraiment nécessaire</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Sans mesure objective, on ne peut jamais savoir avec certitude si l'objectif est atteint.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Que vaut-il mieux entre un périmètre restreint mais complet et un projet ambitieux inachevé ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w45q2">Le périmètre restreint mais complet</label>
+            <label class="quiz-opt"><input type="radio" name="w45q2">Le projet ambitieux, même inachevé</label>
+            <label class="quiz-opt"><input type="radio" name="w45q2">Cela n'a pas d'importance</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un livrable complet démontre mieux tes compétences qu'un projet ambitieux à moitié fonctionnel.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Que doit contenir un cahier des charges avant toute décision technique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w45q3">Uniquement le budget</label>
+            <label class="quiz-opt"><input type="radio" name="w45q3">Uniquement la liste des technologies à utiliser</label>
+            <label class="quiz-opt"><input type="radio" name="w45q3">Contexte, besoins, contraintes et livrables attendus</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Ces quatre éléments encadrent toutes les décisions techniques qui suivront.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 45</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Structure d'un cahier des charges, critères mesurables</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s45">0</span>/25<div class="auto-note">calcul auto</div></td><td>Cahier des charges et planning livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Clarté et réalisme du cadrage proposé</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 46 ============================================================ -->
+    <div class="week-block" id="s46">
+      <p class="week-tag">SEMAINE 46 · 07/06 – 13/06/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Conception de l'architecture — réseau, cloud, sécurité</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Schématiser une architecture intégrée réseau/cloud/sécurité</li>
+          <li>Justifier chaque choix technique par rapport au cahier des charges</li>
+          <li>Anticiper les risques avec une matrice simple</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="222" data-tracker-week="s46">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="222" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Conception de l'architecture (réseau, cloud, sécurité)</div></div>
+      </div>
+
+
+      <h2 class="sec">46.1 — Schématiser l'architecture cible</h2>
+      <p>Ton schéma doit intégrer les couches vues séparément dans les modules précédents : réseau et adressage (Module 1), identité (Modules 2/5), virtualisation ou cloud (Modules 4/6), et sécurité transverse (Module 10).</p>
+
+      <div class="diagram">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <style>.tb{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;} .ts{font-family:-apple-system,sans-serif;font-size:9.5px;fill:#667085;}</style>
+          <rect x="20" y="15" width="560" height="36" rx="8" fill="#F8EAE9" stroke="#B4504B"/><text class="tb" x="35" y="38" fill="#8A3B37">Sécurité transverse — Zero Trust, MFA, chiffrement, surveillance</text>
+          <rect x="20" y="60" width="270" height="60" rx="8" fill="#E9EFF5" stroke="#3D5A80"/><text class="tb" x="35" y="82" fill="#2C4362">Réseau &amp; adressage</text><text class="ts" x="35" y="98">VLAN, sous-réseaux, VPN</text><text class="ts" x="35" y="110">(Module 1)</text>
+          <rect x="310" y="60" width="270" height="60" rx="8" fill="#EFEBF5" stroke="#7C6A9C"/><text class="tb" x="325" y="82" fill="#4A3B60">Identité</text><text class="ts" x="325" y="98">AD DS / Entra ID hybride</text><text class="ts" x="325" y="110">(Modules 2, 5)</text>
+          <rect x="20" y="130" width="270" height="60" rx="8" fill="#E7F3EC" stroke="#3F8F5F"/><text class="tb" x="35" y="152" fill="#2C6B44">Virtualisation / Cloud</text><text class="ts" x="35" y="168">Hyper-V, Docker ou Azure</text><text class="ts" x="35" y="180">(Modules 4, 6)</text>
+          <rect x="310" y="130" width="270" height="60" rx="8" fill="#FBF1DA" stroke="#B07C00"/><text class="tb" x="325" y="152" fill="#8B5E00">Automatisation &amp; IA</text><text class="ts" x="325" y="168">Scripts, flux, Copilot</text><text class="ts" x="325" y="180">(Modules 7, 8, 9, 11)</text>
+        </svg>
+        <p class="diagram-caption">Fig. 46.1 — Modèle d'architecture intégrée pour ton projet final</p>
+      </div>
+
+      <h2 class="sec">46.2 — Justifier chaque choix</h2>
+      <p>Pour chaque brique de ton architecture, réponds explicitement : pourquoi ce choix plutôt qu'un autre, compte tenu des contraintes du cahier des charges (semaine 45) ? C'est cette capacité de justification, pas la sophistication technique en elle-même, qui distingue un professionnel d'un simple exécutant.</p>
+
+      <h2 class="sec">46.3 — Matrice de risques simple</h2>
+      <table class="eval-tbl">
+        <tr><th>Risque</th><th>Probabilité</th><th>Impact</th><th>Mitigation</th></tr>
+        <tr><td>Panne du serveur d'identité</td><td>Faible</td><td>Élevé</td><td>Sauvegarde + procédure de restauration testée</td></tr>
+        <tr><td>Erreur de configuration réseau</td><td>Moyenne</td><td>Moyen</td><td>Documentation + revue avant mise en prod</td></tr>
+      </table>
+      <p>Cette matrice reprend directement la logique du plan de réponse aux incidents (Module 10) — anticiper plutôt que subir.</p>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Livrable — Schéma d'architecture complet</h4></div>
+        <div class="lab-meta">Format : diagramme (à la main, Draw.io ou outil de ton choix) · Durée estimée : 4-5 h</div>
+        <ol class="lab-steps">
+          <li>Schématise les 4 couches (réseau, identité, virtualisation/cloud, automatisation/IA).</li>
+          <li>Indique les flux entre chaque composant.</li>
+          <li>Ajoute une légende expliquant chaque choix technique.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="15" rx="2"/><path d="M3 10h18"/></svg></div><h4>Livrable — Plan d'adressage et matrice de risques</h4></div>
+        <div class="lab-meta">Format : document · Durée estimée : 2 h</div>
+        <ol class="lab-steps">
+          <li>Définis le plan d'adressage IP (réutilise la méthode du Module 1).</li>
+          <li>Liste 3-5 risques principaux avec probabilité, impact et mitigation.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 46</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/azure/architecture/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Azure Architecture Center</div><div class="res-sub">Modèles d'architecture de référence, gratuits</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 46</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Qu'est-ce qui distingue un professionnel d'un simple exécutant technique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w46q1">La sophistication technique seule</label>
+            <label class="quiz-opt"><input type="radio" name="w46q1">La capacité à justifier ses choix par rapport aux contraintes</label>
+            <label class="quiz-opt"><input type="radio" name="w46q1">La rapidité d'exécution</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La justification argumentée est ce qui démontre une vraie compréhension du contexte.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. À quoi sert une matrice de risques ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w46q2">Décorer le rapport de projet</label>
+            <label class="quiz-opt"><input type="radio" name="w46q2">Remplacer le cahier des charges</label>
+            <label class="quiz-opt"><input type="radio" name="w46q2">Anticiper les problèmes plutôt que les subir</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Elle reprend la logique proactive du plan de réponse aux incidents du Module 10.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Quelle couche transverse doit traverser toutes les autres dans l'architecture ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w46q3">La sécurité</label>
+            <label class="quiz-opt"><input type="radio" name="w46q3">L'automatisation uniquement</label>
+            <label class="quiz-opt"><input type="radio" name="w46q3">Le réseau uniquement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La sécurité (Zero Trust, chiffrement, surveillance) doit irriguer toutes les couches, pas être ajoutée après coup.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 46</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Cohérence de l'architecture, justification des choix</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s46">0</span>/25<div class="auto-note">calcul auto</div></td><td>Schéma et matrice de risques livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Pertinence de l'architecture par rapport au cahier des charges</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 47 ============================================================ -->
+    <div class="week-block" id="s47">
+      <p class="week-tag">SEMAINE 47 · 14/06 – 20/06/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Implémentation — infrastructure de base</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Déployer les fondations réseau et identité de ton architecture</li>
+          <li>Documenter chaque étape d'implémentation au fil de l'eau</li>
+          <li>Valider chaque brique avant de passer à la suivante</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="223" data-tracker-week="s47">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="223" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Implémentation - Infrastructure de base</div></div>
+      </div>
+
+
+      <h2 class="sec">47.1 — Déployer dans l'ordre des dépendances</h2>
+      <p>Reprends ton schéma de la semaine 46 et déploie dans l'ordre logique : réseau d'abord (VLAN, sous-réseaux — Module 1), puis identité (contrôleur de domaine ou tenant M365 — Modules 2/5), puis virtualisation ou ressources cloud (Modules 4/6). Chaque brique doit être <strong>validée fonctionnellement</strong> avant de construire la suivante — un problème détecté tôt coûte bien moins cher à corriger qu'un problème découvert en semaine 49.</p>
+
+      <h2 class="sec">47.2 — Documenter au fil de l'eau</h2>
+      <p>Ne remets pas la documentation à la semaine 49 : capture tes commandes, tes captures d'écran et tes décisions à chaque étape. C'est la même discipline que la journalisation vue au Module 7 (PowerShell) — reconstituer après coup est toujours plus long et moins fiable que documenter en temps réel.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>Valider avant d'avancer</h4>
+        <p>Pour chaque brique déployée, pose-toi la question du Module 1 : "à quelle couche ça pourrait casser ?" Teste la connectivité réseau avant de configurer l'identité dessus ; teste l'authentification avant de déployer une application qui en dépend. Construire sur une fondation non vérifiée est la cause la plus fréquente de blocages tardifs et coûteux à diagnostiquer.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div><h4>Livrable — Fondation réseau déployée et validée</h4></div>
+        <div class="lab-meta">Format : infrastructure + captures de validation · Durée estimée : 6-8 h</div>
+        <ol class="lab-steps">
+          <li>Déploie le réseau selon ton plan d'adressage (Module 1).</li>
+          <li>Configure VLANs ou sous-réseaux selon ton architecture.</li>
+          <li>Valide la connectivité avec des tests documentés (ping, traceroute).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M2 20v-1a5 5 0 015-5h4a5 5 0 015 5v1"/></svg></div><h4>Livrable — Identité déployée (AD local, hybride ou M365)</h4></div>
+        <div class="lab-meta">Format : infrastructure + captures de validation · Durée estimée : 6-8 h</div>
+        <ol class="lab-steps">
+          <li>Déploie ton système d'identité selon ton architecture.</li>
+          <li>Crée quelques comptes de test représentatifs de ton scénario.</li>
+          <li>Valide l'authentification et documente le processus.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 47</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Documentation de référence</div><div class="res-sub">Revisite les modules 1, 2, 4, 5, 6 si besoin</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 47</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi déployer dans l'ordre des dépendances ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w47q1">Ça n'a pas d'importance</label>
+            <label class="quiz-opt"><input type="radio" name="w47q1">Construire sur une fondation non vérifiée cause des blocages coûteux plus tard</label>
+            <label class="quiz-opt"><input type="radio" name="w47q1">C'est plus rapide dans le désordre</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un problème non détecté tôt se propage et devient bien plus difficile à diagnostiquer plus tard.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">2. Pourquoi documenter au fil de l'eau plutôt qu'à la fin ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w47q1b">C'est plus fiable et rapide que de reconstituer après coup</label>
+            <label class="quiz-opt"><input type="radio" name="w47q1b">La documentation finale n'a pas d'importance</label>
+            <label class="quiz-opt"><input type="radio" name="w47q1b">Ça ralentit l'implémentation</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Reconstituer une documentation après coup fait perdre des détails et prend plus de temps.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Que doit-on faire après le déploiement de chaque brique d'infrastructure ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w47q3">Passer immédiatement à la suivante</label>
+            <label class="quiz-opt"><input type="radio" name="w47q3">Ne rien faire de particulier</label>
+            <label class="quiz-opt"><input type="radio" name="w47q3">La valider fonctionnellement avant de continuer</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Valider chaque étape évite d'empiler des problèmes non détectés.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 47</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Ordre de dépendances, discipline de documentation</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s47">0</span>/25<div class="auto-note">calcul auto</div></td><td>Réseau et identité déployés et validés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Qualité de la documentation en temps réel</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 48 ============================================================ -->
+    <div class="week-block" id="s48">
+      <p class="week-tag">SEMAINE 48 · 21/06 – 27/06/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Implémentation — automatisation et intégration IA</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Automatiser au moins une tâche opérationnelle de ton infrastructure</li>
+          <li>Intégrer un flux Power Automate ou un agent Copilot</li>
+          <li>Documenter la valeur ajoutée concrète de l'automatisation</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="224" data-tracker-week="s48">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="224" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Implémentation - Automatisation et intégration IA</div></div>
+      </div>
+
+
+      <h2 class="sec">48.1 — Choisir quoi automatiser</h2>
+      <p>Reprends les Modules 7, 8, 9 et 11 : quelle tâche répétitive de ton infrastructure gagnerait le plus à être automatisée ? Un script de sauvegarde, un rapport de santé, un flux de notification, un agent Copilot répondant aux questions courantes — choisis une automatisation qui répond à un vrai besoin identifié dans ton cahier des charges (semaine 45), pas une démonstration technique gratuite.</p>
+
+      <h2 class="sec">48.2 — Intégrer proprement</h2>
+      <p>Une automatisation robuste inclut la gestion d'erreurs vue dans chaque module concerné (Try/Catch PowerShell, Try/Except Python, "Exécuter après" Power Automate) — une automatisation qui échoue silencieusement est pire qu'aucune automatisation.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>Mesurer la valeur ajoutée</h4>
+        <p>Documente le "avant/après" : combien de temps prenait la tâche manuellement, combien de temps prend-elle maintenant ? C'est cette mesure concrète, pas la sophistication du script, qui démontre la valeur de ton travail à un futur employeur ou client.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h4>Livrable — Script ou flux d'automatisation fonctionnel</h4></div>
+        <div class="lab-meta">Format : script/flux documenté + test de validation · Durée estimée : 6-8 h</div>
+        <ol class="lab-steps">
+          <li>Développe l'automatisation choisie (script PowerShell/Python, flux Power Automate).</li>
+          <li>Ajoute une gestion d'erreurs robuste.</li>
+          <li>Teste-la dans plusieurs scénarios, y compris un cas d'échec volontaire.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/></svg></div><h4>Livrable — Intégration IA (Copilot ou agent)</h4></div>
+        <div class="lab-meta">Format : agent ou intégration Copilot documentée · Durée estimée : 4-6 h</div>
+        <ol class="lab-steps">
+          <li>Intègre Copilot ou un agent Copilot Studio à un cas d'usage réel de ton projet.</li>
+          <li>Documente les limites et le périmètre d'usage autorisé (Module 11).</li>
+          <li>Mesure et documente le "avant/après" pour ton automatisation principale.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 48</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Documentation de référence</div><div class="res-sub">Revisite les modules 7, 8, 9, 11 si besoin</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 48</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">1. Quel critère doit guider le choix de la tâche à automatiser ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w48q1">La complexité technique la plus impressionnante</label>
+            <label class="quiz-opt"><input type="radio" name="w48q1">Ce qui est le plus rapide à coder</label>
+            <label class="quiz-opt"><input type="radio" name="w48q1">Un vrai besoin identifié dans le cahier des charges</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">L'automatisation doit répondre à un besoin réel, pas être une démonstration gratuite.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Pourquoi une automatisation sans gestion d'erreurs est-elle risquée ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w48q2">Elle est plus lente</label>
+            <label class="quiz-opt"><input type="radio" name="w48q2">Elle peut échouer silencieusement, pire qu'aucune automatisation</label>
+            <label class="quiz-opt"><input type="radio" name="w48q2">Elle coûte plus cher</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un échec silencieux peut masquer un problème plus longtemps qu'une absence totale d'automatisation.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Que démontre le mieux la valeur d'une automatisation à un futur employeur ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w48q3">Une mesure concrète du temps gagné (avant/après)</label>
+            <label class="quiz-opt"><input type="radio" name="w48q3">Le nombre de lignes de code</label>
+            <label class="quiz-opt"><input type="radio" name="w48q3">La complexité du script</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une mesure de valeur concrète parle davantage qu'une démonstration purement technique.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 48</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Choix pertinent de l'automatisation, gestion d'erreurs</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s48">0</span>/25<div class="auto-note">calcul auto</div></td><td>Automatisation et intégration IA fonctionnelles</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Mesure de valeur ajoutée documentée</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 49 ============================================================ -->
+    <div class="week-block" id="s49">
+      <p class="week-tag">SEMAINE 49 · 28/06 – 04/07/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Tests, sécurisation et documentation</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Tester la résilience de ton infrastructure</li>
+          <li>Appliquer un durcissement de sécurité complet</li>
+          <li>Produire une documentation technique complète et exploitable</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="225" data-tracker-week="s49">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="225" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Tests, sécurisation et documentation</div></div>
+      </div>
+
+
+      <h2 class="sec">49.1 — Tester la résilience</h2>
+      <p>Provoque volontairement des pannes contrôlées : arrête un service critique et vérifie qu'il redémarre (Module 7), coupe un lien réseau et vérifie le comportement (Module 1), teste une restauration de sauvegarde réelle (Modules 2/6) plutôt que de supposer qu'elle fonctionnerait. Un test réussi n'est valable que s'il a réellement pu échouer.</p>
+
+      <h2 class="sec">49.2 — Durcissement de sécurité complet</h2>
+      <p>Applique une dernière passe de sécurité en reprenant la checklist du Module 10 : surface d'attaque réduite, MFA actif partout où pertinent, principe du moindre privilège respecté, chiffrement en place, et un plan de réponse aux incidents écrit pour ton infrastructure spécifique.</p>
+
+      <h2 class="sec">49.3 — Documentation technique complète</h2>
+      <p>Une documentation professionnelle comprend généralement : le schéma d'architecture final (mis à jour depuis la semaine 46), les procédures d'exploitation courantes, la procédure de restauration en cas d'incident, et les décisions techniques justifiées — de quoi permettre à quelqu'un d'autre que toi de reprendre l'infrastructure.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>Le test du "bus"</h4>
+        <p>Un principe classique en IT : ta documentation est suffisante si quelqu'un d'autre pourrait reprendre ton infrastructure demain matin sans toi. C'est un bon test pour juger si tu as documenté assez, ou si certaines connaissances restent uniquement "dans ta tête".</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Livrable — Rapport de tests de résilience</h4></div>
+        <div class="lab-meta">Format : document avec preuves (captures, logs) · Durée estimée : 4-5 h</div>
+        <ol class="lab-steps">
+          <li>Provoque et documente au moins 3 scénarios de panne contrôlée.</li>
+          <li>Note le comportement observé et le temps de récupération.</li>
+          <li>Identifie les points faibles restants, s'il y en a.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Livrable — Checklist de sécurité appliquée</h4></div>
+        <div class="lab-meta">Format : checklist cochée + justifications · Durée estimée : 3-4 h</div>
+        <ol class="lab-steps">
+          <li>Reprends la checklist du Module 10 et vérifie chaque point sur ton infrastructure.</li>
+          <li>Documente ce qui est en place et ce qui reste hors périmètre (avec justification).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h4>Livrable — Documentation technique complète</h4></div>
+        <div class="lab-meta">Format : document structuré · Durée estimée : 5-6 h</div>
+        <ol class="lab-steps">
+          <li>Compile schéma final, procédures d'exploitation et de restauration.</li>
+          <li>Fais relire ta documentation par quelqu'un d'autre si possible — un regard extérieur révèle souvent les zones d'ombre.</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 49</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/browse/?terms=security%20compliance%20identity%20fundamentals" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Révision Module 10</div><div class="res-sub">Checklist de durcissement de sécurité</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 49</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">1. Pourquoi tester une restauration de sauvegarde réelle plutôt que de supposer qu'elle fonctionnerait ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w49q1">C'est une perte de temps</label>
+            <label class="quiz-opt"><input type="radio" name="w49q1">Une sauvegarde jamais testée peut échouer au moment où on en a le plus besoin</label>
+            <label class="quiz-opt"><input type="radio" name="w49q1">Les sauvegardes ne peuvent jamais échouer</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Seul un test réel confirme qu'une sauvegarde est exploitable en cas de besoin.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">2. Quel est le "test du bus" en documentation ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w49q2">Vérifier le temps de transport vers le bureau</label>
+            <label class="quiz-opt"><input type="radio" name="w49q2">Tester la vitesse du réseau</label>
+            <label class="quiz-opt"><input type="radio" name="w49q2">Vérifier qu'un tiers pourrait reprendre l'infrastructure sans toi</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">C'est une façon imagée de juger si une documentation est réellement suffisante.</div>
+        </div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">3. Un test de résilience n'est valable que s'il...</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w49q3">A réellement pu échouer</label>
+            <label class="quiz-opt"><input type="radio" name="w49q3">Est effectué en dernière minute</label>
+            <label class="quiz-opt"><input type="radio" name="w49q3">Est documenté après coup de mémoire</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un test sans risque réel d'échec ne prouve rien sur la résilience effective du système.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 49</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Méthode de test, principes de durcissement</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s49">0</span>/25<div class="auto-note">calcul auto</div></td><td>Tests, checklist sécurité et documentation livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Exhaustivité et clarté de la documentation finale</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SEMAINE 50 ============================================================ -->
+    <div class="week-block" id="s50">
+      <p class="week-tag">SEMAINE 50 · 05/07 – 11/07/2027</p>
+      <h2 class="week-title" style="font-size:22px;">Présentation finale et démonstration</h2>
+
+      <div class="obj-box">
+        <div class="obj-title">À la fin de cette semaine, tu sauras</div>
+        <ul>
+          <li>Structurer une présentation technique convaincante</li>
+          <li>Réaliser une démonstration live ou enregistrée</li>
+          <li>Tirer un bilan de compétences de tout le parcours</li>
+        </ul>
+      </div>
+      <div class="card card-pad tracker" data-tracker="226" data-tracker-week="s50">
+        <h3 class="section-title">✅ Suivi de la semaine <span class="cnt" data-tracker-count>0/1</span></h3>
+        <p class="tracker-sub">Coche chaque étape terminée — synchronisé avec le Planner et la grille d'évaluation ci-dessous.</p>
+        <div class="tracker-row"><button class="check-btn" data-toggle="226" role="checkbox" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 9 17 20 6"/></svg></button><div class="tracker-text"><span class="ttype">Jalon</span>Présentation finale et démonstration</div></div>
+      </div>
+
+
+      <h2 class="sec">50.1 — Structurer la présentation</h2>
+      <p>Une présentation technique efficace suit généralement : contexte et problème (30 secondes), architecture et choix clés (2-3 minutes), démonstration live (5 minutes), résultats mesurés et limites honnêtes (1-2 minutes). Un jury ou un client se souvient rarement des détails techniques, mais toujours de la clarté du raisonnement.</p>
+
+      <h2 class="sec">50.2 — Préparer la démonstration</h2>
+      <p>Teste ta démo au moins deux fois avant la présentation réelle — dans des conditions aussi proches que possible de celles du jour J. Prévois un plan B (captures d'écran, vidéo enregistrée) si la démo live échoue techniquement ; ce n'est jamais un échec de présentation d'avoir un filet de sécurité.</p>
+
+      <h2 class="sec">50.3 — Bilan de compétences</h2>
+      <p>Cette dernière étape n'est pas une formalité : documenter honnêtement ce que tu maîtrises, ce qui reste fragile, et ce que tu voudrais approfondir donne une direction claire pour la suite — et c'est exactement le type de réflexion qu'un recruteur apprécie en entretien.</p>
+
+      <div class="case">
+        <span class="case-tag">💡 Conseil</span>
+        <h4>L'honnêteté sur les limites renforce la crédibilité</h4>
+        <p>Présenter uniquement les succès sans mentionner les limites ou compromis fait paraître un projet suspect ou superficiel. Un professionnel qui dit "j'ai fait ce choix par contrainte de temps, voici ce que je ferais différemment avec plus de ressources" inspire plus confiance qu'une présentation qui prétend n'avoir eu aucune difficulté.</p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h4>Livrable — Support de présentation</h4></div>
+        <div class="lab-meta">Format : diaporama (10-15 slides) · Durée estimée : 4 h</div>
+        <ol class="lab-steps">
+          <li>Structure ta présentation selon les 4 temps décrits en 50.1.</li>
+          <li>Inclus ton schéma d'architecture et tes résultats mesurés.</li>
+          <li>Prépare des slides de secours (captures) en cas d'échec de la démo live.</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="10 8 16 12 10 16 10 8"/></svg></div><h4>Livrable — Démonstration live ou enregistrée</h4></div>
+        <div class="lab-meta">Format : démo (5-10 min) · Durée estimée : 3-4 h de préparation</div>
+        <ol class="lab-steps">
+          <li>Répète ta démonstration au moins deux fois avant le jour J.</li>
+          <li>Enregistre une version de secours si possible.</li>
+          <li>Présente à un public réel si l'occasion se présente (famille, communauté en ligne, mentor).</li>
+        </ol>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head"><div class="lab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div><h4>Livrable — Bilan de compétences honnête</h4></div>
+        <div class="lab-meta">Format : document de réflexion (1 page) · Durée estimée : 2 h</div>
+        <ol class="lab-steps">
+          <li>Liste ce que tu maîtrises solidement après ce parcours.</li>
+          <li>Identifie ce qui reste fragile ou à approfondir.</li>
+          <li>Définis 2-3 axes concrets pour la suite (certifications, projets, formation continue).</li>
+        </ol>
+      </div>
+
+      <h2 class="sec">Ressources gratuites — Semaine 50</h2>
+      <div class="res-list">
+        <a class="res-item" href="https://learn.microsoft.com/fr-fr/training/" target="_blank" rel="noopener">
+          <div class="res-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <div class="res-text"><div class="res-title">Microsoft Learn — Portfolio &amp; certification</div><div class="res-sub">Prépare la transition vers le Module 13</div></div>
+        </a>
+      </div>
+
+      <div class="quiz">
+        <div class="quiz-head"><h4>Quiz de validation — Semaine 50</h4><span class="quiz-progress">3 questions</span></div>
+        <div class="quiz-item" data-correct="0">
+          <div class="quiz-q">1. Pourquoi prévoir un plan B (captures, vidéo) pour la démo live ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w50q1">Un échec technique live ne doit pas compromettre toute la présentation</label>
+            <label class="quiz-opt"><input type="radio" name="w50q1">C'est plus impressionnant d'avoir deux versions</label>
+            <label class="quiz-opt"><input type="radio" name="w50q1">Ce n'est pas vraiment utile</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Un filet de sécurité protège la qualité globale de la présentation face à un imprévu technique.</div>
+        </div>
+        <div class="quiz-item" data-correct="1">
+          <div class="quiz-q">2. Pourquoi mentionner honnêtement les limites d'un projet renforce-t-il la crédibilité ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w50q2">Ça ne renforce rien du tout</label>
+            <label class="quiz-opt"><input type="radio" name="w50q2">Ça montre une compréhension réaliste des compromis effectués</label>
+            <label class="quiz-opt"><input type="radio" name="w50q2">Le jury préfère toujours les mauvaises nouvelles</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">Une présentation trop parfaite paraît souvent superficielle ou peu sincère.</div>
+        </div>
+        <div class="quiz-item" data-correct="2">
+          <div class="quiz-q">3. Que retient le plus souvent un jury ou un client d'une présentation technique ?</div>
+          <div class="quiz-opts">
+            <label class="quiz-opt"><input type="radio" name="w50q3">Tous les détails techniques précis</label>
+            <label class="quiz-opt"><input type="radio" name="w50q3">Le nombre de slides</label>
+            <label class="quiz-opt"><input type="radio" name="w50q3">La clarté du raisonnement</label>
+          </div>
+          <button class="reveal-btn">Voir la réponse</button>
+          <div class="quiz-explain">La clarté et la structure marquent davantage que l'exhaustivité technique.</div>
+        </div>
+      </div>
+
+      <h2 class="sec">Grille d'évaluation — Semaine 50</h2>
+      <table class="eval-tbl">
+        <tr><th>Critère</th><th>Points</th><th>Ce qui est évalué</th></tr>
+        <tr><td>Théorie</td><td class="num">/25</td><td>Structure de présentation, communication technique</td></tr>
+        <tr><td>Pratique / Labos</td><td class="computed"><span id="eval-pratique-s50">0</span>/25<div class="auto-note">calcul auto</div></td><td>Support, démo et bilan livrés</td></tr>
+        <tr><td>Projet appliqué</td><td class="num">/25</td><td>Qualité globale de la présentation finale</td></tr>
+        <tr><td>Quiz</td><td class="num">/25</td><td>Score au quiz de validation ci-dessus</td></tr>
+      </table>
+    </div>
+
+    <!-- ============================================================ SYNTHÈSE ============================================================ -->
+    <div class="synth" id="synthese">
+      <h3>🎯 Synthèse du module &amp; bilan</h3>
+      <p>Tu viens de mener un projet IT complet de bout en bout : cadrage, architecture, implémentation, automatisation, sécurisation et présentation. C'est exactement le cycle de vie d'un projet professionnel réel — et tu disposes maintenant d'une pièce de portfolio concrète, démontrable, à présenter à un client ou un employeur.</p>
+      <p><strong>Ce projet est ton livrable central de fin de parcours</strong> — documente-le en détail dans ta feuille Portfolio du Planner. Il ne te reste plus qu'une étape : consolider tes connaissances théoriques pour les certifications SC-900, AZ-104 et MS-102 au Module 13.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <a href="module-11-ia-copilot.html"><div class="lbl">Module précédent</div><div class="ttl">11 · IA &amp; Copilot</div></a>
+      <a class="next" href="module-13-certifications.html"><div class="lbl">Prochain module</div><div class="ttl">13 · Certifications</div></a>
+    </div>
+
+  </div>
+</div>
+<script id="module-activities" type="application/json" data-module="Projet Final">[{"id": 221, "type": "Jalon", "week": 45, "title": "Cadrage du projet final (cahier des charges)"}, {"id": 222, "type": "Jalon", "week": 46, "title": "Conception de l'architecture (réseau, cloud, sécurité)"}, {"id": 223, "type": "Jalon", "week": 47, "title": "Implémentation - Infrastructure de base"}, {"id": 224, "type": "Jalon", "week": 48, "title": "Implémentation - Automatisation et intégration IA"}, {"id": 225, "type": "Jalon", "week": 49, "title": "Tests, sécurisation et documentation"}, {"id": 226, "type": "Jalon", "week": 50, "title": "Présentation finale et démonstration"}]</script>
+<div class="toast manual-toast" id="manualToast"></div>
+<script src="assets/manual.js"></script>
+</body>
+</html>

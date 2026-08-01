@@ -89,7 +89,38 @@ h1,h2,h3,h4,.disp{font-family:var(--font-display); letter-spacing:-0.01em; color
 .mod-status.soon{background:var(--surface-alt); color:var(--ink-faint); border:1px solid var(--border);}
 
 /* ---------- Typography content ---------- */
-.week-block{margin-bottom:56px; padding-top:8px;}
+.week-block{margin-bottom:56px; padding-top:8px; display:none;}
+.week-block.active{display:block; animation:stepFadeIn .28s ease;}
+.synth{display:none;}
+.synth.active{display:block; animation:stepFadeIn .28s ease;}
+@keyframes stepFadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+@media (prefers-reduced-motion: reduce){
+  .week-block.active, .synth.active{animation:none;}
+}
+
+/* ---------- Stepper progress dots ---------- */
+.stepper-progress{display:flex; gap:6px; margin:20px 0 8px; flex-wrap:wrap;}
+.stepper-dot{
+  flex:1; min-width:22px; height:7px; border-radius:4px; background:var(--border-soft); border:1px solid var(--border);
+  padding:0; cursor:pointer; transition:background .15s ease, border-color .15s ease;
+}
+.stepper-dot:hover{background:var(--accent-soft2);}
+.stepper-dot.done{background:var(--accent); border-color:var(--accent);}
+.stepper-dot.active{background:var(--progress); border-color:var(--progress);}
+.stepper-caption{font-size:11px; color:var(--ink-faint); margin:0 0 24px; font-family:var(--font-mono);}
+
+/* ---------- Step navigation (Précédent / Suivant) ---------- */
+.step-nav{
+  display:flex; justify-content:space-between; align-items:center; margin-top:44px; padding-top:22px;
+  border-top:1px solid var(--border); gap:14px;
+}
+.step-nav .step-progress-label{font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); flex-shrink:0; text-align:center;}
+.step-btn{
+  display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:100px; border:1px solid var(--border);
+  background:var(--surface); font-size:13px; font-weight:700; color:var(--ink-soft); box-shadow:var(--shadow); white-space:nowrap;
+}
+.step-btn.next{background:var(--accent); border-color:var(--accent); color:#fff;}
+.step-btn.invisible{visibility:hidden; pointer-events:none;}
 .week-tag{display:inline-flex; align-items:center; gap:7px; font-family:var(--font-mono); font-weight:700; font-size:12px; background:var(--accent-soft); color:var(--accent-ink); padding:4px 11px; border-radius:100px; margin-bottom:10px;}
 .week-badge{font-size:11px; font-weight:700; padding:3px 10px; border-radius:100px; margin-left:8px;}
 .week-badge.done{background:var(--done-bg); color:var(--done);}
